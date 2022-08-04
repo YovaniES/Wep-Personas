@@ -1,0 +1,37 @@
+<div class="cli-header">
+  <div (click)="openMobileMenu()" class="header-icon">
+    <mat-icon>menu</mat-icon>
+  </div>
+  <div class="logoheader">
+    <img class="hlogo" src="../../../assets/images/logos/cardano-white.svg" />
+    <div class="logo-let">
+      <div class="bold c-male">Web</div>
+      <div style="font-weight: bold">Personas</div>
+    </div>
+  </div>
+  <div class="header-nav-items"></div>
+  <div class="row">
+    <div class="personname" style="color: #555555">
+      {{ currentUser | uppercase }}
+    </div>
+  </div>
+  <app-user-section [photouri]="phtouri" [nameini]="nameini"></app-user-section>
+
+  <!-- <button
+    (click)="logOut()"
+    class="cli-btn btn-magenta mt-3"
+    style="border-radius: 2px; padding: 0.225rem 0.75rem; margin-right: 20px"
+  >Salir<mat-icon class="icon-18">logout</mat-icon>
+  </button> -->
+
+  <button
+      type="submit"
+      class="cli-btn btn-grey mb-2 mt-3"
+      style="border-radius: 2px; padding: 0.225rem 0.75rem; margin-right: 20px ; justify-content: center;"
+      (click)="logOut()"
+      ><mat-icon class="icon-16">logout</mat-icon>Salir
+   </button>
+
+</div>
+
+<app-menu-mobile></app-menu-mobile>

@@ -1,0 +1,64 @@
+// CARDS
+.cli-wrapper{
+    padding: 10px 20px;
+    height: 100%;
+}
+.cli-card{
+    min-width: 0;
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    height: 100%;
+}
+.fit-card{
+    min-height: 70vh;
+    max-width: 1600px;
+    margin: auto;
+}
+.cli-card-body{
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1rem 2rem;
+
+    // margin-left: 135px; //OJO Eliminar prueba
+}
+.cli-title-center{
+    text-align: center;
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    position: relative;
+    margin-bottom: 10px;
+}
+.cli-title{
+    display: flex;
+    font-size: 2.2rem;
+    line-height: 3rem;
+    position: relative;
+    margin-bottom: 5px;
+}
+.cli-subtitle{
+    font-size: 1.4rem;
+    line-height: 2rem;
+    position: relative;
+}
+.cli-text{
+    font-size: 1.1rem;
+    line-height: 1.2rem;
+}
+.cli-suggest{
+    font-size: .98rem;
+    line-height: 1.1rem;
+    color: $color-grey-5;
+    font-family: 'Webapp-Light';
+}
+
+@include mobile{
+    .cli-card-body{
+        padding: 1rem;
+        // margin-left: 0px; // eliminar  OJO
+    }
+}

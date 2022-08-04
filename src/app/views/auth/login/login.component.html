@@ -1,0 +1,52 @@
+<div class="view-backgrond"></div>
+
+<div class="form-card">
+  <div class="login-form">
+    <img class="logo" src="../../../assets/images/logos/cardano.svg" />
+    <div class="title-login">
+      <div class="c-male">Bienvenido a</div>
+      <div style="margin-top: 10px">Web de Procesos</div>
+    </div>
+
+    <form [formGroup]="loginForm" class="loginform my-2">
+      <!-- email de usuario -->
+      <div class="cli-form-element">
+        <label class="lab-color">Username</label>
+        <div>
+          <input class="form-control" type="email" formControlName="username" />
+          <small class="form-text text-danger" *ngIf="campoNoValido('username')"
+            >* Debe ingresar un usuario válido
+          </small>
+        </div>
+      </div>
+
+      <!-- Contraseña -->
+      <div class="cli-form-element form-group mt-2">
+        <label class="lab-color">Contraseña</label>
+        <div class="">
+          <input
+            type="password"
+            class="form-control"
+            formControlName="password"
+          /><small
+            class="form-text text-danger"
+            *ngIf="campoNoValido('password')"
+            >* Debe ingresar una contraseña válida
+          </small>
+        </div>
+      </div>
+
+      <!-- Iniciar sesión-->
+      <div class="form-group text-center">
+        <button
+          class="cli-btn btn-l btn-login my-4"
+          type="submit"
+          (click)="login()"
+          [disabled]="loginForm.invalid"
+        >
+          <mat-icon class="icon-cent icon-16">login</mat-icon> Ingresar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
