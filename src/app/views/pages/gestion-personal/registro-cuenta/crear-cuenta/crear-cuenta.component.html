@@ -35,7 +35,7 @@
       <div class="col-sm-4 cli-form-element">
         <label>Tipo</label>
         <select class="cli-input-white" formControlName="idTipo">
-          <option [value]="0" disabled>-Seleccionar-</option>
+          <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="tipo.id" *ngFor="let tipo of tipos">{{ tipo.nombre }}</option>
         </select>
         <small class="form-text text-alert" *ngIf="campoNoValido('idTipo')">* Este campo es obligatorio</small>
@@ -45,7 +45,7 @@
 
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
-    <div class="cli-form-buttons" style="margin-top: 3%">
+    <div class="cli-form-buttons" style="margin-top: 8%">
       <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>

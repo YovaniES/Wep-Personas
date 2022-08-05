@@ -2,7 +2,7 @@
   <div class="cli-card-body">
     <div class="modal-title c-male">Mantenimiento recurso cuenta</div>
     <div>
-      <!-- BUSCADOR POR FILTRO -->
+      <!-- BUSCADOR POR FILTRO ------------------------------------------  ------------------->
       <div class="card" style="border-radius: 2px; font-weight: 600">
         <div class="card-body" style="padding: 10px">
           <form class="row g-3" [formGroup]="filtroForm">
@@ -11,13 +11,13 @@
               <input
                 type="text"
                 class="form-control"
-                formControlName="nombre"/>
+                formControlName="usuario"/>
             </div>
 
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Estado</label>
-              <select class="form-select" formControlName="estado">
-                <option [value]="100" disabled>-Seleccione-</option>
+              <select class="form-select" formControlName="idEstado">
+                <option [value]="" disabled>-Seleccione-</option>
                 <option [value]="0" >Reservado</option>
                 <option [value]="1" >Disponible</option>
               </select>
@@ -39,7 +39,7 @@
                 type="button"
                 class="cli-btn btn-blue-light"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
-                (click)="buscarOcargarcuentas()"
+                (click)="cargarOBuscarcuentas()"
 
                 ><mat-icon class="icon-18">search</mat-icon>
                 Buscar
@@ -52,7 +52,7 @@
 
 
 
-      <!-- BOTON MODAL PARA CREAR CUENTA -->
+      <!-- BOTON MODAL PARA CREAR CUENTA ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <button
           class="cli-btn btn-blue"
@@ -68,7 +68,7 @@
         </div>
       </div>
 
-      <!-- TABLA DE CUENTAS -->
+      <!-- TABLA DE CUENTAS ------------------------------------------------------------------>
       <div style="overflow: auto; min-height: 300px">
         <table class="cli-table stripedtable underlinedtable">
           <thead>
@@ -110,7 +110,7 @@
                 </div>
               </td>
               <td>{{ cuenta.id }}</td>
-              <td class="w155">{{ cuenta.usuario | uppercase }}</td>
+              <td class="w155">{{ cuenta.usuario }}</td>
               <td class="w135">{{ cuenta.password | uppercase }}</td>
               <td>{{ cuenta.tipo }}</td>
               <td class="w135">{{ cuenta.nombres | firstCapital }}</td>

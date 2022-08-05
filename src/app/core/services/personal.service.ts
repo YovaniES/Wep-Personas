@@ -10,44 +10,43 @@ export class PersonalService {
   constructor(private http: HttpClient) {}
 
 
-    /*Listado de Cuentas*/
-    getListadoCuenta(queryId: any){
-
-      return this.http.post(API_PERSONAS, queryId).pipe(
-        map((cuenta: any) => {
-          return cuenta.list.map((c: any) => {
-            return {
-              id                    : c.id,
-              usuario               : c.usuario,
-              password              : c.password,
-              tipo                  : c.tipo,
-              fechaUltimaRenovacion : c.fechaUltimaRenovacion,
-              fechaProximaRenovacion: c.fechaProximaRenovacion,
-              estado                : c.estado,
-              nombres               : c.nombres
-            }
-          })
-      }));
-    };
-
-
-  getRecursoCuenta(queryId: any){
+  /*Listado de Cuentas*/
+  getListadoCuenta(queryId: any){
     return this.http.post(API_PERSONAS, queryId).pipe(
-        map((cuenta: any) => {
-          return cuenta.list.map((c: any) => {
-            return {
-              id                    : c.id,
-              usuario               : c.usuario,
-              password              : c.password,
-              tipo                  : c.tipo,
-              fechaUltimaRenovacion : c.fechaUltimaRenovacion,
-              fechaProximaRenovacion: c.fechaProximaRenovacion,
-              estado                : c.estado,
-              nombres               : c.nombres
-            }
-          })
-      }));
-    };
+      map((cuenta: any) => {
+        return cuenta.list.map((c: any) => {
+          return {
+            id                    : c.id,
+            usuario               : c.usuario,
+            password              : c.password,
+            tipo                  : c.tipo,
+            fechaUltimaRenovacion : c.fechaUltimaRenovacion,
+            fechaProximaRenovacion: c.fechaProximaRenovacion,
+            estado                : c.estado,
+            nombres               : c.nombres
+          }
+        })
+    }));
+  };
+
+
+  // getRecursoCuenta(queryId: any){
+  //   return this.http.post(API_PERSONAS, queryId).pipe(
+  //       map((cuenta: any) => {
+  //         return cuenta.list.map((c: any) => {
+  //           return {
+  //             id                    : c.id,
+  //             usuario               : c.usuario,
+  //             password              : c.password,
+  //             tipo                  : c.tipo,
+  //             fechaUltimaRenovacion : c.fechaUltimaRenovacion,
+  //             fechaProximaRenovacion: c.fechaProximaRenovacion,
+  //             estado                : c.estado,
+  //             nombres               : c.nombres
+  //           }
+  //         })
+  //     }));
+  //   };
 
   crearCuenta(obj: any) {
     return this.http.post(API_PERSONAS, obj);
@@ -66,24 +65,62 @@ export class PersonalService {
         })
       })
     );
-
-
-
   }
 
   // LISTADO Y BUSQUEDA DE REGISTROS PARA LA TABLA
-  buscarOcargarcuentas(id: any) {
+  cargarOBuscarcuentas(id: any) {
     return this.http.post(API_PERSONAS, id).pipe(
       map((cuenta: any) => {
         return cuenta.list.map((c: any) => {
           return {
-            nombre: c.nombre ,
-            estado: c.estado ,
+            id                    : c.id,
+            usuario               : c.usuario,
+            password              : c.password,
+            tipo                  : c.tipo,
+            fechaUltimaRenovacion : c.fechaUltimaRenovacion,
+            fechaProximaRenovacion: c.fechaProximaRenovacion,
+            estado                : c.estado,
+            nombres               : c.nombres
           }
         })
       })
     );
   }
+
+  actualizarCuenta(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  eliminarCuenta(id: number) {
+    return this.http.post(API_PERSONAS, id);
+  }
+
+  cargarCuentasById(obj: any) {
+    return this.http.post(API_PERSONAS, obj)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // // OBTENEMOS LA DATA DESDE .NET
   // listaTecnologia(obj: any) {

@@ -34,7 +34,7 @@ export class CrearCuentaComponent implements OnInit {
   userId() {
     this.authService.getCurrentUser().subscribe((resp) => {
       this.userID = resp.userId;
-      console.log('ID-USER', this.userID);
+      // console.log('ID-USER', this.userID);
     });
   }
 
@@ -52,7 +52,7 @@ export class CrearCuentaComponent implements OnInit {
     this.personalService.getListTipo(Parametro[0]).subscribe((resp) => {
       this.tipos = resp;
 
-      console.log('TIPOS', resp);
+      // console.log('TIPOS', resp);
     });
   }
 
@@ -65,10 +65,10 @@ export class CrearCuentaComponent implements OnInit {
     let parametro: any =  {
         queryId: 19,
         mapValue: {
-          param_usuario : formValues.usuario,
-          param_password: formValues.password,
-          param_id_tipo : formValues.idTipo,
-          CONFIG_USER_ID: this.userID,
+          param_usuario       : formValues.usuario,
+          param_password      : formValues.password,
+          param_id_tipo       : formValues.idTipo,
+          CONFIG_USER_ID      : this.userID,
           CONFIG_OUT_MSG_ERROR: "",
           CONFIG_OUT_MSG_EXITO: "",
         },
@@ -77,7 +77,7 @@ export class CrearCuentaComponent implements OnInit {
     this.personalService.crearCuenta(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear cuenta!',
-        text: `Cuenta: ${formValues.codigo} , creado con éxito`,
+        text: `Cuenta: ${formValues.usuario} , creado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });
