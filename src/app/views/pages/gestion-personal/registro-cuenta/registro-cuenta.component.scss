@@ -1,0 +1,99 @@
+@import "variables.scss";
+
+.modal-title {
+  font-size: 1.9rem;
+  font-weight: 500;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.cli-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%;
+}
+
+.date-rango {
+  color: #5c5c5c;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.total {
+  color: #97999b;
+  font-size: 18px;
+  font-weight: 550;
+}
+
+.w155 {
+  width: 155px;
+  height: 68px;
+}
+
+.rol_name {
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 80%;
+  background-color: #398bf7;
+  width: 190px;
+}
+
+.rol_danger{
+  background-color: #ef5350;
+}
+
+.rol_info {
+  background-color: #398bf7;
+}
+
+
+.form-check-input:checked {
+  border: 1px solid #03A9F4;
+  background-color: #03A9F4;
+  border-radius: 1px;
+}
+.form-check-input[type=checkbox] {
+  border-radius: 1px;
+}
+
+// Estilos Adjuntar Archivos
+.newvac-wrapper{
+  // min-height: 400px;
+  border-radius: 3px;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+  // border: solid 1px $color-grey-2;
+}
+
+.fileatt{
+  &-cont{
+      display: flex;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+      padding: 5px;
+      border: dashed 1px $color-grey-3;
+  }
+  &-btn{
+      margin: 2px;
+      display: flex;
+      align-items: center;
+      color: $color-green;
+      background-color: $color-grey-1;
+      border: none;
+      border-radius: 2px;
+  }
+  margin: 2px 3px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  background-color: $color-grey-1;
+  display: flex;
+  align-items: center;
+}
+@media (max-width: 850px) {
+}

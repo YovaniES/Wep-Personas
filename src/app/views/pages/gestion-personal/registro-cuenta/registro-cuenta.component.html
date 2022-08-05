@@ -1,0 +1,148 @@
+<div class="cli-card fit-card">
+  <div class="cli-card-body">
+    <div class="modal-title c-male">Mantenimiento recurso cuenta</div>
+    <div>
+      <!-- BUSCADOR POR FILTRO -->
+      <div class="card" style="border-radius: 2px; font-weight: 600">
+        <div class="card-body" style="padding: 10px">
+          <form class="row g-3" [formGroup]="filtroForm">
+            <div class="col-sm-3 cli-form-element">
+              <label class="form-label">Usuario</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="nombre"/>
+            </div>
+
+            <div class="col-sm-3 cli-form-element">
+              <label class="form-label">Estado</label>
+              <select class="form-select" formControlName="estado">
+                <option [value]="100" disabled>-Seleccione-</option>
+                <option [value]="0" >Reservado</option>
+                <option [value]="1" >Disponible</option>
+              </select>
+            </div>
+
+            <div class="flex-1"></div>
+
+            <div class="cli-form-buttons" style="margin-top: 8px">
+              <button
+                type="submit"
+                class="cli-btn btn-grey"
+                style="border-radius: 2px; padding: 0.225rem 0.75rem"
+                (click)="limpiarFiltro()"
+              ><mat-icon class="icon-18">rotate_left</mat-icon>
+                Limpiar
+              </button>
+
+              <button
+                type="button"
+                class="cli-btn btn-blue-light"
+                style="border-radius: 2px; padding: 0.225rem 0.75rem"
+                (click)="buscarOcargarcuentas()"
+
+                ><mat-icon class="icon-18">search</mat-icon>
+                Buscar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+
+
+      <!-- BOTON MODAL PARA CREAR CUENTA -->
+      <div style="display: flex" class="mt-4 mb-1">
+        <button
+          class="cli-btn btn-blue"
+          style="margin: 0"
+          type="button"
+          (click)="crearCuenta()"
+        ><mat-icon class="icon-18">add</mat-icon>Agregar cuenta
+        </button>
+
+        <div class="flex-1"></div>
+        <div class="mt-2" style="color: #345df3; font-weight: 600;">
+          Total : <span class="total">{{ listaCuenta.length }} Cuentas</span>
+        </div>
+      </div>
+
+      <!-- TABLA DE CUENTAS -->
+      <div style="overflow: auto; min-height: 300px">
+        <table class="cli-table stripedtable underlinedtable">
+          <thead>
+            <tr class="bgc-turquey c-white">
+              <th>Acción</th>
+              <th>ID</th>
+              <th>Usuario</th>
+              <th>Password</th>
+              <th>Tipo</th>
+              <th>Persona Asignada</th>
+              <th>última Renovación</th>
+              <th>Próxima Renovación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let cuenta of listaCuenta | paginate:
+                      {
+                        itemsPerPage: pageSize,
+                        currentPage: page,
+                        totalItems: totalIniciativa
+                      } "
+            >
+              <td>
+                <div class="cli-table-actions">
+                  <button
+                    matTooltip="Editar"
+                    class="icon-btn btn-trans c-blue"
+                    (click)="editarCuenta(cuenta.id)"
+                  ><mat-icon class="icon-18">edit</mat-icon>
+                  </button>
+                  <button
+                    matTooltip="Eliminar"
+                    class="icon-btn btn-trans c-fucsia"
+                    (click)="eliminarCuenta(cuenta.id)"
+                  ><mat-icon class="icon-18">delete_forever</mat-icon>
+                  </button>
+                </div>
+              </td>
+              <td>{{ cuenta.id }}</td>
+              <td class="w155">{{ cuenta.usuario | uppercase }}</td>
+              <td class="w135">{{ cuenta.password | uppercase }}</td>
+              <td>{{ cuenta.tipo }}</td>
+              <td class="w135">{{ cuenta.nombres | firstCapital }}</td>
+              <td>{{ cuenta.fechaUltimaRenovacion }}</td>
+              <td>{{ cuenta.fechaProximaRenovacion }}</td>
+              <td>{{ cuenta.estado }}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="cli-loader" *ngIf="loadingItem">
+          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+          cargando...
+        </div>
+
+        <div
+          *ngIf="!loadingItem && listaCuenta.length == 0"
+          class="cli-loader mt-5"
+          style="color: #f83434"
+        >No hay cuentas para mostrar
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer pb-0 pt-3">
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        [responsive]="false"
+        (pageChange)="cambiarPagina($event)"
+      >
+      </pagination-controls>
+    </div>
+  </div>
+</div>
