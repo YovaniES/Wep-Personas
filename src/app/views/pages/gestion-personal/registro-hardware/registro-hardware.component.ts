@@ -187,5 +187,4 @@ export class RegistroHardwareComponent implements OnInit {
         }
       });
   }
-
 }

@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { GestionPersonalRoutingModule } from './gestion-personal-routing.module';
 import { RegistroCuentaComponent } from './registro-cuenta/registro-cuenta.component';
@@ -12,6 +11,9 @@ import { ActualizarCuentaComponent } from './registro-cuenta/actualizar-cuenta/a
 import { RegistroHardwareComponent } from './registro-hardware/registro-hardware.component';
 import { CrearHardwareComponent } from './registro-hardware/crear-hardware/crear-hardware.component';
 import { ActualizarHardwareComponent } from './registro-hardware/actualizar-hardware/actualizar-hardware.component';
+import { RegistroPersonalComponent } from './registro-personas/registro-personal.component';
+import { ActualizarPersonalComponent } from './registro-personas/actualizar-personal/actualizar-personal.component';
+import { CrearPersonalComponent } from './registro-personas/crear-personal/crear-personal.component';
 
 
 @NgModule({
@@ -21,7 +23,10 @@ import { ActualizarHardwareComponent } from './registro-hardware/actualizar-hard
     ActualizarCuentaComponent,
     RegistroHardwareComponent,
     CrearHardwareComponent,
-    ActualizarHardwareComponent
+    ActualizarHardwareComponent,
+    RegistroPersonalComponent,
+    CrearPersonalComponent,
+    ActualizarPersonalComponent
   ],
   imports: [
     GestionPersonalRoutingModule,

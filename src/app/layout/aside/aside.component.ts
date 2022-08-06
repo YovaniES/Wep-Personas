@@ -37,7 +37,7 @@ export class AsideComponent implements OnInit {
           order: 20,
           icon: 'phonelink',
           type: 'PAREN',
-          link: 'gestion/hardwware',
+          link: 'gestion/hardware',
           enable: false,
           module: 'MAN',
           displayed: false,

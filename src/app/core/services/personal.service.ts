@@ -78,6 +78,20 @@ export class PersonalService {
         })
       })
     );
+  };
+
+  getCodProyectos(obj: any){
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((proyectos: any) => {
+        return proyectos.list.map((p: any) => {
+          return {
+            id          : p.id,
+            codigo      : p.codigo,
+            descripcion : p.descripcion
+          }
+        })
+      })
+    );
   }
 
   // LISTADO Y BUSQUEDA DE REGISTROS PARA LA TABLA
@@ -124,11 +138,37 @@ export class PersonalService {
     );
   };
 
+  cargarOBuscarPersonal(id: any) {
+    return this.http.post(API_PERSONAS, id).pipe(
+      map((personal: any) => {
+        return personal.list.map((p: any) => {
+          return {
+            id                  : p.id,
+            nombres             : p.nombres,
+            apellidos           : p.apellidos,
+            correo              : p.correo,
+            dni                 : p.dni,
+            codigo_corporativo  : p.codigo_corporativo,
+            perfil              : p.perfil,
+            codigo_proyecto     : p.codigo_proyecto,
+            proyecto_descripcion: p.proyecto_descripcion,
+            fecha_ingreso       : p.fecha_ingreso,
+            estado              : p.estado,
+          }
+        })
+      })
+    );
+  };
+
   actualizarCuenta(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
 
   actualizarHardware(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  actualizarPersonal(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 
@@ -139,9 +179,19 @@ export class PersonalService {
   eliminarHardware(id: number) {
     return this.http.post(API_PERSONAS, id);
   }
+
+  eliminarPersonal(id: number) {
+    return this.http.post(API_PERSONAS, id);
+  }
+
   cargarCuentasById(obj: any) {
     return this.http.post(API_PERSONAS, obj)
   };
+
+  cargarPersonalById(obj: any) {
+    return this.http.post(API_PERSONAS, obj)
+  };
+
 
   cargarHardwareById(obj: any) {
     return this.http.post(API_PERSONAS, obj)

@@ -5,24 +5,23 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
-
 @Component({
-  selector: 'app-actualizar-hardware',
-  templateUrl: './actualizar-hardware.component.html',
-  styleUrls: ['./actualizar-hardware.component.scss']
+  selector: 'app-actualizar-personas',
+  templateUrl: './actualizar-personal.component.html',
+  styleUrls: ['./actualizar-personal.component.scss']
 })
-export class ActualizarHardwareComponent implements OnInit {
+export class ActualizarPersonalComponent implements OnInit {
 
   userID: number = 0;
-  hardwareForm!: FormGroup;
+  personalForm!: FormGroup;
 
   constructor(
     private personalService: PersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
-    private dialogRef: MatDialogRef<ActualizarHardwareComponent>,
-    @Inject(MAT_DIALOG_DATA) public ID_REG_HARDWARE: any
+    private dialogRef: MatDialogRef<ActualizarPersonalComponent>,
+    @Inject(MAT_DIALOG_DATA) public ID_REG_PERSONAL: any
 
   ) { }
 
@@ -30,13 +29,14 @@ export class ActualizarHardwareComponent implements OnInit {
     this.newForm();
     this.getListMarcaHardware();
     this.getListTiposHardware();
-    this.cargarHardwareById();
+    this.cargarPersonalById();
     // this.cargarCuentasById();
   }
 
 
   newForm(){
-    this.hardwareForm = this.fb.group({
+    this.personalForm = this.fb.group({
+    //  idHardware  : [''],
      tipo        : [''],
      marca       : [''],
      id_tipo     : [''],
@@ -75,10 +75,10 @@ export class ActualizarHardwareComponent implements OnInit {
      });
    }
 
-   actualizarHardware(){
+   actualizarPersonal(){
     this.spinner.show();
 
-    const formValues = this.hardwareForm.getRawValue();
+    const formValues = this.personalForm.getRawValue();
     let parametro: any[] = [{
         queryId: 17,
         mapValue: {
@@ -96,43 +96,43 @@ export class ActualizarHardwareComponent implements OnInit {
         },
       }];
 
-    this.personalService.actualizarHardware(parametro[0]).subscribe( resp => {
+    this.personalService.actualizarPersonal(parametro[0]).subscribe( resp => {
       this.spinner.hide();
       console.log('DATA_ACTUALIZADO', resp);
 
-      // this.cargarHardwareById();
+      // this.cargarPersonalById();
       this.close(true)
 
       Swal.fire({
-        title: 'Actualizar Hardware!',
-        text : `Hardware:  ${formValues.modelo }, actualizado con éxito`,
+        title: 'Actualizar Personal!',
+        text : `Personal:  ${formValues.modelo }, actualizado con éxito`,
         icon : 'success',
         confirmButtonText: 'Ok'
         })
     });
   };
 
-  cargarHardwareById(){
+  cargarPersonalById(){
     this.spinner.show();
 
     let parametro: any[] = [{
       queryId: 34,
-      mapValue: {'param_id_hardware': this.ID_REG_HARDWARE}
+      mapValue: {'param_id_hardware': this.ID_REG_PERSONAL}
     }];
 
-    this.personalService.cargarHardwareById(parametro[0]).subscribe( (resp: any) => {
+    this.personalService.cargarPersonalById(parametro[0]).subscribe( (resp: any) => {
 
       console.log('LISTA-EDITAR', resp );
       for (let i = 0; i < resp.list.length; i++) {
-        this.hardwareForm.controls['tipo'       ].setValue(resp.list[i].tipo);
-        this.hardwareForm.controls['marca'      ].setValue(resp.list[i].marca);
-        this.hardwareForm.controls['id_tipo'    ].setValue(resp.list[i].id_tipo);
-        this.hardwareForm.controls['id_marca'   ].setValue(resp.list[i].id_marca);
-        this.hardwareForm.controls['descripcion'].setValue(resp.list[i].descripcion);
-        this.hardwareForm.controls['modelo'     ].setValue(resp.list[i].modelo);
-        this.hardwareForm.controls['serie'      ].setValue(resp.list[i].serie);
-        this.hardwareForm.controls['imei'       ].setValue(resp.list[i].imei);
-        this.hardwareForm.controls['observacion'].setValue(resp.list[i].observacion);
+        this.personalForm.controls['tipo'       ].setValue(resp.list[i].tipo);
+        this.personalForm.controls['marca'      ].setValue(resp.list[i].marca);
+        this.personalForm.controls['id_tipo'    ].setValue(resp.list[i].id_tipo);
+        this.personalForm.controls['id_marca'   ].setValue(resp.list[i].id_marca);
+        this.personalForm.controls['descripcion'].setValue(resp.list[i].descripcion);
+        this.personalForm.controls['modelo'     ].setValue(resp.list[i].modelo);
+        this.personalForm.controls['serie'      ].setValue(resp.list[i].serie);
+        this.personalForm.controls['imei'       ].setValue(resp.list[i].imei);
+        this.personalForm.controls['observacion'].setValue(resp.list[i].observacion);
       }
       this.spinner.hide();
     })
