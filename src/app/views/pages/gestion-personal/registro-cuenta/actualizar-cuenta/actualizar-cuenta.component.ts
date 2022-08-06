@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./actualizar-cuenta.component.scss']
 })
 export class ActualizarCuentaComponent implements OnInit {
-
+  userID: number = 0;
   cuentaForm!: FormGroup;
 
   constructor(
@@ -26,7 +26,7 @@ export class ActualizarCuentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.newForm();
-    this.getListaTipo();
+    this.getListTiposCuentas();
     this.cargarCuentasById();
   }
 
@@ -34,9 +34,9 @@ export class ActualizarCuentaComponent implements OnInit {
   newForm(){
     this.cuentaForm = this.fb.group({
      id                    : [''],
-     tipo                  : [''],
-     idTipo                : [''],
      usuario               : [''],
+     idTipo                : [''],
+     tipo                  : [''],
      password              : [''],
      fechaUltimaRenovacion : [''],
      fechaProximaRenovacion: [''],
@@ -51,10 +51,9 @@ export class ActualizarCuentaComponent implements OnInit {
    }
 
    tipos: any[] = [];
-   userID: number = 0;
-   getListaTipo() {
+   getListTiposCuentas() {
      let Parametro: any[] = [{ queryId: 40}];
-     this.personalService.getListTipo(Parametro[0]).subscribe((resp) => {
+     this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp) => {
        this.tipos = resp;
      });
    }
@@ -104,7 +103,7 @@ export class ActualizarCuentaComponent implements OnInit {
 
     this.personalService.cargarCuentasById(parametro[0]).subscribe( (resp: any) => {
 
-      // console.log('LISTA-EDITAR', resp );
+      console.log('LISTA-EDITAR', resp );
       for (let i = 0; i < resp.list.length; i++) {
         this.cuentaForm.controls['id'                    ].setValue(resp.list[i].id);
         this.cuentaForm.controls['tipo'                  ].setValue(resp.list[i].tipo);

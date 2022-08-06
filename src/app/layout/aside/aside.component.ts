@@ -70,7 +70,7 @@ export class AsideComponent implements OnInit {
       submenus: [
         {
           code: 'PAS-001',
-          text: 'Registros',
+          text: 'Entidad',
           order: 3,
           icon: 'dashboard_customize',
           type: 'PAREN',

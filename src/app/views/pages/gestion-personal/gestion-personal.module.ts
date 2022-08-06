@@ -9,13 +9,19 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MaterialModule } from 'src/app/material/material.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { ActualizarCuentaComponent } from './registro-cuenta/actualizar-cuenta/actualizar-cuenta.component';
+import { RegistroHardwareComponent } from './registro-hardware/registro-hardware.component';
+import { CrearHardwareComponent } from './registro-hardware/crear-hardware/crear-hardware.component';
+import { ActualizarHardwareComponent } from './registro-hardware/actualizar-hardware/actualizar-hardware.component';
 
 
 @NgModule({
   declarations: [
     RegistroCuentaComponent,
     CrearCuentaComponent,
-    ActualizarCuentaComponent
+    ActualizarCuentaComponent,
+    RegistroHardwareComponent,
+    CrearHardwareComponent,
+    ActualizarHardwareComponent
   ],
   imports: [
     GestionPersonalRoutingModule,

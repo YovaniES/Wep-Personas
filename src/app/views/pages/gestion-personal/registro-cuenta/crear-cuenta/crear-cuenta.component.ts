@@ -26,8 +26,8 @@ export class CrearCuentaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getListaTipo();
     this.newForm();
+    this.getListTiposCuentas();
   }
 
 
@@ -47,9 +47,9 @@ export class CrearCuentaComponent implements OnInit {
   }
 
   tipos: any[] = [];
-  getListaTipo() {
+  getListTiposCuentas() {
     let Parametro: any[] = [{ queryId: 40}];
-    this.personalService.getListTipo(Parametro[0]).subscribe((resp) => {
+    this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp) => {
       this.tipos = resp;
 
       // console.log('TIPOS', resp);

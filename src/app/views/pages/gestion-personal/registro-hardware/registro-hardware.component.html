@@ -1,27 +1,52 @@
 <div class="cli-card fit-card">
   <div class="cli-card-body">
-    <div class="modal-title c-male">Mantenimiento recurso cuenta</div>
+    <div class="modal-title c-male">Mantenimiento recurso Hardware</div>
     <div>
-      <!-- BUSCADOR POR FILTRO ------------------------------------------  ------------------->
+      <!-- BUSCADOR POR FILTRO ---------------------------------------------------------------->
       <div class="card" style="border-radius: 2px; font-weight: 600">
         <div class="card-body" style="padding: 10px">
           <form class="row g-3" [formGroup]="filtroForm">
             <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Usuario</label>
-              <input
-                type="text"
-                class="form-control"
-                formControlName="usuario"/>
+              <label class="form-label">Tipo</label>
+              <select class="form-select" formControlName="tipo">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="tipo.id" *ngFor="let tipo of listTipos">{{tipo.nombre}}</option>
+              </select>
             </div>
 
             <div class="col-sm-3 cli-form-element">
+              <label class="form-label">Marca</label>
+              <select class="form-select" formControlName="marca">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="marca.id" *ngFor="let marca of listMarca">{{marca.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-2 cli-form-element">
+              <label class="form-label">Serie</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="serie"/>
+            </div>
+
+            <div class="col-sm-2 cli-form-element">
+              <label class="form-label">IMEI</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="imei"/>
+            </div>
+
+            <div class="col-sm-2 cli-form-element">
               <label class="form-label">Estado</label>
-              <select class="form-select" formControlName="idEstado">
+              <select class="form-select" formControlName="estado">
                 <option [value]="" disabled>-Seleccione-</option>
                 <option [value]="0" >Reservado</option>
                 <option [value]="1" >Disponible</option>
               </select>
             </div>
+
 
             <div class="flex-1"></div>
 
@@ -39,7 +64,7 @@
                 type="button"
                 class="cli-btn btn-blue-light"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
-                (click)="cargarOBuscarcuentas()"
+                (click)="cargarOBuscarHardware()"
 
                 ><mat-icon class="icon-18">search</mat-icon>
                 Buscar
@@ -52,45 +77,49 @@
 
 
 
-      <!-- BOTON MODAL PARA CREAR CUENTA ----------------------------------------------------->
+      <!-- BOTON MODAL PARA CREAR HARDWARE ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <button
           class="cli-btn btn-blue"
           style="margin: 0"
           type="button"
-          (click)="crearCuenta()"
-        ><mat-icon class="icon-18">add</mat-icon>Agregar cuenta
+          (click)="crearHardware()"
+        ><mat-icon class="icon-18">add</mat-icon>Agregar Hardware
         </button>
 
         <div class="flex-1"></div>
         <div class="mt-2" style="color: #345df3; font-weight: 600;">
-          Total : <span class="total">{{ listaCuenta.length }} Cuentas</span>
+          Total : <span class="total">{{ listaHardware.length }} Hardware</span>
         </div>
       </div>
 
-      <!-- TABLA DE CUENTAS ------------------------------------------------------------------>
+      <!-- TABLA DE HARDWARE ------------------------------------------------------------------>
       <div style="overflow: auto; min-height: 300px">
         <table class="cli-table stripedtable underlinedtable">
           <thead>
             <tr class="bgc-turquey c-white">
               <th>Acción</th>
-              <th>ID</th>
-              <th>Usuario</th>
-              <th>Password</th>
+              <th>ID Hardware</th>
               <th>Tipo</th>
+              <th>Marca</th>
+              <th>Descripción</th>
+              <th>Modelo</th>
+              <th>Serie</th>
+              <th>Imei</th>
+              <th>Estado Hardware</th>
               <th>Persona Asignada</th>
-              <th>última Renovación</th>
-              <th>Próxima Renovación</th>
-              <th>Estado</th>
+              <th>Cód. Copporativo</th>
+              <th>Proyecto</th>
+              <th>Observación</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let cuenta of listaCuenta | paginate:
+            <tr *ngFor="let hardware of listaHardware | paginate:
                       {
                         itemsPerPage: pageSize,
                         currentPage: page,
-                        totalItems: totalIniciativa
+                        totalItems: totalHardware
                       } "
             >
               <td>
@@ -98,25 +127,29 @@
                   <button
                     matTooltip="Editar"
                     class="icon-btn btn-trans c-blue"
-                    (click)="actualizarCuenta(cuenta.id)"
+                    (click)="actualizarHardware(hardware.id_recurso)"
                   ><mat-icon class="icon-18">edit</mat-icon>
                   </button>
                   <button
                     matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
-                    (click)="eliminarCuenta(cuenta.id)"
+                    (click)="eliminarHardware(hardware.id_recurso)"
                   ><mat-icon class="icon-18">delete_forever</mat-icon>
                   </button>
                 </div>
               </td>
-              <td>{{ cuenta.id }}</td>
-              <td class="w155">{{ cuenta.usuario }}</td>
-              <td class="w135">{{ cuenta.password | uppercase }}</td>
-              <td>{{ cuenta.tipo }}</td>
-              <td class="w135">{{ cuenta.nombres | firstCapital }}</td>
-              <td>{{ cuenta.fechaUltimaRenovacion }}</td>
-              <td>{{ cuenta.fechaProximaRenovacion }}</td>
-              <td>{{ cuenta.estado }}</td>
+              <td>{{ hardware.id_recurso }}</td>
+              <td class="w155">{{ hardware.tipo   | firstCapital}}</td>
+              <td class="w135">{{ hardware.marca  | uppercase }}</td>
+              <td class="w135">{{ hardware.equipo | firstCapital }}</td>
+              <td>{{ hardware.modelo | uppercase }}</td>
+              <td>{{ hardware.serie }}</td>
+              <td>{{ hardware.imei }}</td>
+              <td>{{ hardware.estado_recurso }}</td>
+              <td>{{ hardware.persona_asignada | firstCapital}}</td>
+              <td>{{ hardware.codigo_corporativo }}</td>
+              <td>{{ hardware.proyecto }}</td>
+              <td>{{ hardware.observacion | firstCapital}}</td>
             </tr>
           </tbody>
         </table>
@@ -127,10 +160,10 @@
         </div>
 
         <div
-          *ngIf="!loadingItem && listaCuenta.length == 0"
+          *ngIf="!loadingItem && listaHardware.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
-        >No hay cuentas para mostrar
+        >No hay Hardware para mostrar
         </div>
       </div>
     </div>

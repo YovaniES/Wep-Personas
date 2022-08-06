@@ -1,0 +1,93 @@
+<div style="display: flex">
+  <div class="flex-1"></div>
+  <div class="modal-title c-male"> Actualizar Hardware </div>
+    <div class="flex-1"></div>
+
+    <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form class="row g-3" [formGroup]="hardwareForm">
+  <div class="cli-form newvac-wrapper">
+    <div class="row g-3">
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Tipo</label>
+        <select class="cli-input-white" formControlName="id_tipo">
+          <option [value]="0" disabled>- Seleccione -</option>
+          <option [value]="tipo.id" *ngFor="let tipo of listTipos">{{ tipo.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Marca</label>
+        <select class="cli-input-white" formControlName="id_marca">
+          <option [value]="0" disabled>- Seleccione -</option>
+          <option [value]="marca.id" *ngFor="let marca of listMarca">{{ marca.nombre }}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <div class="form-group">
+          <label>Modelo</label>
+          <input
+            type="text"
+            class="form-control cli-input-white"
+            formControlName="modelo"/>
+        </div>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Serie</label>
+        <input
+          type="text"
+          class="form-control cli-input-white"
+          formControlName="serie"/>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>IMEI (Opcional)</label>
+        <input
+          type="text"
+          class="form-control cli-input-white"
+          formControlName="imei"/>
+      </div>
+
+      <div class="col-sm-6 cli-form-element mb-2">
+        <label>Descripción</label>
+        <textarea
+          class="form-control"
+          style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
+          rows="3"
+          placeholder="Describa el tipo, marca o modelo ..."
+          formControlName="descripcion"
+        ></textarea>
+      </div>
+
+      <div class="col-sm-6 cli-form-element mb-2">
+        <label>Observación</label>
+        <textarea
+          class="form-control"
+          style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
+          rows="3"
+          placeholder=""
+          formControlName="observacion"
+        ></textarea>
+      </div>
+    </div>
+
+
+    <!-- --------------------------------------------BOTONES ------------------------------------------>
+    <div class="cli-form-buttons" style="margin-top: 8%">
+      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+        <mat-icon class="icon-18">cancel</mat-icon> Cancelar
+      </button>
+      <button class="cli-btn btn-m btn-blue"
+              (click)="actualizarHardware()"
+              >
+              <mat-icon class="icon-18">save</mat-icon> Actualizar
+      </button>
+    </div>
+  </div>
+</form>

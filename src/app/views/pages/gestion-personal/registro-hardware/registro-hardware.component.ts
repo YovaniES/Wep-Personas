@@ -4,26 +4,26 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import { PersonalService } from 'src/app/core/services/personal.service';
-import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ActualizarCuentaComponent } from './actualizar-cuenta/actualizar-cuenta.component';
 import Swal from 'sweetalert2';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { CrearHardwareComponent } from './crear-hardware/crear-hardware.component';
+import { ActualizarHardwareComponent } from './actualizar-hardware/actualizar-hardware.component';
 
 @Component({
-  selector: 'app-registro-cuenta',
-  templateUrl: './registro-cuenta.component.html',
-  styleUrls: ['./registro-cuenta.component.scss']
+  selector: 'app-registro-hardware',
+  templateUrl: './registro-hardware.component.html',
+  styleUrls: ['./registro-hardware.component.scss']
 })
-export class RegistroCuentaComponent implements OnInit {
+export class RegistroHardwareComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
   userId!: number;
   filtroForm!: FormGroup;
 
   page = 1;
-  totalIniciativa: number = 0;
+  totalHardware: number = 0;
   pageSize = 10;
   pageSizes = [3, 6, 9];
 
@@ -37,13 +37,18 @@ export class RegistroCuentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.newFilfroForm();
-    this.cargarOBuscarcuentas();
+    this.cargarOBuscarHardware();
+    this.getListMarcaHardware();
+    this.getListTiposHardware();
   }
 
   newFilfroForm(){
     this.filtroForm = this.fb.group({
-      usuario : [''],
-      idEstado: [''],
+      tipo  : [''],
+      marca : [''],
+      serie : [''],
+      imei  : [''],
+      estado: [''],
     })
   }
 
@@ -56,32 +61,55 @@ export class RegistroCuentaComponent implements OnInit {
 
   getCurrentUser() {
     const currentUser: any = localStorage.getItem('currentUser');
-    // console.log('USER-ACTUAL',JSON.parse(currentUser));
     return of(currentUser ? JSON.parse(currentUser) : '');
   }
 
-  listaCuenta: any[] = [];
-  cargarOBuscarcuentas(){
-    this.blockUI.start("Cargando cuentas...");
+  listaHardware: any[] = [];
+  cargarOBuscarHardware(){
+    this.blockUI.start("Cargando listado de hardware...");
     let parametro: any[] = [{
-      "queryId": 46,
+      "queryId": 45,
       "mapValue": {
-        param_usuario  : this.filtroForm.value.usuario,
-        param_id_estado: this.filtroForm.value.idEstado,
+        param_serie    : this.filtroForm.value.serie,
+        param_id_tipo  : this.filtroForm.value.tipo,
+        param_id_marca : this.filtroForm.value.marca,
+        param_id_estado: this.filtroForm.value.estado,
+        param_imei     : this.filtroForm.value.imei,
       }
     }];
-    this.personalService.cargarOBuscarcuentas(parametro[0]).subscribe(resp => {
+    this.personalService.cargarOBuscarHardware(parametro[0]).subscribe(resp => {
     this.blockUI.stop();
 
-    //  console.log('Lista-Cuentas', resp, resp.length);
-      this.listaCuenta = [];
-      this.listaCuenta = resp;
+     console.log('Lista-Hardware', resp, resp.length);
+      this.listaHardware = [];
+      this.listaHardware = resp;
 
       this.spinner.hide();
     });
   }
 
-  eliminarCuenta(id: number){
+  listTipos: any[] = [];
+  getListTiposHardware(){
+    let arrayParametro: any[] = [{queryId: 32}];
+
+    this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp) => {
+      this.listTipos = resp;
+    });
+  }
+
+
+  listMarca: any[] = [];
+  getListMarcaHardware(){
+    let arrayParametro: any[] = [{ queryId: 33 }];
+
+    this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp) => {
+      this.listMarca = resp;
+    });
+  }
+
+
+
+  eliminarHardware(id: number){
     this.spinner.show();
 
     let parametro:any[] = [{
@@ -103,13 +131,13 @@ export class RegistroCuentaComponent implements OnInit {
       confirmButtonText: 'Si, Eliminar!',
     }).then((resp) => {
       if (resp.value) {
-        this.personalService.eliminarCuenta(parametro[0]).subscribe(resp => {
+        this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
 
-          this.cargarOBuscarcuentas();
+          this.cargarOBuscarHardware();
 
             Swal.fire({
-              title: 'Eliminar Cuenta',
-              text: `La Cuenta: ${id}, fue eliminado con éxito`,
+              title: 'Eliminar Hardware',
+              text: `El Hardware: ${id}, fue eliminado con éxito`,
               icon: 'success',
             });
           });
@@ -121,7 +149,7 @@ export class RegistroCuentaComponent implements OnInit {
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})
 
-    this.cargarOBuscarcuentas();
+    this.cargarOBuscarHardware();
   }
 
   totalfiltro = 0;
@@ -129,9 +157,9 @@ export class RegistroCuentaComponent implements OnInit {
     let offset = event*10;
     this.spinner.show();
 
-    if (this.totalfiltro != this.totalIniciativa) {
-      this.personalService.cargarOBuscarcuentas(offset.toString()).subscribe( resp => {
-            this.listaCuenta = resp;
+    if (this.totalfiltro != this.totalHardware) {
+      this.personalService.cargarOBuscarHardware(offset.toString()).subscribe( resp => {
+            this.listaHardware = resp;
             this.spinner.hide();
           });
     } else {
@@ -140,23 +168,24 @@ export class RegistroCuentaComponent implements OnInit {
       this.page = event;
   }
 
-  crearCuenta(){
-    const dialogRef = this.dialog.open(CrearCuentaComponent, {width:'50%'});
+  crearHardware(){
+    const dialogRef = this.dialog.open(CrearHardwareComponent, {width:'55%'});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
-        this.cargarOBuscarcuentas()
+        this.cargarOBuscarHardware()
       }
     })
   }
 
-  actualizarCuenta(id: any) {
+  actualizarHardware(id: any) {
     this.dialog
-      .open(ActualizarCuentaComponent, { width: '50%', height: '20%', data: id, })
+      .open(ActualizarHardwareComponent, { width: '55%', data: id, })
       .afterClosed().subscribe((resp) => {
         if (resp) {
-          this.cargarOBuscarcuentas();
+          this.cargarOBuscarHardware();
         }
       });
   }
+
 }
