@@ -38,6 +38,7 @@ export class RegistroCuentaComponent implements OnInit {
   ngOnInit(): void {
     this.newFilfroForm();
     this.cargarOBuscarcuentas();
+    this.getUsuario();
   }
 
   newFilfroForm(){
@@ -151,6 +152,7 @@ export class RegistroCuentaComponent implements OnInit {
   }
 
   actualizarCuenta(id: any) {
+    console.log('IDXX',id);
     this.dialog
       .open(ActualizarCuentaComponent, { width: '50%', height: '20%', data: id, })
       .afterClosed().subscribe((resp) => {
@@ -159,4 +161,15 @@ export class RegistroCuentaComponent implements OnInit {
         }
       });
   }
+
+  // actualizarCuenta(id: any) {
+  //   console.log('IDXX',id);
+  //   this.dialog
+  //     .open(CrearCuentaComponent, { width: '50%', height: '20%', data: id, })
+  //     .afterClosed().subscribe((val) => {
+  //       if (val == 'update') {
+  //         this.cargarOBuscarcuentas();
+  //       }
+  //     });
+  // }
 }

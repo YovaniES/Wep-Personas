@@ -30,7 +30,6 @@ export class RegistroPersonalComponent implements OnInit {
 
   constructor(
     private personalService: PersonalService,
-    private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datepipe: DatePipe,
@@ -40,7 +39,7 @@ export class RegistroPersonalComponent implements OnInit {
   ngOnInit(): void {
     this.newFilfroForm();
     this.cargarOBuscarPersonal();
-    this.getCodProyectos();
+    this.getListProyectos();
   }
 
   newFilfroForm(){
@@ -53,13 +52,6 @@ export class RegistroPersonalComponent implements OnInit {
       fechaIngresoFin   : [''],
     })
   }
-
-  getUsuario(){
-    this.authService.getCurrentUser().subscribe( resp => {
-      this.userId   = resp.user.userId;
-      // console.log('ID-USER', this.userId);
-    })
-   }
 
   listaPersonal: any[] = [];
   cargarOBuscarPersonal(){
@@ -77,7 +69,7 @@ export class RegistroPersonalComponent implements OnInit {
     this.personalService.cargarOBuscarPersonal(parametro[0]).subscribe(resp => {
     this.blockUI.stop();
 
-     console.log('Lista-Personal', resp, resp.length);
+    //  console.log('Lista-Personal', resp, resp.length);
       this.listaPersonal = [];
       this.listaPersonal = resp;
 
@@ -86,13 +78,12 @@ export class RegistroPersonalComponent implements OnInit {
   }
 
   listCodProy: any[] = [];
-  getCodProyectos(){
+  getListProyectos(){
     let arrayParametro: any[] = [{queryId: 1}];
 
-    this.personalService.getCodProyectos(arrayParametro[0]).subscribe((resp) => {
+    this.personalService.getListProyectos(arrayParametro[0]).subscribe((resp) => {
             this.listCodProy = resp;
-            console.log('COD_PROY', resp);
-
+            // console.log('COD_PROY', resp);
     });
   }
 
@@ -103,9 +94,6 @@ export class RegistroPersonalComponent implements OnInit {
       queryId: 37,
       mapValue: {
         param_id_persona: id,
-        // CONFIG_USER_ID: this.userId,
-        // CONFIG_OUT_MSG_ERROR: "",
-        // CONFIG_OUT_MSG_EXITO: "",
       }
     }];
     Swal.fire({

@@ -28,6 +28,8 @@ export class ActualizarCuentaComponent implements OnInit {
     this.newForm();
     this.getListTiposCuentas();
     this.cargarCuentasById();
+
+    this.getUsuario();
   }
 
 
@@ -79,7 +81,7 @@ export class ActualizarCuentaComponent implements OnInit {
 
     this.personalService.actualizarCuenta(parametro[0]).subscribe( resp => {
       this.spinner.hide();
-      // console.log('DATA_ACTUALIZADO', resp);
+      console.log('DATA_ACTUALIZADO', resp);
 
       this.cargarCuentasById();
       this.close(true)
@@ -92,7 +94,6 @@ export class ActualizarCuentaComponent implements OnInit {
         })
     });
   };
-
 
   cargarCuentasById(){
     this.spinner.show();

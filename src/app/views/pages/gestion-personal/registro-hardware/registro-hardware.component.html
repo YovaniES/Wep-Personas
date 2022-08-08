@@ -116,12 +116,10 @@
 
           <tbody>
             <tr *ngFor="let hardware of listaHardware | paginate:
-                      {
-                        itemsPerPage: pageSize,
+                      { itemsPerPage: pageSize,
                         currentPage: page,
                         totalItems: totalHardware
-                      } "
-            >
+                      } ">
               <td>
                 <div class="cli-table-actions">
                   <button

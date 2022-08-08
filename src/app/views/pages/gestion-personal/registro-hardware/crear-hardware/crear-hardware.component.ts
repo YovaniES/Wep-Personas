@@ -28,7 +28,7 @@ export class CrearHardwareComponent implements OnInit {
     this.valueChanges();
     this.getListMarcaHardware();
     this.getListTiposHardware();
-
+    this.getUsuario();
   }
 
 
@@ -54,6 +54,13 @@ export class CrearHardwareComponent implements OnInit {
       this.hardwareForm.patchValue( {serie: valor.toUpperCase()}, {emitEvent: false});
     })
   }
+
+  getUsuario(){
+    this.authService.getCurrentUser().subscribe( resp => {
+      this.userID   = resp.user.userId;
+      console.log('ID-USER', this.userID);
+    })
+   }
 
    listTipos: any[] = [];
    getListTiposHardware(){

@@ -25,88 +25,123 @@ export class CrearPersonalComponent implements OnInit {
   ngOnInit(): void {
     this.newForm();
     this.valueChanges();
-    this.getListMarcaHardware();
-    this.getListTiposHardware();
+    this.getListProyectos();
+    this.getUserID();
+    this.getListPerfiles();
+    // this.getDescPerfil(1)
 
+    // this.getInfoProyecto(4);
+    // this.getInfoProyecto(5);
   }
 
 
   newForm(){
     this.personalForm = this.fb.group({
-     tipo        : ['', [Validators.required]],
-     marca       : ['', [Validators.required]],
-     modelo      : ['', [Validators.required]],
-     serie       : ['', [Validators.required]],
-     imei        : ['', [Validators.required]],
-     descripcion : ['', [Validators.required]],
-     observacion : ['', [Validators.required]],
-
-     nombre         : [''],
-     apPaterno      : [''],
-     apMaterno      : [''],
-     dni            : [''],
-     correo         : [''],
-     fechaNacimiento: [''],
-     codCorp        : [''],
-     codPerfil      : [''],
-     descPerfil     : [''],
-     fechaIngreso   : [''],
-     codProy        : [''],
-     descProy       : [''],
+     nombre         : ['', [Validators.required]],
+     apPaterno      : ['', [Validators.required]],
+     apMaterno      : ['', [Validators.required]],
+     dni            : ['', [Validators.required]],
+     correo         : ['', [Validators.required]],
+     fechaNacimiento: ['', [Validators.required]],
+     codCorp        : ['', [Validators.required]],
+     codPerfil      : ['', [Validators.required]],
+     descPerfil     : ['', [Validators.required]],
+     fechaIngreso   : ['', [Validators.required]],
+     codProy        : ['', [Validators.required]],
+     descProy       : ['', [Validators.required]],
     })
    }
 
+   getUserID(){
+    this.authService.getCurrentUser().subscribe( resp => {
+      this.userID   = resp.user.userId;
+      console.log('ID-USER', this.userID);
+    })
+   }
 
   valueChanges(){
-    this.personalForm.get('modelo')?.valueChanges.subscribe((valor: string) => {
-      this.personalForm.patchValue( {modelo: valor.toUpperCase()}, {emitEvent: false});
+    this.personalForm.get('codProy')?.valueChanges.subscribe((valor: string) => {
+      this.personalForm.patchValue( {codProy: valor.toUpperCase()}, {emitEvent: false});
     });
-
-    this.personalForm.get('serie')?.valueChanges.subscribe((valor: string) => {
-      this.personalForm.patchValue( {serie: valor.toUpperCase()}, {emitEvent: false});
-    })
   }
 
-   listTipos: any[] = [];
-   getListTiposHardware(){
-     let arrayParametro: any[] = [{queryId: 32}];
+  listProyectos: any[] = [];
+  getListProyectos(){
+    let parametro: any[] = [{queryId: 1}];
 
-     this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp) => {
-       this.listTipos = resp;
-     });
-   }
+    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+            this.listProyectos = resp;
+            console.log('COD_PROY', resp);
+    });
+  };
 
+  descProyecto: string = '';
+  getInfoProyecto(id: number) {
+    this.personalForm.value.codProy = id.toString();
 
-   listMarca: any[] = [];
-   getListMarcaHardware(){
-     let arrayParametro: any[] = [{ queryId: 33 }];
+    let parametro: any[] = [{
+        queryId: 2,
+        mapValue: { param_id_proyecto: id }
+      }];
+    this.personalService.getInfoProyecto(parametro[0]).subscribe((resp: any) => {
+      console.log('DESCP-PROYX', resp);
+      this.descProyecto = resp;
+    });
+  }
 
-     this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp) => {
-       this.listMarca = resp;
-     });
-   }
+  listPerfiles: any[] = [];
+  getListPerfiles(){
+    let parametro: any[] = [{queryId: 10}];
 
-  crearHardware() {
+    this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
+            this.listPerfiles = resp;
+            console.log('PERFILES', resp);
+    });
+  }
+
+  descPerfil: string = '';
+  getDescPerfil(id: number){
+    this.personalForm.value.codPerfil = id.toString();
+
+    let parametro: any[] = [
+      {
+        queryId: 11,
+        mapValue: {
+          param_id_perfil: id,
+        },
+      },
+    ];
+
+    this.personalService.getDescPerfil(parametro[0]).subscribe((resp) => {
+            this.descPerfil = resp;
+            console.log('DESC-PERFIL', resp);
+    });
+  }
+
+  crearPersonal() {
     this.spinner.show();
     const formValues = this.personalForm.getRawValue();
 
     let parametro: any =  {
-        queryId: 16,
+        queryId: 7,
         mapValue: {
-          param_id_tipo       : formValues.tipo,
-          param_id_marca      : formValues.marca,
-          param_descripcion   : formValues.descripcion,
-          param_modelo        : formValues.modelo,
-          param_serie         : formValues.serie,
-          param_imei          : formValues.imei,
-          param_observacion   : formValues.observacion,
-          CONFIG_USER_ID      : this.userID,
-          CONFIG_OUT_MSG_ERROR: "",
-          CONFIG_OUT_MSG_EXITO: "",
+          param_codigo_corporativo: formValues.codCorp,
+          param_nombres           : formValues.nombre,
+          param_apellido_paterno  : formValues.apPaterno,
+          param_apellido_materno  : formValues.apMaterno,
+          param_dni               : formValues.dni,
+          param_correo            : formValues.correo,
+          param_fecha_ingreso     : formValues.fechaIngreso,
+          param_fecha_nacimiento  : formValues.fechaNacimiento,
+          param_id_proyecto       : formValues.codProy,
+          param_id_perfil         : formValues.codPerfil,
+          CONFIG_USER_ID          : this.userID,
+          CONFIG_OUT_MSG_ERROR    : "",
+          CONFIG_OUT_MSG_EXITO    : "",
         },
       };
      console.log('VAOR', this.personalForm.value , parametro);
-    this.personalService.crearHardware(parametro).subscribe((resp: any) => {
+    this.personalService.crearPersonal(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear Personal!',
         text: `Personal: ${formValues.modelo}, creado con éxito`,

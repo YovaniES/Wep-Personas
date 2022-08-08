@@ -84,9 +84,6 @@
         </div>
       </div>
 
-
-
-
       <!-- BOTON MODAL PARA CREAR PERSONAS ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <button
@@ -124,12 +121,10 @@
 
           <tbody>
             <tr *ngFor="let personal of listaPersonal | paginate:
-                      {
-                        itemsPerPage: pageSize,
-                        currentPage: page,
-                        totalItems: totalPersonal
-                      } "
-            >
+                      { itemsPerPage: pageSize,
+                        currentPage : page,
+                        totalItems  : totalPersonal
+                      } ">
               <td>
                 <div class="cli-table-actions">
                   <button
@@ -155,7 +150,7 @@
               <td>{{ personal.id }}</td>
               <td>{{ personal.apellidos }}, {{personal.nombres}}</td>
               <td class="w155">{{ personal.codigo_proyecto  | uppercase}}</td>
-              <td class="w135">{{ personal.codigo_corporativo  | uppercase }}</td>
+              <td class="w135">{{ personal.codigo_corporativo| uppercase }}</td>
               <td class="w135">{{ personal.estado | firstCapital }}</td>
               <td>{{ personal.perfil | firstCapital }}</td>
               <td>{{ personal.correo }}</td>

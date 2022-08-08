@@ -65,6 +65,17 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  crearEntidadCombo(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  crearEntidadTabla(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+  crearPersonal(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   // Listado de TIPOS
   getListTiposCuentas(obj: any){
     return this.http.post(API_PERSONAS, obj).pipe(
@@ -80,7 +91,7 @@ export class PersonalService {
     );
   };
 
-  getCodProyectos(obj: any){
+  getListProyectos(obj: any){
     return this.http.post(API_PERSONAS, obj).pipe(
       map((proyectos: any) => {
         return proyectos.list.map((p: any) => {
@@ -92,7 +103,68 @@ export class PersonalService {
         })
       })
     );
+  };
+
+  getListPerfiles(obj: any){
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((perfil: any) => {
+        return perfil.list.map((p: any) => {
+          return {
+            id          : p.id,
+            nombre      : p.nombre,
+            descripcion : p.descripcion
+          }
+        })
+      })
+    );
+  };
+
+  getInfoProyecto(obj: any){
+    return this.http.post(API_PERSONAS, obj);
   }
+
+  getDescPerfil(obj: any){
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((descProyecto: any) => {
+        return descProyecto.list.map((d: any) => {
+          return {
+            // id          : p.id,
+            // nombre      : p.nombre,
+            descripcion : d.descripcion
+          }
+        })
+      })
+    );
+  }
+
+  getDescProy(obj: any){
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((perfil: any) => {
+        return perfil.list.map((p: any) => {
+          return {
+            // id          : p.id,
+            // nombre      : p.nombre,
+            descripcion : p.descripcion
+          }
+        })
+      })
+    );
+  }
+
+  getListEntidades(obj: any){
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((tipo: any) => {
+        return tipo.list.map((e: any) => {
+          return {
+            id          : e.id,
+            nombre      : e.nombre,
+            descripcion : e.descripcion,
+            idPadre     : e.idPadre
+          }
+        })
+      })
+    );
+  };
 
   // LISTADO Y BUSQUEDA DE REGISTROS PARA LA TABLA
   cargarOBuscarcuentas(id: any) {
@@ -154,6 +226,21 @@ export class PersonalService {
             proyecto_descripcion: p.proyecto_descripcion,
             fecha_ingreso       : p.fecha_ingreso,
             estado              : p.estado,
+          }
+        })
+      })
+    );
+  };
+
+  cargarOBuscarEntidades(id: any) {
+    return this.http.post(API_PERSONAS, id).pipe(
+      map((entidad: any) => {
+        return entidad.list.map((e: any) => {
+          return {
+            id                  : e.id,
+            nombre              : e.nombre,
+            descripcion         : e.descripcion,
+            nombrePadre         : e.nombrePadre,
           }
         })
       })

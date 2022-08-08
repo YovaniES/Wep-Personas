@@ -31,12 +31,15 @@ export class ActualizarHardwareComponent implements OnInit {
     this.getListMarcaHardware();
     this.getListTiposHardware();
     this.cargarHardwareById();
-    // this.cargarCuentasById();
+    this.getUsuario();
+
+    console.log('VALUE', this.hardwareForm.value);
   }
 
 
   newForm(){
     this.hardwareForm = this.fb.group({
+     id  : [''],
      tipo        : [''],
      marca       : [''],
      id_tipo     : [''],
@@ -52,7 +55,7 @@ export class ActualizarHardwareComponent implements OnInit {
    getUsuario(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
-      // console.log('ID-USER', this.userID);
+      console.log('ID-USER', this.userID);
     })
    }
 
@@ -82,14 +85,14 @@ export class ActualizarHardwareComponent implements OnInit {
     let parametro: any[] = [{
         queryId: 17,
         mapValue: {
-          param_id_recurso    : formValues.idHardware,
-          param_id_tipo       : formValues.idTipo,
-          param_id_marca      : formValues.idMarca,
-          param_descripcion   : formValues.descripcion,
-          param_modelo        : formValues.modelo,
-          param_serie         : formValues.serie,
-          param_imei          : formValues.imei,
-          param_observacion   : formValues.observacion,
+          param_id_recurso    : this.ID_REG_HARDWARE,
+          param_id_tipo       : this.hardwareForm.value.id_tipo,
+          param_id_marca      : this.hardwareForm.value.id_marca,
+          param_descripcion   : this.hardwareForm.value.descripcion,
+          param_modelo        : this.hardwareForm.value.modelo,
+          param_serie         : this.hardwareForm.value.serie,
+          param_imei          : this.hardwareForm.value.imei,
+          param_observacion   : this.hardwareForm.value.observacion,
           CONFIG_USER_ID      : this.userID,
           CONFIG_OUT_MSG_ERROR: "",
           CONFIG_OUT_MSG_EXITO: "",
@@ -100,7 +103,7 @@ export class ActualizarHardwareComponent implements OnInit {
       this.spinner.hide();
       console.log('DATA_ACTUALIZADO', resp);
 
-      // this.cargarHardwareById();
+      this.cargarHardwareById();
       this.close(true)
 
       Swal.fire({

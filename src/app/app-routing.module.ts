@@ -19,18 +19,18 @@ const routes: Routes = [
         loadChildren: () => import ('./views/pages/home/home.module').then((m) => m.HomeModule),
         canActivate: [ValidarTokenGuard],
       },
-      {
-        path:'gestion',
+      { path:'gestion',
         loadChildren: () => import ('./views/pages/gestion-personal/gestion-personal.module').then((m)=>m.GestionPersonalModule),
         canActivate: [ValidarTokenGuard],
       },
+      {
+        path:'mantenimiento',
+        loadChildren: () => import ('./views/pages/mantenimiento/mantenimiento.module').then((m)=>m.MantenimientoModule),
+      },
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       { path:'**', redirectTo:'/error/404' }
-
     ]
   },
-
-
 ];
 
 @NgModule({
