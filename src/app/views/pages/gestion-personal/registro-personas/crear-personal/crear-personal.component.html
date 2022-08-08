@@ -81,7 +81,7 @@
 
       <div class="col-sm-4 cli-form-element">
         <label>Cód. Perfil</label>
-        <select class="cli-input-white" formControlName="codPerfil">
+        <select class="cli-input-white" formControlName="codPerfil" #selectList2 (change)="getDescPerfil(selectList2.value)">
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
         </select>
@@ -107,7 +107,7 @@
 
       <div class="col-sm-4 cli-form-element">
         <label>Cód. Proyecto</label>
-        <select class="cli-input-white" formControlName="codProy">
+        <select class="cli-input-white" formControlName="codProy" #selectList (change)="getInfoProyecto(selectList.value)">
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
         </select>

@@ -75,20 +75,6 @@ export class CrearPersonalComponent implements OnInit {
     });
   };
 
-  descProyecto: string = '';
-  getInfoProyecto(id: number) {
-    this.personalForm.value.codProy = id.toString();
-
-    let parametro: any[] = [{
-        queryId: 2,
-        mapValue: { param_id_proyecto: id }
-      }];
-    this.personalService.getInfoProyecto(parametro[0]).subscribe((resp: any) => {
-      console.log('DESCP-PROYX', resp);
-      this.descProyecto = resp;
-    });
-  }
-
   listPerfiles: any[] = [];
   getListPerfiles(){
     let parametro: any[] = [{queryId: 10}];
@@ -99,16 +85,27 @@ export class CrearPersonalComponent implements OnInit {
     });
   }
 
-  descPerfil: string = '';
-  getDescPerfil(id: number){
+  descProyecto: any;
+  getInfoProyecto(id: any) {
+    this.personalForm.value.codProy = id.toString();
+
+    let parametro: any[] = [{
+        queryId: 2,
+        mapValue: { param_id_proyecto: id }
+      }];
+    this.personalService.getDescProy(parametro[0]).subscribe((resp) => {
+      console.log('DESC-PROYX', resp);
+      this.descProyecto = resp;
+    });
+  }
+
+  descPerfil: any;
+  getDescPerfil(id: any){
     this.personalForm.value.codPerfil = id.toString();
 
-    let parametro: any[] = [
-      {
+    let parametro: any[] = [{
         queryId: 11,
-        mapValue: {
-          param_id_perfil: id,
-        },
+        mapValue: {param_id_perfil: id}
       },
     ];
 
@@ -144,7 +141,7 @@ export class CrearPersonalComponent implements OnInit {
     this.personalService.crearPersonal(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear Personal!',
-        text: `Personal: ${formValues.modelo}, creado con éxito`,
+        text: `Personal: ${formValues.nombre+ ' '+ formValues.apMaterno}, creado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });

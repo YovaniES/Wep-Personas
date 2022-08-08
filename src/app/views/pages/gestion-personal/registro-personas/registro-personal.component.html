@@ -148,7 +148,7 @@
                 </div>
               </td>
               <td>{{ personal.id }}</td>
-              <td>{{ personal.apellidos }}, {{personal.nombres}}</td>
+              <td class="w250"> {{ personal.apellidos | firstCapital}}, {{personal.nombres | firstCapital}}</td>
               <td class="w155">{{ personal.codigo_proyecto  | uppercase}}</td>
               <td class="w135">{{ personal.codigo_corporativo| uppercase }}</td>
               <td class="w135">{{ personal.estado | firstCapital }}</td>

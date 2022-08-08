@@ -11,70 +11,97 @@
 <form class="row g-3" [formGroup]="personalForm">
   <div class="cli-form newvac-wrapper">
     <div class="row g-3">
-
-      <div class="col-sm-4 cli-form-element">
-        <label>Tipo</label>
-        <select class="cli-input-white" formControlName="id_tipo">
-          <option [value]="0" disabled>- Seleccione -</option>
-          <option [value]="tipo.id" *ngFor="let tipo of listTipos">{{ tipo.nombre }}</option>
-        </select>
-      </div>
-
-      <div class="col-sm-4 cli-form-element">
-        <label>Marca</label>
-        <select class="cli-input-white" formControlName="id_marca">
-          <option [value]="0" disabled>- Seleccione -</option>
-          <option [value]="marca.id" *ngFor="let marca of listMarca">{{ marca.nombre }}</option>
-        </select>
-      </div>
-
       <div class="col-sm-4 cli-form-element">
         <div class="form-group">
-          <label>Modelo</label>
+          <label>Nombre(s)</label>
           <input
             type="text"
             class="form-control cli-input-white"
-            formControlName="modelo"/>
+            formControlName="nombre"/>
         </div>
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label>Serie</label>
+        <label>Apellido paterno</label>
         <input
           type="text"
           class="form-control cli-input-white"
-          formControlName="serie"/>
+          formControlName="apPaterno"/>
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label>IMEI (Opcional)</label>
+        <label>Apellido materno</label>
         <input
           type="text"
           class="form-control cli-input-white"
-          formControlName="imei"/>
+          formControlName="apMaterno"/>
       </div>
 
-      <div class="col-sm-6 cli-form-element mb-2">
-        <label>Descripción</label>
-        <textarea
-          class="form-control"
-          style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
-          rows="3"
-          placeholder="Describa el tipo, marca o modelo ..."
-          formControlName="descripcion"
-        ></textarea>
+      <div class="col-sm-4 cli-form-element">
+        <label>DNI</label>
+        <input
+          maxlength="8"
+          class="form-control cli-input-white"
+          formControlName="dni"/>
       </div>
 
-      <div class="col-sm-6 cli-form-element mb-2">
-        <label>Observación</label>
-        <textarea
-          class="form-control"
-          style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
-          rows="3"
-          placeholder=""
-          formControlName="observacion"
-        ></textarea>
+      <div class="col-sm-4 cli-form-element">
+        <label>Correo</label>
+        <input
+          type="text"
+          class="form-control cli-input-white"
+          formControlName="correo"/>
       </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <div class="form-group">
+          <label>Fecha Nacimiento</label>
+           <input
+            type="date"
+            class="form-control"
+            formControlName="fechaNacimiento"
+          />
+        </div>
+      </div>
+
+      <!-- DATOS DE LA EMPRESA -------------------------------------------------------->
+      <div class="col-sm-4 cli-form-element">
+        <label>Cód. Corporativo</label>
+        <input
+          type="text"
+          class="form-control cli-input-white"
+          formControlName="codCorp"/>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Cód. Perfil</label>
+        <select class="cli-input-white" formControlName="codPerfil">
+          <option [value]="0" disabled>- Seleccione -</option>
+          <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
+        </select>
+      </div>
+
+
+
+      <div class="col-sm-4 cli-form-element">
+        <div class="form-group">
+          <label>Fecha de Ingreso</label>
+           <input
+            type="date"
+            class="form-control"
+            formControlName="fechaIngreso"
+          />
+        </div>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Cód. Proyecto</label>
+        <select class="cli-input-white" formControlName="codProy">
+          <option [value]="0" disabled>- Seleccione -</option>
+          <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
+        </select>
+      </div>
+
     </div>
 
 
@@ -86,8 +113,10 @@
       <button class="cli-btn btn-m btn-blue"
               (click)="actualizarPersonal()"
               >
+              <!-- [disabled]="hardwareForm.invalid" -->
               <mat-icon class="icon-18">save</mat-icon> Actualizar
       </button>
     </div>
   </div>
 </form>
+

@@ -119,17 +119,17 @@ export class PersonalService {
     );
   };
 
-  getInfoProyecto(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
+  // getInfoProyecto(obj: any){
+  //   return this.http.post(API_PERSONAS, obj);
+  // }
 
   getDescPerfil(obj: any){
     return this.http.post(API_PERSONAS, obj).pipe(
       map((descProyecto: any) => {
         return descProyecto.list.map((d: any) => {
           return {
-            // id          : p.id,
-            // nombre      : p.nombre,
+            id          : d.id,
+            nombre      : d.nombre,
             descripcion : d.descripcion
           }
         })
@@ -142,8 +142,8 @@ export class PersonalService {
       map((perfil: any) => {
         return perfil.list.map((p: any) => {
           return {
-            // id          : p.id,
-            // nombre      : p.nombre,
+            id          : p.id,
+            codigo      : p.codigo,
             descripcion : p.descripcion
           }
         })

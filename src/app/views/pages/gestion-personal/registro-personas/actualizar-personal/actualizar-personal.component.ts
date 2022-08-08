@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -20,6 +21,7 @@ export class ActualizarPersonalComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
+    public datePipe: DatePipe,
     private dialogRef: MatDialogRef<ActualizarPersonalComponent>,
     @Inject(MAT_DIALOG_DATA) public ID_REG_PERSONAL: any
 
@@ -27,27 +29,39 @@ export class ActualizarPersonalComponent implements OnInit {
 
   ngOnInit(): void {
     this.newForm();
-    this.getListMarcaHardware();
-    this.getListTiposHardware();
     this.cargarPersonalById();
+
+    this.getListProyectos();
+    this.getListPerfiles();
     // this.cargarCuentasById();
+
+    this.getUsuario();
   }
 
 
-  newForm(){
-    this.personalForm = this.fb.group({
-    //  idHardware  : [''],
-     tipo        : [''],
-     marca       : [''],
-     id_tipo     : [''],
-     id_marca    : [''],
-     descripcion : [''],
-     modelo      : [''],
-     serie       : [''],
-     imei        : [''],
-     observacion : [''],
-    })
-   }
+    newForm(){
+      this.personalForm = this.fb.group({
+       idPersonal     : [''],
+
+
+       nombre         : [''],
+       apPaterno      : [''],
+       apMaterno      : [''],
+       dni            : [''],
+       correo         : [''],
+       fechaNacimiento: [''],
+       codCorp        : [''],
+       codPerfil      : [''],
+       descPerfil     : [''],
+       fechaIngreso   : [''],
+       codProy        : [''],
+       descProy       : [''],
+
+       estado         : [''],
+       perfil         : [''],
+       proyecto       : [''],
+      })
+     }
 
    getUsuario(){
     this.authService.getCurrentUser().subscribe( resp => {
@@ -56,56 +70,61 @@ export class ActualizarPersonalComponent implements OnInit {
     })
    }
 
-   listTipos: any[] = [];
-   getListTiposHardware(){
-     let parametro: any[] = [{queryId: 32}];
+   listProyectos: any[] = [];
+   getListProyectos(){
+     let parametro: any[] = [{queryId: 1}];
 
-     this.personalService.getListTiposHardware(parametro[0]).subscribe((resp) => {
-       this.listTipos = resp;
+     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+             this.listProyectos = resp;
+             console.log('COD_PROY', resp);
+     });
+   };
+
+   listPerfiles: any[] = [];
+   getListPerfiles(){
+     let parametro: any[] = [{queryId: 10}];
+
+     this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
+             this.listPerfiles = resp;
+             console.log('PERFILES', resp);
      });
    }
 
-
-   listMarca: any[] = [];
-   getListMarcaHardware(){
-     let parametro: any[] = [{ queryId: 33 }];
-
-     this.personalService.getListMarcaHardware(parametro[0]).subscribe((resp) => {
-       this.listMarca = resp;
-     });
-   }
 
    actualizarPersonal(){
     this.spinner.show();
 
     const formValues = this.personalForm.getRawValue();
     let parametro: any[] = [{
-        queryId: 17,
+        queryId: 8,
         mapValue: {
-          param_id_recurso    : formValues.idHardware,
-          param_id_tipo       : formValues.idTipo,
-          param_id_marca      : formValues.idMarca,
-          param_descripcion   : formValues.descripcion,
-          param_modelo        : formValues.modelo,
-          param_serie         : formValues.serie,
-          param_imei          : formValues.imei,
-          param_observacion   : formValues.observacion,
-          CONFIG_USER_ID      : this.userID,
-          CONFIG_OUT_MSG_ERROR: "",
-          CONFIG_OUT_MSG_EXITO: "",
+          param_id_persona        : formValues.idPersonal,
+          param_codigo_corporativo: formValues.codCorp,
+          param_nombres           : formValues.nombre,
+          param_apellido_paterno  : formValues.apPaterno,
+          param_apellido_materno  : formValues.apMaterno,
+          param_dni               : formValues.dni,
+          param_correo            : formValues.correo,
+          param_fecha_ingreso     : formValues.fechaIngreso,
+          param_fecha_nacimiento  : formValues.fechaNacimiento,
+          param_id_proyecto       : formValues.codProy,
+          param_id_perfil         : formValues.codPerfil,
+          param_estado            : formValues.estadoPersonal,
+          CONFIG_USER_ID          : this.userID,
+          CONFIG_OUT_MSG_ERROR    : "",
+          CONFIG_OUT_MSG_EXITO    : "",
         },
       }];
-
     this.personalService.actualizarPersonal(parametro[0]).subscribe( resp => {
       this.spinner.hide();
       console.log('DATA_ACTUALIZADO', resp);
 
-      // this.cargarPersonalById();
+      this.cargarPersonalById();
       this.close(true)
 
       Swal.fire({
         title: 'Actualizar Personal!',
-        text : `Personal:  ${formValues.modelo }, actualizado con éxito`,
+        text : `El Personal:  ${formValues.nombre +' '+formValues.apPaterno }, fue actualizado con éxito`,
         icon : 'success',
         confirmButtonText: 'Ok'
         })
@@ -116,23 +135,45 @@ export class ActualizarPersonalComponent implements OnInit {
     this.spinner.show();
 
     let parametro: any[] = [{
-      queryId: 34,
-      mapValue: {'param_id_hardware': this.ID_REG_PERSONAL}
+      queryId: 31,
+      mapValue: {'param_id_persona': this.ID_REG_PERSONAL}
     }];
 
     this.personalService.cargarPersonalById(parametro[0]).subscribe( (resp: any) => {
 
-      console.log('LISTA-EDITAR', resp );
+      console.log('LISTA-EDITAR_BY_ID', resp );
       for (let i = 0; i < resp.list.length; i++) {
-        this.personalForm.controls['tipo'       ].setValue(resp.list[i].tipo);
-        this.personalForm.controls['marca'      ].setValue(resp.list[i].marca);
-        this.personalForm.controls['id_tipo'    ].setValue(resp.list[i].id_tipo);
-        this.personalForm.controls['id_marca'   ].setValue(resp.list[i].id_marca);
-        this.personalForm.controls['descripcion'].setValue(resp.list[i].descripcion);
-        this.personalForm.controls['modelo'     ].setValue(resp.list[i].modelo);
-        this.personalForm.controls['serie'      ].setValue(resp.list[i].serie);
-        this.personalForm.controls['imei'       ].setValue(resp.list[i].imei);
-        this.personalForm.controls['observacion'].setValue(resp.list[i].observacion);
+        this.personalForm.controls['idPersonal'].setValue(resp.list[i].id);
+        this.personalForm.controls['nombre'    ].setValue(resp.list[i].nombres);
+        this.personalForm.controls['apPaterno' ].setValue(resp.list[i].apellido_paterno);
+        this.personalForm.controls['apMaterno' ].setValue(resp.list[i].apellido_materno);
+        this.personalForm.controls['dni'       ].setValue(resp.list[i].dni);
+        this.personalForm.controls['correo'    ].setValue(resp.list[i].correo);
+        this.personalForm.controls['codCorp'   ].setValue(resp.list[i].codigo_corporativo);
+        this.personalForm.controls['codPerfil' ].setValue(resp.list[i].id_perfil);
+        this.personalForm.controls['perfil'    ].setValue(resp.list[i].perfil);
+        this.personalForm.controls['proyecto'  ].setValue(resp.list[i].codigo_proyecto);
+        this.personalForm.controls['codProy'   ].setValue(resp.list[i].id_codigo_proyecto);
+        this.personalForm.controls['descProy'  ].setValue(resp.list[i].proyecto_descripcion);
+
+        if (resp.list[i].fecha_ingreso !='null' && resp.list[i].fecha_ingreso != '') {
+          let fechaIngr = resp.list[i].fecha_ingreso
+          const str   = fechaIngr.split('/');
+          const year  = Number(str[2]);
+          const month = Number(str[1]);
+          const date  = Number(str[0]);
+          this.personalForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+        }
+
+        if (resp.list[i].fecha_nacimiento !='null' && resp.list[i].fecha_nacimiento != '') {
+          let fechaNac = resp.list[i].fecha_nacimiento
+          const str   = fechaNac.split('/');
+          const year  = Number(str[2]);
+          const month = Number(str[1]);
+          const date  = Number(str[0]);
+          this.personalForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+        }
+        this.personalForm.controls['estado'].setValue(resp.list[i].estado);
       }
       this.spinner.hide();
     })
