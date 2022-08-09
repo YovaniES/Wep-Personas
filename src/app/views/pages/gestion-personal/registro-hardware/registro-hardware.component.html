@@ -87,6 +87,13 @@
         ><mat-icon class="icon-18">add</mat-icon>Agregar Hardware
         </button>
 
+        <button
+          matTooltip="Descargar registro"
+          class="icon-btn btn-trans c-green-export mx-1"
+          (click)="exportarRegistro()"
+        ><mat-icon class="icon-18">file_download</mat-icon>Exportar
+        </button>
+
         <div class="flex-1"></div>
         <div class="mt-2" style="color: #345df3; font-weight: 600;">
           Total : <span class="total">{{ listaHardware.length }} Hardware</span>
@@ -140,14 +147,14 @@
               <td class="w155">{{ hardware.tipo   | firstCapital}}</td>
               <td class="w135">{{ hardware.marca  | uppercase }}</td>
               <td class="w135">{{ hardware.equipo | firstCapital }}</td>
-              <td>{{ hardware.modelo | uppercase }}</td>
+              <td class="w200">{{ hardware.modelo | uppercase }}</td>
               <td>{{ hardware.serie }}</td>
               <td>{{ hardware.imei }}</td>
               <td>{{ hardware.estado_recurso }}</td>
               <td>{{ hardware.persona_asignada | firstCapital}}</td>
               <td>{{ hardware.codigo_corporativo }}</td>
               <td>{{ hardware.proyecto }}</td>
-              <td>{{ hardware.observacion | firstCapital}}</td>
+              <td class="w200">{{ hardware.observacion | firstCapital}}</td>
             </tr>
           </tbody>
         </table>

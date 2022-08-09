@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { CrearHardwareComponent } from './crear-hardware/crear-hardware.component';
 import { ActualizarHardwareComponent } from './actualizar-hardware/actualizar-hardware.component';
+import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 
 @Component({
   selector: 'app-registro-hardware',
@@ -31,6 +32,7 @@ export class RegistroHardwareComponent implements OnInit {
     private personalService: PersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
+    private exportExcellService: ExportExcellService,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
   ) { }
@@ -166,6 +168,10 @@ export class RegistroHardwareComponent implements OnInit {
       this.spinner.hide();
     }
       this.page = event;
+  }
+
+  exportarRegistro(){
+    this.exportExcellService.exportarExcel(this.listaHardware, 'Hardware')
   }
 
   crearHardware(){

@@ -119,10 +119,6 @@ export class PersonalService {
     );
   };
 
-  // getInfoProyecto(obj: any){
-  //   return this.http.post(API_PERSONAS, obj);
-  // }
-
   getDescPerfil(obj: any){
     return this.http.post(API_PERSONAS, obj).pipe(
       map((descProyecto: any) => {
@@ -165,6 +161,21 @@ export class PersonalService {
       })
     );
   };
+
+  getListTotalTablas(obj: any) {
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((tablas: any) => {
+        return tablas.list.map((t: any) => {
+          return {
+            id         : t.id,
+            nombre     : t.nombre,
+            descripcion: t.descripcion,
+            idPadre    : t.idPadre,
+          };
+        });
+      })
+    );
+  }
 
   // LISTADO Y BUSQUEDA DE REGISTROS PARA LA TABLA
   cargarOBuscarcuentas(id: any) {
@@ -247,6 +258,25 @@ export class PersonalService {
     );
   };
 
+
+  getHistoricoCambiosProyecto(obj: any) {
+    return this.http.post(API_PERSONAS, obj).pipe(
+      map((histCamb: any) => {
+        return histCamb.list.map( (historico: any) => {
+          return {
+            id_persona                : historico.id_persona,
+            id_proyecto               : historico.id_proyecto,
+            proyecto_codigo           : historico.proyecto_codigo,
+            proyecto_descripcion      : historico.proyecto_descripcion,
+            fecha_asignacion          : historico.fecha_asignacion,
+            id_usuario_asignacion     : historico.id_usuario_asignacion,
+            nombre_usuario_asignacion : historico.nombre_usuario_asignacion,
+          }
+        })
+      })
+    );
+  }
+
   actualizarCuenta(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
@@ -278,7 +308,6 @@ export class PersonalService {
   cargarPersonalById(obj: any) {
     return this.http.post(API_PERSONAS, obj)
   };
-
 
   cargarHardwareById(obj: any) {
     return this.http.post(API_PERSONAS, obj)

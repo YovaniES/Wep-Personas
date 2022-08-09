@@ -34,6 +34,8 @@ export class ListaEntidadComponent implements OnInit {
   ngOnInit(): void {
     this.newFilfroForm();
     this.getListEntidades();
+
+    this.getListTotalTablas();
   }
 
   newFilfroForm(){
@@ -51,23 +53,58 @@ export class ListaEntidadComponent implements OnInit {
     });
   }
 
+  // datosInfoEntidad = {
+  //   nombre     : "",
+  //   descripcion: "",
+  //   idPadre    : "",
+  // };
+
+  // getEntidadesTabla(id: any) {
+  //   this.datosInfoEntidad.idPadre = id;
+  // }
+
+  listTablas: any[] = [];
+  getListTotalTablas(){
+    let parametro: any[] = [
+      { queryId: 47}
+    ]
+    this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
+      this.listTablas = resp;
+    })
+  }
+
+  totaltablas = {
+    id: "",
+  };
+
+  idPadre     : any
+  nombre      : any
+  tablaEntidad: any
+  getInfoTotalTablaEntidad(id: any, evento: any) {
+    this.totaltablas.id = id;
+    this.idPadre = evento.target["options"][evento.target["options"].selectedIndex].id;
+    this.nombre  = evento.target["options"][evento.target["options"].selectedIndex].innerText;
+    this.tablaEntidad = [];
+
+
+    this.cargarOBuscarEntidades(id);
+
+  }
+
+
   listEntidadX: any[] = [];
-  cargarOBuscarEntidades(){
+  cargarOBuscarEntidades(id: any){
     this.blockUI.start("Cargando lista de entidades...");
     let parametro: any[] = [{
       "queryId": 48,
       "mapValue": {
-        param_serie    : this.filtroForm.value.serie,
-        param_id_tipo  : this.filtroForm.value.tipo,
-        param_id_marca : this.filtroForm.value.marca,
-        param_id_estado: this.filtroForm.value.estado,
-        param_imei     : this.filtroForm.value.imei,
+        param_id_tabla: id,
       }
     }];
     this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe(resp => {
     this.blockUI.stop();
 
-     console.log('Lista-Hardware', resp, resp.length);
+     console.log('ID_TABLA_ENTIDAD', resp, resp.length);
       this.listEntidad = [];
       this.listEntidad = resp;
 
@@ -99,7 +136,7 @@ export class ListaEntidadComponent implements OnInit {
       if (resp.value) {
         this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
 
-          this.cargarOBuscarEntidades();
+          // this.cargarOBuscarEntidades();
 
             Swal.fire({
               title: 'Eliminar Hardware',
@@ -118,7 +155,7 @@ export class ListaEntidadComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
-        this.cargarOBuscarEntidades()
+        // this.cargarOBuscarEntidades()
       }
     })
   }
@@ -128,7 +165,7 @@ export class ListaEntidadComponent implements OnInit {
     .open(CrearEntidadComponent, {width:'25%'})
     .afterClosed().subscribe(resp => {
       if (resp) {
-        this.cargarOBuscarEntidades()
+        // this.cargarOBuscarEntidades()
       }
     })
   }
@@ -150,7 +187,7 @@ export class ListaEntidadComponent implements OnInit {
       .open(CrearEntidadComponent, { width: '55%', data: id})
       .afterClosed().subscribe((val) => {
         if (val == 'update') {
-          this.cargarOBuscarEntidades();
+          // this.cargarOBuscarEntidades();
         }
       });
   }

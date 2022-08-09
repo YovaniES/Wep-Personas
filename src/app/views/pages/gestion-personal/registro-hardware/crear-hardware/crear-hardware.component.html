@@ -56,7 +56,6 @@
           type="text"
           class="form-control cli-input-white"
           formControlName="imei"/>
-          <small class="form-text text-alert" *ngIf="campoNoValido('imei')">* Este campo es obligatorio</small>
       </div>
 
       <div class="col-sm-6 cli-form-element mb-2">
@@ -68,7 +67,6 @@
           placeholder="Describa el tipo, marca o modelo ..."
           formControlName="descripcion"
         ></textarea>
-        <small class="form-text text-alert" *ngIf="campoNoValido('descripcion')">* Este campo es obligatorio</small>
       </div>
 
       <div class="col-sm-6 cli-form-element mb-2">
@@ -77,10 +75,9 @@
           class="form-control"
           style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
           rows="3"
-          placeholder=""
+          placeholder="Describa alguna observación del equipo hardware"
           formControlName="observacion"
         ></textarea>
-        <small class="form-text text-alert" *ngIf="campoNoValido('observacion')">* Este campo es obligatorio</small>
       </div>
     </div>
 
@@ -92,8 +89,8 @@
       </button>
       <button class="cli-btn btn-m btn-blue"
               (click)="crearHardware()"
+              [disabled]="hardwareForm.invalid"
               >
-              <!-- [disabled]="hardwareForm.invalid" -->
               <mat-icon class="icon-18">save</mat-icon> Registrar
       </button>
     </div>

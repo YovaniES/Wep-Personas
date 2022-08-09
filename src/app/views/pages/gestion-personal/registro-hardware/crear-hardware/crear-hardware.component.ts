@@ -38,9 +38,9 @@ export class CrearHardwareComponent implements OnInit {
      marca       : ['', [Validators.required]],
      modelo      : ['', [Validators.required]],
      serie       : ['', [Validators.required]],
-     imei        : ['', [Validators.required]],
-     descripcion : ['', [Validators.required]],
-     observacion : ['', [Validators.required]],
+     imei        : [''],
+     descripcion : [''],
+     observacion : [''],
     })
    }
 

@@ -34,6 +34,8 @@ export class ActualizarPersonalComponent implements OnInit {
     this.getListProyectos();
     this.getListPerfiles();
     // this.cargarCuentasById();
+    this.getHistoricoCambiosProyecto(this.ID_REG_PERSONAL);
+
 
     this.getUsuario();
   }
@@ -42,8 +44,6 @@ export class ActualizarPersonalComponent implements OnInit {
     newForm(){
       this.personalForm = this.fb.group({
        idPersonal     : [''],
-
-
        nombre         : [''],
        apPaterno      : [''],
        apMaterno      : [''],
@@ -56,7 +56,6 @@ export class ActualizarPersonalComponent implements OnInit {
        fechaIngreso   : [''],
        codProy        : [''],
        descProy       : [''],
-
        estado         : [''],
        perfil         : [''],
        proyecto       : [''],
@@ -177,6 +176,24 @@ export class ActualizarPersonalComponent implements OnInit {
       }
       this.spinner.hide();
     })
+  }
+
+
+  histCambiosProyecto: any[] = [];
+  getHistoricoCambiosProyecto(id: number){
+  this.spinner.show();
+    let parametro: any[] = [{
+      queryId: 57,
+      mapValue: {
+        param_id_persona: this.ID_REG_PERSONAL,
+      }
+    }];
+
+    this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
+      this.histCambiosProyecto = resp;
+      console.log('ListHistCambID', resp)
+    });
+    this.spinner.hide();
   }
 
   close(succes?: boolean) {

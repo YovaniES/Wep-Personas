@@ -5,6 +5,11 @@
 .c-male {
   color: $color-blue;
 }
+
+.c-purple{
+  color: #d63384
+}
+
 .c-darkblue {
   color: $color-secondary;
   border: solid 0.5px $color-secondary;
@@ -14,7 +19,7 @@
   border: solid 0.5px $color-green;
 }
 
-.c-purple {
+.c-green-btn {
   color: $color-green;
   background-color: #f0efef;
   border: solid 0.5px $color-green;

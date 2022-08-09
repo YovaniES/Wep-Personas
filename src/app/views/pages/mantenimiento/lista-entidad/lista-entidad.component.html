@@ -8,10 +8,13 @@
           <form class="row g-3" [formGroup]="filtroForm">
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Entidad</label>
-              <select class="form-select" formControlName="entidad">
+              <select class="form-select" formControlName="entidad"
+                      #selectList
+                      (change)="getInfoTotalTablaEntidad(selectList.value, $event)"
+                  >
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="entidad.id"
-                        [id]="entidad.idPadre" *ngFor="let entidad of listEntidad">{{ entidad.nombre }}
+                        [id]="entidad.idPadre" *ngFor="let entidad of listTablas">{{ entidad.nombre }}
                 </option>
               </select>
             </div>

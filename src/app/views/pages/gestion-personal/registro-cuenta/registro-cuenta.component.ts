@@ -10,6 +10,7 @@ import { ActualizarCuentaComponent } from './actualizar-cuenta/actualizar-cuenta
 import Swal from 'sweetalert2';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 
 @Component({
   selector: 'app-registro-cuenta',
@@ -30,6 +31,7 @@ export class RegistroCuentaComponent implements OnInit {
   constructor(
     private personalService: PersonalService,
     private authService: AuthService,
+    private exportExcellService: ExportExcellService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private dialog: MatDialog,
@@ -74,7 +76,7 @@ export class RegistroCuentaComponent implements OnInit {
     this.personalService.cargarOBuscarcuentas(parametro[0]).subscribe(resp => {
     this.blockUI.stop();
 
-    //  console.log('Lista-Cuentas', resp, resp.length);
+     console.log('Lista-Cuentas', resp, resp.length);
       this.listaCuenta = [];
       this.listaCuenta = resp;
 
@@ -139,6 +141,10 @@ export class RegistroCuentaComponent implements OnInit {
       this.spinner.hide();
     }
       this.page = event;
+  }
+
+  exportarRegistro(){
+    this.exportExcellService.exportarExcel(this.listaCuenta, 'Cuenta')
   }
 
   crearCuenta(){

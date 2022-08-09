@@ -10,99 +10,143 @@
 
 <form class="row g-3" [formGroup]="personalForm">
   <div class="cli-form newvac-wrapper">
-    <div class="row g-3">
-      <div class="col-sm-4 cli-form-element">
-        <div class="form-group">
-          <label>Nombre(s)</label>
-          <input
-            type="text"
-            class="form-control cli-input-white"
-            formControlName="nombre"/>
+
+    <div class="chart-draw">
+      <!-- REGISTROS DEL PERSONAL---------------------------------------------------------- -->
+      <div class="col-1 pr-subtitle mt-2">Registros</div>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div class="row g-3">
+            <div class="col-sm-4 cli-form-element">
+              <div class="form-group">
+                <label>Nombre(s)</label>
+                <input
+                  type="text"
+                  class="form-control cli-input-white"
+                  formControlName="nombre"/>
+              </div>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <label>Apellido paterno</label>
+              <input
+                type="text"
+                class="form-control cli-input-white"
+                formControlName="apPaterno"/>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <label>Apellido materno</label>
+              <input
+                type="text"
+                class="form-control cli-input-white"
+                formControlName="apMaterno"/>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <label>DNI</label>
+              <input
+                maxlength="8"
+                class="form-control cli-input-white"
+                formControlName="dni"/>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <label>Correo</label>
+              <input
+                type="text"
+                class="form-control cli-input-white"
+                formControlName="correo"/>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <div class="form-group">
+                <label>Fecha Nacimiento</label>
+                 <input
+                  type="date"
+                  class="form-control"
+                  formControlName="fechaNacimiento"
+                />
+              </div>
+            </div>
+
+            <!-- DATOS DE LA EMPRESA -------------------------------------------------------->
+            <div class="col-sm-4 cli-form-element">
+              <label>Cód. Corporativo</label>
+              <input
+                type="text"
+                class="form-control cli-input-white"
+                formControlName="codCorp"/>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <label>Cód. Perfil</label>
+              <select class="cli-input-white" formControlName="codPerfil">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
+              </select>
+            </div>
+
+
+
+            <div class="col-sm-4 cli-form-element">
+              <div class="form-group">
+                <label>Fecha de Ingreso</label>
+                 <input
+                  type="date"
+                  class="form-control"
+                  formControlName="fechaIngreso"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <label>Cód. Proyecto</label>
+              <select class="cli-input-white" formControlName="codProy">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
+              </select>
+            </div>
+
+          </div>
         </div>
       </div>
 
-      <div class="col-sm-4 cli-form-element">
-        <label>Apellido paterno</label>
-        <input
-          type="text"
-          class="form-control cli-input-white"
-          formControlName="apPaterno"/>
-      </div>
+      <!-- HISTORICO DE HARDWARE----------------------------------------------------------- -->
+      <div class="pr-subtitle mt-2">Historico de asignación Hardware</div>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div style="overflow: auto; min-height: 150px">
+            <table class="cli-table stripedtable underlinedtable">
+              <thead>
+                <tr class="bgc-green c-white">
+                  <th>#</th>
+                  <th>Cód. Proyecto</th>
+                  <th>Descripción</th>
+                  <th>Fecha y Hora de Cambio</th>
+                  <th>Asignado por</th>
+                </tr>
+              </thead>
 
-      <div class="col-sm-4 cli-form-element">
-        <label>Apellido materno</label>
-        <input
-          type="text"
-          class="form-control cli-input-white"
-          formControlName="apMaterno"/>
-      </div>
-
-      <div class="col-sm-4 cli-form-element">
-        <label>DNI</label>
-        <input
-          maxlength="8"
-          class="form-control cli-input-white"
-          formControlName="dni"/>
-      </div>
-
-      <div class="col-sm-4 cli-form-element">
-        <label>Correo</label>
-        <input
-          type="text"
-          class="form-control cli-input-white"
-          formControlName="correo"/>
-      </div>
-
-      <div class="col-sm-4 cli-form-element">
-        <div class="form-group">
-          <label>Fecha Nacimiento</label>
-           <input
-            type="date"
-            class="form-control"
-            formControlName="fechaNacimiento"
-          />
+              <tbody>
+                <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.proyecto_descripcion }}</td>
+                  <td>{{ cambios.fecha_asignacion }}</td>
+                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-
-      <!-- DATOS DE LA EMPRESA -------------------------------------------------------->
-      <div class="col-sm-4 cli-form-element">
-        <label>Cód. Corporativo</label>
-        <input
-          type="text"
-          class="form-control cli-input-white"
-          formControlName="codCorp"/>
-      </div>
-
-      <div class="col-sm-4 cli-form-element">
-        <label>Cód. Perfil</label>
-        <select class="cli-input-white" formControlName="codPerfil">
-          <option [value]="0" disabled>- Seleccione -</option>
-          <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
-        </select>
-      </div>
-
-
-
-      <div class="col-sm-4 cli-form-element">
-        <div class="form-group">
-          <label>Fecha de Ingreso</label>
-           <input
-            type="date"
-            class="form-control"
-            formControlName="fechaIngreso"
-          />
-        </div>
-      </div>
-
-      <div class="col-sm-4 cli-form-element">
-        <label>Cód. Proyecto</label>
-        <select class="cli-input-white" formControlName="codProy">
-          <option [value]="0" disabled>- Seleccione -</option>
-          <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
-        </select>
       </div>
 
     </div>
+
+
+
+
 
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>

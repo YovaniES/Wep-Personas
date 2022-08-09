@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { ActualizarPersonalComponent } from './actualizar-personal/actualizar-personal.component';
 import { CrearPersonalComponent } from './crear-personal/crear-personal.component';
 import { DatePipe } from '@angular/common';
+import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 
 @Component({
   selector: 'app-registro-personas',
@@ -30,6 +31,7 @@ export class RegistroPersonalComponent implements OnInit {
 
   constructor(
     private personalService: PersonalService,
+    private exportExcellService: ExportExcellService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datepipe: DatePipe,
@@ -48,9 +50,31 @@ export class RegistroPersonalComponent implements OnInit {
       apellidos         : [''],
       dni               : [''],
       codProy           : [''],
+      estado            : [''],
       fechaIngresoInicio: [''],
       fechaIngresoFin   : [''],
     })
+  };
+
+
+  idEliminar: any;
+  tituloDeBaja: any;
+  codCorporativo: any;
+  informacionDeBaja: any;
+  tooltipDeBaja: any;
+  darAltaOBaja(id: number, codCorporrativo: string, estado: string) {
+    this.idEliminar = id;
+    this.codCorporativo = codCorporrativo;
+    if (estado == "Activo") {
+      this.tituloDeBaja = "Dar de Baja a un personal";
+      this.tooltipDeBaja = "Dar Baja";
+      this.informacionDeBaja = "¿Desea dar de baja al personal?";
+    }
+    if (estado == "Inactivo") {
+      this.tituloDeBaja = "Dar de Alta a un personal";
+      this.tooltipDeBaja = "Dar Alta";
+      this.informacionDeBaja = "¿Desea activar al personal?";
+    }
   }
 
   listaPersonal: any[] = [];
@@ -62,6 +86,7 @@ export class RegistroPersonalComponent implements OnInit {
           nombre         : this.filtroForm.value.nombres + " " + this.filtroForm.value.apellidos,
           dni            : this.filtroForm.value.dni,
           codigo_proyecto: this.filtroForm.value.codProy,
+          id_estado      : this.filtroForm.value.estado,
           inicio         : this.datepipe.transform(this.filtroForm.value.fechaIngresoInicio,"yyyy/MM/dd"),
           fin            : this.datepipe.transform(this.filtroForm.value.fechaIngresoFin,"yyyy/MM/dd"),
       }
@@ -123,6 +148,7 @@ export class RegistroPersonalComponent implements OnInit {
 
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})
+    this.newFilfroForm()
 
     this.cargarOBuscarPersonal();
   }
@@ -161,5 +187,9 @@ export class RegistroPersonalComponent implements OnInit {
           this.cargarOBuscarPersonal();
         }
       });
+  }
+
+  exportarRegistro(){
+    this.exportExcellService.exportarExcel(this.listaPersonal, 'Persoal')
   }
 }
