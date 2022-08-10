@@ -1,1 +1,91 @@
-<p>actualizar-liquidacion works!</p>
+<div style="display: flex">
+  <div class="flex-1"></div>
+  <div class="modal-title c-male"> Crear Factura </div>
+    <div class="flex-1"></div>
+
+    <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form class="row g-3" [formGroup]="facturaForm">
+  <div class="cli-form newvac-wrapper">
+    <div class="row g-3">
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Proyecto</label>
+        <select class="cli-input-white" formControlName="codProy">
+          <option [value]="0" disabled>- Seleccione -</option>
+          <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label class="form-label">Liquidaciones</label>
+        <select class="form-select" formControlName="id_liquidacion">
+          <option [value]="0" disabled>-Seleccione-</option>
+          <option [value]="liq.id_correlativo" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Subservicio</label>
+        <input
+          type="text"
+          class="form-control cli-input-white"
+          formControlName="subservicio"/>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label class="form-label">Gestor</label>
+        <select class="form-select" formControlName="id_gestor">
+          <option [value]="0" disabled>-Seleccione-</option>
+          <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label>Importe</label>
+        <input
+          type="number"
+          min="0"
+          class="form-control cli-input-white"
+          formControlName="venta_declarada"/>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <div class="form-group">
+          <label>Fecha Periodo</label>
+           <input
+            type="date"
+            class="form-control"
+            formControlName="fechaPeriodo"/>
+        </div>
+      </div>
+
+      <div class="col-sm-4 cli-form-element">
+        <label class="form-label">Estado</label>
+        <select class="form-select" formControlName="id_estado">
+          <option [value]="0" disabled>-Seleccione-</option>
+          <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
+        </select>
+      </div>
+
+    </div>
+    <pre>{{facturaForm.value | json}}</pre>
+
+
+    <!-- --------------------------------------------BOTONES ------------------------------------------>
+    <div class="cli-form-buttons" style="margin-top: 8%">
+      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+        <mat-icon class="icon-18">cancel</mat-icon> Cancelar
+      </button>
+      <button class="cli-btn btn-m btn-blue"
+              (click)="actualizarFactura()"
+              [disabled]="facturaForm.invalid"
+              >
+              <mat-icon class="icon-18">save</mat-icon> Actualizar
+      </button>
+    </div>
+  </div>
+</form>

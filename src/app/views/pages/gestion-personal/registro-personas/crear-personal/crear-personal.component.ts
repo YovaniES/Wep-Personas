@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-crear-personas',
   templateUrl: './crear-personal.component.html',

@@ -68,6 +68,10 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  crearFactura(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   // Listado de TIPOS
   getListTiposCuentas(obj: any){
     return this.http.post(API_PERSONAS, obj).pipe(
@@ -178,28 +182,6 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  // cargarOBuscarPersonal(id: any) {
-  //   return this.http.post(API_PERSONAS, id).pipe(
-  //     map((personal: any) => {
-  //       return personal.list.map((p: any) => {
-  //         return {
-  //           id                  : p.id,
-  //           nombres             : p.nombres,
-  //           apellidos           : p.apellidos,
-  //           correo              : p.correo,
-  //           dni                 : p.dni,
-  //           codigo_corporativo  : p.codigo_corporativo,
-  //           perfil              : p.perfil,
-  //           codigo_proyecto     : p.codigo_proyecto,
-  //           proyecto_descripcion: p.proyecto_descripcion,
-  //           fecha_ingreso       : p.fecha_ingreso,
-  //           estado              : p.estado,
-  //         }
-  //       })
-  //     })
-  //   );
-  // };
-
   cargarOBuscarPersonal(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
@@ -250,6 +232,10 @@ export class PersonalService {
   }
 
   actualizarPersonal(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  actualizarFactura(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 
