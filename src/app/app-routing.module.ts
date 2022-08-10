@@ -27,6 +27,10 @@ const routes: Routes = [
         path:'mantenimiento',
         loadChildren: () => import ('./views/pages/mantenimiento/mantenimiento.module').then((m)=>m.MantenimientoModule),
       },
+      {
+        path:'factorizacion',
+        loadChildren: () => import ('./views/pages/facturacion/facturacion.module').then((m)=>m.FacturacionModule),
+      },
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       { path:'**', redirectTo:'/error/404' }
     ]

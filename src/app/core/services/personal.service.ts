@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { map } from 'rxjs';
 import { API_PERSONAS } from '../constants/url.constants';
 
 @Injectable({
@@ -8,26 +8,6 @@ import { API_PERSONAS } from '../constants/url.constants';
 })
 export class PersonalService {
   constructor(private http: HttpClient) {}
-
-
-  /*Listado de Cuentas*/
-  getListadoCuenta(queryId: any){
-    return this.http.post(API_PERSONAS, queryId).pipe(
-      map((cuenta: any) => {
-        return cuenta.list.map((c: any) => {
-          return {
-            id                    : c.id,
-            usuario               : c.usuario,
-            password              : c.password,
-            tipo                  : c.tipo,
-            fechaUltimaRenovacion : c.fechaUltimaRenovacion,
-            fechaProximaRenovacion: c.fechaProximaRenovacion,
-            estado                : c.estado,
-            nombres               : c.nombres
-          }
-        })
-    }));
-  };
 
   getListTiposHardware(obj: any){
     return this.http.post(API_PERSONAS, obj).pipe(
@@ -55,7 +35,19 @@ export class PersonalService {
         })
       })
     )
-  }
+  };
+
+  getListEstados(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  };
+
+  getListGestores(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  };
+
+  getListLiquidaciones(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  };
 
   crearCuenta(obj: any) {
     return this.http.post(API_PERSONAS, obj);
@@ -177,71 +169,40 @@ export class PersonalService {
     );
   }
 
-  // LISTADO Y BUSQUEDA DE REGISTROS PARA LA TABLA
-  cargarOBuscarcuentas(id: any) {
-    return this.http.post(API_PERSONAS, id).pipe(
-      map((cuenta: any) => {
-        return cuenta.list.map((c: any) => {
-          return {
-            id                    : c.id,
-            usuario               : c.usuario,
-            password              : c.password,
-            tipo                  : c.tipo,
-            fechaUltimaRenovacion : c.fechaUltimaRenovacion,
-            fechaProximaRenovacion: c.fechaProximaRenovacion,
-            estado                : c.estado,
-            nombres               : c.nombres
-          }
-        })
-      })
-    );
-  };
 
-  cargarOBuscarHardware(id: any) {
-    return this.http.post(API_PERSONAS, id).pipe(
-      map((hardware: any) => {
-        return hardware.list.map((r: any) => {
-          return {
-            id_recurso         : r.id_recurso,
-            tipo               : r.tipo,
-            marca              : r.marca,
-            correo             : r.correo,
-            equipo             : r.equipo,
-            modelo             : r.modelo,
-            serie              : r.serie,
-            imei               : r.imei,
-            persona_asignada   : r.persona_asignada,
-            codigo_corporativo : r.codigo_corporativo,
-            proyecto           : r.proyecto,
-            estado_recurso     : r.estado_recurso,
-            observacion        : r.observacion,
-          }
-        })
-      })
-    );
-  };
+  cargarOBuscarcuentas(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
 
-  cargarOBuscarPersonal(id: any) {
-    return this.http.post(API_PERSONAS, id).pipe(
-      map((personal: any) => {
-        return personal.list.map((p: any) => {
-          return {
-            id                  : p.id,
-            nombres             : p.nombres,
-            apellidos           : p.apellidos,
-            correo              : p.correo,
-            dni                 : p.dni,
-            codigo_corporativo  : p.codigo_corporativo,
-            perfil              : p.perfil,
-            codigo_proyecto     : p.codigo_proyecto,
-            proyecto_descripcion: p.proyecto_descripcion,
-            fecha_ingreso       : p.fecha_ingreso,
-            estado              : p.estado,
-          }
-        })
-      })
-    );
-  };
+  cargarOBuscarHardware(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  // cargarOBuscarPersonal(id: any) {
+  //   return this.http.post(API_PERSONAS, id).pipe(
+  //     map((personal: any) => {
+  //       return personal.list.map((p: any) => {
+  //         return {
+  //           id                  : p.id,
+  //           nombres             : p.nombres,
+  //           apellidos           : p.apellidos,
+  //           correo              : p.correo,
+  //           dni                 : p.dni,
+  //           codigo_corporativo  : p.codigo_corporativo,
+  //           perfil              : p.perfil,
+  //           codigo_proyecto     : p.codigo_proyecto,
+  //           proyecto_descripcion: p.proyecto_descripcion,
+  //           fecha_ingreso       : p.fecha_ingreso,
+  //           estado              : p.estado,
+  //         }
+  //       })
+  //     })
+  //   );
+  // };
+
+  cargarOBuscarPersonal(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
 
   cargarOBuscarEntidades(id: any) {
     return this.http.post(API_PERSONAS, id).pipe(
@@ -258,6 +219,9 @@ export class PersonalService {
     );
   };
 
+  cargarOBuscarFacturas(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
 
   getHistoricoCambiosProyecto(obj: any) {
     return this.http.post(API_PERSONAS, obj).pipe(
@@ -298,6 +262,10 @@ export class PersonalService {
   }
 
   eliminarPersonal(id: number) {
+    return this.http.post(API_PERSONAS, id);
+  }
+
+  eliminarFactura(id: number) {
     return this.http.post(API_PERSONAS, id);
   }
 

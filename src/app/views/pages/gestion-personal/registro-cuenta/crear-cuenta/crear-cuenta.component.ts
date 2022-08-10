@@ -29,9 +29,8 @@ export class CrearCuentaComponent implements OnInit {
 
   ngOnInit(): void {
     this.newForm();
-    // this.cargarCuentasById;
     this.getListTiposCuentas();
-    console.log('ID_DATA', this.DATA);
+    // console.log('ID_DATA', this.DATA);
     this.userId();
   }
 
@@ -162,8 +161,6 @@ export class CrearCuentaComponent implements OnInit {
   //     })
   //   }
   // }
-
-
 
   campoNoValido(campo: string): boolean {
     if (

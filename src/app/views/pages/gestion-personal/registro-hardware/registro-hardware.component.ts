@@ -79,12 +79,12 @@ export class RegistroHardwareComponent implements OnInit {
         param_imei     : this.filtroForm.value.imei,
       }
     }];
-    this.personalService.cargarOBuscarHardware(parametro[0]).subscribe(resp => {
+    this.personalService.cargarOBuscarHardware(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
     //  console.log('Lista-Hardware', resp, resp.length);
       this.listaHardware = [];
-      this.listaHardware = resp;
+      this.listaHardware = resp.list;
 
       this.spinner.hide();
     });
@@ -160,8 +160,8 @@ export class RegistroHardwareComponent implements OnInit {
     this.spinner.show();
 
     if (this.totalfiltro != this.totalHardware) {
-      this.personalService.cargarOBuscarHardware(offset.toString()).subscribe( resp => {
-            this.listaHardware = resp;
+      this.personalService.cargarOBuscarHardware(offset.toString()).subscribe( (resp: any) => {
+            this.listaHardware = resp.list;
             this.spinner.hide();
           });
     } else {

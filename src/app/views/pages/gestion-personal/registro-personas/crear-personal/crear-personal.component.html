@@ -100,8 +100,8 @@
            <input
             type="date"
             class="form-control"
-            formControlName="fechaIngreso"
-          />
+            formControlName="fechaIngreso"/>
+        <small class="form-text text-alert" *ngIf="campoNoValido('fechaIngreso')">* Este campo es obligatorio</small>
         </div>
       </div>
 
@@ -113,8 +113,6 @@
         </select>
         <small class="form-text text-alert" *ngIf="campoNoValido('codProy')">* Este campo es obligatorio</small>
       </div>
-
-
 
       <div class="col-sm-4 cli-form-element mb-2">
         <label>Descripción del Proyecto</label>
@@ -131,8 +129,8 @@
       </button>
       <button class="cli-btn btn-m btn-blue"
               (click)="crearPersonal()"
+              [disabled]="personalForm.invalid"
               >
-              <!-- [disabled]="hardwareForm.invalid" -->
               <mat-icon class="icon-18">save</mat-icon> Registrar
       </button>
     </div>

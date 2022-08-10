@@ -73,12 +73,12 @@ export class RegistroCuentaComponent implements OnInit {
         param_id_estado: this.filtroForm.value.idEstado,
       }
     }];
-    this.personalService.cargarOBuscarcuentas(parametro[0]).subscribe(resp => {
+    this.personalService.cargarOBuscarcuentas(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Cuentas', resp, resp.length);
+     console.log('Lista-Cuentas', resp, resp.list.length);
       this.listaCuenta = [];
-      this.listaCuenta = resp;
+      this.listaCuenta = resp.list;
 
       this.spinner.hide();
     });
@@ -133,8 +133,8 @@ export class RegistroCuentaComponent implements OnInit {
     this.spinner.show();
 
     if (this.totalfiltro != this.totalIniciativa) {
-      this.personalService.cargarOBuscarcuentas(offset.toString()).subscribe( resp => {
-            this.listaCuenta = resp;
+      this.personalService.cargarOBuscarcuentas(offset.toString()).subscribe( (resp: any) => {
+            this.listaCuenta = resp.list;
             this.spinner.hide();
           });
     } else {

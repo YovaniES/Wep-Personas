@@ -6,8 +6,6 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { of } from 'rxjs';
-import { AuthService } from 'src/app/core/services/auth.service';
 import { ActualizarPersonalComponent } from './actualizar-personal/actualizar-personal.component';
 import { CrearPersonalComponent } from './crear-personal/crear-personal.component';
 import { DatePipe } from '@angular/common';
@@ -91,12 +89,12 @@ export class RegistroPersonalComponent implements OnInit {
           fin            : this.datepipe.transform(this.filtroForm.value.fechaIngresoFin,"yyyy/MM/dd"),
       }
     }];
-    this.personalService.cargarOBuscarPersonal(parametro[0]).subscribe(resp => {
+    this.personalService.cargarOBuscarPersonal(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-    //  console.log('Lista-Personal', resp, resp.length);
+     console.log('Lista-Personal', resp, resp.list.length);
       this.listaPersonal = [];
-      this.listaPersonal = resp;
+      this.listaPersonal = resp.list;
 
       this.spinner.hide();
     });
@@ -159,8 +157,8 @@ export class RegistroPersonalComponent implements OnInit {
     this.spinner.show();
 
     if (this.totalfiltro != this.totalPersonal) {
-      this.personalService.cargarOBuscarPersonal(offset.toString()).subscribe( resp => {
-            this.listaPersonal = resp;
+      this.personalService.cargarOBuscarPersonal(offset.toString()).subscribe( (resp: any) => {
+            this.listaPersonal = resp.list;
             this.spinner.hide();
           });
     } else {

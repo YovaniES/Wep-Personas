@@ -28,10 +28,6 @@ export class CrearPersonalComponent implements OnInit {
     this.getListProyectos();
     this.getUserID();
     this.getListPerfiles();
-    // this.getDescPerfil(1)
-
-    // this.getInfoProyecto(4);
-    // this.getInfoProyecto(5);
   }
 
 
@@ -40,15 +36,15 @@ export class CrearPersonalComponent implements OnInit {
      nombre         : ['', [Validators.required]],
      apPaterno      : ['', [Validators.required]],
      apMaterno      : ['', [Validators.required]],
-     dni            : ['', [Validators.required]],
+     dni            : [''],
      correo         : ['', [Validators.required]],
-     fechaNacimiento: ['', [Validators.required]],
+     fechaNacimiento: [''],
      codCorp        : ['', [Validators.required]],
      codPerfil      : ['', [Validators.required]],
-     descPerfil     : ['', [Validators.required]],
+     descPerfil     : [''],
      fechaIngreso   : ['', [Validators.required]],
      codProy        : ['', [Validators.required]],
-     descProy       : ['', [Validators.required]],
+     descProy       : [''],
     })
    }
 
