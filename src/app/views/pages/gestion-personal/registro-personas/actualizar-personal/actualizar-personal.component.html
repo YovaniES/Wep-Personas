@@ -1,16 +1,15 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> Actualizar Personal </div>
-    <div class="flex-1"></div>
+  <div class="modal-title c-male">Actualizar Personal</div>
+  <div class="flex-1"></div>
 
-    <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
-      <mat-icon>close</mat-icon>
-    </button>
+  <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
 
 <form class="row g-3" [formGroup]="personalForm">
   <div class="cli-form newvac-wrapper">
-
     <div class="chart-draw">
       <!-- REGISTROS DEL PERSONAL---------------------------------------------------------- -->
       <div class="col-1 pr-subtitle mt-2">Registros</div>
@@ -23,7 +22,8 @@
                 <input
                   type="text"
                   class="form-control cli-input-white"
-                  formControlName="nombre"/>
+                  formControlName="nombre"
+                />
               </div>
             </div>
 
@@ -32,7 +32,8 @@
               <input
                 type="text"
                 class="form-control cli-input-white"
-                formControlName="apPaterno"/>
+                formControlName="apPaterno"
+              />
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -40,7 +41,8 @@
               <input
                 type="text"
                 class="form-control cli-input-white"
-                formControlName="apMaterno"/>
+                formControlName="apMaterno"
+              />
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -48,7 +50,8 @@
               <input
                 maxlength="8"
                 class="form-control cli-input-white"
-                formControlName="dni"/>
+                formControlName="dni"
+              />
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -56,43 +59,53 @@
               <input
                 type="text"
                 class="form-control cli-input-white"
-                formControlName="correo"/>
+                formControlName="correo"
+              />
             </div>
 
             <div class="col-sm-4 cli-form-element">
               <div class="form-group">
                 <label>Fecha Nacimiento</label>
-                 <input
+                <input
                   type="date"
                   class="form-control"
                   formControlName="fechaNacimiento"
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <!-- DATOS DE LA EMPRESA -------------------------------------------------------->
+      <!-- DATOS DE LA EMPRESA -------------------------------------------------------->
+      <div class="pr-subtitle mt-2">Datos de la empresax</div>
+
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div class="row g-3">
             <div class="col-sm-4 cli-form-element">
               <label>Cód. Corporativo</label>
               <input
                 type="text"
                 class="form-control cli-input-white"
-                formControlName="codCorp"/>
+                formControlName="codCorp"
+              />
             </div>
 
             <div class="col-sm-4 cli-form-element">
               <label>Cód. Perfil</label>
               <select class="cli-input-white" formControlName="codPerfil">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
+                <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">
+                  {{ perfil.nombre }}
+                </option>
               </select>
             </div>
-
-
 
             <div class="col-sm-4 cli-form-element">
               <div class="form-group">
                 <label>Fecha de Ingreso</label>
-                 <input
+                <input
                   type="date"
                   class="form-control"
                   formControlName="fechaIngreso"
@@ -104,10 +117,11 @@
               <label>Cód. Proyecto</label>
               <select class="cli-input-white" formControlName="codProy">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
+                <option [value]="cod.id" *ngFor="let cod of listProyectos">
+                  {{ cod.codigo }}
+                </option>
               </select>
             </div>
-
           </div>
         </div>
       </div>
@@ -141,26 +155,17 @@
           </div>
         </div>
       </div>
-
     </div>
-
-
-
-
-
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
     <div class="cli-form-buttons" style="margin-top: 8%">
       <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
-      <button class="cli-btn btn-m btn-blue"
-              (click)="actualizarPersonal()"
-              >
-              <!-- [disabled]="hardwareForm.invalid" -->
-              <mat-icon class="icon-18">save</mat-icon> Actualizar
+      <button class="cli-btn btn-m btn-blue" (click)="actualizarPersonal()">
+        <!-- [disabled]="hardwareForm.invalid" -->
+        <mat-icon class="icon-18">save</mat-icon> Actualizar
       </button>
     </div>
   </div>
 </form>
-

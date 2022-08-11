@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
@@ -14,13 +15,16 @@ import Swal from 'sweetalert2';
 export class ActualizarLiquidacionComponent implements OnInit {
   userID: number = 0;
   facturaForm!: FormGroup;
+  factura_Id = this.ID_REG_FACTURA;
 
   constructor(
     private personalService: PersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
+    public datePipe: DatePipe,
     private dialogRef: MatDialogRef<ActualizarLiquidacionComponent>,
+    @Inject(MAT_DIALOG_DATA) public ID_REG_FACTURA: any
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +34,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.getListEstados();
     this.getListLiquidaciones();
     this.getListGestores();
+    this.cargarFacturalById();
+    this.getHistoricoCambiosEstado(this.ID_REG_FACTURA);
   }
 
 
@@ -47,7 +53,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
      factura             : [''],
      monto_facturado     : [''],
      comentarios         : [''],
-     gestor              : ['']
+     gestor              : [''],
+     fecha_crea          : ['']
     })
    }
 
@@ -63,7 +70,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     let parametro: any[] = [{queryId: 82}];
     this.personalService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
             this.listLiquidaciones = resp.list;
-            console.log('LIQUIDAC', resp);
+            // console.log('LIQUIDAC', resp);
     });
   }
 
@@ -73,7 +80,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
     this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
             this.listEstados = resp.list;
-            console.log('EST-FACT', resp);
+            // console.log('EST-FACT', resp);
     });
   }
 
@@ -83,7 +90,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
     this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
             this.listGestores = resp.list;
-            console.log('GESTORES', resp);
+            // console.log('GESTORES', resp);
     });
   };
 
@@ -93,7 +100,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
             this.listProyectos = resp;
-            console.log('COD_PROY', resp);
+            // console.log('COD_PROY', resp);
     });
   };
 
@@ -102,7 +109,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
     let currentUser = this.authService.getUsername();
 
     const formValues = this.facturaForm.getRawValue();
-
     let parametro: any =  {
         queryId: 70,
         mapValue:{
@@ -121,7 +127,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
           p_Comentarios       : formValues.comentarios,
           p_idMotivo          : '',
           p_idUsuarioCrea     : this.userID,
-          p_fechaCrea         : '',
+          p_fechaCrea         : formValues.fechaCrea,
           p_idUsuarioActualiza: '',
           p_fechaActualiza    : '',
           p_ver_estado        : '',
@@ -133,7 +139,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.personalService.actualizarFactura(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Actualizar Factura!',
-        text: `La Factura: ${formValues.id_liquidacion}, ha sido actualizado con éxito`,
+        text: `La Factura: ${this.ID_REG_FACTURA}, ha sido actualizado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });
@@ -142,16 +148,67 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.spinner.hide();
   }
 
+  cargarFacturalById(){
+    this.spinner.show();
 
-  campoNoValido(campo: string): boolean {
-    if (
-      this.facturaForm.get(campo)?.invalid &&
-      this.facturaForm.get(campo)?.touched
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    let parametro: any[] = [{
+      queryId: 103,
+      mapValue: {'param_id_factura': this.ID_REG_FACTURA}
+    }];
+
+    this.personalService.cargarFacturaById(parametro[0]).subscribe( (resp: any) => {
+
+      console.log('LISTA-EDITAR_BY_ID', resp );
+      for (let i = 0; i < resp.list.length; i++) {
+        this.facturaForm.controls['id_liquidacion' ].setValue(resp.list[i].idLiquidacion);
+        this.facturaForm.controls['codProy'        ].setValue(resp.list[i].idProyecto);
+        this.facturaForm.controls['subservicio'    ].setValue(resp.list[i].subServicio);
+        this.facturaForm.controls['id_gestor'      ].setValue(resp.list[i].idGestor);
+        this.facturaForm.controls['venta_declarada'].setValue(resp.list[i].venta_declarada);
+        // this.facturaForm.controls['fechaPeriodo'   ].setValue(resp.list[i].periodo);
+        this.facturaForm.controls['id_estado'      ].setValue(resp.list[i].idEstado);
+        this.facturaForm.controls['orden_compra'   ].setValue(resp.list[i].orden_compra);
+        this.facturaForm.controls['certificacion'  ].setValue(resp.list[i].cod_certificacion);
+        this.facturaForm.controls['factura'        ].setValue(resp.list[i].factura);
+        this.facturaForm.controls['monto_facturado'].setValue(resp.list[i].monto_facturado);
+        this.facturaForm.controls['comentarios'    ].setValue(resp.list[i].Comentarios);
+        this.facturaForm.controls['gestor'         ].setValue(resp.list[i].gestor);
+
+        // if (resp.list[i].periodo !='null' && resp.list[i].periodo != '') {
+        //   let fPeriodo = resp.list[i].periodo
+        //   const str   = fPeriodo.split('/');
+        //   const year  = Number(str[2]);
+        //   const month = Number(str[1]);
+        //   const date  = Number(str[0]);
+        //   this.facturaForm.controls['fechaPeriodo'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+        // }
+
+        if (resp.list[i].fechaCrea !='null' && resp.list[i].fechaCrea != '') {
+          let fCrea = resp.list[i].fechaCrea
+          const str   = fCrea.split('/');
+          const year  = Number(str[2]);
+          const month = Number(str[1]);
+          const date  = Number(str[0]);
+          this.facturaForm.controls['fecha_crea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+        }
+      }
+      this.spinner.hide();
+    })
+  }
+
+  histCambiosEstado: any[] = [];
+  getHistoricoCambiosEstado(id: number){
+  this.spinner.show();
+    let parametro: any[] = [{
+      queryId: 67,
+      mapValue: {p_id: this.ID_REG_FACTURA}
+    }];
+
+    this.personalService.getHistoricoCambiosEstado(parametro[0]).subscribe((resp: any) => {
+      this.histCambiosEstado = resp.list;
+      console.log('HistCambIDFact', resp.list)
+    });
+    this.spinner.hide();
   }
 
   close(succes?: boolean) {

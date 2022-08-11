@@ -14,6 +14,56 @@
 }
 
 
+
+
+// ESTILOS MODAL LINEA IZQ
+.newvac-wrapper {
+  border-radius: 3px;
+  max-width: 98%;
+  margin: 5px auto;
+  padding: 5px;
+}
+
+.pr-section {
+  margin-left: 10px;
+  padding-left: 20px;
+  padding-top: 4px;
+  border-left: 1px solid $color-blue;
+}
+
+.pr-subtitle {
+  font-size: 0.8rem;
+  font-family: "Webapp-Bold";
+  color: $color-blue;
+}
+
+.pr-module {
+  &-container {
+    margin: 2px 0;
+    padding: 15px;
+    border: dashed 1px #d3d4d3;
+    border-radius: 2px;
+  }
+}
+
+.id-iniciativa {
+  font-size: 18px;
+  text-align: center;
+  font-weight: 400;
+
+  color: #212529;
+  border: solid 0.5px $color-blue;
+  border-radius: 4px;
+  background: #f8f9fa;
+  padding: 4px;
+}
+
+.total {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+
 @media (max-width: 768px) {
   .modal-title {
     font-size: 1.2rem;

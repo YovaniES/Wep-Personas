@@ -172,7 +172,7 @@ export class ActualizarPersonalComponent implements OnInit {
           const date  = Number(str[0]);
           this.personalForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
-        this.personalForm.controls['estado'].setValue(resp.list[i].estado);
+        // this.personalForm.controls['estado'].setValue(resp.list[i].estado);
       }
       this.spinner.hide();
     })
@@ -200,3 +200,10 @@ export class ActualizarPersonalComponent implements OnInit {
     this.dialogRef.close(succes);
   }
 }
+
+
+
+
+
+
+

@@ -223,6 +223,10 @@ export class PersonalService {
     );
   }
 
+  getHistoricoCambiosEstado(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   actualizarCuenta(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
@@ -266,5 +270,9 @@ export class PersonalService {
   cargarHardwareById(obj: any) {
     return this.http.post(API_PERSONAS, obj)
   }
+
+  cargarFacturaById(obj: any) {
+    return this.http.post(API_PERSONAS, obj)
+  };
 
 }
