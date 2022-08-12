@@ -161,7 +161,7 @@ export class RegistroCuentaComponent implements OnInit {
   actualizarCuenta(id: any) {
     console.log('IDXX',id);
     this.dialog
-      .open(ActualizarCuentaComponent, { width: '50%', height: '20%', data: id, })
+      .open(ActualizarCuentaComponent, { width: '50%', data: id, })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarcuentas();

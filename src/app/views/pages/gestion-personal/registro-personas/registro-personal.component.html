@@ -3,8 +3,7 @@
     <div class="modal-title c-male">Mantenimiento del personal</div>
     <div>
       <!-- BUSCADOR POR FILTRO ---------------------------------------------------------------->
-      <div class="card" style="border-radius: 2px; font-weight: 600">
-        <div class="card-body" style="padding: 10px">
+      <div class="card" style="border-radius: 2px; font-weight: 600; padding: 7px">
           <form class="row g-3" [formGroup]="filtroForm">
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Nombres</label>
@@ -46,7 +45,7 @@
                 formControlName="dni"/>
             </div>
 
-            <div class="col-sm-3 cli-form-elemen  t">
+            <div class="col-sm-3 cli-form-element">
               <div class="form-group">
                 <label>Fecha ingreso <span class="date-rango">(desde)</span></label>
                  <input
@@ -90,7 +89,6 @@
               </button>
             </div>
           </form>
-        </div>
       </div>
 
 
@@ -142,22 +140,19 @@
                         currentPage : page,
                         totalItems  : totalPersonal
                       } ">
-              <td>
+              <td class="w100">
                 <div class="cli-table-actions">
-                  <button
-                    matTooltip="Editar"
+                  <button matTooltip="Editar"
                     class="icon-btn btn-trans c-blue"
                     (click)="actualizarPersonal(personal.id)"
                   ><mat-icon class="icon-18">manage_accounts</mat-icon>
                   </button>
-                  <button
-                    matTooltip="Eliminar"
+                  <button matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
                     (click)="eliminarPersonal(personal.id)"
                   ><mat-icon class="icon-18">person_remove</mat-icon>
                   </button>
-                  <button
-                    matTooltip="{{tooltipDeBaja}}"
+                  <button matTooltip="{{tooltipDeBaja}}"
                     class="icon-btn btn-trans c-green"
                     (click)="darAltaOBaja(personal.id, personal.codigo_corporativo, '')"
                   ><mat-icon class="icon-18">person_off</mat-icon>
@@ -165,13 +160,13 @@
                 </div>
               </td>
               <td>{{ personal.id }}</td>
-              <td class="w250"> {{ personal.apellidos | firstCapital}}, {{personal.nombres | firstCapital}}</td>
-              <td class="w155">{{ personal.codigo_proyecto  | uppercase}}</td>
+              <td class="w300"> {{ personal.apellidos | firstCapital}}, {{personal.nombres | firstCapital}}</td>
+              <td class="w">{{ personal.codigo_proyecto  | uppercase}}</td>
               <td class="w135">{{ personal.codigo_corporativo| uppercase }}</td>
               <td>{{ personal.perfil | firstCapital }}</td>
               <td>{{ personal.correo }}</td>
               <td class="w135">{{ personal.estado | firstCapital }}</td>
-              <td class="w250">{{ personal.proyecto_descripcion | firstCapital}}</td>
+              <td class="w300">{{ personal.proyecto_descripcion | firstCapital}}</td>
               <td>{{ personal.fecha_ingreso }}</td>
             </tr>
           </tbody>

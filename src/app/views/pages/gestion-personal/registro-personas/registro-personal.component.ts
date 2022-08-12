@@ -181,7 +181,7 @@ export class RegistroPersonalComponent implements OnInit {
 
   actualizarPersonal(id: any) {
     this.dialog
-      .open(ActualizarPersonalComponent, { width: '55%', height:'85%', data: id, })
+      .open(ActualizarPersonalComponent, { width: '55%', height:'90%', data: id, })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarPersonal();

@@ -182,6 +182,9 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  cargarOBuscarHardwareDisponible(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
   cargarOBuscarPersonal(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }

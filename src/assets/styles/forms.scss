@@ -2,6 +2,8 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    margin-top: 20px;
     &-title{
         width: 100%;
         font-family: 'Webapp-Bold';
@@ -36,6 +38,7 @@
     &-element{
         display: flex;
         flex-direction: column;
+        margin-top: 12px;
         & label{
             padding: 0;
             margin: 0 2px;

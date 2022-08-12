@@ -13,37 +13,12 @@
   margin-top: 0;
 }
 
-.chart-draw {
-  flex: 1 1;
-  // overflow: auto;
-}
+
 
 .w55{
   width: 55px;
 }
 
-// ESTILOS MODAL LINEA IZQ
-.pr-subtitle {
-  font-size: 0.8rem;
-  font-family: "Webapp-Bold";
-  color: $color-blue;
-}
-
-.pr-section {
-  margin-left: 10px;
-  padding-left: 20px;
-  padding-top: 4px;
-  border-left: 1px solid $color-blue;
-}
-
-.pr-module {
-  &-container {
-    margin: 2px 0;
-    padding: 15px;
-    border: dashed 1px #d3d4d3;
-    border-radius: 2px;
-  }
-}
 
 @media (max-width: 768px) {
   .modal-title {

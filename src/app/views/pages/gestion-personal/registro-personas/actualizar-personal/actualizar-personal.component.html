@@ -130,7 +130,7 @@
       <div style="display: flex; background-color: #f6f3f3;" >
         <div class="pr-subtitle">Recurso Hardware</div>
         <div class="flex-1"></div>
-          <button class="cli-btn btn-trans" type="submit" style="height: 20px; margin-right: 1px;" (click)="close()">
+          <button class="cli-btn btn-trans" type="submit" style="height: 20px; margin-right: 1px;" (click)="agregarHardware()">
             <mat-icon class="icon-18" style="color: #22d7a2">add</mat-icon>
           </button>
       </div>
@@ -175,6 +175,17 @@
                 </tr>
               </tbody>
             </table>
+            <div class="cli-loader" *ngIf="loadingItem">
+              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+              cargando...
+            </div>
+
+            <div
+              *ngIf="!loadingItem && histCambiosProyecto.length == 0"
+              class="cli-loader mt-2"
+              style="color: #c9c9c9"
+            >Aún no tiene recurso hardware
+            </div>
           </div>
         </div>
       </div>
@@ -220,6 +231,17 @@
                 </tr>
               </tbody>
             </table>
+            <div class="cli-loader" *ngIf="loadingItem">
+              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+              cargando...
+            </div>
+
+            <div
+              *ngIf="!loadingItem && histCambiosProyecto.length == 0"
+              class="cli-loader mt-2"
+              style="color: #c9c9c9"
+            >Aún no tiene recurso cuenta
+            </div>
           </div>
         </div>
       </div>
@@ -250,6 +272,17 @@
                 </tr>
               </tbody>
             </table>
+            <div class="cli-loader" *ngIf="loadingItem">
+              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+              cargando...
+            </div>
+
+            <div
+              *ngIf="!loadingItem && histCambiosProyecto.length == 0"
+              class="cli-loader mt-2"
+              style="color: #c9c9c9"
+            >Aquí se listarán los cambios
+            </div>
           </div>
         </div>
       </div>

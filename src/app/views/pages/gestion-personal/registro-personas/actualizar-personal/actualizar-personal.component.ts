@@ -1,17 +1,21 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
+import { AgregarHardwareComponent } from './agregar-hardware/agregar-hardware.component';
 @Component({
   selector: 'app-actualizar-personas',
   templateUrl: './actualizar-personal.component.html',
   styleUrls: ['./actualizar-personal.component.scss']
 })
 export class ActualizarPersonalComponent implements OnInit {
+  @BlockUI() blockUI!: NgBlockUI;
+  loadingItem: boolean = false;
 
   userID: number = 0;
   personalForm!: FormGroup;
@@ -22,9 +26,9 @@ export class ActualizarPersonalComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
+    private dialog: MatDialog,
     private dialogRef: MatDialogRef<ActualizarPersonalComponent>,
     @Inject(MAT_DIALOG_DATA) public ID_REG_PERSONAL: any
-
   ) { }
 
   ngOnInit(): void {
@@ -228,6 +232,22 @@ export class ActualizarPersonalComponent implements OnInit {
       console.log('ListHistCambID', resp)
     });
     this.spinner.hide();
+  }
+
+
+  cargarOBuscarHardwareDisponible(){
+
+  }
+
+
+  agregarHardware(){
+    const dialogRef = this.dialog.open(AgregarHardwareComponent, {width:'35%'});
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp) {
+        this.cargarOBuscarHardwareDisponible()
+      }
+    })
   }
 
   close(succes?: boolean) {
