@@ -110,6 +110,7 @@ export class RegistroPersonalComponent implements OnInit {
     });
   }
 
+  name: string = '';
   eliminarPersonal(id: number){
     this.spinner.show();
 
@@ -123,10 +124,11 @@ export class RegistroPersonalComponent implements OnInit {
       title: '¿Eliminar Personal?',
       text: `¿Estas seguro que deseas eliminar al personal: ${id} ?`,
       icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#ec4756',
+      cancelButtonColor: '#0d6efd',
       confirmButtonText: 'Si, Eliminar!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarPersonal(parametro[0]).subscribe(resp => {
@@ -179,7 +181,7 @@ export class RegistroPersonalComponent implements OnInit {
 
   actualizarPersonal(id: any) {
     this.dialog
-      .open(ActualizarPersonalComponent, { width: '55%', data: id, })
+      .open(ActualizarPersonalComponent, { width: '55%', height:'85%', data: id, })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarPersonal();

@@ -227,6 +227,10 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  agregarFacturaCambios(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   actualizarCuenta(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }

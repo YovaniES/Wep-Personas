@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">Actualizar Personal</div>
+  <div class="modal-title c-male">Actualizar y asignar recursos</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -11,8 +11,9 @@
 <form class="row g-3" [formGroup]="personalForm">
   <div class="cli-form newvac-wrapper">
     <div class="chart-draw">
-      <!-- REGISTROS DEL PERSONAL---------------------------------------------------------- -->
-      <div class="col-1 pr-subtitle mt-2">Registros</div>
+      <!-- REGISTROS DEL PERSONAL-------------------------------------------------------------------- -->
+      <div class="col-2 pr-subtitle mt-2">Datos Personales</div>
+
       <div class="pr-section">
         <div class="pr-module-container">
           <div class="row g-3">
@@ -77,9 +78,8 @@
         </div>
       </div>
 
-      <!-- DATOS DE LA EMPRESA -------------------------------------------------------->
-      <div class="pr-subtitle mt-2">Datos de la empresax</div>
-
+      <!-- DATOS DE LA EMPRESA ------------------------------------------------------------------------->
+      <div class="pr-subtitle mt-2">Datos de la empresa</div>
       <div class="pr-section">
         <div class="pr-module-container">
           <div class="row g-3">
@@ -126,11 +126,109 @@
         </div>
       </div>
 
-      <!-- HISTORICO DE CAMBIOS DE PROYECTO--------------------------------------------------------- -->
+      <!-- AGREGAR RECURSO HARDWARE------------------------------------------------------------------ -->
+      <div style="display: flex; background-color: #f6f3f3;" >
+        <div class="pr-subtitle">Recurso Hardware</div>
+        <div class="flex-1"></div>
+          <button class="cli-btn btn-trans" type="submit" style="height: 20px; margin-right: 1px;" (click)="close()">
+            <mat-icon class="icon-18" style="color: #22d7a2">add</mat-icon>
+          </button>
+      </div>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div style="overflow: auto; min-height: 115px">
+            <table class="cli-table stripedtable underlinedtable">
+              <thead>
+                <tr class="bgc-blue c-white">
+                  <th>Accíón</th>
+                  <th>ID Recurso</th>
+                  <th>Tipo</th>
+                  <th>Marca</th>
+                  <th>Serie</th>
+                  <th>Descripción</th>
+                  <th>Modelo</th>
+                  <th>Imei</th>
+                  <th>Observación</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
+                  <td class="w55">
+                    <div class="cli-table-actions">
+                      <button
+                        matTooltip="Eliminar"
+                        class="icon-btn btn-trans c-fucsia"
+                        ><mat-icon class="icon-13">delete_forever</mat-icon>
+                        <!-- (click)="eliminarCuenta(cuenta.id)" -->
+                      </button>
+                    </div>
+                  </td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.fecha_asignacion }}</td>
+                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGREGAR RECURSO CUENTA-------------------------------------------------------------------- -->
+      <div style="display: flex; background-color: #f6f3f3;" >
+        <div class="pr-subtitle">Recurso Cuenta</div>
+        <div class="flex-1"></div>
+          <button class="cli-btn btn-trans" type="submit" style="height: 20px; margin-right: 1px;" (click)="close()">
+            <mat-icon class="icon-18" style="color: #22d7a2">add</mat-icon>
+          </button>
+      </div>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div style="overflow: auto; min-height: 115px">
+            <table class="cli-table stripedtable underlinedtable">
+              <thead>
+                <tr class="bgc-blue c-white">
+                  <th>Acción</th>
+                  <th>ID Cuenta</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Tipo</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
+                  <td class="w55">
+                    <div class="cli-table-actions">
+                      <button
+                        matTooltip="Eliminar"
+                        class="icon-btn btn-trans c-fucsia"
+                        (click)="eliminarPersonal(cambios.id)"
+                        ><mat-icon class="icon-13">delete_forever</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.proyecto_codigo }}</td>
+                  <td>{{ cambios.fecha_asignacion }}</td>
+                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- HISTORICO DE CAMBIOS DE PROYECTO---------------------------------------------------------- -->
       <div class="pr-subtitle mt-2">Historico cambios de Proyecto</div>
       <div class="pr-section">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 150px">
+          <div style="overflow: auto; min-height: 115px">
             <table class="cli-table stripedtable underlinedtable">
               <thead>
                 <tr class="bgc-green c-white">
@@ -157,8 +255,8 @@
       </div>
     </div>
 
-    <!-- --------------------------------------------BOTONES ------------------------------------------>
-    <div class="cli-form-buttons" style="margin-top: 8%">
+    <!-- --------------------------------------------BOTONES ------------------------------------------->
+    <div class="cli-form-buttons">
       <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>

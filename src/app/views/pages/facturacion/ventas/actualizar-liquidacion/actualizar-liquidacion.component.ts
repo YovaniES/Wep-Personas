@@ -54,7 +54,10 @@ export class ActualizarLiquidacionComponent implements OnInit {
      monto_facturado     : [''],
      comentarios         : [''],
      gestor              : [''],
-     fecha_crea          : ['']
+     fecha_crea          : [''],
+
+     id_factura          : [''],
+     user                : [''],
     })
    }
 
@@ -104,14 +107,16 @@ export class ActualizarLiquidacionComponent implements OnInit {
     });
   };
 
+
   actualizarFactura() {
     this.spinner.show();
     let currentUser = this.authService.getUsername();
 
     const formValues = this.facturaForm.getRawValue();
     let parametro: any =  {
-        queryId: 70,
+        queryId: 66,
         mapValue:{
+          p_idFactura         : this.ID_REG_FACTURA,
           p_periodo           : formValues.fechaPeriodo,
           p_idProyecto        : formValues.codProy,
           p_idLiquidacion     : formValues.id_liquidacion,
@@ -128,9 +133,9 @@ export class ActualizarLiquidacionComponent implements OnInit {
           p_idMotivo          : '',
           p_idUsuarioCrea     : this.userID,
           p_fechaCrea         : formValues.fechaCrea,
-          p_idUsuarioActualiza: '',
+          p_idUsuarioActualiza: 5,
           p_fechaActualiza    : '',
-          p_ver_estado        : '',
+          p_ver_estado        : 1,
           CONFIG_USER_ID      : this.userID,
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: '',
@@ -143,11 +148,20 @@ export class ActualizarLiquidacionComponent implements OnInit {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
+
+
+      // if(formValues.id_estado){
+      //   this.agregarFacturaCambios()
+      // }else{
+      //   this.close(true)
+      // }
       this.close(true);
     });
     this.spinner.hide();
   }
 
+
+  estadoInicial: string = '';
   cargarFacturalById(){
     this.spinner.show();
 
@@ -174,6 +188,9 @@ export class ActualizarLiquidacionComponent implements OnInit {
         this.facturaForm.controls['comentarios'    ].setValue(resp.list[i].Comentarios);
         this.facturaForm.controls['gestor'         ].setValue(resp.list[i].gestor);
 
+
+        this.estadoInicial = resp.list[i].estado;
+
         // if (resp.list[i].periodo !='null' && resp.list[i].periodo != '') {
         //   let fPeriodo = resp.list[i].periodo
         //   const str   = fPeriodo.split('/');
@@ -196,6 +213,40 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
+
+  agregarFacturaCambios(){
+    if (this.estadoInicial != this.facturaForm.value.id_estado) {
+
+      let parametro: any[] = [{
+        queryId: 104,
+        mapValue: {
+        //  "p_idiniciativa"        : this.ID ,
+        //  "p_idEstado"            : idEstado ,
+        //  "p_id_motivo"           : id_motivo ,
+        //  "p_dFecha"              : dFecha ,
+        //  "p_usuario"             : currentUser,
+        // "@CONFIG_USER_ID"        : this.userID,
+        // "@CONFIG_OUT_MSG_ERROR"  : '' ,
+        // "@CONFIG_OUT_MSG_EXITO"  : ''
+
+        'p_idFactura'          : this.facturaForm.value.id_factura,
+        'p_idEstado'           : this.facturaForm.value.id_estado,
+        'p_venta_declarada'    : this.facturaForm.value.venta_declarada,
+        'p_idProyecto'         : this.facturaForm.value.codProy,
+        'p_dFecha'             : this.facturaForm.value.fecha_crea,
+        'p_usuario'            : 'JHON SOTO',
+        'CONFIG_USER_ID'       : this.userID,
+        'CONFIG_OUT_MSG_EXITO' : '',
+        'CONFIG_OUT_MSG_ERROR' : '',
+        }
+      }];
+      // console.log('EST', this.estadoInicial, this.iniciativaEditForm.value);
+      this.personalService.agregarFacturaCambios(parametro[0]).subscribe( resp => {
+     })
+    }
+  }
+
+
   histCambiosEstado: any[] = [];
   getHistoricoCambiosEstado(id: number){
   this.spinner.show();
@@ -215,3 +266,5 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.dialogRef.close(succes);
   }
   }
+
+

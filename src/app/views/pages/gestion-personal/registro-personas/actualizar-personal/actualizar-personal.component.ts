@@ -178,6 +178,40 @@ export class ActualizarPersonalComponent implements OnInit {
     })
   }
 
+  eliminarPersonal(id: number){
+    this.spinner.show();
+
+    let parametro:any[] = [{
+      queryId: 37,
+      mapValue: {
+        param_id_persona: id,
+      }
+    }];
+    Swal.fire({
+      title: '¿Eliminar Personal?',
+      text: `¿Estas seguro que deseas eliminar al personal: ${id} ?`,
+      icon: 'question',
+      confirmButtonColor: '#ec4756',
+      cancelButtonColor: '#0d6efd',
+      confirmButtonText: 'Si, Eliminar!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+    }).then((resp) => {
+      if (resp.value) {
+        this.personalService.eliminarPersonal(parametro[0]).subscribe(resp => {
+
+          // this.cargarOBuscarPersonal();
+
+            Swal.fire({
+              title: 'Eliminar Personal',
+              text: `El Personal: ${id}, fue eliminado con éxito`,
+              icon: 'success',
+            });
+          });
+      }
+    });
+    this.spinner.hide();
+  }
 
   histCambiosProyecto: any[] = [];
   getHistoricoCambiosProyecto(id: number){

@@ -100,10 +100,11 @@ export class RegistroCuentaComponent implements OnInit {
       title: '¿Eliminar Cuenta?',
       text: `¿Estas seguro que deseas eliminar la Cuenta: ${id} ?`,
       icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#ec4756',
+      cancelButtonColor: '#0d6efd',
       confirmButtonText: 'Si, Eliminar!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarCuenta(parametro[0]).subscribe(resp => {

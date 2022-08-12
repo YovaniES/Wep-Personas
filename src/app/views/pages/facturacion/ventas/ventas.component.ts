@@ -133,10 +133,11 @@ export class VentasComponent implements OnInit {
       title: '¿Eliminar Factura?',
       text: `¿Estas seguro que deseas eliminar la Factura: ${id} ?`,
       icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
+      confirmButtonColor: '#ec4756',
+      cancelButtonColor: '#0d6efd',
       confirmButtonText: 'Si, Eliminar!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarFactura(parametro[0]).subscribe(resp => {

@@ -133,7 +133,7 @@ export class CrearLiquidacionComponent implements OnInit {
     this.personalService.crearFactura(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear Factura!',
-        text: `La Factura: ${formValues.id_liquidacion}, creado con éxito`,
+        text: `La Factura: ${formValues.factura}, creado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });
