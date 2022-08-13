@@ -7,7 +7,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
-import { AgregarHardwareComponent } from './agregar-hardware/agregar-hardware.component';
+import { AsignarHardwareComponent } from './agregar-hardware/asignar-hardware.component';
+import { AsignarCuentaComponent } from './asignar-cuenta/asignar-cuenta.component';
 @Component({
   selector: 'app-actualizar-personas',
   templateUrl: './actualizar-personal.component.html',
@@ -17,7 +18,6 @@ export class ActualizarPersonalComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
 
-  userID: number = 0;
   personalForm!: FormGroup;
 
   constructor(
@@ -39,9 +39,9 @@ export class ActualizarPersonalComponent implements OnInit {
     this.getListPerfiles();
     // this.cargarCuentasById();
     this.getHistoricoCambiosProyecto(this.ID_REG_PERSONAL);
-
-
     this.getUsuario();
+
+    this.ListaHardwareAsignado();
   }
 
 
@@ -66,6 +66,7 @@ export class ActualizarPersonalComponent implements OnInit {
       })
      }
 
+   userID: number = 0;
    getUsuario(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
@@ -217,6 +218,32 @@ export class ActualizarPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
+
+  listHardwareDisponible(){
+
+  }
+
+  listHardwareAsignado: any[]=[];
+  ListaHardwareAsignado(){
+    this.spinner.show();
+    let parametro:any[] = [{
+      "queryId": 27,
+      "mapValue": {
+      "param_id_persona": this.ID_REG_PERSONAL,
+      }
+    }];
+
+    this.personalService.ListaHardwareAsignado(parametro[0]).subscribe( (resp: any) => {
+      this.listHardwareAsignado = resp.list;
+      console.log('HARD-ASIG', resp.list), resp.list.length;
+
+    })
+
+  }
+
+
+
+
   histCambiosProyecto: any[] = [];
   getHistoricoCambiosProyecto(id: number){
   this.spinner.show();
@@ -240,8 +267,37 @@ export class ActualizarPersonalComponent implements OnInit {
   }
 
 
+
+  desasignarRecurso(idRecurso: number){
+    this.spinner.show();
+
+    let parametro:any[] = [{
+      "queryId": 26,
+      "mapValue": {
+        "param_id_persona"    : this.ID_REG_PERSONAL,
+        "param_id_recurso"    : idRecurso,
+        "CONFIG_USER_ID"      : this.userID,
+        "CONFIG_OUT_MSG_ERROR":'',
+        "CONFIG_OUT_MSG_EXITO":''
+      }
+    }];
+    this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
+      const arrayData:any[] = Array.of(resp);
+
+      // let msj = arrayData[0].exitoMessage;
+      // this.showSuccess(msj);
+      this.ngOnInit();
+    });
+    this.spinner.hide();
+  }
+
+  close(succes?: boolean) {
+    this.dialogRef.close(succes);
+  }
+
+
   agregarHardware(){
-    const dialogRef = this.dialog.open(AgregarHardwareComponent, {width:'35%'});
+    const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%'});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -250,8 +306,14 @@ export class ActualizarPersonalComponent implements OnInit {
     })
   }
 
-  close(succes?: boolean) {
-    this.dialogRef.close(succes);
+  asignarCuenta(){
+    const dialogRef = this.dialog.open(AsignarCuentaComponent, {width:'35%'});
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp) {
+        this.cargarOBuscarHardwareDisponible()
+      }
+    })
   }
 }
 

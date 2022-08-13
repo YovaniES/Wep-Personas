@@ -36,6 +36,12 @@
   border: solid 0.5px #198754;
 }
 
+.c-grey{
+  color: #999c9f;
+  border: solid 0.5px #999c9f;
+
+}
+
 .c-blue {
   color: #007bff;
   background-color: rgb(240, 239, 239);
@@ -57,6 +63,7 @@
 .c-white {
   color: #fff;
 }
+
 /* FONDOS GLOBALES */
 .bgc-magenta {
   background-color: $color-magenta;
@@ -66,9 +73,13 @@
 }
 .bgc-turquey {
   background-color: #03bccf;
-  // background-color: #0daef4;
-
 }
+
+.bgc-blue-light{
+  background-color: #0daef4;
+  color: #fff
+}
+
 .bgc-green {
   background-color: $color-green;
 }

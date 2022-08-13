@@ -80,7 +80,7 @@
 
       <!-- DATOS DE LA EMPRESA ------------------------------------------------------------------------->
       <div class="pr-subtitle mt-2">Datos de la empresa</div>
-      <div class="pr-section">
+      <div class="pr-section mb-3">
         <div class="pr-module-container">
           <div class="row g-3">
             <div class="col-sm-4 cli-form-element">
@@ -130,16 +130,16 @@
       <div style="display: flex; background-color: #f6f3f3;" >
         <div class="pr-subtitle">Recurso Hardware</div>
         <div class="flex-1"></div>
-          <button class="cli-btn btn-trans" type="submit" style="height: 20px; margin-right: 1px;" (click)="agregarHardware()">
-            <mat-icon class="icon-18" style="color: #22d7a2">add</mat-icon>
+          <button class="cli-btn btn-grey"  matTooltip="Asignar hardware" type="submit" style="color: #9b9797; height: 20px; margin-right: 6px;" (click)="agregarHardware()">
+            <mat-icon class="icon-18">add</mat-icon>
           </button>
       </div>
-      <div class="pr-section">
+      <div class="pr-section mb-3">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 115px">
+          <div style="overflow: auto; min-height: 100px">
             <table class="cli-table stripedtable underlinedtable">
               <thead>
-                <tr class="bgc-blue c-white">
+                <tr class="bgc-blue-light c-white">
                   <th>Accíón</th>
                   <th>ID Recurso</th>
                   <th>Tipo</th>
@@ -153,25 +153,25 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
+                <tr *ngFor="let hardware of listHardwareAsignado; let i = index">
                   <td class="w55">
                     <div class="cli-table-actions">
                       <button
                         matTooltip="Eliminar"
-                        class="icon-btn btn-trans c-fucsia"
+                        class="icon-btn c-fucsia"
+                        (click)="desasignarRecurso(hardware.id)"
                         ><mat-icon class="icon-13">delete_forever</mat-icon>
-                        <!-- (click)="eliminarCuenta(cuenta.id)" -->
                       </button>
                     </div>
                   </td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.fecha_asignacion }}</td>
-                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
-                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                  <td>{{ hardware.id }}</td>
+                  <td>{{ hardware.tipo }}</td>
+                  <td>{{ hardware.marca }}</td>
+                  <td>{{ hardware.serie }}</td>
+                  <td>{{ hardware.descripcion }}</td>
+                  <td>{{ hardware.modelo }}</td>
+                  <td>{{ hardware.imei }}</td>
+                  <td>{{ hardware.observacion }}</td>
                 </tr>
               </tbody>
             </table>
@@ -181,7 +181,7 @@
             </div>
 
             <div
-              *ngIf="!loadingItem && histCambiosProyecto.length == 0"
+              *ngIf="!loadingItem && listHardwareAsignado.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
             >Aún no tiene recurso hardware
@@ -194,16 +194,16 @@
       <div style="display: flex; background-color: #f6f3f3;" >
         <div class="pr-subtitle">Recurso Cuenta</div>
         <div class="flex-1"></div>
-          <button class="cli-btn btn-trans" type="submit" style="height: 20px; margin-right: 1px;" (click)="close()">
-            <mat-icon class="icon-18" style="color: #22d7a2">add</mat-icon>
+          <button class="cli-btn btn-grey" matTooltip="Asignar cuenta" type="submit" style=" color: #9b9797; height: 20px; margin-right: 6px;" (click)="asignarCuenta()">
+            <mat-icon class="icon-18">add</mat-icon>
           </button>
       </div>
       <div class="pr-section">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 115px">
+          <div style="overflow: auto; min-height: 100px">
             <table class="cli-table stripedtable underlinedtable">
               <thead>
-                <tr class="bgc-blue c-white">
+                <tr class="bgc-blue-light c-white">
                   <th>Acción</th>
                   <th>ID Cuenta</th>
                   <th>Username</th>
@@ -250,10 +250,10 @@
       <div class="pr-subtitle mt-2">Historico cambios de Proyecto</div>
       <div class="pr-section">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 115px">
+          <div style="overflow: auto; min-height: 100px">
             <table class="cli-table stripedtable underlinedtable">
               <thead>
-                <tr class="bgc-green c-white">
+                <tr class="bgc-turquey c-white">
                   <th>#</th>
                   <th>Cód. Proyecto</th>
                   <th>Descripción</th>

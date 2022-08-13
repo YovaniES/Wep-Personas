@@ -8,7 +8,7 @@
   border-radius: 2px;
   &:disabled {
     background-color: $color-grey-1;
-    color:#fff;
+    color: #fff;
   }
 }
 .status-btn {
@@ -129,6 +129,7 @@
     background-color: #257cfdd9;
   }
 }
+
 .btn-magenta {
   background-color: $color-magenta;
   color: #fff;

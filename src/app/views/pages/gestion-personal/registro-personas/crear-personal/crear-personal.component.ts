@@ -40,7 +40,7 @@ export class CrearPersonalComponent implements OnInit {
      dni            : [''],
      correo         : ['', [Validators.required]],
      fechaNacimiento: [''],
-     codCorp        : ['', [Validators.required]],
+     codCorp        : ['', [Validators.required, Validators.maxLength(3)]],
      codPerfil      : ['', [Validators.required]],
      descPerfil     : [''],
      fechaIngreso   : ['', [Validators.required]],

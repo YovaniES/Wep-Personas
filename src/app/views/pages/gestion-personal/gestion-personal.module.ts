@@ -14,7 +14,8 @@ import { ActualizarHardwareComponent } from './registro-hardware/actualizar-hard
 import { RegistroPersonalComponent } from './registro-personas/registro-personal.component';
 import { ActualizarPersonalComponent } from './registro-personas/actualizar-personal/actualizar-personal.component';
 import { CrearPersonalComponent } from './registro-personas/crear-personal/crear-personal.component';
-import { AgregarHardwareComponent } from './registro-personas/actualizar-personal/agregar-hardware/agregar-hardware.component';
+import { AsignarHardwareComponent } from './registro-personas/actualizar-personal/agregar-hardware/asignar-hardware.component';
+import { AsignarCuentaComponent } from './registro-personas/actualizar-personal/asignar-cuenta/asignar-cuenta.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AgregarHardwareComponent } from './registro-personas/actualizar-persona
     RegistroPersonalComponent,
     CrearPersonalComponent,
     ActualizarPersonalComponent,
-    AgregarHardwareComponent
+    AsignarHardwareComponent,
+    AsignarCuentaComponent
   ],
   imports: [
     GestionPersonalRoutingModule,

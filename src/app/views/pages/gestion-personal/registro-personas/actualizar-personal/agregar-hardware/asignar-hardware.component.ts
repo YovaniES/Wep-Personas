@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 
 @Component({
   selector: 'app-agregar-hardware',
-  templateUrl: './agregar-hardware.component.html',
-  styleUrls: ['./agregar-hardware.component.scss']
+  templateUrl: './asignar-hardware.component.html',
+  styleUrls: ['./asignar-hardware.component.scss']
 })
-export class AgregarHardwareComponent implements OnInit {
+export class AsignarHardwareComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
   filtroForm!: FormGroup;
@@ -23,8 +24,11 @@ export class AgregarHardwareComponent implements OnInit {
   constructor(
     private personalService: PersonalService,
     private fb: FormBuilder,
+    private authService: AuthService,
     private spinner: NgxSpinnerService,
-    private dialogRef: MatDialogRef<AgregarHardwareComponent>,
+    private dialogRef: MatDialogRef<AsignarHardwareComponent>,
+    @Inject(MAT_DIALOG_DATA) public ID_PERSONAL_RECURSO: any
+
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +36,9 @@ export class AgregarHardwareComponent implements OnInit {
     this.cargarOBuscarHardwareDisponible();
     this.getListMarcaHardware();
     this.getListTiposHardware();
+
+    console.log('ID_PERSON_REC', this.ID_PERSONAL_RECURSO);
+
   }
 
   newFilfroForm(){
@@ -40,6 +47,14 @@ export class AgregarHardwareComponent implements OnInit {
       marca : [''],
       serie : [''],
     })
+  }
+
+  userID: number = 0;
+  getUsuario(){
+   this.authService.getCurrentUser().subscribe( resp => {
+     this.userID   = resp.user.userId;
+     // console.log('ID-USER', this.userID);
+   })
   }
 
   listaHardwareDisp: any[] = [];
@@ -65,9 +80,40 @@ export class AgregarHardwareComponent implements OnInit {
     });
   }
 
-  asignarHardware(id: any){
+  asignarHardware(idRecurso: number, tipo: string){
+    this.spinner.show();
 
+    if (this) {
+      let parametro: any[] = [{
+        "queryId": 25,
+        "mapValue": {
+          "param_id_persona": this.ID_PERSONAL_RECURSO,
+          "param_id_recurso": idRecurso,
+          "CONFIG_USER_ID":this.userID,
+          "CONFIG_OUT_MSG_ERROR":'',
+          "CONFIG_OUT_MSG_EXITO":''}
+      }];
+
+      // this._service.asignarRecusoPersona(arrayParametro[0]).subscribe(data => {
+      //   const arrayData:any[] = Array.of(data);
+      //   let msj = arrayData[0].exitoMessage;
+      //   this.showSuccess(msj);
+
+      //   if (tipo == 'h') {
+      //     this.cerrarModalHardware.nativeElement.click();
+      //   }
+      //   if (tipo == 'c') {
+      //     this.cerrarModalCuenta.nativeElement.click();
+      //   }
+      //   this.ngOnInit();
+      // });
+
+    }else{
+      // this.showError('No se puede asignar cuando el personal esta de baja')
+    }
   }
+
+
 
   listTipos: any[] = [];
   getListTiposHardware(){
@@ -108,7 +154,10 @@ export class AgregarHardwareComponent implements OnInit {
     }
       this.page = event;
   }
+
+
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
+
 }

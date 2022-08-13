@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">Hardware disponible</div>
+  <div class="modal-title c-male">Cuentas disponibles</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -11,34 +11,17 @@
 
 <div class="cli-card">
   <div style="padding: 5px 5px">
-    <!-- <div class="modal-title c-male">Hardware disponible</div> -->
     <div>
       <!-- BUSCADOR POR FILTRO ---------------------------------------------------------------->
       <div class="buscar">
           <form class="row g-3" [formGroup]="filtroForm">
             <div class="col-sm-4 cli-form-element">
-              <label class="form-label">Serie</label>
+              <label class="form-label">Username</label>
               <input
                 type="text"
                 class="form-control"
-                placeholder="Ingrese serie"
-                formControlName="serie"/>
-            </div>
-
-            <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Tipo</label>
-              <select class="form-select" formControlName="tipo">
-                <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="tipo.id" *ngFor="let tipo of listTipos">{{tipo.nombre}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Marca</label>
-              <select class="form-select" formControlName="marca">
-                <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="marca.id" *ngFor="let marca of listMarca">{{marca.nombre}}</option>
-              </select>
+                placeholder="Ingrese Username"
+                formControlName="username"/>
             </div>
 
             <div class="col-sm-2">
@@ -47,7 +30,7 @@
                   type="button"
                   class="btn-hardware btn-blue-light"
                   style="border-radius: 2px; "
-                  (click)="cargarOBuscarHardwareDisponible()"
+                  (click)="cargarOBuscarCuentaDisponible()"
                   ><mat-icon class="icon-18">search</mat-icon>
                 </button>
                  <button
@@ -62,55 +45,51 @@
           </form>
       </div>
 
-      <!-- BOTON MODAL PARA CREAR HARDWARE ----------------------------------------------------->
+      <!-- TOTAL DE HARDWARE DISPONIBLE----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <div class="flex-1"></div>
         <div style="color: #345df3;">
-          Total : <span class="total">{{ listaHardwareDisp.length }} Disponibles</span>
+          Total : <span class="total">{{ listaCuentaDisp.length }} Disponibles</span>
         </div>
       </div>
 
-      <!-- TABLA DE HARDWARE ------------------------------------------------------------------>
+      <!-- TABLA DE CUENTA DISPONIBLE ------------------------------------------------------------------>
       <div style="overflow: auto; min-height: 300px">
         <table class="cli-table stripedtable underlinedtable">
           <thead>
             <tr class="bgc-turquey c-white">
               <th>Acción</th>
-              <th>ID Hardware</th>
+              <th>ID Cuenta</th>
+              <th>Username</th>
+              <th>Password</th>
               <th>Tipo</th>
-              <th>Marca</th>
-              <th>Descripción</th>
-              <th>Modelo</th>
-              <th>Serie</th>
-              <th>Imei</th>
-              <th>Observación</th>
+              <th>Fecha Última Renovación</th>
+              <th>Fecha Próxima Renovación</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let hardware of listaHardwareDisp | paginate:
+            <tr *ngFor="let cuenta of listaCuentaDisp | paginate:
                       { itemsPerPage: pageSize,
                         currentPage: page,
-                        totalItems: totalHardware
+                        totalItems: totalCuenta
                       } ">
               <td>
                 <div class="cli-table-actions">
                   <button
                     matTooltip="Asignar"
                     class="icon-btn btn-trans c-blue"
-                    (click)="asignarHardware(hardware.id_recurso)"
+                    (click)="asignarCuenta(cuenta.id_recurso)"
                   ><mat-icon class="icon-18">add</mat-icon>
                   </button>
                 </div>
               </td>
-              <td>{{ hardware.id_recurso }}</td>
-              <td>{{ hardware.tipo   | firstCapital}}</td>
-              <td>{{ hardware.marca  | uppercase }}</td>
-              <td>{{ hardware.equipo | firstCapital }}</td>
-              <td>{{ hardware.modelo | uppercase }}</td>
-              <td>{{ hardware.serie }}</td>
-              <td>{{ hardware.imei }}</td>
-              <td>{{ hardware.observacion | firstCapital}}</td>
+              <td>{{ cuenta.id_recurso }}</td>
+              <td>{{ cuenta.usuario }}</td>
+              <td>{{ cuenta.password }}</td>
+              <td>{{ cuenta.tipo | firstCapital }}</td>
+              <td>{{ cuenta.fechaUltimaRenovacion  }}</td>
+              <td>{{ cuenta.fechaProximaRenovacion }}</td>
             </tr>
           </tbody>
         </table>
@@ -121,10 +100,10 @@
         </div>
 
         <div
-          *ngIf="!loadingItem && listaHardwareDisp.length == 0"
+          *ngIf="!loadingItem && listaCuentaDisp.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
-        >No hay Hardware disponible para mostrar
+        >No hay cuenta disponible para mostrar
         </div>
       </div>
     </div>

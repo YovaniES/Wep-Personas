@@ -173,6 +173,14 @@ export class PersonalService {
     );
   }
 
+  ListaHardwareAsignado(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  desasignarRecurso(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+
+  }
 
   cargarOBuscarcuentas(obj: any) {
     return this.http.post(API_PERSONAS, obj);
@@ -182,10 +190,15 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  cargarOBuscarPersonal(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   cargarOBuscarHardwareDisponible(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
-  cargarOBuscarPersonal(obj: any) {
+
+  cargarOBuscarCuentaDisponible(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 
