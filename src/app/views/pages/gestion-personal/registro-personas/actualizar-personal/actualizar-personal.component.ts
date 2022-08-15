@@ -37,11 +37,11 @@ export class ActualizarPersonalComponent implements OnInit {
 
     this.getListProyectos();
     this.getListPerfiles();
-    // this.cargarCuentasById();
     this.getHistoricoCambiosProyecto(this.ID_REG_PERSONAL);
     this.getUsuario();
 
     this.ListaHardwareAsignado();
+    this.ListaCuentaAsignado();
   }
 
 
@@ -72,30 +72,9 @@ export class ActualizarPersonalComponent implements OnInit {
       this.userID   = resp.user.userId;
       // console.log('ID-USER', this.userID);
     })
-   }
-
-   listProyectos: any[] = [];
-   getListProyectos(){
-     let parametro: any[] = [{queryId: 1}];
-
-     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-             this.listProyectos = resp;
-             console.log('COD_PROY', resp);
-     });
    };
 
-   listPerfiles: any[] = [];
-   getListPerfiles(){
-     let parametro: any[] = [{queryId: 10}];
-
-     this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
-             this.listPerfiles = resp;
-             console.log('PERFILES', resp);
-     });
-   }
-
-
-   actualizarPersonal(){
+  actualizarPersonal(){
     this.spinner.show();
 
     const formValues = this.personalForm.getRawValue();
@@ -192,6 +171,7 @@ export class ActualizarPersonalComponent implements OnInit {
         param_id_persona: id,
       }
     }];
+
     Swal.fire({
       title: '¿Eliminar Personal?',
       text: `¿Estas seguro que deseas eliminar al personal: ${id} ?`,
@@ -236,13 +216,24 @@ export class ActualizarPersonalComponent implements OnInit {
     this.personalService.ListaHardwareAsignado(parametro[0]).subscribe( (resp: any) => {
       this.listHardwareAsignado = resp.list;
       console.log('HARD-ASIG', resp.list), resp.list.length;
-
     })
-
   }
 
+  listCuentaAsignado: any[]=[];
+  ListaCuentaAsignado(){
+    this.spinner.show();
+    let parametro:any[] = [{
+      "queryId": 28,
+      "mapValue": {
+      "param_id_persona": this.ID_REG_PERSONAL,
+      }
+    }];
 
-
+    this.personalService.ListaCuentaAsignado(parametro[0]).subscribe( (resp: any) => {
+      this.listCuentaAsignado = resp.list;
+      console.log('CUENT-ASIG', resp.list), resp.list.length;
+    })
+  }
 
   histCambiosProyecto: any[] = [];
   getHistoricoCambiosProyecto(id: number){
@@ -291,10 +282,29 @@ export class ActualizarPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
+  listProyectos: any[] = [];
+  getListProyectos(){
+    let parametro: any[] = [{queryId: 1}];
+
+    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+            this.listProyectos = resp;
+            console.log('COD_PROY', resp);
+    });
+  };
+
+  listPerfiles: any[] = [];
+  getListPerfiles(){
+    let parametro: any[] = [{queryId: 10}];
+
+    this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
+            this.listPerfiles = resp;
+            console.log('PERFILES', resp);
+    });
+  };
+
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 
   agregarHardware(){
     const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%'});
@@ -306,7 +316,7 @@ export class ActualizarPersonalComponent implements OnInit {
     })
   }
 
-  asignarCuenta(){
+  agregarCuenta(){
     const dialogRef = this.dialog.open(AsignarCuentaComponent, {width:'35%'});
 
     dialogRef.afterClosed().subscribe(resp => {
@@ -314,7 +324,7 @@ export class ActualizarPersonalComponent implements OnInit {
         this.cargarOBuscarHardwareDisponible()
       }
     })
-  }
+  };
 }
 
 

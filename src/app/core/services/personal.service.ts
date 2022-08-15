@@ -177,9 +177,16 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  ListaCuentaAsignado(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  asignarRecurso(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   desasignarRecurso(obj: any){
     return this.http.post(API_PERSONAS, obj);
-
   }
 
   cargarOBuscarcuentas(obj: any) {
@@ -272,6 +279,14 @@ export class PersonalService {
   }
 
   eliminarPersonal(id: number) {
+    return this.http.post(API_PERSONAS, id);
+  }
+
+  darBajaOaltaPersonal(id: number) {
+    return this.http.post(API_PERSONAS, id);
+  }
+
+  bajaOaltaAlPersonal(id: number){
     return this.http.post(API_PERSONAS, id);
   }
 

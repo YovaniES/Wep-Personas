@@ -13,7 +13,6 @@
     <div class="chart-draw">
       <!-- REGISTROS DEL PERSONAL-------------------------------------------------------------------- -->
       <div class="col-2 pr-subtitle mt-2">Datos Personales</div>
-
       <div class="pr-section">
         <div class="pr-module-container">
           <div class="row g-3">
@@ -96,9 +95,7 @@
               <label>Cód. Perfil</label>
               <select class="cli-input-white" formControlName="codPerfil">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">
-                  {{ perfil.nombre }}
-                </option>
+                <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
               </select>
             </div>
 
@@ -117,9 +114,7 @@
               <label>Cód. Proyecto</label>
               <select class="cli-input-white" formControlName="codProy">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="cod.id" *ngFor="let cod of listProyectos">
-                  {{ cod.codigo }}
-                </option>
+                <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
             </div>
           </div>
@@ -157,7 +152,7 @@
                   <td class="w55">
                     <div class="cli-table-actions">
                       <button
-                        matTooltip="Eliminar"
+                        matTooltip="Desasignar hardware"
                         class="icon-btn c-fucsia"
                         (click)="desasignarRecurso(hardware.id)"
                         ><mat-icon class="icon-13">delete_forever</mat-icon>
@@ -194,7 +189,7 @@
       <div style="display: flex; background-color: #f6f3f3;" >
         <div class="pr-subtitle">Recurso Cuenta</div>
         <div class="flex-1"></div>
-          <button class="cli-btn btn-grey" matTooltip="Asignar cuenta" type="submit" style=" color: #9b9797; height: 20px; margin-right: 6px;" (click)="asignarCuenta()">
+          <button class="cli-btn btn-grey" matTooltip="Asignar cuenta" type="submit" style=" color: #9b9797; height: 20px; margin-right: 6px;" (click)="agregarCuenta()">
             <mat-icon class="icon-18">add</mat-icon>
           </button>
       </div>
@@ -209,25 +204,29 @@
                   <th>Username</th>
                   <th>Password</th>
                   <th>Tipo</th>
+                  <th>Fecha última renovación</th>
+                  <th>Fecha próxima renovación</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
+                <tr *ngFor="let cuenta of listCuentaAsignado; let i = index">
                   <td class="w55">
                     <div class="cli-table-actions">
                       <button
-                        matTooltip="Eliminar"
+                        matTooltip="Desasignar cuenta"
                         class="icon-btn btn-trans c-fucsia"
-                        (click)="eliminarPersonal(cambios.id)"
+                        (click)="desasignarRecurso(cuenta.id)"
                         ><mat-icon class="icon-13">delete_forever</mat-icon>
                       </button>
                     </div>
                   </td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.fecha_asignacion }}</td>
-                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                  <td>{{ cuenta.id }}</td>
+                  <td>{{ cuenta.usuario }}</td>
+                  <td>{{ cuenta.password }}</td>
+                  <td>{{ cuenta.tipo }}</td>
+                  <td>{{ cuenta.fecha_ultima_renovacion }}</td>
+                  <td>{{ cuenta.fecha_proxima_renovacion }}</td>
                 </tr>
               </tbody>
             </table>
@@ -237,7 +236,7 @@
             </div>
 
             <div
-              *ngIf="!loadingItem && histCambiosProyecto.length == 0"
+              *ngIf="!loadingItem && listCuentaAsignado.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
             >Aún no tiene recurso cuenta
@@ -281,7 +280,7 @@
               *ngIf="!loadingItem && histCambiosProyecto.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
-            >Aquí se listarán los cambios
+            >Aquí se mostrará el historico de cambios de proyecto ...
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-hardware',
@@ -19,7 +20,7 @@ export class AsignarHardwareComponent implements OnInit {
   page = 1;
   totalHardware: number = 0;
   pageSize = 5;
-  pageSizes = [3, 6, 9];
+  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -38,7 +39,6 @@ export class AsignarHardwareComponent implements OnInit {
     this.getListTiposHardware();
 
     console.log('ID_PERSON_REC', this.ID_PERSONAL_RECURSO);
-
   }
 
   newFilfroForm(){
@@ -80,7 +80,31 @@ export class AsignarHardwareComponent implements OnInit {
     });
   }
 
-  asignarHardware(idRecurso: number, tipo: string){
+  asignarRecursoH(idRecurso: number, tipo?: string){
+    this.spinner.show();
+
+      let parametro: any[] = [{
+        "queryId": 25,
+        "mapValue": {
+          "param_id_persona": 498,
+          "param_id_recurso": idRecurso,
+          "CONFIG_USER_ID"  : this.userID,
+          "CONFIG_OUT_MSG_ERROR":'',
+          "CONFIG_OUT_MSG_EXITO":''}
+      }];
+      this.personalService.asignarRecurso(parametro[0]).subscribe( resp => {
+        // this.cargarOBuscarPersonal();
+        Swal.fire({
+          title: 'Asignar recurso hardware',
+          text: `El recurso Hardware: ${'x'}, se asignó con exito`,
+          icon: 'success',
+        });
+
+      })
+    }
+
+
+  asignarRecurso(idRecurso: number, tipo?: string){
     this.spinner.show();
 
     if (this) {
@@ -89,11 +113,20 @@ export class AsignarHardwareComponent implements OnInit {
         "mapValue": {
           "param_id_persona": this.ID_PERSONAL_RECURSO,
           "param_id_recurso": idRecurso,
-          "CONFIG_USER_ID":this.userID,
+          "CONFIG_USER_ID"  : this.userID,
           "CONFIG_OUT_MSG_ERROR":'',
           "CONFIG_OUT_MSG_EXITO":''}
       }];
 
+      this.personalService.asignarRecurso(parametro[0]).subscribe( resp => {
+        // this.cargarOBuscarPersonal();
+        Swal.fire({
+          title: 'Asignar recurso hardware',
+          text: `El recurso Hardware: ${''}, se asignó con exito`,
+          icon: 'success',
+        });
+
+      })
       // this._service.asignarRecusoPersona(arrayParametro[0]).subscribe(data => {
       //   const arrayData:any[] = Array.of(data);
       //   let msj = arrayData[0].exitoMessage;
@@ -107,10 +140,16 @@ export class AsignarHardwareComponent implements OnInit {
       //   }
       //   this.ngOnInit();
       // });
-
     }else{
       // this.showError('No se puede asignar cuando el personal esta de baja')
+      Swal.fire({
+        title: 'Asignar recurso hardware',
+        text: `No se pudo asignar el recurso: ${''}, cuadno el personal este de baja`,
+        icon: 'warning',
+      });
+
     }
+    this.spinner.hide();
   }
 
 

@@ -45,7 +45,7 @@
           </form>
       </div>
 
-      <!-- TOTAL DE HARDWARE DISPONIBLE----------------------------------------------------->
+      <!-- TOTAL DE CUENTAS DISPONIBLES----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <div class="flex-1"></div>
         <div style="color: #345df3;">
@@ -53,8 +53,8 @@
         </div>
       </div>
 
-      <!-- TABLA DE CUENTA DISPONIBLE ------------------------------------------------------------------>
-      <div style="overflow: auto; min-height: 300px">
+      <!-- TABLA DE CUENTAS DISPONIBLE ------------------------------------------------------------------>
+      <div style="overflow: auto; min-height: 100px">
         <table class="cli-table stripedtable underlinedtable">
           <thead>
             <tr class="bgc-turquey c-white">
@@ -101,9 +101,9 @@
 
         <div
           *ngIf="!loadingItem && listaCuentaDisp.length == 0"
-          class="cli-loader mt-5"
-          style="color: #f83434"
-        >No hay cuenta disponible para mostrar
+          class="cli-loader mt-2"
+          style="color: #f83434; font-size: 9px;"
+        >No hay cuentas disponibles para mostrar
         </div>
       </div>
     </div>

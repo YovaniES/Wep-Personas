@@ -82,7 +82,7 @@ export class RegistroHardwareComponent implements OnInit {
     this.personalService.cargarOBuscarHardware(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-    //  console.log('Lista-Hardware', resp, resp.length);
+     console.log('Lista-Hardware', resp, resp.length);
       this.listaHardware = [];
       this.listaHardware = resp.list;
 

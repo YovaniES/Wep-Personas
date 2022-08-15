@@ -40,7 +40,7 @@ export class AsignarCuentaComponent implements OnInit {
 
   listaCuentaDisp: any[] = [];
   cargarOBuscarCuentaDisponible(){
-    this.blockUI.start("Cargando listado de cuenta...");
+    this.blockUI.start("Cargando listado de cuentas...");
     let parametro: any[] = [{
       "queryId": 44,
       "mapValue": {

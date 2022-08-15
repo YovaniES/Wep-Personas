@@ -149,14 +149,15 @@
                   </button>
                   <button matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
-                    (click)="eliminarPersonal(personal.id)"
+                    (click)="eliminacionLogicaPersonal(personal.id, personal.codigo_corporativo, '')"
                   ><mat-icon class="icon-18">person_remove</mat-icon>
                   </button>
-                  <button matTooltip="{{tooltipDeBaja}}"
-                    class="icon-btn btn-trans c-grey"
-                    (click)="darAltaOBaja(personal.id, personal.codigo_corporativo, '')"
-                  ><mat-icon class="icon-18">person_off</mat-icon>
-                  </button>
+
+                  <button matTooltip ="{{ tooltipDeBajaOalta }}"
+                  class="icon-btn btn-trans c-grey"
+                  (click)="abrirEliminar(personal.id, personal.codigo_corporativo, personal.estado)"
+                ><mat-icon class="icon-18">person_off</mat-icon>
+                </button>
                 </div>
               </td>
               <td>{{ personal.id }}</td>
