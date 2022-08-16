@@ -8,6 +8,7 @@ import { CoreModule } from 'src/app/core/core.module';
 import { MaterialModule } from 'src/app/material/material.module';
 import { ActualizarEntidadComponent } from './lista-entidad/actualizar-entidad/actualizar-entidad.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MaterialModule,
 
     NgxPaginationModule,
-
+    NgxSpinnerModule,
   ]
 })
 export class MantenimientoModule { }

@@ -88,13 +88,12 @@ export class RegistroPersonalComponent implements OnInit {
     this.idEliminar = id;
     this.codCorporativo = codCorporrativo;
 
-    if (estado == 'Activo')   {this.tooltipDeBajaOalta = "Baja"}
-    if (estado == 'Inactivo') {this.tooltipDeBajaOalta = "Alta"}
-
+    if (estado == 'Activo')   {this.tooltipDeBajaOalta = "Desactivar"}
+    if (estado == 'Inactivo') {this.tooltipDeBajaOalta = "Activar"}
 
     Swal.fire({
       title: `${this.tooltipDeBajaOalta} al Personal?`,
-      text: `¿Desea dar ${this.tooltipDeBajaOalta} al personal: ${id} ?`,
+      text: `¿Desea ${this.tooltipDeBajaOalta} al personal: ${id} ?`,
       icon: 'question',
       confirmButtonColor: '#20c997',
       cancelButtonColor : '#b2b5b4',
@@ -104,18 +103,13 @@ export class RegistroPersonalComponent implements OnInit {
     }).then((resp) => {
         if (resp.value) {
           this.bajaOaltaAlPersonal(this.idEliminar);
-
-          Swal.fire({
-            title: `${this.tooltipDeBajaOalta} al Personal`,
-            text: `El Personal: ${id}, fue dado de ${this.tooltipDeBajaOalta} con éxito`,
-            icon: 'success',
-          });
        }
       }
     );
   }
 
 
+  activado_desactivado: string='';
   bajaOaltaAlPersonal(id: number){
     this.spinner.show();
     let parametro:any[] = [{
@@ -130,35 +124,20 @@ export class RegistroPersonalComponent implements OnInit {
 
       if(msj == undefined){msj = ''}
       if (msj != '') {
-        // this.showSuccess(msj);
-        // Swal.fire({
-        //   title: `${this.tooltipDeBajaOalta} al Personal?`,
-        //   text: `¿Desea ${''} al personal: ${id} ?`,
-        //   icon: 'question',
-        //   confirmButtonColor: '#20c997',
-        //   cancelButtonColor : '#b2b5b4',
-        //   confirmButtonText : 'Si!',
-        //   showCancelButton: true,
-        //   cancelButtonText: 'Cancelar',
-        // }).then((resp) => {
-        //   // this.personalService.darBajaOaltaPersonal(parametro[0]).subscribe((resp: any) => {
-        //   //   this.cargarOBuscarPersonal();
 
-        //     if (resp.value) {
-        //       Swal.fire({
-        //         title: `${this.tooltipDeBajaOalta} al Personal`,
-        //         text: `El Personal: ${id}, fue dado de ${this.tooltipDeBajaOalta} con éxito`,
-        //         icon: 'success',
-        //       });
-        //     }
-        //   // });
-        // });
-      }else if (msj2 != ''){
-        // this.showError(msj2);
+        if (this.tooltipDeBajaOalta == 'Desactivar') {this.activado_desactivado = 'Desactivado'}
+        if (this.tooltipDeBajaOalta == 'Activar') {this.activado_desactivado = 'Activado'}
 
         Swal.fire({
           title: `${this.tooltipDeBajaOalta} al Personal`,
-          text: `El Personal: ${id} No pudo ser dado de: ${this.tooltipDeBajaOalta}, por que tiene recursos asignados`,
+          text: `El Personal: ${id}, fue ${this.activado_desactivado} con éxito`,
+          icon: 'success',
+        });
+
+      }else if (msj2 != ''){
+        Swal.fire({
+          title: `${this.tooltipDeBajaOalta} al Personal`,
+          text: `El Personal: ${id} No pudo ser: ${this.activado_desactivado}, por que tiene recursos asignados`,
           icon: 'error',
         });
 
@@ -171,58 +150,65 @@ export class RegistroPersonalComponent implements OnInit {
 }
 
 
-  eliminacionLogicaPersonal(id: number, codCorporativo: string, estado: string) {
-    this.spinner.show();
 
+  abrirEliminarLogico(id:number, codCorporrativo:string, estado:string){
     this.idEliminar = id;
-    this.codCorporativo = codCorporativo;
+    this.codCorporativo = codCorporrativo;
 
-    let parametro: any[] = [
-      {
-        queryId: 37,
-        mapValue: { param_id_persona: id },
-      },
-    ];
+    if (estado == 'Activo')   {this.tooltipDeBajaOalta = "Baja"}
+    if (estado == 'Inactivo') {this.tooltipDeBajaOalta = "Alta"}
+
     Swal.fire({
-      title: '¿Eliminar Personal?',
-      text: `¿Estas seguro que deseas eliminar al personal: ${id} ?`,
+      title: `Eliminar Personal?`,
+      text: `¿Desea eliminar al personal: ${id} ?`,
       icon: 'question',
-      confirmButtonColor: '#ec4756',
-      cancelButtonColor: '#0d6efd',
-      confirmButtonText: 'Si, Eliminar!',
+      confirmButtonColor: '#20c997',
+      cancelButtonColor : '#b2b5b4',
+      confirmButtonText : 'Si!',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
-      if (resp.value) {
-        this.personalService.eliminarPersonal(parametro[0]).subscribe((resp) => {
-          const arrayData:any[] = Array.of(resp);
-          let msj1 = arrayData[0].exitoMessage
-          let msj2 = arrayData[0].errorMessage
-
-
-          if (msj1 !='') {
-            Swal.fire({
-              title: 'Eliminar Personal',
-              text: `El Personal: ${id}, fue eliminado con éxito`,
-              icon: 'success',
-            });
-
-          } else if (msj2 !='') {
-            Swal.fire({
-              title: `Eliminar al Personal`,
-              text: `El Personal: ${id}, no pudo ser eliminado por que tiene recursos asignados`,
-              icon: 'error',
-            });
-          } else{
-
-          }
-            this.cargarOBuscarPersonal();
-          });
+        if (resp.value) {
+          this.eliminacionLogica(this.idEliminar);
+       }
       }
+    );
+  }
 
+  eliminacionLogica(id: number){
+    this.spinner.show();
+    let parametro:any[] = [{
+      "queryId": 37,
+      "mapValue": { param_id_persona : id }
+    }];
+
+    this.personalService.eliminarPersonal(parametro[0]).subscribe(data => {
+      const arrayData:any[] = Array.of(data);
+      let msj  = arrayData[0].exitoMessage;
+      let msj2 = arrayData[0].errorMessage
+
+      if(msj == undefined){msj = ''}
+      if (msj != '') {
+        Swal.fire({
+          title: 'Eliminar Personal',
+          text: `El Personal: ${id}, fue eliminado con éxito`,
+          icon: 'success',
+        });
+
+      }else if (msj2 != ''){
+        Swal.fire({
+          title: `Eliminar al Personal`,
+          text: `El Personal: ${id}, no pudo ser eliminado por que tiene recursos asignados`,
+          icon: 'error',
+        });
+      }else{
+        // this.showError('Error');
+      }
+      this.cargarOBuscarPersonal();
     });
     this.spinner.hide();
   }
+
 
   listCodProy: any[] = [];
   getListProyectos() {

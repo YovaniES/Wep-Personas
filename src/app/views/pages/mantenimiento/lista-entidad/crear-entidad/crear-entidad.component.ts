@@ -51,8 +51,8 @@ export class CrearEntidadComponent implements OnInit {
   getListEntidades(){
     let arrayParametro: any[] = [{queryId: 47}];
 
-    this.personalService.getListEntidades(arrayParametro[0]).subscribe((resp) => {
-      this.listEntidad = resp;
+    this.personalService.getListEntidades(arrayParametro[0]).subscribe((resp: any) => {
+      this.listEntidad = resp.list;
     });
   }
 

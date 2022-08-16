@@ -36,6 +36,7 @@ export class ListaEntidadComponent implements OnInit {
     this.getListEntidades();
 
     this.getListTotalTablas();
+    // this.cargarOBuscarEntidades(3);
   }
 
   newFilfroForm(){
@@ -46,12 +47,17 @@ export class ListaEntidadComponent implements OnInit {
 
   listEntidad: any[] = [];
   getListEntidades(){
-    let arrayParametro: any[] = [{queryId: 47}];
+    let parametro: any[] = [{queryId: 47}];
 
-    this.personalService.getListEntidades(arrayParametro[0]).subscribe((resp) => {
-      this.listEntidad = resp;
+    this.personalService.getListEntidades(parametro[0]).subscribe((resp: any) => {
+      this.listEntidad = resp.list;
+
+      console.log('List-Ent', this.listEntidad, this.listEntidad.length);
+
     });
   }
+
+
 
   // datosInfoEntidad = {
   //   nombre     : "",
@@ -63,13 +69,17 @@ export class ListaEntidadComponent implements OnInit {
   //   this.datosInfoEntidad.idPadre = id;
   // }
 
+
+
+
   listTablas: any[] = [];
   getListTotalTablas(){
-    let parametro: any[] = [
-      { queryId: 47}
-    ]
+    let parametro: any[] = [{ queryId: 47}]
     this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
       this.listTablas = resp;
+
+      console.log('listado', this.listTablas);
+
     })
   }
 
@@ -86,27 +96,24 @@ export class ListaEntidadComponent implements OnInit {
     this.nombre  = evento.target["options"][evento.target["options"].selectedIndex].innerText;
     this.tablaEntidad = [];
 
-
     this.cargarOBuscarEntidades(id);
-
   }
 
 
   listEntidadX: any[] = [];
   cargarOBuscarEntidades(id: any){
     this.blockUI.start("Cargando lista de entidades...");
+
     let parametro: any[] = [{
       "queryId": 48,
-      "mapValue": {
-        param_id_tabla: id,
-      }
+      "mapValue": { param_id_tabla: id }
     }];
     this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe(resp => {
     this.blockUI.stop();
 
-     console.log('ID_TABLA_ENTIDAD', resp, resp.length);
-      this.listEntidad = [];
-      this.listEntidad = resp;
+     console.log('ID_TABLA_ENTIDAD', resp, [resp.length]);
+      this.listEntidadX = [];
+      this.listEntidadX = resp;
 
       this.spinner.hide();
     });
@@ -126,22 +133,21 @@ export class ListaEntidadComponent implements OnInit {
     }];
     Swal.fire({
       title: '¿Eliminar Cuenta?',
-      text: `¿Estas seguro que deseas eliminar la Cuenta: ${id} ?`,
-      icon: 'question',
+      text : `¿Estas seguro que deseas eliminar la Cuenta: ${id} ?`,
+      icon : 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Eliminar!',
+      cancelButtonColor : '#d33',
+      confirmButtonText : 'Si, Eliminar!',
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
 
           // this.cargarOBuscarEntidades();
-
             Swal.fire({
               title: 'Eliminar Hardware',
-              text: `El Hardware: ${id}, fue eliminado con éxito`,
-              icon: 'success',
+              text : `El Hardware: ${id}, fue eliminado con éxito`,
+              icon : 'success',
             });
           });
       }
@@ -181,6 +187,24 @@ export class ListaEntidadComponent implements OnInit {
   //     });
   // }
 
+
+  totalfiltro = 0;
+  cambiarPagina(event: number) {
+    let offset = event * 10;
+    this.spinner.show();
+
+    if (this.totalfiltro != this.totalEntidad) {
+      this.personalService
+        .cargarOBuscarPersonal(offset.toString()).subscribe((resp: any) => {
+          this.listEntidadX = resp.list;
+          this.spinner.hide();
+        });
+    } else {
+      this.spinner.hide();
+    }
+    this.page = event;
+  }
+
   actualizarEntidad(id: any) {
     console.log('IDXX',id);
     this.dialog
@@ -191,5 +215,8 @@ export class ListaEntidadComponent implements OnInit {
         }
       });
   }
+
+
+
 
 }
