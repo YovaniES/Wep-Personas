@@ -147,6 +147,7 @@
                     (click)="actualizarPersonal(personal.id)"
                   ><mat-icon class="icon-18">manage_accounts</mat-icon>
                   </button>
+
                   <button matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
                     (click)="abrirEliminarLogico(personal.id, personal.codigo_corporativo, '')"
@@ -156,8 +157,8 @@
                   <button matTooltip ="{{ tooltipDeBajaOalta }}"
                   class="icon-btn btn-trans c-grey"
                   (click)="abrirEliminar(personal.id, personal.codigo_corporativo, personal.estado)"
-                ><mat-icon class="icon-18">person_off</mat-icon>
-                </button>
+                  ><mat-icon class="icon-18">person_off</mat-icon>
+                  </button>
                 </div>
               </td>
               <td>{{ personal.id }}</td>

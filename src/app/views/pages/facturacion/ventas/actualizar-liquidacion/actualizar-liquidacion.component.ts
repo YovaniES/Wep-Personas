@@ -1,11 +1,14 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
+import { AgregarFacturaComponent } from './agregar-factura/agregar-factura.component';
+import { AgregarVentadeclaradaComponent } from './agregar-ventadeclarada/agregar-ventadeclarada.component';
 
 @Component({
   selector: 'app-actualizar-liquidacion',
@@ -13,6 +16,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./actualizar-liquidacion.component.scss']
 })
 export class ActualizarLiquidacionComponent implements OnInit {
+  @BlockUI() blockUI!: NgBlockUI;
+  loadingItem: boolean = false;
+
   userID: number = 0;
   facturaForm!: FormGroup;
   factura_Id = this.ID_REG_FACTURA;
@@ -23,6 +29,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
+    private dialog: MatDialog,
     private dialogRef: MatDialogRef<ActualizarLiquidacionComponent>,
     @Inject(MAT_DIALOG_DATA) public ID_REG_FACTURA: any
   ) { }
@@ -36,6 +43,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.getListGestores();
     this.cargarFacturalById();
     this.getHistoricoCambiosEstado(this.ID_REG_FACTURA);
+    this.cargarOBuscarVentaDeclarada();
+    this.cargarOBuscarFactura();
   }
 
 
@@ -61,51 +70,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
    }
 
-   getUserID(){
-    this.authService.getCurrentUser().subscribe( resp => {
-      this.userID   = resp.user.userId;
-      console.log('ID-USER', this.userID);
-    })
-   }
 
-  listLiquidaciones: any[] = [];
-  getListLiquidaciones(){
-    let parametro: any[] = [{queryId: 82}];
-    this.personalService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
-            this.listLiquidaciones = resp.list;
-            // console.log('LIQUIDAC', resp);
-    });
-  }
-
-  listEstados: any[] = [];
-  getListEstados(){
-    let parametro: any[] = [{queryId: 101}];
-
-    this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
-            this.listEstados = resp.list;
-            // console.log('EST-FACT', resp);
-    });
-  }
-
-  listGestores: any[] = [];
-  getListGestores(){
-    let arrayParametro: any[] = [{queryId: 102}];
-
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
-            this.listGestores = resp.list;
-            // console.log('GESTORES', resp);
-    });
-  };
-
-  listProyectos: any[] = [];
-  getListProyectos(){
-    let parametro: any[] = [{queryId: 1}];
-
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp;
-            // console.log('COD_PROY', resp);
-    });
-  };
 
 
   actualizarFactura() {
@@ -213,6 +178,15 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
+  actualizarVentaDeclarada(id: any){
+
+  }
+
+  EliminarVentaDeclarada(id: any){
+
+  }
+
+
 
   agregarFacturaCambios(){
     if (this.estadoInicial != this.facturaForm.value.id_estado) {
@@ -262,9 +236,128 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.spinner.hide();
   }
 
+  getUserID(){
+    this.authService.getCurrentUser().subscribe( resp => {
+      this.userID   = resp.user.userId;
+      console.log('ID-USER', this.userID);
+    })
+   }
+
+  listLiquidaciones: any[] = [];
+  getListLiquidaciones(){
+    let parametro: any[] = [{queryId: 82}];
+    this.personalService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
+            this.listLiquidaciones = resp.list;
+            // console.log('LIQUIDAC', resp);
+    });
+  }
+
+  listEstados: any[] = [];
+  getListEstados(){
+    let parametro: any[] = [{queryId: 101}];
+
+    this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
+            this.listEstados = resp.list;
+            // console.log('EST-FACT', resp);
+    });
+  }
+
+  listGestores: any[] = [];
+  getListGestores(){
+    let arrayParametro: any[] = [{queryId: 102}];
+
+    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+            this.listGestores = resp.list;
+            // console.log('GESTORES', resp);
+    });
+  };
+
+  listProyectos: any[] = [];
+  getListProyectos(){
+    let parametro: any[] = [{queryId: 1}];
+
+    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+            this.listProyectos = resp;
+            // console.log('COD_PROY', resp);
+    });
+  };
+
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
+
+  listHardwareAsignado: any[]=[];
+  ListaHardwareAsignado(){
+    this.spinner.show();
+    let parametro:any[] = [{
+      "queryId": 27,
+      "mapValue": {
+      "param_id_persona": this.ID_REG_FACTURA,
+      }
+    }];
+
+    this.personalService.ListaHardwareAsignado(parametro[0]).subscribe( (resp: any) => {
+      this.listHardwareAsignado = resp.list;
+      console.log('HARD-ASIG', resp.list), resp.list.length;
+    })
+  }
+
+  listVentaDeclarada: any[] = [];
+  cargarOBuscarVentaDeclarada(){
+    this.blockUI.start("Cargando lista...");
+    let parametro: any[] = [{
+      "queryId": 72,
+      "mapValue": { p_id : this.ID_REG_FACTURA }
+    }];
+    this.personalService.cargarOBuscarVentaDeclarada( parametro[0]).subscribe( (resp: any) => {
+      this.blockUI.stop();
+
+      console.log('List-VC', resp.list);
+      this.listVentaDeclarada = resp.list;
+
+      this.spinner.hide();
+
+    })
+  }
+
+  listFactura: any[] = [];
+  cargarOBuscarFactura(){
+    this.blockUI.start("Cargando lista...");
+    let parametro: any[] = [{
+      "queryId": 71,
+      "mapValue": { p_id : this.ID_REG_FACTURA }
+    }];
+    this.personalService.cargarOBuscarFactura( parametro[0]).subscribe( (resp: any) => {
+      this.blockUI.stop();
+
+      console.log('List-Factu', resp.list);
+      this.listFactura = resp.list;
+
+      this.spinner.hide();
+    })
+  }
+
+  agregarVentaDeclarada(){
+    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, {width:'25%'});
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp) {
+        this.cargarOBuscarVentaDeclarada()
+      }
+    })
+  }
+
+  agregarFactura(){
+    const dialogRef = this.dialog.open(AgregarFacturaComponent, {width:'35%'});
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp) {
+        this.cargarOBuscarFactura()
+      }
+    })
+  };
+
+  EliminarFactura(id: number){}
   }
 
 

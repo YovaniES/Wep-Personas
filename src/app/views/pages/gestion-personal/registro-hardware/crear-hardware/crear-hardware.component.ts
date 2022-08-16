@@ -115,10 +115,7 @@ export class CrearHardwareComponent implements OnInit {
 
 
   campoNoValido(campo: string): boolean {
-    if (
-      this.hardwareForm.get(campo)?.invalid &&
-      this.hardwareForm.get(campo)?.touched
-    ) {
+    if ( this.hardwareForm.get(campo)?.invalid && this.hardwareForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

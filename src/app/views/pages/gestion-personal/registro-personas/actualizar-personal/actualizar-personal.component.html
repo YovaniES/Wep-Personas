@@ -129,52 +129,53 @@
             <mat-icon class="icon-18">add</mat-icon>
           </button>
       </div>
-      <div class="pr-section mb-3">
+      <div class="pr-section mb-2">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 100px">
-            <table class="cli-table stripedtable underlinedtable">
-              <thead>
-                <tr class="bgc-blue-light c-white">
-                  <th>Accíón</th>
-                  <th>ID Recurso</th>
-                  <th>Tipo</th>
-                  <th>Marca</th>
-                  <th>Serie</th>
-                  <th>Descripción</th>
-                  <th>Modelo</th>
-                  <th>Imei</th>
-                  <th>Observación</th>
-                </tr>
-              </thead>
+          <div style="overflow: auto; min-height: 50px">
+            <div *ngIf="listHardwareAsignado.length > 0">
+              <table class="cli-table stripedtable underlinedtable">
+                <thead>
+                  <tr class="bgc-blue-light c-white">
+                    <th>Accíón</th>
+                    <th>ID Recurso</th>
+                    <th>Tipo</th>
+                    <th>Marca</th>
+                    <th>Serie</th>
+                    <th>Descripción</th>
+                    <th>Modelo</th>
+                    <th>Imei</th>
+                    <th>Observación</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr *ngFor="let hardware of listHardwareAsignado; let i = index">
-                  <td class="w55">
-                    <div class="cli-table-actions">
-                      <button
-                        matTooltip="Desasignar hardware"
-                        class="icon-btn c-fucsia"
-                        (click)="desasignarRecurso(hardware.id)"
-                        ><mat-icon class="icon-13">delete_forever</mat-icon>
-                      </button>
-                    </div>
-                  </td>
-                  <td>{{ hardware.id }}</td>
-                  <td>{{ hardware.tipo }}</td>
-                  <td>{{ hardware.marca }}</td>
-                  <td>{{ hardware.serie }}</td>
-                  <td>{{ hardware.descripcion }}</td>
-                  <td>{{ hardware.modelo }}</td>
-                  <td>{{ hardware.imei }}</td>
-                  <td>{{ hardware.observacion }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="cli-loader" *ngIf="loadingItem">
-              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-              cargando...
+                <tbody>
+                  <tr *ngFor="let hardware of listHardwareAsignado; let i = index">
+                    <td class="w55">
+                      <div class="cli-table-actions">
+                        <button
+                          matTooltip="Desasignar hardware"
+                          class="icon-btn c-fucsia"
+                          (click)="desasignarRecurso(hardware.id)"
+                          ><mat-icon class="icon-13">delete_forever</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                    <td>{{ hardware.id }}</td>
+                    <td>{{ hardware.tipo }}</td>
+                    <td>{{ hardware.marca }}</td>
+                    <td>{{ hardware.serie }}</td>
+                    <td>{{ hardware.descripcion }}</td>
+                    <td>{{ hardware.modelo }}</td>
+                    <td>{{ hardware.imei }}</td>
+                    <td>{{ hardware.observacion }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="cli-loader" *ngIf="loadingItem">
+                <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+                cargando...
+              </div>
             </div>
-
             <div
               *ngIf="!loadingItem && listHardwareAsignado.length == 0"
               class="cli-loader mt-2"
@@ -195,46 +196,47 @@
       </div>
       <div class="pr-section">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 100px">
-            <table class="cli-table stripedtable underlinedtable">
-              <thead>
-                <tr class="bgc-blue-light c-white">
-                  <th>Acción</th>
-                  <th>ID Cuenta</th>
-                  <th>Username</th>
-                  <th>Password</th>
-                  <th>Tipo</th>
-                  <th>Fecha última renovación</th>
-                  <th>Fecha próxima renovación</th>
-                </tr>
-              </thead>
+          <div style="overflow: auto; min-height: 50px">
+            <div *ngIf="listCuentaAsignado.length > 0">
+              <table class="cli-table stripedtable underlinedtable">
+                <thead>
+                  <tr class="bgc-blue-light c-white">
+                    <th>Acción</th>
+                    <th>ID Cuenta</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Tipo</th>
+                    <th>Fecha última renovación</th>
+                    <th>Fecha próxima renovación</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr *ngFor="let cuenta of listCuentaAsignado; let i = index">
-                  <td class="w55">
-                    <div class="cli-table-actions">
-                      <button
-                        matTooltip="Desasignar cuenta"
-                        class="icon-btn btn-trans c-fucsia"
-                        (click)="desasignarRecurso(cuenta.id)"
-                        ><mat-icon class="icon-13">delete_forever</mat-icon>
-                      </button>
-                    </div>
-                  </td>
-                  <td>{{ cuenta.id }}</td>
-                  <td>{{ cuenta.usuario }}</td>
-                  <td>{{ cuenta.password }}</td>
-                  <td>{{ cuenta.tipo }}</td>
-                  <td>{{ cuenta.fecha_ultima_renovacion }}</td>
-                  <td>{{ cuenta.fecha_proxima_renovacion }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="cli-loader" *ngIf="loadingItem">
-              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-              cargando...
+                <tbody>
+                  <tr *ngFor="let cuenta of listCuentaAsignado; let i = index">
+                    <td class="w55">
+                      <div class="cli-table-actions">
+                        <button
+                          matTooltip="Desasignar cuenta"
+                          class="icon-btn btn-trans c-fucsia"
+                          (click)="desasignarRecurso(cuenta.id)"
+                          ><mat-icon class="icon-13">delete_forever</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                    <td>{{ cuenta.id }}</td>
+                    <td>{{ cuenta.usuario }}</td>
+                    <td>{{ cuenta.password }}</td>
+                    <td>{{ cuenta.tipo }}</td>
+                    <td>{{ cuenta.fecha_ultima_renovacion }}</td>
+                    <td>{{ cuenta.fecha_proxima_renovacion }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="cli-loader" *ngIf="loadingItem">
+                <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+                cargando...
+              </div>
             </div>
-
             <div
               *ngIf="!loadingItem && listCuentaAsignado.length == 0"
               class="cli-loader mt-2"

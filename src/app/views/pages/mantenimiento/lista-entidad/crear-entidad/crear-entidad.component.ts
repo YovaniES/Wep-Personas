@@ -117,10 +117,7 @@ export class CrearEntidadComponent implements OnInit {
   }
 
   campoNoValido(campo: string): boolean {
-    if (
-      this.entidadForm.get(campo)?.invalid &&
-      this.entidadForm.get(campo)?.touched
-    ) {
+    if ( this.entidadForm.get(campo)?.invalid && this.entidadForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

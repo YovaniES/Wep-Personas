@@ -156,25 +156,23 @@ export class ListaEntidadComponent implements OnInit {
   }
 
 
-  crearEntidadTabla(){
-    const dialogRef = this.dialog.open(CrearEntidadComponent, {width:'25%'});
-
-    dialogRef.afterClosed().subscribe(resp => {
-      if (resp) {
-        // this.cargarOBuscarEntidades()
-      }
-    })
-  }
-
   crearEntidadCombo(){
-    this.dialog
-    .open(CrearEntidadComponent, {width:'25%'})
-    .afterClosed().subscribe(resp => {
+    this.dialog.open(CrearEntidadComponent, {width:'25%'})
+               .afterClosed().subscribe(resp => {
       if (resp) {
         // this.cargarOBuscarEntidades()
       }
     })
   }
+
+  crearEntidadTabla(){
+    this.dialog.open(CrearEntidadComponent, {width:'25%'})
+               .afterClosed().subscribe(resp => {
+            if (resp) {
+              // this.cargarOBuscarEntidades()
+            }
+        })
+   }
 
   // eliminar ojo
   // actualizarEntidadX(id: any) {
@@ -208,7 +206,7 @@ export class ListaEntidadComponent implements OnInit {
   actualizarEntidad(id: any) {
     console.log('IDXX',id);
     this.dialog
-      .open(CrearEntidadComponent, { width: '55%', data: id})
+      .open(CrearEntidadComponent, { width: '25%', data: id})
       .afterClosed().subscribe((val) => {
         if (val == 'update') {
           // this.cargarOBuscarEntidades();

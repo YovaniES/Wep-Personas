@@ -56,6 +56,45 @@ export class CrearPersonalComponent implements OnInit {
     })
    }
 
+
+
+  crearPersonal() {
+    this.spinner.show();
+    const formValues = this.personalForm.getRawValue();
+
+    let parametro: any =  {
+        queryId: 7,
+        mapValue: {
+          param_codigo_corporativo: formValues.codCorp,
+          param_nombres           : formValues.nombre,
+          param_apellido_paterno  : formValues.apPaterno,
+          param_apellido_materno  : formValues.apMaterno,
+          param_dni               : formValues.dni,
+          param_correo            : formValues.correo,
+          param_fecha_ingreso     : formValues.fechaIngreso,
+          param_fecha_nacimiento  : formValues.fechaNacimiento,
+          param_id_proyecto       : formValues.codProy,
+          param_id_perfil         : formValues.codPerfil,
+          CONFIG_USER_ID          : this.userID,
+          CONFIG_OUT_MSG_ERROR    : "",
+          CONFIG_OUT_MSG_EXITO    : "",
+        },
+      };
+     console.log('VAOR', this.personalForm.value , parametro);
+    this.personalService.crearPersonal(parametro).subscribe((resp: any) => {
+      Swal.fire({
+        title: 'Crear Personal!',
+        text: `Personal: ${formValues.nombre+ ' '+ formValues.apMaterno}, creado con éxito`,
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      });
+      this.close(true);
+    });
+    this.spinner.hide();
+  }
+
+
+
   valueChanges(){
     this.personalForm.get('codProy')?.valueChanges.subscribe((valor: string) => {
       this.personalForm.patchValue( {codProy: valor.toUpperCase()}, {emitEvent: false});
@@ -112,47 +151,8 @@ export class CrearPersonalComponent implements OnInit {
     });
   }
 
-  crearPersonal() {
-    this.spinner.show();
-    const formValues = this.personalForm.getRawValue();
-
-    let parametro: any =  {
-        queryId: 7,
-        mapValue: {
-          param_codigo_corporativo: formValues.codCorp,
-          param_nombres           : formValues.nombre,
-          param_apellido_paterno  : formValues.apPaterno,
-          param_apellido_materno  : formValues.apMaterno,
-          param_dni               : formValues.dni,
-          param_correo            : formValues.correo,
-          param_fecha_ingreso     : formValues.fechaIngreso,
-          param_fecha_nacimiento  : formValues.fechaNacimiento,
-          param_id_proyecto       : formValues.codProy,
-          param_id_perfil         : formValues.codPerfil,
-          CONFIG_USER_ID          : this.userID,
-          CONFIG_OUT_MSG_ERROR    : "",
-          CONFIG_OUT_MSG_EXITO    : "",
-        },
-      };
-     console.log('VAOR', this.personalForm.value , parametro);
-    this.personalService.crearPersonal(parametro).subscribe((resp: any) => {
-      Swal.fire({
-        title: 'Crear Personal!',
-        text: `Personal: ${formValues.nombre+ ' '+ formValues.apMaterno}, creado con éxito`,
-        icon: 'success',
-        confirmButtonText: 'Ok',
-      });
-      this.close(true);
-    });
-    this.spinner.hide();
-  }
-
-
   campoNoValido(campo: string): boolean {
-    if (
-      this.personalForm.get(campo)?.invalid &&
-      this.personalForm.get(campo)?.touched
-    ) {
+    if ( this.personalForm.get(campo)?.invalid && this.personalForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

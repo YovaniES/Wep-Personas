@@ -1,18 +1,18 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> Actualizar Factura </div>
+  <div class="modal-title c-male">Actualizar Factura</div>
   <div class="flex-1"></div>
 
-    <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
-      <mat-icon>close</mat-icon>
-    </button>
+  <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
 
 <form class="row g-3" [formGroup]="facturaForm">
   <div class="cli-form newvac-wrapper">
     <div class="chart-draw">
-    <!-- -------------------------------------------REGISTROS ACTUALIZAR------------------------------->
-    <div style="display: flex" >
+      <!-- -------------------------------------------REGISTROS ACTUALIZAR------------------------------->
+      <div style="display: flex" >
       <div class="col-2 pr-subtitle mt-2">Registros factura</div>
       <div class="flex-1"></div>
       <div  class="mt-2 id-factura">ID : <span  class="total">{{factura_Id}}</span></div>
@@ -95,9 +95,157 @@
       </div>
     </div>
 
+      <!-- AGREGAR VENTA DECLARADA-------------------------------------------------------------------- -->
+      <div style="display: flex; background-color: #f6f3f3">
+        <div class="pr-subtitle">Venta declarada</div>
+        <div class="flex-1"></div>
+        <button
+          class="cli-btn btn-grey"
+          matTooltip="Agregar venta declarada"
+          type="submit"
+          style="color: #9b9797; height: 20px; margin-right: 6px"
+          (click)="agregarVentaDeclarada()"
+        >
+          <mat-icon class="icon-18">add</mat-icon>
+        </button>
+      </div>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div style="overflow: auto; min-height: 50px">
+            <div *ngIf="listVentaDeclarada.length > 0">
+              <table class="cli-table stripedtable underlinedtable">
+                <thead>
+                  <tr class="bgc-blue-light c-white">
+                    <th>Acción</th>
+                    <th>Periodo</th>
+                    <th>Venta declarada</th>
+                    <th>Comentarios</th>
+                  </tr>
+                </thead>
 
-    <!-- ------------------------------HISTORICO DE CAMBIOS DE ESTADO------------------------------->
-    <div class="col-2 pr-subtitle mt-2">Historico de cambios de estado</div>
+                <tbody>
+                  <tr
+                    *ngFor="let vd of listVentaDeclarada; let i = index">
+                    <td class="w55">
+                      <div class="cli-table-actions">
+                        <button
+                          matTooltip="Actualizar"
+                          class="icon-btn btn-trans c-blue"
+                          (click)="agregarVentaDeclarada()"
+                        ><mat-icon class="icon-13">edit</mat-icon>
+                        </button>
+                        <button
+                          matTooltip="Eliminar"
+                          class="icon-btn btn-trans c-fucsia"
+                          (click)="EliminarVentaDeclarada(vd.id)"
+                        ><mat-icon class="icon-13">delete_forever</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                    <td>{{ vd.periodo }}</td>
+                    <td>{{ vd.venta_declarada }}</td>
+                    <td>{{ vd.comentario }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="cli-loader" *ngIf="loadingItem">
+                <mat-spinner
+                  style="margin-right: 20px"
+                  diameter="20"
+                ></mat-spinner>
+                cargando...
+              </div>
+            </div>
+            <div
+              *ngIf="!loadingItem && listVentaDeclarada.length == 0"
+              class="cli-loader mt-2"
+              style="color: #c9c9c9"
+            >Aún no tiene venta declarada
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AGREGAR FACTURA-------------------------------------------------------------------- -->
+      <div style="display: flex; background-color: #f6f3f3">
+        <div class="pr-subtitle">Factura</div>
+        <div class="flex-1"></div>
+        <button
+          class="cli-btn btn-grey"
+          matTooltip="Agregar factura"
+          type="submit"
+          style="color: #9b9797; height: 20px; margin-right: 6px"
+          (click)="agregarFactura()"
+        >
+          <mat-icon class="icon-18">add</mat-icon>
+        </button>
+      </div>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div style="overflow: auto; min-height: 50px">
+            <div *ngIf="listFactura.length > 0">
+              <table class="cli-table stripedtable underlinedtable">
+                <thead>
+                  <tr class="bgc-blue-light c-white">
+                    <th>Acción</th>
+                    <th>Orden de compra</th>
+                    <th>Importe</th>
+                    <th>Certificación</th>
+                    <th>Estado</th>
+                    <th>Factura</th>
+                    <th>Comentario</th>
+                    <th>Fecha de facturación</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let factura of listFactura; let i = index">
+                    <td class="w55">
+                      <div class="cli-table-actions">
+                        <button
+                          matTooltip="Actualizar"
+                          class="icon-btn btn-trans c-blue"
+                          (click)="agregarFactura()"
+                        ><mat-icon class="icon-13">edit</mat-icon>
+                        </button>
+
+                        <button
+                          matTooltip="Eliminar"
+                          class="icon-btn btn-trans c-fucsia"
+                          (click)="EliminarFactura(factura.id)"
+                        ><mat-icon class="icon-13">delete_forever</mat-icon>
+                        </button>
+                      </div>
+                    </td>
+                    <td>{{ factura.oc }}</td>
+                    <td>{{ factura.importe }}</td>
+                    <td>{{ factura.idFactCertificacion }}</td>
+                    <td>{{ factura.estado }}</td>
+                    <td>{{ factura.factura }}</td>
+                    <td>{{ factura.comentario }}</td>
+                    <td>{{ factura.fecha_facturacion }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="cli-loader" *ngIf="loadingItem">
+                <mat-spinner
+                  style="margin-right: 20px"
+                  diameter="20"
+                ></mat-spinner>cargando...
+              </div>
+            </div>
+            <div
+              *ngIf="!loadingItem && listFactura.length == 0"
+              class="cli-loader mt-2"
+              style="color: #c9c9c9"
+            >Aún no tiene factura agregada
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ------------------------------HISTORICO DE CAMBIOS DE ESTADO------------------------------->
+      <div class="col-2 pr-subtitle mt-2">Historico de cambios de estado</div>
     <div class="pr-section">
       <div class="pr-module-container">
         <div style="overflow: auto; min-height: 150px">
@@ -127,20 +275,16 @@
         </div>
       </div>
     </div>
-
-  </div>
+    </div>
     <!-- <pre>{{facturaForm.value | json}}</pre> -->
-
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
     <div class="cli-form-buttons">
       <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
-      <button class="cli-btn btn-m btn-blue"
-              (click)="actualizarFactura()"
-              >
-              <mat-icon class="icon-18">save</mat-icon> Actualizar
+      <button class="cli-btn btn-m btn-blue" (click)="actualizarFactura()">
+        <mat-icon class="icon-18">save</mat-icon> Actualizar
       </button>
     </div>
   </div>

@@ -39,7 +39,7 @@ export class ActualizarHardwareComponent implements OnInit {
 
   newForm(){
     this.hardwareForm = this.fb.group({
-     id  : [''],
+     id          : [''],
      tipo        : [''],
      marca       : [''],
      id_tipo     : [''],
@@ -57,25 +57,6 @@ export class ActualizarHardwareComponent implements OnInit {
       this.userID   = resp.user.userId;
       console.log('ID-USER', this.userID);
     })
-   }
-
-   listTipos: any[] = [];
-   getListTiposHardware(){
-     let parametro: any[] = [{queryId: 32}];
-
-     this.personalService.getListTiposHardware(parametro[0]).subscribe((resp) => {
-       this.listTipos = resp;
-     });
-   }
-
-
-   listMarca: any[] = [];
-   getListMarcaHardware(){
-     let parametro: any[] = [{ queryId: 33 }];
-
-     this.personalService.getListMarcaHardware(parametro[0]).subscribe((resp) => {
-       this.listMarca = resp;
-     });
    }
 
    actualizarHardware(){
@@ -139,6 +120,25 @@ export class ActualizarHardwareComponent implements OnInit {
       }
       this.spinner.hide();
     })
+  }
+
+  listTipos: any[] = [];
+  getListTiposHardware(){
+    let parametro: any[] = [{queryId: 32}];
+
+    this.personalService.getListTiposHardware(parametro[0]).subscribe((resp) => {
+      this.listTipos = resp;
+    });
+  }
+
+
+  listMarca: any[] = [];
+  getListMarcaHardware(){
+    let parametro: any[] = [{ queryId: 33 }];
+
+    this.personalService.getListMarcaHardware(parametro[0]).subscribe((resp) => {
+      this.listMarca = resp;
+    });
   }
 
   close(succes?: boolean) {

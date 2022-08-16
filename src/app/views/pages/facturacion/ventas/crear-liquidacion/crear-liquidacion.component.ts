@@ -144,10 +144,7 @@ export class CrearLiquidacionComponent implements OnInit {
 
 
   campoNoValido(campo: string): boolean {
-    if (
-      this.facturaForm.get(campo)?.invalid &&
-      this.facturaForm.get(campo)?.touched
-    ) {
+    if (this.facturaForm.get(campo)?.invalid && this.facturaForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

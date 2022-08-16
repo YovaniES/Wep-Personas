@@ -22,9 +22,6 @@ export class CrearCuentaComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<CrearCuentaComponent>,
-    @Inject(MAT_DIALOG_DATA) public DATA: any
-
-
   ) { }
 
   ngOnInit(): void {
@@ -32,14 +29,6 @@ export class CrearCuentaComponent implements OnInit {
     this.getListTiposCuentas();
     // console.log('ID_DATA', this.DATA);
     this.userId();
-  }
-
-
-  userId() {
-    this.authService.getCurrentUser().subscribe((resp) => {
-      this.userID = resp.userId;
-      // console.log('ID-USER', this.userID);
-    });
   }
 
   newForm(){
@@ -50,16 +39,12 @@ export class CrearCuentaComponent implements OnInit {
    })
   }
 
-  tipos: any[] = [];
-  getListTiposCuentas() {
-    let Parametro: any[] = [{ queryId: 40}];
-    this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp) => {
-      this.tipos = resp;
-
-      // console.log('TIPOS', resp);
+  userId() {
+    this.authService.getCurrentUser().subscribe((resp) => {
+      this.userID = resp.userId;
+      // console.log('ID-USER', this.userID);
     });
   }
-
 
   crearCuenta() {
     console.log('CUENTAS', this.cuentaForm.value);
@@ -162,11 +147,18 @@ export class CrearCuentaComponent implements OnInit {
   //   }
   // }
 
+  tipos: any[] = [];
+  getListTiposCuentas() {
+    let Parametro: any[] = [{ queryId: 40}];
+    this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp) => {
+      this.tipos = resp;
+
+      // console.log('TIPOS', resp);
+    });
+  }
+
   campoNoValido(campo: string): boolean {
-    if (
-      this.cuentaForm.get(campo)?.invalid &&
-      this.cuentaForm.get(campo)?.touched
-    ) {
+    if ( this.cuentaForm.get(campo)?.invalid && this.cuentaForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

@@ -24,6 +24,7 @@
             >
               <button
                 type="button"
+                matTooltip="Crea una nueva lista"
                 class="cli-btn btn-blue-light"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
                 (click)="crearEntidadCombo()"
@@ -35,6 +36,7 @@
         </div>
       </div>
 
+      <div *ngIf="listEntidadX.length > 0">
       <!-- BOTON MODAL PARA CREAR PERSONAS ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <button
@@ -88,8 +90,8 @@
                 </div>
               </td>
               <td class="w100">{{ entidad.id }}</td>
-              <td>{{ entidad.nombre      | firstCapital }}</td>
-              <td>{{ entidad.descripcion | uppercase    }}</td>
+              <td>{{ entidad.nombre }}</td>
+              <td>{{ entidad.descripcion | firstCapital    }}</td>
               <td>{{ entidad.nombrePadre | firstCapital }}</td>
             </tr>
           </tbody>
@@ -107,15 +109,15 @@
         >No hay Entidades para mostrar
         </div>
       </div>
+      <div class="card-footer pb-0 pt-3">
+        <pagination-controls
+          previousLabel="Anterior"
+          nextLabel="Siguiente"
+          [responsive]="false"
+          (pageChange)="cambiarPagina($event)">
+        </pagination-controls>
+      </div>
     </div>
-    <div class="card-footer pb-0 pt-3">
-      <pagination-controls
-        previousLabel="Anterior"
-        nextLabel="Siguiente"
-        [responsive]="false"
-        (pageChange)="cambiarPagina($event)">
-      </pagination-controls>
     </div>
-
   </div>
 </div>

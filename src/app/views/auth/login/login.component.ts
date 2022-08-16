@@ -46,10 +46,7 @@ export class LoginComponent implements OnInit {
   }
 
   campoNoValido(campo: string): boolean {
-    if (
-      this.loginForm.get(campo)?.invalid &&
-      this.loginForm.get(campo)?.touched
-    ) {
+    if (this.loginForm.get(campo)?.invalid && this.loginForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

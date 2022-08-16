@@ -145,18 +145,6 @@ export class PersonalService {
 
   getListEntidades(obj: any){
     return this.http.post(API_PERSONAS, obj)
-    // .pipe(
-    //   map((tipo: any) => {
-    //     return tipo.list.map((e: any) => {
-    //       return {
-    //         id          : e.id,
-    //         nombre      : e.nombre,
-    //         descripcion : e.descripcion,
-    //         idPadre     : e.idPadre
-    //       }
-    //     })
-    //   })
-    // );
   };
 
   getListTotalTablas(obj: any) {
@@ -226,6 +214,18 @@ export class PersonalService {
   };
 
   cargarOBuscarFacturas(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  agregarVentaDeclarada(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  cargarOBuscarVentaDeclarada(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  cargarOBuscarFactura(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 
