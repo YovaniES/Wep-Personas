@@ -62,21 +62,22 @@
         <div class="form-group">
           <label>Fecha Periodo</label>
            <input
-            type="date"
+            type="month"
             class="form-control"
             formControlName="fechaPeriodo"/>
+            <span class="validity"></span>
         </div>
-        <small class="form-text text-alert" *ngIf="campoNoValido('fechaPeriodo')">* Este campo es obligatorio</small>
+        <!-- <small class="form-text text-alert" *ngIf="campoNoValido('fechaPeriodo')">* Este campo es obligatorio</small> -->
       </div>
 
-      <div class="col-sm-4 cli-form-element">
+      <!-- <div class="col-sm-4 cli-form-element">
         <label class="form-label">Estado</label>
         <select class="form-select" formControlName="id_estado">
           <option [value]="0" disabled>-Seleccione-</option>
           <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
         </select>
         <small class="form-text text-alert" *ngIf="campoNoValido('id_estado')">* Este campo es obligatorio</small>
-      </div>
+      </div> -->
 
     </div>
 
@@ -87,8 +88,8 @@
       </button>
       <button class="cli-btn btn-m btn-blue"
               (click)="crearFactura()"
-              [disabled]="facturaForm.invalid"
               >
+              <!-- [disabled]="facturaForm.invalid" -->
               <mat-icon class="icon-18">save</mat-icon> Registrar
       </button>
     </div>

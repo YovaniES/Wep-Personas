@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -48,7 +48,7 @@ export class ActualizarPersonalComponent implements OnInit {
     newForm(){
       this.personalForm = this.fb.group({
        idPersonal     : [''],
-       nombre         : [''],
+       nombre         : ['', [Validators.required]],
        apPaterno      : [''],
        apMaterno      : [''],
        dni            : [''],
@@ -306,6 +306,13 @@ export class ActualizarPersonalComponent implements OnInit {
     this.dialogRef.close(succes);
   }
 
+  campoNoValido(campo: string): boolean {
+    if ( this.personalForm.get(campo)?.invalid && (this.personalForm.get(campo)?.dirty || this.personalForm.get(campo)?.touched) ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
   agregarHardware(){
     const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%'});
 

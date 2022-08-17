@@ -54,7 +54,7 @@
               <label class="form-label">Estado</label>
               <select class="form-select" formControlName="estFactura">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
+                <option [value]="est.id_estado" *ngFor="let est of listEstadosFacturacion">{{est.nombre}}</option>
               </select>
               <small class="form-text text-alert" *ngIf="campoNoValido('estFactura')">* Este campo es obligatorio</small>
             </div>
@@ -65,6 +65,7 @@
                 <input
                   type="text"
                   class="form-control cli-input-white"
+                  placeholder="F001-016"
                   formControlName="factura"/>
                 <small class="form-text text-alert" *ngIf="campoNoValido('factura')">* Este campo es obligatorio</small>
               </div>

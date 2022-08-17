@@ -28,6 +28,7 @@ export class AgregarFacturaComponent implements OnInit {
   ngOnInit(): void {
     this.newForm();
     this.getUserID();
+    this.getListEstadosFacturacion();
     console.log('ID_VENTA', this.ID_VENTA);
 
   }
@@ -37,8 +38,8 @@ export class AgregarFacturaComponent implements OnInit {
      ordenCompra   : ['',[Validators.required]],
      importe       : ['',[Validators.required]],
      certificacion : ['',[Validators.required]],
-     estFactura    : ['',[Validators.required]],
-     factura       : ['',[Validators.required]],
+     estFactura    : [ 6,[Validators.required]],
+     factura       : ['F001-016',[Validators.required]],
      fechaFact     : ['',[Validators.required]],
      comentarios   : ['']
     })
@@ -52,13 +53,14 @@ export class AgregarFacturaComponent implements OnInit {
     })
    }
 
-   listEstados: any[] = [];
-   getListEstados(){
-     let parametro: any[] = [{queryId: 101}];
 
-     this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
-             this.listEstados = resp.list;
-             // console.log('EST-FACT', resp);
+   listEstadosFacturacion: any[] = [];
+   getListEstadosFacturacion(){
+     let parametro: any[] = [{queryId: 106}];
+
+     this.personalService.getListEstadosFacturacion(parametro[0]).subscribe((resp: any) => {
+             this.listEstadosFacturacion = resp.list;
+             console.log('EST-FACTX', resp);
      });
    }
 
@@ -67,9 +69,9 @@ export class AgregarFacturaComponent implements OnInit {
     const formValues = this.facturaForm.getRawValue();
 
     let parametro: any =  {
-        queryId: 105,
+        queryId: 107777777777777,
         mapValue: {
-          p_idFactura       : 200,
+          p_idFactura       : 199,
           p_periodo         : formValues.periodo,
           p_venta_declarada : formValues.ventaDeclarada,
           p_comentario      : formValues.comentario,
@@ -83,8 +85,8 @@ export class AgregarFacturaComponent implements OnInit {
      console.log('VAOR', this.facturaForm.value , parametro);
     this.personalService.agregarVentaDeclarada(parametro).subscribe((resp: any) => {
       Swal.fire({
-        title: 'Agregar Venta Declarada!',
-        text: `La venta declarada: ${formValues.ventaDeclarada}, fue creado con éxito`,
+        title: 'Agregar Factura!',
+        text: `La Factura: ${formValues.ventaDeclarada}, fue creado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });

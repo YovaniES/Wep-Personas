@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -14,18 +15,21 @@ import Swal from 'sweetalert2';
 })
 export class AgregarVentadeclaradaComponent implements OnInit {
   ventaDeclaradaForm!: FormGroup;
+  titleBtn: string = 'Registrar';
 
   constructor(
     private personalService: PersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
+    public datePipe: DatePipe,
     private dialogRef: MatDialogRef<CrearPersonalComponent>,
     @Inject(MAT_DIALOG_DATA) public ID_VENTA: any
   ) { }
 
   ngOnInit(): void {
     this.newForm();
+    this.cargarVentaDeclaradaById();
     this.getUserID();
     console.log('ID_VENTA', this.ID_VENTA);
 
@@ -39,6 +43,46 @@ export class AgregarVentadeclaradaComponent implements OnInit {
      fechaCrea      : ['']
     })
    }
+
+   cargarVentaDeclaradaById(){
+    this.spinner.show();
+
+    let parametro: any[] = [{
+      queryId: 107,
+      mapValue: {'param_id_factura': 200}
+    }];
+
+    this.personalService.cargarVentaDeclaradaById(parametro[0]).subscribe( (resp: any) => {
+
+          // if (this.ID_VENTA) {
+            this.titleBtn = 'ActualizarX';
+
+            for (let i = 0; i < resp.list.length; i++) {
+            this.ventaDeclaradaForm.controls['ventaDeclarada'].setValue(resp.list[i].venta_declarada);
+            this.ventaDeclaradaForm.controls['comentario'    ].setValue(resp.list[i].comentario);
+            // this.ventaDeclaradaForm.controls['periodo'       ].setValue(resp.list[i].periodo);
+            // this.ventaDeclaradaForm.controls['fechaCrea'     ].setValue(resp.list[i].fechaCrea);
+            if (resp.list[i].fechaCrea !='null' && resp.list[i].fechaCrea != '') {
+              let fechaIngr = resp.list[i].fechaCrea
+              const str   = fechaIngr.split('/');
+              const year  = Number(str[2]);
+              const month = Number(str[1]);
+              const date  = Number(str[0]);
+              this.ventaDeclaradaForm.controls['fechaCrea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+            }
+
+            if (resp.list[i].periodo !='null' && resp.list[i].periodo != '') {
+              let fechaIngr = resp.list[i].periodo
+              const str   = fechaIngr.split('/');
+              const year  = Number(str[2]);
+              const month = Number(str[1]);
+              // const date  = Number(str[0]);
+              this.ventaDeclaradaForm.controls['periodo'].setValue(this.datePipe.transform(new Date(year, month-1), 'yyyy-MM'))
+            }
+            }
+          // }
+    })
+  }
 
    userID: number = 0;
    getUserID(){
@@ -55,7 +99,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     let parametro: any =  {
         queryId: 105,
         mapValue: {
-          p_idFactura       : 200,  // AGREGAR ID DINMICO =============================>>>>>>>>>
+          p_idFactura       : 199,  // AGREGAR ID DINMICO =============================>>>>>>>>>
           p_periodo         : formValues.periodo,
           p_venta_declarada : formValues.ventaDeclarada,
           p_comentario      : formValues.comentario,

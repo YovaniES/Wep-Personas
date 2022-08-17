@@ -59,6 +59,29 @@
   }
 }
 
+.label {
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 4px;
+  font-size: 75%;
+  background-color: #398bf7;
+  width: 190px;
+}
+
+
+.estado-danger{
+  background-color: #fe61af;
+}
+.estado-succes{
+  background-color: #20c997;
+}
+
+.estado-info{
+  background-color: #398bf7;
+}
+
 @media (max-width: 768px) {
   .modal-title {
     font-size: 1.2rem;

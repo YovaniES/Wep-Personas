@@ -23,7 +23,7 @@
                   type="text"
                   class="form-control cli-input-white"
                   formControlName="nombre"/>
-                <small class="form-text text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
+                <small class="text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
               </div>
             </div>
 
@@ -33,7 +33,7 @@
                 type="text"
                 class="form-control cli-input-white"
                 formControlName="apPaterno"/>
-              <small class="form-text text-alert" *ngIf="campoNoValido('apPaterno')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('apPaterno')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -42,16 +42,17 @@
                 type="text"
                 class="form-control cli-input-white"
                 formControlName="apMaterno"/>
-              <small class="form-text text-alert" *ngIf="campoNoValido('apMaterno')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('apMaterno')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
               <label>DNI</label>
               <input
+                type="number"
                 maxlength="8"
                 class="form-control cli-input-white"
                 formControlName="dni"/>
-              <small class="form-text text-alert" *ngIf="campoNoValido('dni')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('dni')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -61,7 +62,7 @@
                 class="form-control cli-input-white"
                 formControlName="correo"/>
               <small
-                class="form-text text-alert"
+                class="text-alert"
                 *ngIf="campoNoValido('correo')">* Este campo es obligatorio</small>
             </div>
 
@@ -90,7 +91,7 @@
                 class="form-control cli-input-white"
                 formControlName="codCorp"/>
               <small
-                class="form-text text-alert"
+                class="text-alert"
                 *ngIf="campoNoValido('codCorp')">* Este campo es obligatorio</small>
             </div>
 
@@ -104,13 +105,13 @@
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
               </select>
-              <small class="form-text text-alert" *ngIf="campoNoValido('codPerfil')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('codPerfil')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element mb-2">
               <label>Descripción del Perfil</label>
               <label>{{ descPerfil }}</label>
-              <small class="form-text text-alert" *ngIf="campoNoValido('descPerfil')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('descPerfil')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -120,7 +121,7 @@
                   type="date"
                   class="form-control"
                   formControlName="fechaIngreso"/>
-                <small class="form-text text-alert" *ngIf="campoNoValido('fechaIngreso')">* Este campo es obligatorio</small>
+                <small class="text-alert" *ngIf="campoNoValido('fechaIngreso')">* Este campo es obligatorio</small>
               </div>
             </div>
 
@@ -135,13 +136,13 @@
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
-              <small class="form-text text-alert" *ngIf="campoNoValido('codProy')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('codProy')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element mb-2">
               <label>Descripción del Proyecto</label>
               <label>{{ descProyecto }}</label>
-              <small class="form-text text-alert" *ngIf="campoNoValido('descProy')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('descProy')">* Este campo es obligatorio</small>
             </div>
           </div>
         </div>

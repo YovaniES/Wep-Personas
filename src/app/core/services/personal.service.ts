@@ -225,7 +225,15 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  cargarVentaDeclaradaById(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   cargarOBuscarFactura(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  getListEstadosFacturacion(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 

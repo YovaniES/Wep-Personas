@@ -22,8 +22,8 @@
                 <input
                   type="text"
                   class="form-control cli-input-white"
-                  formControlName="nombre"
-                />
+                  formControlName="nombre"/>
+                <small class="text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
               </div>
             </div>
 

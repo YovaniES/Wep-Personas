@@ -282,25 +282,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
     });
   };
 
-  close(succes?: boolean) {
-    this.dialogRef.close(succes);
-  }
-
-  listHardwareAsignado: any[]=[];
-  ListaHardwareAsignado(){
-    this.spinner.show();
-    let parametro:any[] = [{
-      "queryId": 27,
-      "mapValue": {
-      "param_id_persona": this.ID_REG_FACTURA,
-      }
-    }];
-
-    this.personalService.ListaHardwareAsignado(parametro[0]).subscribe( (resp: any) => {
-      this.listHardwareAsignado = resp.list;
-      console.log('HARD-ASIG', resp.list), resp.list.length;
-    })
-  }
 
   listVentaDeclarada: any[] = [];
   cargarOBuscarVentaDeclarada(){
@@ -337,6 +318,12 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
+  EliminarFactura(id: number){}
+
+  close(succes?: boolean) {
+    this.dialogRef.close(succes);
+  }
+
   agregarVentaDeclarada(){
     const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, {width:'25%'});
 
@@ -357,7 +344,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   };
 
-  EliminarFactura(id: number){}
+
   }
 
 

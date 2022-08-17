@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 export class CrearPersonalComponent implements OnInit {
   userID: number = 0;
   personalForm!: FormGroup;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
   constructor(
     private personalService: PersonalService,
@@ -38,9 +39,9 @@ export class CrearPersonalComponent implements OnInit {
      apPaterno      : ['', [Validators.required]],
      apMaterno      : ['', [Validators.required]],
      dni            : [''],
-     correo         : ['', [Validators.required]],
+     correo         : ['', [Validators.required, Validators.email,Validators.pattern(this.emailPattern)]],
      fechaNacimiento: [''],
-     codCorp        : ['', [Validators.required, Validators.maxLength(3)]],
+     codCorp        : ['', [Validators.required]],
      codPerfil      : ['', [Validators.required]],
      descPerfil     : [''],
      fechaIngreso   : ['', [Validators.required]],
@@ -152,7 +153,7 @@ export class CrearPersonalComponent implements OnInit {
   }
 
   campoNoValido(campo: string): boolean {
-    if ( this.personalForm.get(campo)?.invalid && this.personalForm.get(campo)?.touched ) {
+    if ( this.personalForm.get(campo)?.invalid && (this.personalForm.get(campo)?.dirty || this.personalForm.get(campo)?.touched) ) {
       return true;
     } else {
       return false;

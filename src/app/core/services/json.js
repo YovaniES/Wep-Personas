@@ -627,7 +627,7 @@
           SELECT
               p.id,
               p.nombres,
-              p.apellido_paterno,d
+              p.apellido_paterno,
               p.apellido_materno,
               p.correo,
               p.dni,

@@ -75,7 +75,7 @@
 
           <div class="col-sm-4 cli-form-element">
             <label class="form-label">Estado</label>
-            <select class="form-select" formControlName="id_estado">
+                  <select class="form-select" formControlName="id_estado">
               <option [value]="0" disabled>-Seleccione-</option>
               <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
             </select>
@@ -86,6 +86,7 @@
               <label>Fecha creación</label>
               <input
                 type="date"
+                readonly="true"
                 class="form-control"
                 formControlName="fecha_crea"
               />
@@ -220,7 +221,11 @@
                     <td>{{ factura.oc }}</td>
                     <td>{{ factura.importe }}</td>
                     <td>{{ factura.idFactCertificacion }}</td>
-                    <td>{{ factura.estado }}</td>
+                    <td>
+                      <span *ngIf="factura.estado == 'Facturado'"   class="label estado-danger">{{ factura.estado }}</span>
+                      <span *ngIf="factura.estado == 'Certificado'" class="label estado-succes">{{ factura.estado }}</span>
+                      <span *ngIf="factura.estado == 'Propuesto'"   class="label estado-info">{{ factura.estado }}</span>
+                    </td>
                     <td>{{ factura.factura }}</td>
                     <td>{{ factura.comentario }}</td>
                     <td>{{ factura.fecha_facturacion }}</td>

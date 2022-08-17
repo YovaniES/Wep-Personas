@@ -151,7 +151,7 @@
                 </div>
               </td>
               <td>{{ factura.idFactura }}</td>
-              <td> {{ factura.periodo}}</td>
+              <td> {{ factura.periodo | date:"yyyy/MM" }}</td>
               <td>{{ factura.proyecto  | uppercase}}</td>
               <td class="w135">{{ factura.liquidacion| firstCapital }}</td>
               <td class="w250">{{ factura.subServicio }}</td>

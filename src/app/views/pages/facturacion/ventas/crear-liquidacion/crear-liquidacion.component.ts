@@ -41,17 +41,64 @@ export class CrearLiquidacionComponent implements OnInit {
      id_gestor           : ['',[Validators.required]],
      venta_declarada     : ['',[Validators.required]],
      fechaPeriodo        : ['',[Validators.required]],
-     id_estado           : ['',[Validators.required]],
+     id_estado           : [ 1,[Validators.required]],
      orden_compra        : [''],
      certificacion       : [''],
      factura             : [''],
      monto_facturado     : [''],
      comentarios         : [''],
-     gestor              : ['']
+     gestor              : [''],
     })
    }
 
-   getUserID(){
+
+  crearFactura() {
+    this.spinner.show();
+    let currentUser = this.authService.getUsername();
+
+    const formValues = this.facturaForm.getRawValue();
+
+    let parametro: any =  {
+        queryId: 70,
+        mapValue:{
+          p_periodo           : formValues.fechaPeriodo,
+          p_idProyecto        : formValues.codProy,
+          p_idLiquidacion     : formValues.id_liquidacion,
+          p_subServicio       : formValues.subservicio,
+          p_gestor            : formValues.gestor,
+          p_idGestor          : formValues.id_gestor,
+          p_venta_declarada   : formValues.venta_declarada,
+          p_idEstado          : formValues.id_estado,
+          p_orden_compra      : formValues.orden_compra,
+          p_cod_certificacion : formValues.certificacion,
+          p_factura           : formValues.factura,
+          p_monto_facturado   : formValues.monto_facturado,
+          p_Comentarios       : formValues.comentarios,
+          p_idMotivo          : '',
+          p_idUsuarioCrea     : this.userID,
+          p_fechaCrea         : formValues.fecha_crea,
+          p_idUsuarioActualiza: '',
+          p_fechaActualiza    : '',
+          p_ver_estado        : '',
+          CONFIG_USER_ID      : this.userID,
+          CONFIG_OUT_MSG_ERROR: '',
+          CONFIG_OUT_MSG_EXITO: '',
+        }};
+     console.log('VAOR', this.facturaForm.value , parametro);
+    this.personalService.crearFactura(parametro).subscribe((resp: any) => {
+      Swal.fire({
+        title: 'Crear Factura!',
+        text: `La Factura: ${formValues.id},fue creado con éxito`,    //FALTA EL ID ======================><>>>>>>>>>>>>>>>>>>
+        icon: 'success',
+        confirmButtonText: 'Ok',
+      });
+      this.close(true);
+    });
+    this.spinner.hide();
+  }
+
+
+  getUserID(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
       console.log('ID-USER', this.userID);
@@ -96,51 +143,6 @@ export class CrearLiquidacionComponent implements OnInit {
             console.log('COD_PROY', resp);
     });
   };
-
-  crearFactura() {
-    this.spinner.show();
-    let currentUser = this.authService.getUsername();
-
-    const formValues = this.facturaForm.getRawValue();
-
-    let parametro: any =  {
-        queryId: 70,
-        mapValue:{
-          p_periodo           : formValues.fechaPeriodo,
-          p_idProyecto        : formValues.codProy,
-          p_idLiquidacion     : formValues.id_liquidacion,
-          p_subServicio       : formValues.subservicio,
-          p_gestor            : formValues.gestor,
-          p_idGestor          : formValues.id_gestor,
-          p_venta_declarada   : formValues.venta_declarada,
-          p_idEstado          : formValues.id_estado,
-          p_orden_compra      : formValues.orden_compra,
-          p_cod_certificacion : formValues.certificacion,
-          p_factura           : formValues.factura,
-          p_monto_facturado   : formValues.monto_facturado,
-          p_Comentarios       : formValues.comentarios,
-          p_idMotivo          : '',
-          p_idUsuarioCrea     : this.userID,
-          p_fechaCrea         : '',
-          p_idUsuarioActualiza: '',
-          p_fechaActualiza    : '',
-          p_ver_estado        : '',
-          CONFIG_USER_ID      : this.userID,
-          CONFIG_OUT_MSG_ERROR: '',
-          CONFIG_OUT_MSG_EXITO: '',
-        }};
-     console.log('VAOR', this.facturaForm.value , parametro);
-    this.personalService.crearFactura(parametro).subscribe((resp: any) => {
-      Swal.fire({
-        title: 'Crear Factura!',
-        text: `La Factura: ${formValues.factura}, creado con éxito`,
-        icon: 'success',
-        confirmButtonText: 'Ok',
-      });
-      this.close(true);
-    });
-    this.spinner.hide();
-  }
 
 
   campoNoValido(campo: string): boolean {
