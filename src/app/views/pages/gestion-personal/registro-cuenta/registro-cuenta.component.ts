@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
+import { ModalCuentaComponent } from './modal-cuenta/modal-cuenta.component';
 
 @Component({
   selector: 'app-registro-cuenta',
@@ -67,7 +68,7 @@ export class RegistroCuentaComponent implements OnInit {
   cargarOBuscarcuentas(){
     this.blockUI.start("Cargando cuentas...");
     let parametro: any[] = [{
-      "queryId": 46,
+      "queryId": 109,
       "mapValue": {
         param_usuario  : this.filtroForm.value.usuario,
         param_id_estado: this.filtroForm.value.idEstado,
@@ -149,7 +150,7 @@ export class RegistroCuentaComponent implements OnInit {
   }
 
   crearCuenta(){
-    const dialogRef = this.dialog.open(CrearCuentaComponent, {width:'50%'});
+    const dialogRef = this.dialog.open(ModalCuentaComponent, {width:'50%'});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -158,25 +159,15 @@ export class RegistroCuentaComponent implements OnInit {
     })
   }
 
-  actualizarCuenta(id: any) {
-    console.log('IDXX',id);
+  actualizarCuenta(cuenta: any) {
+    console.log('DATA_CUENTA', cuenta);
     this.dialog
-      .open(ActualizarCuentaComponent, { width: '50%', data: id, })
+      .open(ModalCuentaComponent, { width: '50%', data: cuenta, })
       .afterClosed().subscribe((resp) => {
-        if (resp) {
+        if (resp == 'Actualizar') {
           this.cargarOBuscarcuentas();
         }
       });
   }
 
-  // actualizarCuenta(id: any) {
-  //   console.log('IDXX',id);
-  //   this.dialog
-  //     .open(CrearCuentaComponent, { width: '50%', height: '20%', data: id, })
-  //     .afterClosed().subscribe((val) => {
-  //       if (val == 'update') {
-  //         this.cargarOBuscarcuentas();
-  //       }
-  //     });
-  // }
 }

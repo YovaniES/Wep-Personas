@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> {{EDIT_DATA ? 'Actualizar' : 'Crear'}} Hardware </div>
+  <div class="modal-title c-male"> {{DATA_HARDWARE ? 'Actualizar' : 'Crear'}} Hardware </div>
     <div class="flex-1"></div>
 
     <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -87,7 +87,7 @@
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button class="cli-btn btn-m btn-blue"
-              (click)="crearHardware()"
+              (click)="crearOactualizarHardware()"
               [disabled]="hardwareForm.invalid"
               ><mat-icon class="icon-18">save</mat-icon> {{actionBtn}}
       </button>

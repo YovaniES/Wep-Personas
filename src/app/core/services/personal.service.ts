@@ -49,13 +49,13 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   };
 
-  crearCuenta(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  };
-
-  crearHardware(obj: any) {
+  crearOactualizarHardware(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
+
+  crearOactualizarCuenta(obj: any) {
+    return this.http.post(API_PERSONAS, obj);
+  };
 
   crearEntidadCombo(obj: any) {
     return this.http.post(API_PERSONAS, obj);

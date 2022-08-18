@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '', children: [
       { path: 'personas', component: RegistroPersonalComponent},
       { path: 'hardware', component: RegistroHardwareComponent},
-      { path: 'cuentas', component: RegistroCuentaComponent},
+      { path: 'cuentas' , component: RegistroCuentaComponent},
       { path: '**', redirectTo: ''}
     ]
   }

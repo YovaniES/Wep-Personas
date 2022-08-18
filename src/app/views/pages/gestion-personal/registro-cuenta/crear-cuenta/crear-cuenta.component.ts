@@ -46,35 +46,35 @@ export class CrearCuentaComponent implements OnInit {
     });
   }
 
-  crearCuenta() {
-    console.log('CUENTAS', this.cuentaForm.value);
+  // crearCuenta() {
+  //   console.log('CUENTAS', this.cuentaForm.value);
 
-        this.spinner.show();
-    const formValues = this.cuentaForm.getRawValue();
+  //       this.spinner.show();
+  //   const formValues = this.cuentaForm.getRawValue();
 
-    let parametro: any =  {
-        queryId: 19,
-        mapValue: {
-          param_usuario       : formValues.usuario,
-          param_password      : formValues.password,
-          param_id_tipo       : formValues.idTipo,
-          CONFIG_USER_ID      : this.userID,
-          CONFIG_OUT_MSG_ERROR: "",
-          CONFIG_OUT_MSG_EXITO: "",
-        },
-      };
-    //  console.log('VAOR', this.cuentaForm.value , parametro);
-    this.personalService.crearCuenta(parametro).subscribe((resp: any) => {
-      Swal.fire({
-        title: 'Crear cuenta!',
-        text: `Cuenta: ${formValues.usuario} , creado con éxito`,
-        icon: 'success',
-        confirmButtonText: 'Ok',
-      });
-      this.close(true);
-    });
-      this.spinner.hide();
-  }
+  //   let parametro: any =  {
+  //       queryId: 19,
+  //       mapValue: {
+  //         param_usuario       : formValues.usuario,
+  //         param_password      : formValues.password,
+  //         param_id_tipo       : formValues.idTipo,
+  //         CONFIG_USER_ID      : this.userID,
+  //         CONFIG_OUT_MSG_ERROR: "",
+  //         CONFIG_OUT_MSG_EXITO: "",
+  //       },
+  //     };
+  //   //  console.log('VAOR', this.cuentaForm.value , parametro);
+  //   this.personalService.crearCuenta(parametro).subscribe((resp: any) => {
+  //     Swal.fire({
+  //       title: 'Crear cuenta!',
+  //       text: `Cuenta: ${formValues.usuario} , creado con éxito`,
+  //       icon: 'success',
+  //       confirmButtonText: 'Ok',
+  //     });
+  //     this.close(true);
+  //   });
+  //     this.spinner.hide();
+  // }
 
 
   // actualizarCuenta() {

@@ -64,8 +64,7 @@ export class ActualizarCuentaComponent implements OnInit {
     this.spinner.show();
 
     const formValues = this.cuentaForm.getRawValue();
-    let parametro: any[] = [{
-        queryId: 20,
+    let parametro: any[] = [{ queryId: 20,
         mapValue: {
           param_id_recurso              : formValues.id,
           param_usuario                 : formValues.usuario,

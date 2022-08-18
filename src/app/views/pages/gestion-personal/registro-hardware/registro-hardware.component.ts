@@ -25,7 +25,7 @@ export class RegistroHardwareComponent implements OnInit {
   page = 1;
   totalHardware: number = 0;
   pageSize = 10;
-  pageSizes = [3, 6, 9];
+  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -190,7 +190,7 @@ export class RegistroHardwareComponent implements OnInit {
     this.dialog
       .open(ModalHardwareComponent, { width: '55%', data: DATA, })
       .afterClosed().subscribe((resp) => {
-        if (resp == 'actualizar') {
+        if (resp == 'Actualizar') {
           this.cargarOBuscarHardware();
         }
       });
