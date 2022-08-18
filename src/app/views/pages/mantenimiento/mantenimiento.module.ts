@@ -3,19 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { MantenimientoRoutingModule } from './mantenimiento-routing.module';
 import { ListaEntidadComponent } from './lista-entidad/lista-entidad.component';
-import { CrearEntidadComponent } from './lista-entidad/crear-entidad/crear-entidad.component';
 import { CoreModule } from 'src/app/core/core.module';
 import { MaterialModule } from 'src/app/material/material.module';
-import { ActualizarEntidadComponent } from './lista-entidad/actualizar-entidad/actualizar-entidad.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { ModalEntidadComponent } from './lista-entidad/modal-entidad/modal-entidad.component';
 
 
 @NgModule({
   declarations: [
     ListaEntidadComponent,
-    CrearEntidadComponent,
-    ActualizarEntidadComponent
+    ModalEntidadComponent
   ],
   imports: [
     CommonModule,

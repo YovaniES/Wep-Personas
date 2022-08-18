@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> Agregar Entidad </div>
+  <div class="modal-title c-male">{{DATA_ENTIDAD ? 'Actualizar' : 'Crear'}} Entidad </div>
     <div class="flex-1"></div>
 
     <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -56,7 +56,7 @@
               (click)="crearEntidadCombo()"
               >
               <!-- [disabled]="hardwareForm.invalid" -->
-              <mat-icon class="icon-18">save</mat-icon> Registrar
+              <mat-icon class="icon-18">save</mat-icon> {{btnAction}}
       </button>
     </div>
   </div>

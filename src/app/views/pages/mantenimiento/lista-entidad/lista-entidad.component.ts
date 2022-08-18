@@ -4,9 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { PersonalService } from 'src/app/core/services/personal.service';
-import { ActualizarEntidadComponent } from './actualizar-entidad/actualizar-entidad.component';
 import Swal from 'sweetalert2';
-import { CrearEntidadComponent } from './crear-entidad/crear-entidad.component';
+import { ModalEntidadComponent } from './modal-entidad/modal-entidad.component';
 
 @Component({
   selector: 'app-lista-entidad',
@@ -42,44 +41,6 @@ export class ListaEntidadComponent implements OnInit {
   newFilfroForm(){
     this.filtroForm = this.fb.group({
       entidad  : [''],
-    })
-  }
-
-  listEntidad: any[] = [];
-  getListEntidades(){
-    let parametro: any[] = [{queryId: 47}];
-
-    this.personalService.getListEntidades(parametro[0]).subscribe((resp: any) => {
-      this.listEntidad = resp.list;
-
-      console.log('List-Ent', this.listEntidad, this.listEntidad.length);
-
-    });
-  }
-
-
-
-  // datosInfoEntidad = {
-  //   nombre     : "",
-  //   descripcion: "",
-  //   idPadre    : "",
-  // };
-
-  // getEntidadesTabla(id: any) {
-  //   this.datosInfoEntidad.idPadre = id;
-  // }
-
-
-
-
-  listTablas: any[] = [];
-  getListTotalTablas(){
-    let parametro: any[] = [{ queryId: 47}]
-    this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
-      this.listTablas = resp;
-
-      console.log('listado', this.listTablas);
-
     })
   }
 
@@ -157,7 +118,7 @@ export class ListaEntidadComponent implements OnInit {
 
 
   crearEntidadCombo(){
-    this.dialog.open(CrearEntidadComponent, {width:'25%'})
+    this.dialog.open(ModalEntidadComponent, {width:'25%'})
                .afterClosed().subscribe(resp => {
       if (resp) {
         // this.cargarOBuscarEntidades()
@@ -166,7 +127,7 @@ export class ListaEntidadComponent implements OnInit {
   }
 
   crearEntidadTabla(){
-    this.dialog.open(CrearEntidadComponent, {width:'25%'})
+    this.dialog.open(ModalEntidadComponent, {width:'25%'})
                .afterClosed().subscribe(resp => {
             if (resp) {
               // this.cargarOBuscarEntidades()
@@ -203,12 +164,45 @@ export class ListaEntidadComponent implements OnInit {
     this.page = event;
   }
 
-  actualizarEntidad(id: any) {
-    console.log('IDXX',id);
+  listEntidad: any[] = [];
+  getListEntidades(){
+    let parametro: any[] = [{queryId: 47}];
+
+    this.personalService.getListEntidades(parametro[0]).subscribe((resp: any) => {
+      this.listEntidad = resp.list;
+
+      console.log('List-Ent', this.listEntidad, this.listEntidad.length);
+
+    });
+  }
+
+  // datosInfoEntidad = {
+  //   nombre     : "",
+  //   descripcion: "",
+  //   idPadre    : "",
+  // };
+
+  // getEntidadesTabla(id: any) {
+  //   this.datosInfoEntidad.idPadre = id;
+  // }
+
+  listTablas: any[] = [];
+  getListTotalTablas(){
+    let parametro: any[] = [{ queryId: 47}]
+    this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
+      this.listTablas = resp;
+
+      console.log('listado', this.listTablas);
+
+    })
+  }
+
+  actualizarEntidad(DATA: any) {
+    console.log('DATA_ENTIDAD',DATA);
     this.dialog
-      .open(CrearEntidadComponent, { width: '25%', data: id})
+      .open(ModalEntidadComponent, { width: '25%', data: DATA})
       .afterClosed().subscribe((val) => {
-        if (val == 'update') {
+        if (val == 'Actualizar') {
           // this.cargarOBuscarEntidades();
         }
       });

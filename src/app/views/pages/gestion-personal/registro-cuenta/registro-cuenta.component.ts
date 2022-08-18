@@ -2,16 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-
-import { PersonalService } from 'src/app/core/services/personal.service';
-import { CrearCuentaComponent } from './crear-cuenta/crear-cuenta.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ActualizarCuentaComponent } from './actualizar-cuenta/actualizar-cuenta.component';
-import Swal from 'sweetalert2';
 import { of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
+
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 import { ModalCuentaComponent } from './modal-cuenta/modal-cuenta.component';
+import { PersonalService } from 'src/app/core/services/personal.service';
 
 @Component({
   selector: 'app-registro-cuenta',
@@ -27,7 +25,7 @@ export class RegistroCuentaComponent implements OnInit {
   page = 1;
   totalIniciativa: number = 0;
   pageSize = 10;
-  pageSizes = [3, 6, 9];
+  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,

@@ -1,17 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-crear-entidad',
-  templateUrl: './crear-entidad.component.html',
-  styleUrls: ['./crear-entidad.component.scss']
+  selector: 'app-modal-entidad',
+  templateUrl: './modal-entidad.component.html',
+  styleUrls: ['./modal-entidad.component.scss']
 })
-export class CrearEntidadComponent implements OnInit {
+export class ModalEntidadComponent implements OnInit {
   userID: number = 0;
 
   entidadForm!: FormGroup;
@@ -21,13 +21,16 @@ export class CrearEntidadComponent implements OnInit {
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<CrearEntidadComponent>,
-
+    private dialogRef: MatDialogRef<ModalEntidadComponent>,
+    @Inject(MAT_DIALOG_DATA) public DATA_ENTIDAD: any
   ) { }
 
   ngOnInit(): void {
     this.newEntidadForm();
     this.getListEntidades();
+
+    this.cargarListaEntidad();
+    this.cargarTablaEntidad();
   }
 
   newEntidadForm(){
@@ -40,20 +43,44 @@ export class CrearEntidadComponent implements OnInit {
     })
   }
 
-  userId() {
-    this.authService.getCurrentUser().subscribe((resp) => {
-      this.userID = resp.userId;
-      // console.log('ID-USER', this.userID);
-    });
+  crearOactualizarListaEntidad(){
+    if (!this.DATA_ENTIDAD) {
+      if (this.entidadForm.valid) {this.crearEntidadCombo()}
+    } else {
+      this.actualizarListaEntidad();
+    }
   }
 
-  listEntidad: any[] = [];
-  getListEntidades(){
-    let arrayParametro: any[] = [{queryId: 47}];
+  crearOactualizarTablaEntidad(){
+    if (!this.DATA_ENTIDAD) {
+      if (this.entidadForm.valid) {this.crearEntidadTabla()}
+    } else {
+      this.actualizarTablaEntidad();
+    }
+  }
 
-    this.personalService.getListEntidades(arrayParametro[0]).subscribe((resp: any) => {
-      this.listEntidad = resp.list;
-    });
+
+  btnAction: string = 'Registrar'
+  cargarListaEntidad(){
+    if (this.DATA_ENTIDAD) {
+      this.btnAction = 'Actualizar'
+
+    }
+  }
+
+  cargarTablaEntidad(){
+    if (this.DATA_ENTIDAD) {
+      this.btnAction = 'Actualizar'
+
+    }
+  }
+
+  actualizarListaEntidad(){
+
+  }
+
+  actualizarTablaEntidad(){
+
   }
 
   crearEntidadCombo() {
@@ -124,8 +151,25 @@ export class CrearEntidadComponent implements OnInit {
     }
   }
 
+  userId() {
+    this.authService.getCurrentUser().subscribe((resp) => {
+      this.userID = resp.userId;
+      // console.log('ID-USER', this.userID);
+    });
+  }
+
+  listEntidad: any[] = [];
+  getListEntidades(){
+    let arrayParametro: any[] = [{queryId: 47}];
+
+    this.personalService.getListEntidades(arrayParametro[0]).subscribe((resp: any) => {
+      this.listEntidad = resp.list;
+    });
+  }
+
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
+
 
 }
