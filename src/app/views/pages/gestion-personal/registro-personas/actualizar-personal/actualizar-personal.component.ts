@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
-import { AsignarHardwareComponent } from './agregar-hardware/asignar-hardware.component';
+import { AsignarHardwareComponent } from './asignar-hardware/asignar-hardware.component';
 import { AsignarCuentaComponent } from './asignar-cuenta/asignar-cuenta.component';
 @Component({
   selector: 'app-actualizar-personas',
@@ -28,20 +28,20 @@ export class ActualizarPersonalComponent implements OnInit {
     public datePipe: DatePipe,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<ActualizarPersonalComponent>,
-    @Inject(MAT_DIALOG_DATA) public ID_REG_PERSONAL: any
+    @Inject(MAT_DIALOG_DATA) public DATA_PERSONAL: any
   ) { }
 
   ngOnInit(): void {
     this.newForm();
     this.cargarPersonalById();
-
     this.getListProyectos();
     this.getListPerfiles();
-    this.getHistoricoCambiosProyecto(this.ID_REG_PERSONAL);
+    this.getHistoricoCambiosProyecto(this.DATA_PERSONAL);
     this.getUsuario();
 
     this.ListaHardwareAsignado();
     this.ListaCuentaAsignado();
+    // console.log('DATA_PERSONAL', this.DATA_PERSONAL);
   }
 
 
@@ -119,7 +119,7 @@ export class ActualizarPersonalComponent implements OnInit {
 
     let parametro: any[] = [{
       queryId: 31,
-      mapValue: {'param_id_persona': this.ID_REG_PERSONAL}
+      mapValue: {'param_id_persona': this.DATA_PERSONAL.id}
     }];
 
     this.personalService.cargarPersonalById(parametro[0]).subscribe( (resp: any) => {
@@ -204,7 +204,7 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 27,
       "mapValue": {
-      "param_id_persona": this.ID_REG_PERSONAL,
+      "param_id_persona": this.DATA_PERSONAL.id,
       }
     }];
 
@@ -220,7 +220,7 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 28,
       "mapValue": {
-      "param_id_persona": this.ID_REG_PERSONAL,
+      "param_id_persona": this.DATA_PERSONAL.id,
       }
     }];
 
@@ -236,13 +236,13 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro: any[] = [{
       queryId: 57,
       mapValue: {
-        param_id_persona: this.ID_REG_PERSONAL,
+        param_id_persona: this.DATA_PERSONAL.id,
       }
     }];
 
     this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
       this.histCambiosProyecto = resp;
-      console.log('ListHistCambID', resp)
+      // console.log('ListHistCambID', resp)
     });
     this.spinner.hide();
   }
@@ -254,7 +254,7 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 26,
       "mapValue": {
-        "param_id_persona"    : this.ID_REG_PERSONAL,
+        "param_id_persona"    : this.DATA_PERSONAL.id,
         "param_id_recurso"    : idRecurso,
         "CONFIG_USER_ID"      : this.userID,
         "CONFIG_OUT_MSG_ERROR": '',
@@ -262,10 +262,7 @@ export class ActualizarPersonalComponent implements OnInit {
       }
     }];
     this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
-      const arrayData:any[] = Array.of(resp);
-
-      // let msj = arrayData[0].exitoMessage;
-      // this.showSuccess(msj);
+      // const arrayData:any[] = Array.of(resp);
       this.ngOnInit();
     });
     this.spinner.hide();
@@ -303,8 +300,10 @@ export class ActualizarPersonalComponent implements OnInit {
     }
   }
 
-  agregarHardware(){
-    const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%'});
+  asignarHardware(){
+    // console.log('DATA_RECURSO', DATA);
+
+    const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%', });
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {

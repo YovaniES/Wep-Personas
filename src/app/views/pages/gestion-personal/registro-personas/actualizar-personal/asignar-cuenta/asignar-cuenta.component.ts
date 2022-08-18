@@ -60,10 +60,6 @@ export class AsignarCuentaComponent implements OnInit {
 
 
 
-  asignarHardware(id: any){
-
-  }
-
   asignarCuenta(id: any){
 
   }

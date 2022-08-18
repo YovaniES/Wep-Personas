@@ -57,8 +57,6 @@ export class CrearPersonalComponent implements OnInit {
     })
    }
 
-
-
   crearPersonal() {
     this.spinner.show();
     const formValues = this.personalForm.getRawValue();
@@ -123,31 +121,22 @@ export class CrearPersonalComponent implements OnInit {
   }
 
   descProyecto: any;
-  getInfoProyecto(id: any) {
-    this.personalForm.value.codProy = id.toString();
+  getDescProy(id: any) {
+    let parametro: any[] = [{ queryId: 2, mapValue: { param_id_proyecto: id }}];
 
-    let parametro: any[] = [{
-        queryId: 2,
-        mapValue: { param_id_proyecto: id }
-      }];
-    this.personalService.getDescProy(parametro[0]).subscribe((resp) => {
-      console.log('DESC-PROYX', resp);
-      this.descProyecto = resp;
+    this.personalService.getDescProy(parametro[0]).subscribe((resp: any) => {
+      this.descProyecto = resp.list.map((d: any) => d.descripcion)
+
+      console.log('DESC-PROYX', this.descProyecto);
     });
   }
 
   descPerfil: any;
   getDescPerfil(id: any){
-    this.personalForm.value.codPerfil = id.toString();
+    let parametro: any[] = [{queryId: 11, mapValue: {param_id_perfil: id} }];
 
-    let parametro: any[] = [{
-        queryId: 11,
-        mapValue: {param_id_perfil: id}
-      },
-    ];
-
-    this.personalService.getDescPerfil(parametro[0]).subscribe((resp) => {
-            this.descPerfil = resp;
+    this.personalService.getDescPerfil(parametro[0]).subscribe((resp: any) => {
+            this.descPerfil = resp.list.map((perfil: any) => perfil.descripcion);
             console.log('DESC-PERFIL', resp);
     });
   }

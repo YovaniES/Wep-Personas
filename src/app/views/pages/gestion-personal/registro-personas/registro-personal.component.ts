@@ -256,13 +256,11 @@ export class RegistroPersonalComponent implements OnInit {
     });
   }
 
-  actualizarPersonal(id: any) {
+  actualizarPersonal(DATA: any) {
+    console.log('DATA_PERSONA', DATA);
+
     this.dialog
-      .open(ActualizarPersonalComponent, {
-        width: '55%',
-        height: '90%',
-        data: id,
-      })
+      .open(ActualizarPersonalComponent, {width: '55%', height: '90%', data: DATA})
       .afterClosed()
       .subscribe((resp) => {
         if (resp) {

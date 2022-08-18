@@ -28,7 +28,7 @@
           class="form-control"
           style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
           rows="3"
-          placeholder="Aquí se muestra la descripcion de la entidad"
+          placeholder="Describa la entidad"
           formControlName="descripcion"
         ></textarea>
         <small class="text-alert" *ngIf="campoNoValido('descripcion')">* Este campo es obligatorio</small>
@@ -54,9 +54,8 @@
       </button>
       <button class="cli-btn btn-m btn-blue"
               (click)="crearEntidadCombo()"
-              >
-              <!-- [disabled]="hardwareForm.invalid" -->
-              <mat-icon class="icon-18">save</mat-icon> {{btnAction}}
+              [disabled]="entidadForm.invalid"
+              ><mat-icon class="icon-18">save</mat-icon> {{btnAction}}
       </button>
     </div>
   </div>

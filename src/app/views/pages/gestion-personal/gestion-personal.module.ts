@@ -10,7 +10,7 @@ import { RegistroHardwareComponent } from './registro-hardware/registro-hardware
 import { RegistroPersonalComponent } from './registro-personas/registro-personal.component';
 import { ActualizarPersonalComponent } from './registro-personas/actualizar-personal/actualizar-personal.component';
 import { CrearPersonalComponent } from './registro-personas/crear-personal/crear-personal.component';
-import { AsignarHardwareComponent } from './registro-personas/actualizar-personal/agregar-hardware/asignar-hardware.component';
+import { AsignarHardwareComponent } from './registro-personas/actualizar-personal/asignar-hardware/asignar-hardware.component';
 import { AsignarCuentaComponent } from './registro-personas/actualizar-personal/asignar-cuenta/asignar-cuenta.component';
 import { ModalHardwareComponent } from './registro-hardware/modal-hardware/modal-hardware.component';
 import { ModalCuentaComponent } from './registro-cuenta/modal-cuenta/modal-cuenta.component';

@@ -28,7 +28,7 @@ export class AsignarHardwareComponent implements OnInit {
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<AsignarHardwareComponent>,
-    @Inject(MAT_DIALOG_DATA) public ID_PERSONAL_RECURSO: any
+    @Inject(MAT_DIALOG_DATA) public DATA_PERSONA: any
 
   ) { }
 
@@ -38,7 +38,7 @@ export class AsignarHardwareComponent implements OnInit {
     this.getListMarcaHardware();
     this.getListTiposHardware();
 
-    console.log('ID_PERSON_REC', this.ID_PERSONAL_RECURSO);
+    console.log('ID_PERSON_REC', this.DATA_PERSONA);
   }
 
   newFilfroForm(){
@@ -83,10 +83,11 @@ export class AsignarHardwareComponent implements OnInit {
   asignarRecursoH(idRecurso: number, tipo?: string){
     this.spinner.show();
 
+    if (this.DATA_PERSONA.estado == 'Activo') {
       let parametro: any[] = [{
         "queryId": 25,
         "mapValue": {
-          "param_id_persona": 498,
+          "param_id_persona": this.DATA_PERSONA.id,
           "param_id_recurso": idRecurso,
           "CONFIG_USER_ID"  : this.userID,
           "CONFIG_OUT_MSG_ERROR":'',
@@ -99,34 +100,41 @@ export class AsignarHardwareComponent implements OnInit {
           text: `El recurso Hardware: ${'x'}, se asignó con exito`,
           icon: 'success',
         });
-
       })
+
+    } else {
+    Swal.fire({
+        title: 'Asignar recurso hardware',
+        text: `No se pudo asignar el recurso: ${''}, cuando el personal este Inactivo`,
+        icon: 'warning',
+      });
+    }
+      this.spinner.hide();
     }
 
+    // asignarRecurso(idRecurso: number, tipo?: string){
+    // this.spinner.show();
 
-  asignarRecurso(idRecurso: number, tipo?: string){
-    this.spinner.show();
+    // if (this) {
+    //   let parametro: any[] = [{
+    //     "queryId": 25,
+    //     "mapValue": {
+    //       "param_id_persona": this.DATA_PERSONA,
+    //       "param_id_recurso": idRecurso,
+    //       "CONFIG_USER_ID"  : this.userID,
+    //       "CONFIG_OUT_MSG_ERROR":'',
+    //       "CONFIG_OUT_MSG_EXITO":''}
+    //   }];
 
-    if (this) {
-      let parametro: any[] = [{
-        "queryId": 25,
-        "mapValue": {
-          "param_id_persona": this.ID_PERSONAL_RECURSO,
-          "param_id_recurso": idRecurso,
-          "CONFIG_USER_ID"  : this.userID,
-          "CONFIG_OUT_MSG_ERROR":'',
-          "CONFIG_OUT_MSG_EXITO":''}
-      }];
+    //   this.personalService.asignarRecurso(parametro[0]).subscribe( resp => {
+    //     // this.cargarOBuscarPersonal();
+    //     Swal.fire({
+    //       title: 'Asignar recurso hardware',
+    //       text: `El recurso Hardware: ${''}, se asignó con exito`,
+    //       icon: 'success',
+    //     });
 
-      this.personalService.asignarRecurso(parametro[0]).subscribe( resp => {
-        // this.cargarOBuscarPersonal();
-        Swal.fire({
-          title: 'Asignar recurso hardware',
-          text: `El recurso Hardware: ${''}, se asignó con exito`,
-          icon: 'success',
-        });
-
-      })
+    //   })
       // this._service.asignarRecusoPersona(arrayParametro[0]).subscribe(data => {
       //   const arrayData:any[] = Array.of(data);
       //   let msj = arrayData[0].exitoMessage;
@@ -140,18 +148,17 @@ export class AsignarHardwareComponent implements OnInit {
       //   }
       //   this.ngOnInit();
       // });
-    }else{
-      // this.showError('No se puede asignar cuando el personal esta de baja')
-      Swal.fire({
-        title: 'Asignar recurso hardware',
-        text: `No se pudo asignar el recurso: ${''}, cuadno el personal este de baja`,
-        icon: 'warning',
-      });
+  //   }else{
+  //     // this.showError('No se puede asignar cuando el personal esta de baja')
+  //     Swal.fire({
+  //       title: 'Asignar recurso hardware',
+  //       text: `No se pudo asignar el recurso: ${''}, cuando el personal este de baja`,
+  //       icon: 'warning',
+  //     });
 
-    }
-    this.spinner.hide();
-  }
-
+  //   }
+  //   this.spinner.hide();
+  // }
 
 
   listTipos: any[] = [];

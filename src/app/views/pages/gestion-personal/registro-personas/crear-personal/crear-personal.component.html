@@ -110,7 +110,7 @@
 
             <div class="col-sm-4 cli-form-element mb-2">
               <label>Descripción del Perfil</label>
-              <label>{{ descPerfil }}</label>
+              <label style="color:#20c997">{{ descPerfil }}</label>
               <small class="text-alert" *ngIf="campoNoValido('descPerfil')">* Este campo es obligatorio</small>
             </div>
 
@@ -131,9 +131,8 @@
                 class="cli-input-white"
                 formControlName="codProy"
                 #selectList
-                (change)="getInfoProyecto(selectList.value)"
-              >
-                <option [value]="0" disabled>- Seleccione -</option>
+                (change)="getDescProy(selectList.value)"
+                ><option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
               <small class="text-alert" *ngIf="campoNoValido('codProy')">* Este campo es obligatorio</small>
@@ -141,7 +140,7 @@
 
             <div class="col-sm-4 cli-form-element mb-2">
               <label>Descripción del Proyecto</label>
-              <label>{{ descProyecto }}</label>
+              <label style="color:#20c997">{{ descProyecto }}</label>
               <small class="text-alert" *ngIf="campoNoValido('descProy')">* Este campo es obligatorio</small>
             </div>
           </div>

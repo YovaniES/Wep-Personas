@@ -116,31 +116,11 @@ export class PersonalService {
   };
 
   getDescPerfil(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((descProyecto: any) => {
-        return descProyecto.list.map((d: any) => {
-          return {
-            id          : d.id,
-            nombre      : d.nombre,
-            descripcion : d.descripcion
-          }
-        })
-      })
-    );
+    return this.http.post(API_PERSONAS, obj);
   }
 
   getDescProy(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((perfil: any) => {
-        return perfil.list.map((p: any) => {
-          return {
-            id          : p.id,
-            codigo      : p.codigo,
-            descripcion : p.descripcion
-          }
-        })
-      })
-    );
+    return this.http.post(API_PERSONAS, obj);
   }
 
   getListEntidades(obj: any){

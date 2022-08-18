@@ -144,7 +144,7 @@
                 <div class="cli-table-actions">
                   <button matTooltip="Editar"
                     class="icon-btn btn-trans c-blue"
-                    (click)="actualizarPersonal(personal.id)"
+                    (click)="actualizarPersonal(personal)"
                   ><mat-icon class="icon-18">manage_accounts</mat-icon>
                   </button>
 
@@ -168,8 +168,8 @@
               <td>{{ personal.perfil | firstCapital }}</td>
               <td>{{ personal.correo }}</td>
               <td>
-                <span *ngIf="personal.estado=='Activo' " class="w135 label estado-info">{{ personal.estado | firstCapital }}</span>
-                <span *ngIf="personal.estado == 'Inactivo'" class="w135 label estado-danger">{{ personal.estado | firstCapital }}</span>
+                <span *ngIf="personal.estado=='Activo' " class="w135 label estado-info">{{ personal.estado | uppercase }}</span>
+                <span *ngIf="personal.estado == 'Inactivo'" class="w135 label estado-danger">{{ personal.estado | uppercase }}</span>
               </td>
 
               <td class="w300">{{ personal.proyecto_descripcion | firstCapital}}</td>

@@ -95,15 +95,14 @@
         </table>
 
         <div class="cli-loader" *ngIf="loadingItem">
-          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-          cargando...
+          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>cargando...
         </div>
 
         <div
           *ngIf="!loadingItem && listaCuentaDisp.length == 0"
           class="cli-loader mt-2"
           style="color: #f83434; font-size: 9px;"
-        >No hay cuentas disponibles para mostrar
+          >No hay cuentas disponibles para mostrar
         </div>
       </div>
     </div>
@@ -113,8 +112,7 @@
         previousLabel="Anterior"
         nextLabel="Siguiente"
         [responsive]="false"
-        (pageChange)="cambiarPagina($event)"
-      >
+        (pageChange)="cambiarPagina($event)">
       </pagination-controls>
     </div>
   </div>
