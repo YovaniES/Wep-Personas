@@ -129,7 +129,7 @@
                   <button
                     matTooltip="Editar"
                     class="icon-btn btn-trans c-blue"
-                    (click)="actualizarHardware(hardware.id_recurso)"
+                    (click)="actualizarHardware(hardware)"
                   ><mat-icon class="icon-18">edit</mat-icon>
                   </button>
                   <button
@@ -143,7 +143,7 @@
               <td>{{ hardware.id_recurso }}</td>
               <td class="w155">{{ hardware.tipo   | firstCapital}}</td>
               <td class="w135">{{ hardware.marca  | uppercase }}</td>
-              <td class="w135">{{ hardware.equipo | firstCapital }}</td>
+              <td class="w135">{{ hardware.equipo | firstCapital}}</td>
               <td class="w200">{{ hardware.modelo | uppercase }}</td>
               <td>{{ hardware.serie }}</td>
               <td>{{ hardware.imei }}</td>
@@ -165,7 +165,7 @@
           *ngIf="!loadingItem && listaHardware.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
-        >No hay Hardware para mostrar
+          >No hay Hardware para mostrar
         </div>
       </div>
     </div>

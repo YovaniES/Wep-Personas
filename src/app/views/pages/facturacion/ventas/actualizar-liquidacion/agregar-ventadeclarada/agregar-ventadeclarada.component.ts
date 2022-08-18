@@ -24,7 +24,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
     private dialogRef: MatDialogRef<CrearPersonalComponent>,
-    @Inject(MAT_DIALOG_DATA) public ID_VENTA: any
+    @Inject(MAT_DIALOG_DATA) public ID_VENTA: any = 200
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
 
     this.personalService.cargarVentaDeclaradaById(parametro[0]).subscribe( (resp: any) => {
 
-          // if (this.ID_VENTA) {
+          if (this.ID_VENTA) {
             this.titleBtn = 'ActualizarX';
 
             for (let i = 0; i < resp.list.length; i++) {
@@ -80,7 +80,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
               this.ventaDeclaradaForm.controls['periodo'].setValue(this.datePipe.transform(new Date(year, month-1), 'yyyy-MM'))
             }
             }
-          // }
+          }
     })
   }
 

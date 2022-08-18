@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
@@ -108,7 +108,6 @@ export class RegistroPersonalComponent implements OnInit {
     );
   }
 
-
   activado_desactivado: string='';
   bajaOaltaAlPersonal(id: number){
     this.spinner.show();
@@ -154,9 +153,6 @@ export class RegistroPersonalComponent implements OnInit {
   abrirEliminarLogico(id:number, codCorporrativo:string, estado:string){
     this.idEliminar = id;
     this.codCorporativo = codCorporrativo;
-
-    if (estado == 'Activo')   {this.tooltipDeBajaOalta = "Baja"}
-    if (estado == 'Inactivo') {this.tooltipDeBajaOalta = "Alta"}
 
     Swal.fire({
       title: `Eliminar Personal?`,

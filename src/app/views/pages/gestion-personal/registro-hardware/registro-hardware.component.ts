@@ -8,9 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { CrearHardwareComponent } from './crear-hardware/crear-hardware.component';
-import { ActualizarHardwareComponent } from './actualizar-hardware/actualizar-hardware.component';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
+import { ModalHardwareComponent } from './modal-hardware/modal-hardware.component';
 
 @Component({
   selector: 'app-registro-hardware',
@@ -70,7 +69,7 @@ export class RegistroHardwareComponent implements OnInit {
   cargarOBuscarHardware(){
     this.blockUI.start("Cargando listado de hardware...");
     let parametro: any[] = [{
-      "queryId": 45,
+      "queryId": 108,
       "mapValue": {
         param_serie    : this.filtroForm.value.serie,
         param_id_tipo  : this.filtroForm.value.tipo,
@@ -82,7 +81,7 @@ export class RegistroHardwareComponent implements OnInit {
     this.personalService.cargarOBuscarHardware(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Hardware', resp, resp.length);
+     console.log('Lista-Hardware', resp, resp.list.length);
       this.listaHardware = [];
       this.listaHardware = resp.list;
 
@@ -176,7 +175,7 @@ export class RegistroHardwareComponent implements OnInit {
   }
 
   crearHardware(){
-    const dialogRef = this.dialog.open(CrearHardwareComponent, {width:'55%'});
+    const dialogRef = this.dialog.open(ModalHardwareComponent, {width:'55%',});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -185,11 +184,13 @@ export class RegistroHardwareComponent implements OnInit {
     })
   }
 
-  actualizarHardware(id: any) {
+  actualizarHardware(DATA: any) {
+    console.log('DATA_HARDWARE', DATA);
+
     this.dialog
-      .open(ActualizarHardwareComponent, { width: '55%', data: id, })
+      .open(ModalHardwareComponent, { width: '55%', data: DATA, })
       .afterClosed().subscribe((resp) => {
-        if (resp) {
+        if (resp == 'actualizar') {
           this.cargarOBuscarHardware();
         }
       });

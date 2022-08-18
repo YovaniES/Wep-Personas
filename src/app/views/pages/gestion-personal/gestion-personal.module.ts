@@ -9,13 +9,12 @@ import { MaterialModule } from 'src/app/material/material.module';
 import { CoreModule } from 'src/app/core/core.module';
 import { ActualizarCuentaComponent } from './registro-cuenta/actualizar-cuenta/actualizar-cuenta.component';
 import { RegistroHardwareComponent } from './registro-hardware/registro-hardware.component';
-import { CrearHardwareComponent } from './registro-hardware/crear-hardware/crear-hardware.component';
-import { ActualizarHardwareComponent } from './registro-hardware/actualizar-hardware/actualizar-hardware.component';
 import { RegistroPersonalComponent } from './registro-personas/registro-personal.component';
 import { ActualizarPersonalComponent } from './registro-personas/actualizar-personal/actualizar-personal.component';
 import { CrearPersonalComponent } from './registro-personas/crear-personal/crear-personal.component';
 import { AsignarHardwareComponent } from './registro-personas/actualizar-personal/agregar-hardware/asignar-hardware.component';
 import { AsignarCuentaComponent } from './registro-personas/actualizar-personal/asignar-cuenta/asignar-cuenta.component';
+import { ModalHardwareComponent } from './registro-hardware/modal-hardware/modal-hardware.component';
 
 
 @NgModule({
@@ -24,13 +23,12 @@ import { AsignarCuentaComponent } from './registro-personas/actualizar-personal/
     CrearCuentaComponent,
     ActualizarCuentaComponent,
     RegistroHardwareComponent,
-    CrearHardwareComponent,
-    ActualizarHardwareComponent,
     RegistroPersonalComponent,
     CrearPersonalComponent,
     ActualizarPersonalComponent,
     AsignarHardwareComponent,
-    AsignarCuentaComponent
+    AsignarCuentaComponent,
+    ModalHardwareComponent
   ],
   imports: [
     GestionPersonalRoutingModule,

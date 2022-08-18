@@ -92,7 +92,7 @@ export class ActualizarPersonalComponent implements OnInit {
           param_fecha_nacimiento  : formValues.fechaNacimiento,
           param_id_proyecto       : formValues.codProy,
           param_id_perfil         : formValues.codPerfil,
-          param_estado            : formValues.estadoPersonal,
+          param_estado            : 1,
           CONFIG_USER_ID          : this.userID,
           CONFIG_OUT_MSG_ERROR    : "",
           CONFIG_OUT_MSG_EXITO    : "",
@@ -198,11 +198,6 @@ export class ActualizarPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
-
-  listHardwareDisponible(){
-
-  }
-
   listHardwareAsignado: any[]=[];
   ListaHardwareAsignado(){
     this.spinner.show();
@@ -253,12 +248,6 @@ export class ActualizarPersonalComponent implements OnInit {
   }
 
 
-  cargarOBuscarHardwareDisponible(){
-
-  }
-
-
-
   desasignarRecurso(idRecurso: number){
     this.spinner.show();
 
@@ -268,8 +257,8 @@ export class ActualizarPersonalComponent implements OnInit {
         "param_id_persona"    : this.ID_REG_PERSONAL,
         "param_id_recurso"    : idRecurso,
         "CONFIG_USER_ID"      : this.userID,
-        "CONFIG_OUT_MSG_ERROR":'',
-        "CONFIG_OUT_MSG_EXITO":''
+        "CONFIG_OUT_MSG_ERROR": '',
+        "CONFIG_OUT_MSG_EXITO": ''
       }
     }];
     this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
@@ -313,12 +302,13 @@ export class ActualizarPersonalComponent implements OnInit {
       return false;
     }
   }
+
   agregarHardware(){
     const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%'});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
-        this.cargarOBuscarHardwareDisponible()
+        this.ListaHardwareAsignado()
       }
     })
   }
@@ -328,7 +318,7 @@ export class ActualizarPersonalComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
-        this.cargarOBuscarHardwareDisponible()
+        this.ListaCuentaAsignado()
       }
     })
   };

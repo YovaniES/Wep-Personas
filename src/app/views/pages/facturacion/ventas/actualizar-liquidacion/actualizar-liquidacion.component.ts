@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -45,6 +45,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.getHistoricoCambiosEstado(this.ID_REG_FACTURA);
     this.cargarOBuscarVentaDeclarada();
     this.cargarOBuscarFactura();
+
+    console.log('ID_REG_FACTURA', this.ID_REG_FACTURA);
   }
 
 
@@ -125,7 +127,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.spinner.hide();
   }
 
-
   estadoInicial: string = '';
   cargarFacturalById(){
     this.spinner.show();
@@ -152,7 +153,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
         this.facturaForm.controls['monto_facturado'].setValue(resp.list[i].monto_facturado);
         this.facturaForm.controls['comentarios'    ].setValue(resp.list[i].Comentarios);
         this.facturaForm.controls['gestor'         ].setValue(resp.list[i].gestor);
-
 
         this.estadoInicial = resp.list[i].estado;
 
@@ -186,29 +186,20 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
   }
 
-
-
   agregarFacturaCambios(){
     if (this.estadoInicial != this.facturaForm.value.id_estado) {
+
+      let currentUser  = this.authService.getUsername();
 
       let parametro: any[] = [{
         queryId: 104,
         mapValue: {
-        //  "p_idiniciativa"        : this.ID ,
-        //  "p_idEstado"            : idEstado ,
-        //  "p_id_motivo"           : id_motivo ,
-        //  "p_dFecha"              : dFecha ,
-        //  "p_usuario"             : currentUser,
-        // "@CONFIG_USER_ID"        : this.userID,
-        // "@CONFIG_OUT_MSG_ERROR"  : '' ,
-        // "@CONFIG_OUT_MSG_EXITO"  : ''
-
         'p_idFactura'          : this.facturaForm.value.id_factura,
         'p_idEstado'           : this.facturaForm.value.id_estado,
         'p_venta_declarada'    : this.facturaForm.value.venta_declarada,
         'p_idProyecto'         : this.facturaForm.value.codProy,
         'p_dFecha'             : this.facturaForm.value.fecha_crea,
-        'p_usuario'            : 'JHON SOTO',
+        'p_usuario'            : currentUser,
         'CONFIG_USER_ID'       : this.userID,
         'CONFIG_OUT_MSG_EXITO' : '',
         'CONFIG_OUT_MSG_ERROR' : '',
@@ -334,8 +325,12 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
-  agregarFactura(){
-    const dialogRef = this.dialog.open(AgregarFacturaComponent, {width:'35%'});
+  agregarOactualizarFactura(){
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    // dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(AgregarFacturaComponent, {width:'35%'},);
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {

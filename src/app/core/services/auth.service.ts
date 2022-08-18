@@ -64,7 +64,7 @@ export class AuthService {
 
   getUsername() {
     const decodedToken: any = this.decodeToken();
-    // console.log('ROL', decodedToken);
+    console.log('ROL', decodedToken);
     return decodedToken ? decodedToken.name : '';
   }
 

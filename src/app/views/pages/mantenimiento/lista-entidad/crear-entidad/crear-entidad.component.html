@@ -18,7 +18,7 @@
             type="text"
             class="form-control cli-input-white"
             formControlName="nombre"/>
-          <small class="form-text text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
+          <small class="text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
         </div>
       </div>
 
@@ -28,10 +28,10 @@
           class="form-control"
           style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
           rows="3"
-          placeholder="Aquí se muestra la descripcion del cód. del perfil"
+          placeholder="Aquí se muestra la descripcion de la entidad"
           formControlName="descripcion"
         ></textarea>
-        <small class="form-text text-alert" *ngIf="campoNoValido('descripcion')">* Este campo es obligatorio</small>
+        <small class="text-alert" *ngIf="campoNoValido('descripcion')">* Este campo es obligatorio</small>
       </div>
 
       <div class="cli-form-element">
@@ -42,7 +42,7 @@
                   [id]="entidad.idPadre" *ngFor="let entidad of listEntidad">{{ entidad.nombre }}
           </option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('entidad')">* Este campo es obligatorio</small>
+        <small class="text-alert" *ngIf="campoNoValido('entidad')">* Este campo es obligatorio</small>
       </div>
     </div>
 

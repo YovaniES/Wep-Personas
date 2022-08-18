@@ -39,7 +39,7 @@ export class AgregarFacturaComponent implements OnInit {
      importe       : ['',[Validators.required]],
      certificacion : ['',[Validators.required]],
      estFactura    : [ 6,[Validators.required]],
-     factura       : ['F001-016',[Validators.required]],
+     factura       : ['F001-',[Validators.required]],
      fechaFact     : ['',[Validators.required]],
      comentarios   : ['']
     })
