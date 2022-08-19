@@ -18,7 +18,7 @@
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="tipo.id" *ngFor="let tipo of listTipos">{{ tipo.nombre }}</option>
         </select>
-        <small class="text-alert" *ngIf="campoNoValido('tipo')">* Este campo es obligatorio</small>
+        <small class="text-alert" *ngIf="campoNoValido('tipo')">* Ingrese el Tipo es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -27,7 +27,7 @@
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="marca.id" *ngFor="let marca of listMarca">{{ marca.nombre }}</option>
         </select>
-        <small class="text-alert" *ngIf="campoNoValido('marca')">* Este campo es obligatorio</small>
+        <small class="text-alert" *ngIf="campoNoValido('marca')">* Ingrese la Marca es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -37,7 +37,7 @@
             type="text"
             class="form-control cli-input-white"
             formControlName="modelo"/>
-          <small class="text-alert" *ngIf="campoNoValido('modelo')">* Este campo es obligatorio</small>
+          <small class="text-alert" *ngIf="campoNoValido('modelo')">* Ingrese el Modelo es obligatorio</small>
         </div>
       </div>
 
@@ -47,7 +47,7 @@
           type="text"
           class="form-control cli-input-white"
           formControlName="serie"/>
-          <small class="text-alert" *ngIf="campoNoValido('serie')">* Este campo es obligatorio</small>
+          <small class="text-alert" *ngIf="campoNoValido('serie')">* Ingrese la Serie es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">

@@ -83,17 +83,17 @@ export class RegistroPersonalComponent implements OnInit {
 
   idEliminar: number = 0;
   codCorporativo: any;
-  tooltipDeBajaOalta: string =''
+  tooltipActivoInactivo: string =''
   abrirEliminar(id:number, codCorporrativo:string, estado:string){
     this.idEliminar = id;
     this.codCorporativo = codCorporrativo;
 
-    if (estado == 'Activo')   {this.tooltipDeBajaOalta = "Desactivar"}
-    if (estado == 'Inactivo') {this.tooltipDeBajaOalta = "Activar"}
+    if (estado == 'Activo')   {this.tooltipActivoInactivo = "Desactivar"}
+    if (estado == 'Inactivo') {this.tooltipActivoInactivo = "Activar"}
 
     Swal.fire({
-      title: `${this.tooltipDeBajaOalta} al Personal?`,
-      text: `¿Desea ${this.tooltipDeBajaOalta} al personal: ${id} ?`,
+      title: `${this.tooltipActivoInactivo} al Personal?`,
+      text: `¿Desea ${this.tooltipActivoInactivo} al personal: ${id} ?`,
       icon: 'question',
       confirmButtonColor: '#20c997',
       cancelButtonColor : '#b2b5b4',
@@ -124,18 +124,18 @@ export class RegistroPersonalComponent implements OnInit {
       if(msj == undefined){msj = ''}
       if (msj != '') {
 
-        if (this.tooltipDeBajaOalta == 'Desactivar') {this.activado_desactivado = 'Desactivado'}
-        if (this.tooltipDeBajaOalta == 'Activar') {this.activado_desactivado = 'Activado'}
+        if (this.tooltipActivoInactivo == 'Desactivar') {this.activado_desactivado = 'Desactivado'}
+        if (this.tooltipActivoInactivo == 'Activar') {this.activado_desactivado = 'Activado'}
 
         Swal.fire({
-          title: `${this.tooltipDeBajaOalta} al Personal`,
+          title: `${this.tooltipActivoInactivo} al Personal`,
           text: `El Personal: ${id}, fue ${this.activado_desactivado} con éxito`,
           icon: 'success',
         });
 
       }else if (msj2 != ''){
         Swal.fire({
-          title: `${this.tooltipDeBajaOalta} al Personal`,
+          title: `${this.tooltipActivoInactivo} al Personal`,
           text: `El Personal: ${id} No pudo ser: ${this.activado_desactivado}, por que tiene recursos asignados`,
           icon: 'error',
         });

@@ -124,10 +124,10 @@
                         currentPage: page,
                         totalItems: totalHardware
                       } ">
-              <td>
+              <td class="w55">
                 <div class="cli-table-actions">
                   <button
-                    matTooltip="Editar"
+                    matTooltip="Actualizar"
                     class="icon-btn btn-trans c-blue"
                     (click)="actualizarHardware(hardware)"
                   ><mat-icon class="icon-18">edit</mat-icon>
@@ -140,15 +140,15 @@
                   </button>
                 </div>
               </td>
-              <td>{{ hardware.id_recurso }}</td>
-              <td class="w155">{{ hardware.tipo   | firstCapital}}</td>
-              <td class="w135">{{ hardware.marca  | uppercase }}</td>
-              <td class="w135">{{ hardware.equipo | firstCapital}}</td>
+              <td class="w55">{{ hardware.id_recurso }}</td>
+              <td class="w200">{{ hardware.tipo   | firstCapital}}</td>
+              <td>{{ hardware.marca  | uppercase }}</td>
+              <td class="w275">{{ hardware.equipo | firstCapital}}</td>
               <td class="w200">{{ hardware.modelo | uppercase }}</td>
-              <td>{{ hardware.serie }}</td>
+              <td class="w200">{{ hardware.serie }}</td>
               <td>{{ hardware.imei }}</td>
               <td>{{ hardware.estado_recurso }}</td>
-              <td>{{ hardware.nombres | firstCapital}}</td>
+              <td class="w200">{{ hardware.nombres | firstCapital}}</td>
               <td>{{ hardware.codigo_corporativo }}</td>
               <td>{{ hardware.proyecto }}</td>
               <td class="w275">{{ hardware.observacion | firstCapital}}</td>

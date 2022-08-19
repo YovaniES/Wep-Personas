@@ -156,7 +156,7 @@ export class ActualizarPersonalComponent implements OnInit {
           const date  = Number(str[0]);
           this.personalForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
-        // this.personalForm.controls['estado'].setValue(resp.list[i].estado);
+        this.personalForm.controls['estado'].setValue(resp.list[i].estado);
       }
       this.spinner.hide();
     })
@@ -184,8 +184,6 @@ export class ActualizarPersonalComponent implements OnInit {
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarPersonal(parametro[0]).subscribe(resp => {
-
-          // this.cargarOBuscarPersonal();
 
             Swal.fire({
               title: 'Eliminar Personal',
@@ -233,9 +231,7 @@ export class ActualizarPersonalComponent implements OnInit {
   histCambiosProyecto: any[] = [];
   getHistoricoCambiosProyecto(id: number){
   this.spinner.show();
-    let parametro: any[] = [{
-      queryId: 57,
-      mapValue: {
+    let parametro: any[] = [{ queryId: 57, mapValue: {
         param_id_persona: this.DATA_PERSONAL.id,
       }
     }];
@@ -274,7 +270,7 @@ export class ActualizarPersonalComponent implements OnInit {
 
     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
             this.listProyectos = resp;
-            console.log('COD_PROY', resp);
+            // console.log('COD_PROY', resp);
     });
   };
 
@@ -284,7 +280,7 @@ export class ActualizarPersonalComponent implements OnInit {
 
     this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
             this.listPerfiles = resp;
-            console.log('PERFILES', resp);
+            // console.log('PERFILES', resp);
     });
   };
 
@@ -301,19 +297,17 @@ export class ActualizarPersonalComponent implements OnInit {
   }
 
   asignarHardware(){
-    // console.log('DATA_RECURSO', DATA);
-
-    const dialogRef = this.dialog.open(AsignarHardwareComponent, {width:'35%', });
+    const dialogRef = this.dialog.open(AsignarHardwareComponent, { width:'35%', data: this.personalForm.value });
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
         this.ListaHardwareAsignado()
       }
     })
-  }
+  };
 
   agregarCuenta(){
-    const dialogRef = this.dialog.open(AsignarCuentaComponent, {width:'35%'});
+    const dialogRef = this.dialog.open(AsignarCuentaComponent, { width:'35%', data: this.personalForm.value });
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -321,6 +315,7 @@ export class ActualizarPersonalComponent implements OnInit {
       }
     })
   };
+
 }
 
 

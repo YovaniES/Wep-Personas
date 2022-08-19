@@ -14,9 +14,7 @@
         <label class="lab-color">Username</label>
         <div>
           <input class="form-control" type="email" formControlName="username" />
-          <small class="form-text text-danger" *ngIf="campoNoValido('username')"
-            >* Debe ingresar un usuario válido
-          </small>
+          <small class="form-text text-danger" *ngIf="campoNoValido('username')">* Debe ingresar un username válido</small>
         </div>
       </div>
 
@@ -28,11 +26,7 @@
             type="password"
             class="form-control"
             formControlName="password"
-          /><small
-            class="form-text text-danger"
-            *ngIf="campoNoValido('password')"
-            >* Debe ingresar una contraseña válida
-          </small>
+          /><small class="form-text text-danger" *ngIf="campoNoValido('password')">* Debe ingresar una contraseña válida</small>
         </div>
       </div>
 
@@ -43,8 +37,7 @@
           type="submit"
           (click)="login()"
           [disabled]="loginForm.invalid"
-        >
-          <mat-icon class="icon-cent icon-16">login</mat-icon> Ingresar
+        ><mat-icon class="icon-cent icon-16">login</mat-icon> Ingresar
         </button>
       </div>
     </form>

@@ -6,6 +6,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
+import { UtilService } from 'src/app/core/services/util.service';
 import Swal from 'sweetalert2';
 import { AgregarFacturaComponent } from './agregar-factura/agregar-factura.component';
 import { AgregarVentadeclaradaComponent } from './agregar-ventadeclarada/agregar-ventadeclarada.component';
@@ -27,6 +28,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     private personalService: PersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
+    private utilService: UtilService,
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
     private dialog: MatDialog,
@@ -84,7 +86,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
         queryId: 66,
         mapValue:{
           p_idFactura         : this.ID_REG_FACTURA,
-          p_periodo           : formValues.fechaPeriodo,
+          p_periodo           : this.utilService.generarPeriodo(formValues.fechaPeriodo),
           p_idProyecto        : formValues.codProy,
           p_idLiquidacion     : formValues.id_liquidacion,
           p_subServicio       : formValues.subservicio,
@@ -99,7 +101,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
           p_Comentarios       : formValues.comentarios,
           p_idMotivo          : '',
           p_idUsuarioCrea     : this.userID,
-          p_fechaCrea         : formValues.fechaCrea,
+          p_fechaCrea         : this.datePipe.transform(formValues.fecha_crea, 'yyyy-MM-dd hh:mm:ss'),
           p_idUsuarioActualiza: 5,
           p_fechaActualiza    : '',
           p_ver_estado        : 1,
@@ -107,7 +109,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: '',
         }};
-     console.log('VAOR', this.facturaForm.value , parametro);
+     console.log('VAOR', formValues , parametro);
     this.personalService.actualizarFactura(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Actualizar Factura!',
@@ -115,6 +117,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
+
+      // this.facturaForm.controls['fecha_crea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
 
 
       // if(formValues.id_estado){
@@ -145,7 +149,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
         this.facturaForm.controls['subservicio'    ].setValue(resp.list[i].subServicio);
         this.facturaForm.controls['id_gestor'      ].setValue(resp.list[i].idGestor);
         this.facturaForm.controls['venta_declarada'].setValue(resp.list[i].venta_declarada);
-        // this.facturaForm.controls['fechaPeriodo'   ].setValue(resp.list[i].periodo);
+        this.facturaForm.controls['fechaPeriodo'   ].setValue(resp.list[i].periodo);
         this.facturaForm.controls['id_estado'      ].setValue(resp.list[i].idEstado);
         this.facturaForm.controls['orden_compra'   ].setValue(resp.list[i].orden_compra);
         this.facturaForm.controls['certificacion'  ].setValue(resp.list[i].cod_certificacion);
@@ -156,22 +160,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
         this.estadoInicial = resp.list[i].estado;
 
-        // if (resp.list[i].periodo !='null' && resp.list[i].periodo != '') {
-        //   let fPeriodo = resp.list[i].periodo
-        //   const str   = fPeriodo.split('/');
-        //   const year  = Number(str[2]);
-        //   const month = Number(str[1]);
-        //   const date  = Number(str[0]);
-        //   this.facturaForm.controls['fechaPeriodo'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
-        // }
-
         if (resp.list[i].fechaCrea !='null' && resp.list[i].fechaCrea != '') {
-          let fCrea = resp.list[i].fechaCrea
-          const str   = fCrea.split('/');
-          const year  = Number(str[2]);
-          const month = Number(str[1]);
-          const date  = Number(str[0]);
-          this.facturaForm.controls['fecha_crea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+          this.facturaForm.controls['fecha_crea'].setValue(resp.list[i].fechaCrea)
         }
       }
       this.spinner.hide();

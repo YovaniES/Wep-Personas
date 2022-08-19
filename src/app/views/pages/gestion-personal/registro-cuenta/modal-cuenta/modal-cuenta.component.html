@@ -19,7 +19,7 @@
             type="text"
             class="form-control cli-input-white"
             formControlName="usuario"/>
-          <small class="form-text text-alert" *ngIf="campoNoValido('usuario')">* Este campo es obligatorio</small>
+          <small class="form-text text-alert" *ngIf="campoNoValido('usuario')">* Ingrese el Username es obligatorio</small>
         </div>
       </div>
 
@@ -29,7 +29,7 @@
           type="text"
           class="form-control cli-input-white"
           formControlName="password"/>
-          <small class="form-text text-alert" *ngIf="campoNoValido('password')">* Este campo es obligatorio</small>
+          <small class="form-text text-alert" *ngIf="campoNoValido('password')">* Ingrese el Password es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -38,7 +38,7 @@
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="tipo.id" *ngFor="let tipo of tipos">{{ tipo.nombre }}</option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('idTipo')">* Este campo es obligatorio</small>
+        <small class="form-text text-alert" *ngIf="campoNoValido('idTipo')">* Seleccione el Tipo es obligatorio</small>
       </div>
 
     </div>

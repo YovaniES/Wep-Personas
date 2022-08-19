@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-asignar-cuenta',
@@ -18,18 +20,21 @@ export class AsignarCuentaComponent implements OnInit {
   page = 1;
   totalCuenta: number = 0;
   pageSize = 5;
-  pageSizes = [3, 6, 9];
+  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
+    private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<AsignarCuentaComponent>,
+    @Inject(MAT_DIALOG_DATA) public DATA_PERSONA: any
   ) { }
 
   ngOnInit(): void {
     this.newFilfroForm();
     this.cargarOBuscarCuentaDisponible();
+    console.log('ID_PERSON_REC', this.DATA_PERSONA);
   }
 
   newFilfroForm(){
@@ -60,8 +65,35 @@ export class AsignarCuentaComponent implements OnInit {
 
 
 
-  asignarCuenta(id: any){
+  asignarCuenta(idRecurso: number){
+    this.spinner.show();
 
+    if (this.DATA_PERSONA.estado == 'Activo') {
+      let parametro: any[] = [{
+        "queryId": 25,
+        "mapValue": {
+          "param_id_persona": this.DATA_PERSONA.idPersonal,
+          "param_id_recurso": idRecurso,
+          "CONFIG_USER_ID"  : this.authService.getCurrentUser(),
+          "CONFIG_OUT_MSG_ERROR":'',
+          "CONFIG_OUT_MSG_EXITO":''}
+      }];
+      this.personalService.asignarRecurso( parametro[0]).subscribe( resp => {
+        this.close(true);
+
+        Swal.fire({
+          title: 'Asignar recurso cuenta',
+          text: `El recurso Cuenta: ${'x'}, se asignó con exito`,
+          icon: 'success',
+        })
+      })
+    } else {
+      Swal.fire({
+        title: 'Asignar recurso cuenta',
+        text: `No se pudo asignar el Cuenta: ${'XY'}, cuando el personal este Inactivo`,
+        icon: 'warning',
+      });
+    }
   }
 
   limpiarFiltro() {

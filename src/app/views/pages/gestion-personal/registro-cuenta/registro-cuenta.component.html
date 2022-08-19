@@ -7,7 +7,7 @@
         <div class="card-body" style="padding: 10px">
           <form class="row g-3" [formGroup]="filtroForm">
             <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Usuario</label>
+              <label class="form-label">Username</label>
               <input
                 type="text"
                 class="form-control"
@@ -97,12 +97,11 @@
                       { itemsPerPage: pageSize,
                         currentPage: page,
                         totalItems: totalIniciativa
-                      } "
-            >
+                      } ">
               <td>
                 <div class="cli-table-actions">
                   <button
-                    matTooltip="Editar"
+                    matTooltip="Actualizar"
                     class="icon-btn btn-trans c-blue"
                     (click)="actualizarCuenta(cuenta)"
                   ><mat-icon class="icon-18">edit</mat-icon>
@@ -136,7 +135,7 @@
           *ngIf="!loadingItem && listaCuenta.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
-        >No hay cuentas para mostrar
+          >No hay cuentas para mostrar
         </div>
       </div>
     </div>
@@ -146,8 +145,7 @@
         previousLabel="Anterior"
         nextLabel="Siguiente"
         [responsive]="false"
-        (pageChange)="cambiarPagina($event)"
-      >
+        (pageChange)="cambiarPagina($event)">
       </pagination-controls>
     </div>
   </div>

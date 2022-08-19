@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
   loginForm: FormGroup = this.fb.group({
     idaplicacion: ['1'],
     username    : ['', [Validators.required]],
@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit {
     private spinner: NgxSpinnerService
   ) {}
 
-  ngOnInit(): void {}
 
   login() {
     this.spinner.show();

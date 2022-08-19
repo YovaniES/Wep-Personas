@@ -18,7 +18,7 @@
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('codProy')">* Este campo es obligatorio</small>
+        <small class="form-text text-alert" *ngIf="campoNoValido('codProy')">* Seleccione el Proyecto es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -27,7 +27,7 @@
           <option [value]="0" disabled>-Seleccione-</option>
           <option [value]="liq.id_correlativo" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('id_liquidacion')">* Este campo es obligatorio</small>
+        <small class="form-text text-alert" *ngIf="campoNoValido('id_liquidacion')">* Seleccione la Liquidación es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -36,7 +36,7 @@
           type="text"
           class="form-control cli-input-white"
           formControlName="subservicio"/>
-          <small class="form-text text-alert" *ngIf="campoNoValido('subservicio')">* Este campo es obligatorio</small>
+          <small class="form-text text-alert" *ngIf="campoNoValido('subservicio')">* Ingrese el Subservicio es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -45,7 +45,7 @@
           <option [value]="0" disabled>-Seleccione-</option>
           <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('id_gestor')">* Este campo es obligatorio</small>
+        <small class="form-text text-alert" *ngIf="campoNoValido('id_gestor')">* Seleccione el Gestor campo es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -55,7 +55,7 @@
           min="0"
           class="form-control cli-input-white"
           formControlName="venta_declarada"/>
-          <small class="form-text text-alert" *ngIf="campoNoValido('venta_declarada')">* Este campo es obligatorio</small>
+          <small class="form-text text-alert" *ngIf="campoNoValido('venta_declarada')">* Ingrese el Importe es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
@@ -67,7 +67,7 @@
             formControlName="fechaPeriodo"/>
             <span class="validity"></span>
         </div>
-        <!-- <small class="form-text text-alert" *ngIf="campoNoValido('fechaPeriodo')">* Este campo es obligatorio</small> -->
+        <small class="form-text text-alert" *ngIf="campoNoValido('fechaPeriodo')">* Ingrese el Periodo es obligatorio</small>
       </div>
 
       <!-- <div class="col-sm-4 cli-form-element">
@@ -78,7 +78,6 @@
         </select>
         <small class="form-text text-alert" *ngIf="campoNoValido('id_estado')">* Este campo es obligatorio</small>
       </div> -->
-
     </div>
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
@@ -88,8 +87,8 @@
       </button>
       <button class="cli-btn btn-m btn-blue"
               (click)="crearFactura()"
+              [disabled]="facturaForm.invalid"
               >
-              <!-- [disabled]="facturaForm.invalid" -->
               <mat-icon class="icon-18">save</mat-icon> Registrar
       </button>
     </div>

@@ -7,22 +7,14 @@
   text-align: left;
 }
 
-.cli-loader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  width: 100%;
-}
-
 .total {
   color: #97999b;
   font-size: 18px;
   font-weight: 550;
 }
 
-.w155 {
-  width: 155px;
+.w55 {
+  width: 55px;
   height: 48px;
 }
 
@@ -42,39 +34,5 @@
   border: solid 0.5px #00db75;
 }
 
-// Estilos Adjuntar Archivos
-.newvac-wrapper{
-  // min-height: 400px;
-  border-radius: 3px;
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
-  // border: solid 1px $color-grey-2;
-}
-
-.fileatt{
-  &-cont{
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 5px;
-      padding: 5px;
-      border: dashed 1px $color-grey-3;
-  }
-  &-btn{
-      margin: 2px;
-      display: flex;
-      align-items: center;
-      color: $color-green;
-      background-color: $color-grey-1;
-      border: none;
-      border-radius: 2px;
-  }
-  margin: 2px 3px;
-  padding: 2px 5px;
-  border-radius: 2px;
-  background-color: $color-grey-1;
-  display: flex;
-  align-items: center;
-}
 @media (max-width: 850px) {
 }

@@ -1,9 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
+import { UtilService } from 'src/app/core/services/util.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -20,6 +22,8 @@ export class CrearLiquidacionComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
+    private utilService: UtilService,
+    public datePipe: DatePipe,
     private dialogRef: MatDialogRef<CrearLiquidacionComponent>,
   ) { }
 
@@ -51,7 +55,6 @@ export class CrearLiquidacionComponent implements OnInit {
     })
    }
 
-
   crearFactura() {
     this.spinner.show();
     let currentUser = this.authService.getUsername();
@@ -61,7 +64,7 @@ export class CrearLiquidacionComponent implements OnInit {
     let parametro: any =  {
         queryId: 70,
         mapValue:{
-          p_periodo           : formValues.fechaPeriodo,
+          p_periodo           : this.utilService.generarPeriodo(formValues.fechaPeriodo),
           p_idProyecto        : formValues.codProy,
           p_idLiquidacion     : formValues.id_liquidacion,
           p_subServicio       : formValues.subservicio,
