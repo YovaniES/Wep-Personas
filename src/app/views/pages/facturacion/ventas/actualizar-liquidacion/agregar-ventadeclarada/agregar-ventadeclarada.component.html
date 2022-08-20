@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> {{ID_VENTA? 'Agregar': 'Actualizar'}} venta declarada</div>
+  <div class="modal-title c-male"> {{DATA_LIQUID ? 'Actualizar': 'Agregar'}} venta declarada</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -21,7 +21,7 @@
                   type="text"
                   class="form-control cli-input-white"
                   formControlName="ventaDeclarada"/>
-                <small class="form-text text-alert" *ngIf="campoNoValido('ventaDeclarada')">* Este campo es obligatorio</small>
+                <small class="form-text text-alert" *ngIf="campoNoValido('ventaDeclarada')">* Ingrese la Venta declarada es obligatorio</small>
               </div>
             </div>
 
@@ -29,10 +29,10 @@
               <div class="form-group">
                 <label>Periodo</label>
                 <input
-                  type="date"
+                  type="month"
                   class="form-control"
                   formControlName="periodo"/>
-                  <small class="form-text text-alert" *ngIf="campoNoValido('periodo')">* Este campo es obligatorio</small>
+                  <small class="form-text text-alert" *ngIf="campoNoValido('periodo')">* Ingrese el Periodo es obligatorio</small>
               </div>
             </div>
 
@@ -58,9 +58,9 @@
       </button>
       <button
         class="cli-btn btn-m btn-blue"
-        (click)="agregarVentaDeclarada()"
-        [disabled]="ventaDeclaradaForm.invalid">
+        (click)="agregarOactualizarVentaDeclarada()">
         <mat-icon class="icon-18">save</mat-icon> {{titleBtn}}
+        <!-- [disabled]="ventaDeclaradaForm.invalid" -->
       </button>
     </div>
   </div>

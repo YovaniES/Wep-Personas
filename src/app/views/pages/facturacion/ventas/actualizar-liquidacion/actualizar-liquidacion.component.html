@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">Actualizar Factura</div>
+  <div class="modal-title c-male">Actualizar liquidación</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -17,7 +17,6 @@
       <div class="flex-1"></div>
       <div  class="mt-2 id-factura">ID : <span  class="total">{{factura_Id}}</span></div>
     </div>
-
     <div class="pr-section">
       <div class="pr-module-container">
         <div class="row g-3">
@@ -31,8 +30,8 @@
           </div>
 
           <div class="col-sm-4 cli-form-element">
-            <label class="form-label">Liquidaciones</label>
-            <select class="form-select" formControlName="id_liquidacion">
+            <label class="form-label">Tipo de liquidación</label>
+            <select class="cli-input-white" formControlName="id_liquidacion">
               <option [value]="0" disabled>-Seleccione-</option>
               <option [value]="liq.id_correlativo" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
             </select>
@@ -48,7 +47,7 @@
 
           <div class="col-sm-4 cli-form-element">
             <label class="form-label">Gestor</label>
-            <select class="form-select" formControlName="id_gestor">
+            <select class="cli-input-white" formControlName="id_gestor">
               <option [value]="0" disabled>-Seleccione-</option>
               <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
             </select>
@@ -68,14 +67,14 @@
               <label>Fecha Periodo</label>
                <input
                 type="month"
-                class="form-control"
+                class="form-control cli-input-white"
                 formControlName="fechaPeriodo"/>
             </div>
           </div>
 
           <div class="col-sm-4 cli-form-element">
             <label class="form-label">Estado</label>
-                  <select class="form-select" formControlName="id_estado">
+                  <select class="cli-input-white" formControlName="id_estado">
               <option [value]="0" disabled>-Seleccione-</option>
               <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
             </select>
@@ -86,7 +85,7 @@
               <label>Fecha creación</label>
               <input
                 type="date"
-                class="form-control"
+                class="form-control cli-input-white"
                 formControlName="fecha_crea"
               />
             </div>
@@ -105,8 +104,7 @@
           type="submit"
           style="color: #9b9797; height: 20px; margin-right: 6px"
           (click)="agregarVentaDeclarada()"
-        >
-          <mat-icon class="icon-18">add</mat-icon>
+        ><mat-icon class="icon-18">add</mat-icon>
         </button>
       </div>
       <div class="pr-section">
@@ -131,7 +129,7 @@
                         <button
                           matTooltip="Actualizar"
                           class="icon-btn btn-trans c-blue"
-                          (click)="agregarVentaDeclarada()"
+                          (click)="actualizarVentaDeclarada(vd)"
                         ><mat-icon class="icon-13">edit</mat-icon>
                         </button>
                         <button
@@ -152,15 +150,14 @@
                 <mat-spinner
                   style="margin-right: 20px"
                   diameter="20"
-                ></mat-spinner>
-                cargando...
+                ></mat-spinner>cargando...
               </div>
             </div>
             <div
               *ngIf="!loadingItem && listVentaDeclarada.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
-             >Aún no tiene venta declarada
+              >Aún no tiene venta declarada
             </div>
           </div>
         </div>
@@ -175,7 +172,7 @@
           matTooltip="Agregar factura"
           type="submit"
           style="color: #9b9797; height: 20px; margin-right: 6px"
-          (click)="agregarOactualizarFactura()"
+          (click)="agregarFactura()"
         >
           <mat-icon class="icon-18">add</mat-icon>
         </button>
@@ -205,7 +202,7 @@
                         <button
                           matTooltip="Actualizar"
                           class="icon-btn btn-trans c-blue"
-                          (click)="agregarOactualizarFactura()"
+                          (click)="actualizarFactura(factura)"
                         ><mat-icon class="icon-13">edit</mat-icon>
                         </button>
 
@@ -234,15 +231,15 @@
               <div class="cli-loader" *ngIf="loadingItem">
                 <mat-spinner
                   style="margin-right: 20px"
-                  diameter="20"
-                ></mat-spinner>cargando...
+                  diameter="20">
+                </mat-spinner>cargando...
               </div>
             </div>
             <div
               *ngIf="!loadingItem && listFactura.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
-            >Aún no tiene factura agregada
+              >Aún no tiene factura agregada
             </div>
           </div>
         </div>
@@ -250,46 +247,47 @@
 
       <!-- ------------------------------HISTORICO DE CAMBIOS DE ESTADO------------------------------->
       <div class="col-2 pr-subtitle mt-2">Historico de cambios de estado</div>
-    <div class="pr-section">
-      <div class="pr-module-container">
-        <div style="overflow: auto; min-height: 150px">
-          <table class="cli-table stripedtable underlinedtable">
-            <thead>
-              <tr class="bgc-purple c-white">
-                <th>#</th>
-                <th>ID Factura</th>
-                <th>Estado</th>
-                <th>Proyecto</th>
-                <th>Fecha y hora</th>
-                <th>Modificado por:</th>
-              </tr>
-            </thead>
+      <div class="pr-section">
+        <div class="pr-module-container">
+          <div style="overflow: auto; min-height: 150px">
+            <table class="cli-table stripedtable underlinedtable">
+              <thead>
+                <tr class="bgc-purple c-white">
+                  <th>#</th>
+                  <th>ID Factura</th>
+                  <th>Estado</th>
+                  <th>Proyecto</th>
+                  <th>Fecha y hora</th>
+                  <th>Modificado por:</th>
+                </tr>
+              </thead>
 
-            <tbody>
-              <tr *ngFor="let cambios of histCambiosEstado; let i = index">
-                <td>{{ i + 1 }}</td>
-                <td>{{ cambios.idFactura }}</td>
-                <td>{{ cambios.estado }}</td>
-                <td>{{ cambios.proyecto }}</td>
-                <td>{{ cambios.fecha }}</td>
-                <td>{{ cambios.username }}</td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody>
+                <tr *ngFor="let cambios of histCambiosEstado; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ cambios.idFactura }}</td>
+                  <td>{{ cambios.estado }}</td>
+                  <td>{{ cambios.proyecto }}</td>
+                  <td>{{ cambios.fecha }}</td>
+                  <td>{{ cambios.username }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
-    <!-- <pre>{{facturaForm.value | json}}</pre> -->
+      </div>
+      <!-- <pre>{{facturaForm.value | json}}</pre> -->
 
-    <!-- --------------------------------------------BOTONES ------------------------------------------>
-    <div class="cli-form-buttons">
-      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
-        <mat-icon class="icon-18">cancel</mat-icon> Cancelar
-      </button>
-      <button class="cli-btn btn-m btn-blue" (click)="actualizarFactura()">
-        <mat-icon class="icon-18">save</mat-icon> Actualizar
-      </button>
-    </div>
+      <!-- --------------------------------------------BOTONES ------------------------------------------>
+      <div class="cli-form-buttons">
+        <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+          <mat-icon class="icon-18">cancel</mat-icon> Cancelar
+        </button>
+        <button class="cli-btn btn-m btn-blue" (click)="actualizarLiquidacion()">
+          <mat-icon class="icon-18">save</mat-icon> Actualizar
+        </button>
+      </div>
   </div>
 </form>
+

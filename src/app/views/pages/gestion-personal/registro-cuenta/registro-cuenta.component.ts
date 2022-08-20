@@ -159,9 +159,10 @@ export class RegistroCuentaComponent implements OnInit {
 
   actualizarCuenta(cuenta: any) {
     console.log('DATA_CUENTA', cuenta);
-    this.dialog
-      .open(ModalCuentaComponent, { width: '50%', data: cuenta, })
-      .afterClosed().subscribe((resp) => {
+
+    const dialogRef = this.dialog.open(ModalCuentaComponent, { width: '50%'});
+
+    dialogRef.afterClosed().subscribe((resp) => {
         if (resp == 'Actualizar') {
           this.cargarOBuscarcuentas();
         }

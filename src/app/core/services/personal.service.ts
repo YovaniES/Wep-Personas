@@ -201,7 +201,11 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  cargarOBuscarVentaDeclarada(obj: any){
+  agregarFactura(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  cargarVentaDeclarada(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 
@@ -209,7 +213,7 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  cargarOBuscarFactura(obj: any){
+  cargarFactura(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 

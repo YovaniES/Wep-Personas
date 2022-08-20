@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> Crear Factura </div>
+  <div class="modal-title c-male"> Crear liquidación </div>
     <div class="flex-1"></div>
 
     <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -22,7 +22,7 @@
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label class="form-label">Liquidaciones</label>
+        <label class="form-label">Tipo de liquidación</label>
         <select class="form-select" formControlName="id_liquidacion">
           <option [value]="0" disabled>-Seleccione-</option>
           <option [value]="liq.id_correlativo" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>

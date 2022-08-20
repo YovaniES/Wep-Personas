@@ -188,9 +188,11 @@ export class VentasComponent implements OnInit {
     })
   }
 
-  actualizarFactura(id: any) {
+  actualizarFactura(DATA: any) {
+    console.log('DATA_LIQUI', DATA);
+
     this.dialog
-      .open(ActualizarLiquidacionComponent, { width: '55%', data: id, })
+      .open(ActualizarLiquidacionComponent, { width: '55%', data: DATA })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarFacturas();

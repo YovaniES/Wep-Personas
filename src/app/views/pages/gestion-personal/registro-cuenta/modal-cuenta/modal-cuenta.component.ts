@@ -76,8 +76,8 @@ export class ModalCuentaComponent implements OnInit {
     this.personalService.crearOactualizarCuenta(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear cuenta!',
-        text: `Cuenta: ${formValues.usuario}, creado con éxito`,
-        icon: 'success',
+        text : `Cuenta: ${formValues.usuario}, creado con éxito`,
+        icon : 'success',
         confirmButtonText: 'Ok',
       });
       this.close(true);
@@ -156,3 +156,4 @@ export class ModalCuentaComponent implements OnInit {
     this.dialogRef.close(succes);
   }
 }
+
