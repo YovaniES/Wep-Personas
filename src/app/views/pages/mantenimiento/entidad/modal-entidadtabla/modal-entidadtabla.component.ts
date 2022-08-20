@@ -28,22 +28,24 @@ export class ModalEntidadtablaComponent implements OnInit {
   ngOnInit(): void {
     this.newForm();
     this.getListEntidades();
-    this.cargarTablaEntidad();
+    this.cargarTablaEntidadByID();
   }
 
   newForm(){
     this.entidadTablaForm = this.fb.group({
-      nombre      : ['', Validators.required],
-      descripcion : [''],
-      entidad     : [''],
+      nombre       : ['', Validators.required],
+      descripcion  : [''],
+      entidad      : [''],
+      idPadre      : [''],
 
-      idPadre     : ['']
+      idCorrelativo: [''],
+      id_tabla     : ['']
     })
   }
 
-  crearOactualizarTablaEntidad(){
+  agregarOactualizarTablaEntidad(){
     if (!this.DATA_ENTIDAD) {
-      if (this.entidadTablaForm.valid) {this.crearEntidadTabla()}
+      if (this.entidadTablaForm.valid) {this.agregarEntidadTabla()}
     } else {
       this.actualizarTablaEntidad();
     }
@@ -51,10 +53,15 @@ export class ModalEntidadtablaComponent implements OnInit {
 
 
   btnAction: string = 'Agregar'
-  cargarTablaEntidad(){
+  cargarTablaEntidadByID(){
     if (this.DATA_ENTIDAD) {
       this.btnAction = 'Actualizar'
-
+        this.entidadTablaForm.controls['idCorrelativo'].setValue(this.DATA_ENTIDAD.id);
+        this.entidadTablaForm.controls['nombre'       ].setValue(this.DATA_ENTIDAD.nombre);
+        this.entidadTablaForm.controls['descripcion'  ].setValue(this.DATA_ENTIDAD.descripcion);
+        this.entidadTablaForm.controls['entidad'      ].setValue(this.DATA_ENTIDAD.entidad);
+        this.entidadTablaForm.controls['id_tabla'      ].setValue(this.DATA_ENTIDAD.id_tabla)
+        this.entidadTablaForm.controls['idPadre'      ].setValue(this.DATA_ENTIDAD.idPadre);
     }
   }
 
@@ -64,12 +71,14 @@ export class ModalEntidadtablaComponent implements OnInit {
   }
 
 
-  crearEntidadTabla() {
+
+
+  agregarEntidadTabla() {
     this.spinner.show();
     const formValues = this.entidadTablaForm.getRawValue();
 
     let parametro: any =  {
-        queryId: 52,
+        queryId: 1140000000000,
         mapValue: {
           param_id_tipo       : formValues.tipo,
           param_id_marca      : formValues.marca,
@@ -84,7 +93,7 @@ export class ModalEntidadtablaComponent implements OnInit {
         },
       };
      console.log('VAOR', this.entidadTablaForm.value , parametro);
-    this.personalService.crearEntidadTabla(parametro).subscribe((resp: any) => {
+    this.personalService.agregarEntidadTabla(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar Entidad!',
         text: `Entidad: ${formValues.modelo}, creado con éxito`,

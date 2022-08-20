@@ -12,27 +12,29 @@
   <div class="cli-form newvac-wrapper">
     <div class="row g-3">
 
-      <div class="col-sm-6 cli-form-element">
-        <div class="form-group">
-          <label>ID Tabla</label>
-          <input
-            type="number"
-            class="form-control cli-input-white"
-            formControlName="nombre"/>
-          <!-- <small class="text-alert" *ngIf="campoNoValido('nombre')">* El Nombre es obligatorio</small> -->
+      <ng-container *ngIf="DATA_ENTIDAD">
+        <div class="col-sm-6 cli-form-element">
+          <div class="form-group">
+            <label>ID Tabla</label>
+            <input
+              type="number"
+              readonly="true"
+              class="form-control cli-input-white"
+              formControlName="id_tabla"/>
+          </div>
         </div>
-      </div>
 
-      <div class="col-sm-6 cli-form-element">
-        <div class="form-group">
-          <label>ID Correlativo </label>
-          <input
-            type="number"
-            class="form-control cli-input-white"
-            formControlName="nombre"/>
-          <!-- <small class="text-alert" *ngIf="campoNoValido('nombre')">* El Nombre es obligatorio</small> -->
+        <div class="col-sm-6 cli-form-element">
+          <div class="form-group">
+            <label>ID Correlativo </label>
+            <input
+              type="number"
+              readonly="true"
+              class="form-control cli-input-white"
+              formControlName="idCorrelativo"/>
+          </div>
         </div>
-      </div>
+      </ng-container>
 
       <div class="cli-form-element">
         <div class="form-group">
@@ -75,7 +77,7 @@
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button class="cli-btn btn-m btn-blue"
-              (click)="crearEntidadTabla()"
+              (click)="agregarOactualizarTablaEntidad()"
               [disabled]="entidadTablaForm.invalid"
               ><mat-icon class="icon-18">save</mat-icon> {{btnAction}}
       </button>

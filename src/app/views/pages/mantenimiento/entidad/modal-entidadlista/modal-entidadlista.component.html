@@ -8,7 +8,7 @@
     </button>
 </div>
 
-<form class="row g-3" [formGroup]="entidadListaForm">
+<form class="row g-3" [formGroup]="entidadForm">
   <div class="cli-form newvac-wrapper">
     <div class="row g-3">
       <div class="cli-form-element">
@@ -52,8 +52,8 @@
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button class="cli-btn btn-m btn-blue"
-              (click)="crearEntidadCombo()"
-              [disabled]="entidadListaForm.invalid"
+              (click)="crearEntidadLista()"
+              [disabled]="entidadForm.invalid"
               ><mat-icon class="icon-18">save</mat-icon> {{btnAction}}
       </button>
     </div>

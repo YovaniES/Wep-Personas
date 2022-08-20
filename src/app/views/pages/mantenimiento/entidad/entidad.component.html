@@ -27,7 +27,7 @@
                 matTooltip="Crea una nueva lista"
                 class="cli-btn btn-blue-light"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
-                (click)="crearEntidadCombo()"
+                (click)="crearEntidadLista()"
               ><mat-icon class="icon-18">add</mat-icon>
                 Crear entidad
               </button>
@@ -43,7 +43,7 @@
           class="cli-btn btn-blue"
           style="margin: 0"
           type="button"
-          (click)="crearEntidadTabla()"
+          (click)="agregarEntidadTabla()"
         ><mat-icon class="icon-18">add</mat-icon>Agregar Entidad
         </button>
 
@@ -77,7 +77,7 @@
                   <button
                     matTooltip="Actualizar"
                     class="icon-btn btn-trans c-blue"
-                    (click)="actualizarEntidad(entidad)"
+                    (click)="actualizarEntidadTabla(entidad)"
                   ><mat-icon class="icon-18">edit</mat-icon>
                   </button>
 
@@ -106,7 +106,7 @@
           *ngIf="!loadingItem && listEntidadX.length == 0"
           class="cli-loader mt-3"
           style="color: #f83434"
-        >No hay Entidades para mostrar
+          >No hay Entidades para mostrar
         </div>
       </div>
       <div class="card-footer pb-0 pt-3">

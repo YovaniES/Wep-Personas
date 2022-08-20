@@ -57,11 +57,11 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   };
 
-  crearEntidadCombo(obj: any) {
+  crearEntidadLista(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  crearEntidadTabla(obj: any) {
+  agregarEntidadTabla(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
   crearPersonal(obj: any) {
@@ -179,18 +179,7 @@ export class PersonalService {
   }
 
   cargarOBuscarEntidades(id: any) {
-    return this.http.post(API_PERSONAS, id).pipe(
-      map((entidad: any) => {
-        return entidad.list.map((e: any) => {
-          return {
-            id                  : e.id,
-            nombre              : e.nombre,
-            descripcion         : e.descripcion,
-            nombrePadre         : e.nombrePadre,
-          }
-        })
-      })
-    );
+    return this.http.post(API_PERSONAS, id);
   };
 
   cargarOBuscarFacturas(obj: any) {

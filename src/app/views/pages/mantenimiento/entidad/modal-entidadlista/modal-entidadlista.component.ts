@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class ModalEntidadlistaComponent implements OnInit {
 
   userID: number = 0;
-  entidadListaForm!: FormGroup;
+  entidadForm!: FormGroup;
 
   constructor(
     private personalService: PersonalService,
@@ -26,15 +26,14 @@ export class ModalEntidadlistaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.newForm();
+    this.newEntidadForm();
     this.getListEntidades();
 
-    this.cargarListaEntidad();
-    this.cargarTablaEntidad();
+    this.cargarListaEntidadByID();
   }
 
-  newForm(){
-    this.entidadListaForm = this.fb.group({
+  newEntidadForm(){
+    this.entidadForm = this.fb.group({
       nombre      : ['', Validators.required],
       descripcion : [''],
       entidad     : [''],
@@ -45,30 +44,14 @@ export class ModalEntidadlistaComponent implements OnInit {
 
   crearOactualizarListaEntidad(){
     if (!this.DATA_ENTIDAD) {
-      if (this.entidadListaForm.valid) {this.crearEntidadCombo()}
+      if (this.entidadForm.valid) {this.crearEntidadLista()}
     } else {
       this.actualizarListaEntidad();
     }
   }
 
-  crearOactualizarTablaEntidad(){
-    if (!this.DATA_ENTIDAD) {
-      if (this.entidadListaForm.valid) {this.crearEntidadTabla()}
-    } else {
-      this.actualizarTablaEntidad();
-    }
-  }
-
-
   btnAction: string = 'Registrar'
-  cargarListaEntidad(){
-    if (this.DATA_ENTIDAD) {
-      this.btnAction = 'Actualizar'
-
-    }
-  }
-
-  cargarTablaEntidad(){
+  cargarListaEntidadByID(){
     if (this.DATA_ENTIDAD) {
       this.btnAction = 'Actualizar'
 
@@ -79,13 +62,9 @@ export class ModalEntidadlistaComponent implements OnInit {
 
   }
 
-  actualizarTablaEntidad(){
-
-  }
-
-  crearEntidadCombo() {
+  crearEntidadLista() {
     this.spinner.show();
-    const formValues = this.entidadListaForm.getRawValue();
+    const formValues = this.entidadForm.getRawValue();
 
     let parametro: any =  {
         queryId: 49,
@@ -98,8 +77,8 @@ export class ModalEntidadlistaComponent implements OnInit {
           "CONFIG_OUT_MSG_EXITO":''
         },
       };
-     console.log('AGREG-COMBO', this.entidadListaForm.value , parametro);
-    this.personalService.crearEntidadCombo(parametro).subscribe((resp: any) => {
+     console.log('AGREG-COMBO', this.entidadForm.value , parametro);
+    this.personalService.crearEntidadLista(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear lista Entidad!',
         text: `Entidad: ${formValues.nombre}, creado con éxito`,
@@ -111,40 +90,9 @@ export class ModalEntidadlistaComponent implements OnInit {
     this.spinner.hide();
   }
 
-  crearEntidadTabla() {
-    this.spinner.show();
-    const formValues = this.entidadListaForm.getRawValue();
-
-    let parametro: any =  {
-        queryId: 52,
-        mapValue: {
-          param_id_tipo       : formValues.tipo,
-          param_id_marca      : formValues.marca,
-          param_descripcion   : formValues.descripcion,
-          param_modelo        : formValues.modelo,
-          param_serie         : formValues.serie,
-          param_imei          : formValues.imei,
-          param_observacion   : formValues.observacion,
-          CONFIG_USER_ID      : this.userID,
-          CONFIG_OUT_MSG_ERROR: "",
-          CONFIG_OUT_MSG_EXITO: "",
-        },
-      };
-     console.log('VAOR', this.entidadListaForm.value , parametro);
-    this.personalService.crearEntidadTabla(parametro).subscribe((resp: any) => {
-      Swal.fire({
-        title: 'Crear Entidad!',
-        text: `Entidad: ${formValues.modelo}, creado con éxito`,
-        icon: 'success',
-        confirmButtonText: 'Ok',
-      });
-      this.close(true);
-    });
-    this.spinner.hide();
-  }
 
   campoNoValido(campo: string): boolean {
-    if ( this.entidadListaForm.get(campo)?.invalid && this.entidadListaForm.get(campo)?.touched ) {
+    if ( this.entidadForm.get(campo)?.invalid && this.entidadForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;

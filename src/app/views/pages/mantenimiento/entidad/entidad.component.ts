@@ -38,9 +38,8 @@ export class EntidadComponent implements OnInit {
     this.newFilfroForm();
     this.getListEntidades();
 
-    this.getListTotalTablas();
+    // this.getListTotalTablas();
     // this.cargarOBuscarEntidades(3);
-    console.log('USER',this.authService.getCurrentUser().subscribe( resp => resp))
   }
 
   newFilfroForm(){
@@ -74,12 +73,12 @@ export class EntidadComponent implements OnInit {
       "queryId": 48,
       "mapValue": { param_id_tabla: id }
     }];
-    this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe(resp => {
+    this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('ID_TABLA_ENTIDAD', resp, [resp.length]);
+     console.log('ID_TABLA_ENTIDAD', resp, [resp.list.length]);
       this.listEntidadX = [];
-      this.listEntidadX = resp;
+      this.listEntidadX = resp.list;
 
       this.spinner.hide();
     });
@@ -128,36 +127,6 @@ export class EntidadComponent implements OnInit {
     })
    }
 
-  crearEntidadCombo(){
-    this.dialog.open(ModalEntidadlistaComponent, {width:'25%'})
-               .afterClosed().subscribe(resp => {
-      if (resp) {
-        // this.cargarOBuscarEntidades()
-      }
-    })
-  }
-
-  crearEntidadTabla(){
-    this.dialog.open(ModalEntidadtablaComponent, {width:'25%'})
-               .afterClosed().subscribe(resp => {
-            if (resp) {
-              // this.cargarOBuscarEntidades()
-            }
-        })
-   }
-
-  // eliminar ojo
-  // actualizarEntidadX(id: any) {
-  //   this.dialog
-  //     .open(ActualizarEntidadComponent, { width: '55%', data: id, })
-  //     .afterClosed().subscribe((resp) => {
-  //       if (resp) {
-  //         this.cargarOBuscarEntidades();
-  //       }
-  //     });
-  // }
-
-
   totalfiltro = 0;
   cambiarPagina(event: number) {
     let offset = event * 10;
@@ -187,35 +156,45 @@ export class EntidadComponent implements OnInit {
     });
   }
 
-  // datosInfoEntidad = {
-  //   nombre     : "",
-  //   descripcion: "",
-  //   idPadre    : "",
-  // };
+  // listTablas: any[] = [];
+  // getListTotalTablas(){
+  //   let parametro: any[] = [{ queryId: 47}]
+  //   this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
+  //     this.listTablas = resp;
 
-  // getEntidadesTabla(id: any) {
-  //   this.datosInfoEntidad.idPadre = id;
+  //     console.log('listado', this.listTablas);
+
+  //   })
   // }
 
-  listTablas: any[] = [];
-  getListTotalTablas(){
-    let parametro: any[] = [{ queryId: 47}]
-    this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
-      this.listTablas = resp;
-
-      console.log('listado', this.listTablas);
-
+  crearEntidadLista(){
+    this.dialog.open(ModalEntidadlistaComponent, {width:'25%'})
+               .afterClosed().subscribe(resp => {
+      if (resp) {
+        // this.cargarOBuscarEntidades()
+      }
     })
   }
 
-  actualizarEntidad(DATA: any) {
+  agregarEntidadTabla(){
+    this.dialog.open(ModalEntidadtablaComponent, {width:'25%'})
+               .afterClosed().subscribe(resp => {
+            if (resp) {
+              // this.cargarOBuscarEntidades()
+            }
+        })
+   }
+
+
+   actualizarEntidadTabla(DATA: any) {
     console.log('DATA_ENTIDAD',DATA);
     this.dialog
       .open(ModalEntidadtablaComponent, { width: '25%', data: DATA})
-      .afterClosed().subscribe((val) => {
-        if (val == 'Actualizar') {
+      .afterClosed().subscribe((resp) => {
+        if (resp == 'Actualizar') {
           // this.cargarOBuscarEntidades();
         }
       });
   }
 }
+
