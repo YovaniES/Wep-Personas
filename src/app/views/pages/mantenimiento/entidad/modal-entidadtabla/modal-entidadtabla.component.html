@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">{{DATA_ENTIDAD ? 'Actualizar' : 'Crear'}} Entidad </div>
+  <div class="modal-title c-male">{{DATA_ENTIDAD ? 'Actualizar' : 'Agregar'}} entidad </div>
     <div class="flex-1"></div>
 
     <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -8,9 +8,32 @@
     </button>
 </div>
 
-<form class="row g-3" [formGroup]="entidadForm">
+<form class="row g-3" [formGroup]="entidadTablaForm">
   <div class="cli-form newvac-wrapper">
     <div class="row g-3">
+
+      <div class="col-sm-6 cli-form-element">
+        <div class="form-group">
+          <label>ID Tabla</label>
+          <input
+            type="number"
+            class="form-control cli-input-white"
+            formControlName="nombre"/>
+          <!-- <small class="text-alert" *ngIf="campoNoValido('nombre')">* El Nombre es obligatorio</small> -->
+        </div>
+      </div>
+
+      <div class="col-sm-6 cli-form-element">
+        <div class="form-group">
+          <label>ID Correlativo </label>
+          <input
+            type="number"
+            class="form-control cli-input-white"
+            formControlName="nombre"/>
+          <!-- <small class="text-alert" *ngIf="campoNoValido('nombre')">* El Nombre es obligatorio</small> -->
+        </div>
+      </div>
+
       <div class="cli-form-element">
         <div class="form-group">
           <label>Nombre</label>
@@ -18,7 +41,7 @@
             type="text"
             class="form-control cli-input-white"
             formControlName="nombre"/>
-          <small class="text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
+          <small class="text-alert" *ngIf="campoNoValido('nombre')">* El Nombre es obligatorio</small>
         </div>
       </div>
 
@@ -31,7 +54,7 @@
           placeholder="Describa la entidad"
           formControlName="descripcion"
         ></textarea>
-        <small class="text-alert" *ngIf="campoNoValido('descripcion')">* Este campo es obligatorio</small>
+        <small class="text-alert" *ngIf="campoNoValido('descripcion')">* La Descripción es obligatorio</small>
       </div>
 
       <div class="cli-form-element">
@@ -42,7 +65,6 @@
                   [id]="entidad.idPadre" *ngFor="let entidad of listEntidad">{{ entidad.nombre }}
           </option>
         </select>
-        <small class="text-alert" *ngIf="campoNoValido('entidad')">* Este campo es obligatorio</small>
       </div>
     </div>
 
@@ -53,8 +75,8 @@
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button class="cli-btn btn-m btn-blue"
-              (click)="crearEntidadCombo()"
-              [disabled]="entidadForm.invalid"
+              (click)="crearEntidadTabla()"
+              [disabled]="entidadTablaForm.invalid"
               ><mat-icon class="icon-18">save</mat-icon> {{btnAction}}
       </button>
     </div>

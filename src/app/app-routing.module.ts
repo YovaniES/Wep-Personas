@@ -26,10 +26,12 @@ const routes: Routes = [
       {
         path:'mantenimiento',
         loadChildren: () => import ('./views/pages/mantenimiento/mantenimiento.module').then((m)=>m.MantenimientoModule),
+        canActivate: [ValidarTokenGuard],
       },
       {
         path:'facturacion',
         loadChildren: () => import ('./views/pages/facturacion/facturacion.module').then((m)=>m.FacturacionModule),
+        canActivate: [ValidarTokenGuard],
       },
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       { path:'**', redirectTo:'/error/404' }

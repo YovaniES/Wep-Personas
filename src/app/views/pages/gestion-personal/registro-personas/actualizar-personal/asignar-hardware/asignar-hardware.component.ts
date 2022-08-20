@@ -78,7 +78,6 @@ export class AsignarHardwareComponent implements OnInit {
       this.nameHardware = resp.list.find((h: any) => h.modelo)
       console.log('HARD_NAME', this.nameHardware);
 
-
       this.spinner.hide();
     });
   }

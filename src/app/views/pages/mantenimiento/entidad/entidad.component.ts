@@ -3,28 +3,32 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
-import { ModalEntidadComponent } from './modal-entidad/modal-entidad.component';
+import { ModalEntidadlistaComponent } from './modal-entidadlista/modal-entidadlista.component';
+import { ModalEntidadtablaComponent } from './modal-entidadtabla/modal-entidadtabla.component';
 
 @Component({
-  selector: 'app-lista-entidad',
-  templateUrl: './lista-entidad.component.html',
-  styleUrls: ['./lista-entidad.component.scss']
+  selector: 'app-entidad',
+  templateUrl: './entidad.component.html',
+  styleUrls: ['./entidad.component.scss']
 })
-export class ListaEntidadComponent implements OnInit {
+export class EntidadComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
+  userID: number = 0;
 
   filtroForm!: FormGroup;
 
   page = 1;
   totalEntidad: number = 0;
   pageSize = 4;
-  pageSizes = [3, 6, 9];
+  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
+    private authService: AuthService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private dialog: MatDialog,
@@ -36,6 +40,7 @@ export class ListaEntidadComponent implements OnInit {
 
     this.getListTotalTablas();
     // this.cargarOBuscarEntidades(3);
+    console.log('USER',this.authService.getCurrentUser().subscribe( resp => resp))
   }
 
   newFilfroForm(){
@@ -87,7 +92,7 @@ export class ListaEntidadComponent implements OnInit {
       queryId: 42,
       mapValue: {
         param_id_cuenta: id,
-        // CONFIG_USER_ID: this.userId,
+        CONFIG_USER_ID: this.userID,
         CONFIG_OUT_MSG_ERROR: "",
         CONFIG_OUT_MSG_EXITO: "",
       }
@@ -116,9 +121,15 @@ export class ListaEntidadComponent implements OnInit {
     this.spinner.hide();
   }
 
+  getUserID(){
+    this.authService.getCurrentUser().subscribe( resp => {
+      this.userID   = resp.user.userId;
+      console.log('ID-USER', this.userID);
+    })
+   }
 
   crearEntidadCombo(){
-    this.dialog.open(ModalEntidadComponent, {width:'25%'})
+    this.dialog.open(ModalEntidadlistaComponent, {width:'25%'})
                .afterClosed().subscribe(resp => {
       if (resp) {
         // this.cargarOBuscarEntidades()
@@ -127,7 +138,7 @@ export class ListaEntidadComponent implements OnInit {
   }
 
   crearEntidadTabla(){
-    this.dialog.open(ModalEntidadComponent, {width:'25%'})
+    this.dialog.open(ModalEntidadtablaComponent, {width:'25%'})
                .afterClosed().subscribe(resp => {
             if (resp) {
               // this.cargarOBuscarEntidades()
@@ -200,15 +211,11 @@ export class ListaEntidadComponent implements OnInit {
   actualizarEntidad(DATA: any) {
     console.log('DATA_ENTIDAD',DATA);
     this.dialog
-      .open(ModalEntidadComponent, { width: '25%', data: DATA})
+      .open(ModalEntidadtablaComponent, { width: '25%', data: DATA})
       .afterClosed().subscribe((val) => {
         if (val == 'Actualizar') {
           // this.cargarOBuscarEntidades();
         }
       });
   }
-
-
-
-
 }

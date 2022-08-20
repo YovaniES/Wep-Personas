@@ -7,34 +7,34 @@ import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-modal-entidad',
-  templateUrl: './modal-entidad.component.html',
-  styleUrls: ['./modal-entidad.component.scss']
+  selector: 'app-modal-entidadlista',
+  templateUrl: './modal-entidadlista.component.html',
+  styleUrls: ['./modal-entidadlista.component.scss']
 })
-export class ModalEntidadComponent implements OnInit {
-  userID: number = 0;
+export class ModalEntidadlistaComponent implements OnInit {
 
-  entidadForm!: FormGroup;
+  userID: number = 0;
+  entidadListaForm!: FormGroup;
 
   constructor(
     private personalService: PersonalService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ModalEntidadComponent>,
+    private dialogRef: MatDialogRef<ModalEntidadlistaComponent>,
     @Inject(MAT_DIALOG_DATA) public DATA_ENTIDAD: any
   ) { }
 
   ngOnInit(): void {
-    this.newEntidadForm();
+    this.newForm();
     this.getListEntidades();
 
     this.cargarListaEntidad();
     this.cargarTablaEntidad();
   }
 
-  newEntidadForm(){
-    this.entidadForm = this.fb.group({
+  newForm(){
+    this.entidadListaForm = this.fb.group({
       nombre      : ['', Validators.required],
       descripcion : [''],
       entidad     : [''],
@@ -45,7 +45,7 @@ export class ModalEntidadComponent implements OnInit {
 
   crearOactualizarListaEntidad(){
     if (!this.DATA_ENTIDAD) {
-      if (this.entidadForm.valid) {this.crearEntidadCombo()}
+      if (this.entidadListaForm.valid) {this.crearEntidadCombo()}
     } else {
       this.actualizarListaEntidad();
     }
@@ -53,7 +53,7 @@ export class ModalEntidadComponent implements OnInit {
 
   crearOactualizarTablaEntidad(){
     if (!this.DATA_ENTIDAD) {
-      if (this.entidadForm.valid) {this.crearEntidadTabla()}
+      if (this.entidadListaForm.valid) {this.crearEntidadTabla()}
     } else {
       this.actualizarTablaEntidad();
     }
@@ -85,7 +85,7 @@ export class ModalEntidadComponent implements OnInit {
 
   crearEntidadCombo() {
     this.spinner.show();
-    const formValues = this.entidadForm.getRawValue();
+    const formValues = this.entidadListaForm.getRawValue();
 
     let parametro: any =  {
         queryId: 49,
@@ -98,7 +98,7 @@ export class ModalEntidadComponent implements OnInit {
           "CONFIG_OUT_MSG_EXITO":''
         },
       };
-     console.log('AGREG-COMBO', this.entidadForm.value , parametro);
+     console.log('AGREG-COMBO', this.entidadListaForm.value , parametro);
     this.personalService.crearEntidadCombo(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear lista Entidad!',
@@ -113,7 +113,7 @@ export class ModalEntidadComponent implements OnInit {
 
   crearEntidadTabla() {
     this.spinner.show();
-    const formValues = this.entidadForm.getRawValue();
+    const formValues = this.entidadListaForm.getRawValue();
 
     let parametro: any =  {
         queryId: 52,
@@ -130,7 +130,7 @@ export class ModalEntidadComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO: "",
         },
       };
-     console.log('VAOR', this.entidadForm.value , parametro);
+     console.log('VAOR', this.entidadListaForm.value , parametro);
     this.personalService.crearEntidadTabla(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear Entidad!',
@@ -144,7 +144,7 @@ export class ModalEntidadComponent implements OnInit {
   }
 
   campoNoValido(campo: string): boolean {
-    if ( this.entidadForm.get(campo)?.invalid && this.entidadForm.get(campo)?.touched ) {
+    if ( this.entidadListaForm.get(campo)?.invalid && this.entidadListaForm.get(campo)?.touched ) {
       return true;
     } else {
       return false;
@@ -170,6 +170,5 @@ export class ModalEntidadComponent implements OnInit {
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 
 }

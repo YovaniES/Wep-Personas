@@ -23,7 +23,7 @@
                   type="text"
                   class="form-control cli-input-white"
                   formControlName="nombre"/>
-                <small class="text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
+                <small class="text-alert" *ngIf="campoNoValido('nombre')">* El Nombre es obligatorio</small>
               </div>
             </div>
 
@@ -33,7 +33,7 @@
                 type="text"
                 class="form-control cli-input-white"
                 formControlName="apPaterno"/>
-              <small class="text-alert" *ngIf="campoNoValido('apPaterno')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('apPaterno')">* El Apellido Paterno es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -42,7 +42,7 @@
                 type="text"
                 class="form-control cli-input-white"
                 formControlName="apMaterno"/>
-              <small class="text-alert" *ngIf="campoNoValido('apMaterno')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('apMaterno')">* El Apellido Materno es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -52,7 +52,6 @@
                 maxlength="8"
                 class="form-control cli-input-white"
                 formControlName="dni"/>
-              <small class="text-alert" *ngIf="campoNoValido('dni')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -63,7 +62,7 @@
                 formControlName="correo"/>
               <small
                 class="text-alert"
-                *ngIf="campoNoValido('correo')">* Este campo es obligatorio</small>
+                *ngIf="campoNoValido('correo')">* El Correo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -106,13 +105,12 @@
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
               </select>
-              <small class="text-alert" *ngIf="campoNoValido('codPerfil')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('codPerfil')">* El Código del Perfil es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element mb-2">
               <label>Descripción del Perfil</label>
               <label style="color:#20c997">{{ descPerfil }}</label>
-              <small class="text-alert" *ngIf="campoNoValido('descPerfil')">* Este campo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -122,7 +120,7 @@
                   type="date"
                   class="form-control"
                   formControlName="fechaIngreso"/>
-                <small class="text-alert" *ngIf="campoNoValido('fechaIngreso')">* Este campo es obligatorio</small>
+                <small class="text-alert" *ngIf="campoNoValido('fechaIngreso')">* La Fecha de Ingreso es obligatorio</small>
               </div>
             </div>
 
@@ -136,13 +134,12 @@
                 ><option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
-              <small class="text-alert" *ngIf="campoNoValido('codProy')">* Este campo es obligatorio</small>
+              <small class="text-alert" *ngIf="campoNoValido('codProy')">* El Código del Proyecto es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element mb-2">
               <label>Descripción del Proyecto</label>
               <label style="color:#20c997">{{ descProyecto }}</label>
-              <small class="text-alert" *ngIf="campoNoValido('descProy')">* Este campo es obligatorio</small>
             </div>
           </div>
         </div>
