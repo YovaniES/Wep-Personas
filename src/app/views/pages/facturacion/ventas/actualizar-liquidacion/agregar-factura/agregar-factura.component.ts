@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -19,6 +20,7 @@ export class AgregarFacturaComponent implements OnInit {
     private personalService: PersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
+    public datePipe: DatePipe,
     private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<CrearPersonalComponent>,
     @Inject(MAT_DIALOG_DATA) public DATA_LIQUID: any
@@ -61,24 +63,29 @@ export class AgregarFacturaComponent implements OnInit {
     const formValues = this.facturaForm.getRawValue();
 
     let parametro: any =  {
-        queryId: 107777777777777,
+        queryId: 111,
         mapValue: {
-          p_idFactura       : 199,
-          p_periodo         : formValues.periodo,
-          p_venta_declarada : formValues.ventaDeclarada,
-          p_comentario      : formValues.comentario,
-          p_fecha_creacion  : formValues.fechaCrea,
-          p_usuario_creacion: this.userID,
-          CONFIG_USER_ID    : this.userID,
-          // CONFIG_OUT_MSG_ERROR    : "",
-          // CONFIG_OUT_MSG_EXITO    : "",
+
+          p_idFactura         : this.DATA_LIQUID.idFactura, // CORREGIR A DINAMICO
+          p_fecha_facturacion : formValues.fechaFact,
+          p_importe           : formValues.importe,
+          p_oc                : formValues.ordenCompra,
+          p_certificacion     : formValues.certificacion,
+          p_idEstado          : formValues.estFactura,
+          p_factura           : formValues.factura,
+          p_fechacreacion     : '',
+          p_comentario        : formValues.comentarios,
+          p_usuario           : this.userID,
+          CONFIG_USER_ID      : this.userID,
+          CONFIG_OUT_MSG_ERROR: '',
+          CONFIG_OUT_MSG_EXITO: '',
         },
       };
-     console.log('VAOR', this.facturaForm.value , parametro);
+     console.log('VAOR_FACT', this.facturaForm.value , parametro);
     this.personalService.agregarFactura(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar Factura!',
-        text: `La Factura: ${formValues.ventaDeclarada}, fue agregado con éxito`,
+        text: `La Factura: ${formValues.factura}, fue agregado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });
@@ -91,44 +98,29 @@ export class AgregarFacturaComponent implements OnInit {
 
   }
 
-// certificacion: "5036851706"
-// comentario: "Factura detallada xy"
-// estado: "Certificado"
-// factura: "F001-016920"
-// fecha_facturacion: "12/08/2022"
-// idFactCertificacion: 199
-// idFactura: 200
-// importe: 1950
-// oc: "9404282914"
-
-// certificacion: null
-// codProy: 3
-// comentarios: null
-// factura: null
-// fechaPeriodo: "2022-04"
-// fecha_crea: "2022-08-10"
-// gestor: "Ricardo Fernandez"
-// id_estado: 6
-// id_factura: ""
-// id_gestor: 2
-// id_liquidacion: 2
-// monto_facturado: null
-// orden_compra: null
-// subservicio: "services nuevo"
-// user: ""
-// venta_declarada: 2345
-
   actionBtn: string = 'Agregar'
   cargarFacturaByID(){
     if (this.DATA_LIQUID) {
     this.actionBtn = 'Actualizar'
-      this.facturaForm.controls['ordenCompra'  ].setValue(this.DATA_LIQUID.orden_compra);
+      this.facturaForm.controls['ordenCompra'  ].setValue(this.DATA_LIQUID.oc);
       this.facturaForm.controls['importe'      ].setValue(this.DATA_LIQUID.importe);
       this.facturaForm.controls['certificacion'].setValue(this.DATA_LIQUID.certificacion);
       this.facturaForm.controls['estFactura'   ].setValue(this.DATA_LIQUID.id_estado);
-      this.facturaForm.controls['factura'      ].setValue(this.DATA_LIQUID.id_factura);
-      this.facturaForm.controls['fechaFact'    ].setValue(this.DATA_LIQUID.fecha_facturacion);
-      this.facturaForm.controls['comentarios'  ].setValue(this.DATA_LIQUID.comentarios);
+      this.facturaForm.controls['factura'      ].setValue(this.DATA_LIQUID.factura);
+      // this.facturaForm.controls['fechaFact'    ].setValue(this.DATA_LIQUID.fecha_facturacion);
+      this.facturaForm.controls['comentarios'  ].setValue(this.DATA_LIQUID.comentario);
+
+      // if (this.DATA_LIQUID.fecha_facturacion !='null' && this.DATA_LIQUID.fecha_facturacion != '') {
+      //   this.facturaForm.controls['fechaFact'].setValue(this.DATA_LIQUID.fecha_facturacion)
+      // }
+      if (this.DATA_LIQUID.fecha_facturacion !='null' && this.DATA_LIQUID.fecha_facturacion != '') {
+        let fechaF = this.DATA_LIQUID.fecha_facturacion
+        const str   = fechaF.split('/');
+        const year  = Number(str[2]);
+        const month = Number(str[1]);
+        const date  = Number(str[0]);
+        this.facturaForm.controls['fechaFact'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+      }
     }
   }
 
@@ -160,8 +152,8 @@ export class AgregarFacturaComponent implements OnInit {
     }
   }
 
-
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
 }
+

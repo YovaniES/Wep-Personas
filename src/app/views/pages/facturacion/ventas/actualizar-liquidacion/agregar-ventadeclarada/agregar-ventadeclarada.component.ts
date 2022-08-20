@@ -32,12 +32,13 @@ export class AgregarVentadeclaradaComponent implements OnInit {
   ngOnInit(): void {
     this.newForm();
     this.getUserID();
-    console.log('DATA_LIQUID_VC', this.DATA_LIQUID);
     this.cargarVentaDeclaradaByID();
+    console.log('DATA_LIQUID_VC', this.DATA_LIQUID);
   }
 
   newForm(){
     this.ventaDeclaradaForm = this.fb.group({
+     idFactVenta    : [''],
      ventaDeclarada : ['', [Validators.required]],
      periodo        : ['', [Validators.required]],
      comentario     : [''],
@@ -64,7 +65,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           p_periodo         : this.utilService.generarPeriodo(formValues.periodo),
           p_venta_declarada : formValues.ventaDeclarada,
           p_comentario      : formValues.comentario,
-          p_fecha_creacion  : formValues.fechaCrea,
+          p_fecha_creacion  : '',
           p_usuario_creacion: this.userID,
           CONFIG_USER_ID    : this.userID,
           // CONFIG_OUT_MSG_ERROR    : "",
@@ -90,25 +91,25 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     const formValues = this.ventaDeclaradaForm.getRawValue();
     let parametro: any[] = [{ queryId: 110,
         mapValue: {
-          p_idFactura          : this.DATA_LIQUID.idFactura , // CAMBIAR POR ID DINAMICO
+          p_idFactVenta        : 179,
+          p_idFactura          : this.DATA_LIQUID.idFactura,
           p_periodo            : this.utilService.generarPeriodo(formValues.periodo) ,
           p_venta_declarada    : formValues.venta_declarada ,
           p_comentario         : formValues.comentario ,
-          p_dFecha             : '',
+          p_dFecha             : '2025-02-14',
           p_usuario            : this.userID ,
           CONFIG_USER_ID       : this.userID,
           CONFIG_OUT_MSG_ERROR : "",
           CONFIG_OUT_MSG_EXITO : "",
         },
       }];
-    this.personalService.actualizarCuenta(parametro[0]).subscribe({
-        next: (res) => {
+    this.personalService.actualizarCuenta(parametro[0]).subscribe({next: (res) => {
         this.spinner.hide();
 
         this.close(true)
           Swal.fire({
             title: 'Actualizar venta declarada!',
-            text : `La Venta declarada: ${formValues.usuario }, se actualizó con éxito`,
+            text : `La Venta declarada: ${formValues.ventaDeclarada }, se actualizó con éxito`,
             icon : 'success',
             confirmButtonText: 'Ok'
             });
@@ -131,7 +132,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
       this.ventaDeclaradaForm.controls['ventaDeclarada'].setValue(this.DATA_LIQUID.venta_declarada);
       this.ventaDeclaradaForm.controls['periodo'       ].setValue(this.DATA_LIQUID.periodo);
       this.ventaDeclaradaForm.controls['comentario'    ].setValue(this.DATA_LIQUID.comentario);
-      // this.ventaDeclaradaForm.controls['fechaCrea'     ].setValue(this.DATA_LIQUID.periodo);
+      this.ventaDeclaradaForm.controls['fechaCrea'     ].setValue(this.DATA_LIQUID.dFecha);
     }
   }
 
@@ -142,8 +143,6 @@ export class AgregarVentadeclaradaComponent implements OnInit {
       mapValue: {'param_id_factura': 200}
   }];
   this.personalService.cargarVentaDeclaradaById(parametro[0]).subscribe( (resp: any) => {
-        if (this.DATA_LIQUID) {
-          this.titleBtn = 'Actualizar';
           for (let i = 0; i < resp.list.length; i++) {
           this.ventaDeclaradaForm.controls['ventaDeclarada'].setValue(resp.list[i].venta_declarada);
           this.ventaDeclaradaForm.controls['comentario'    ].setValue(resp.list[i].comentario);
@@ -166,7 +165,6 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           //   this.ventaDeclaradaForm.controls['periodo'].setValue(this.datePipe.transform(new Date(year, month-1), 'yyyy-MM'))
           // }
           }
-        }
     })
   }
 

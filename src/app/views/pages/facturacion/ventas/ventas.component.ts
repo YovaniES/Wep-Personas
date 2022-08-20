@@ -189,7 +189,7 @@ export class VentasComponent implements OnInit {
   }
 
   actualizarFactura(DATA: any) {
-    console.log('DATA_LIQUI', DATA);
+    console.log('DATA_LIQUID', DATA);
 
     this.dialog
       .open(ActualizarLiquidacionComponent, { width: '55%', data: DATA })

@@ -115,6 +115,7 @@
                 <thead>
                   <tr class="bgc-blue-light c-white">
                     <th>Acción</th>
+                    <th>ID Venta declarada</th>
                     <th>Periodo</th>
                     <th>Venta declarada</th>
                     <th>Comentarios</th>
@@ -140,6 +141,7 @@
                         </button>
                       </div>
                     </td>
+                    <td>{{ vd.idFactVenta }}</td>
                     <td>{{ vd.periodo }}</td>
                     <td>{{ vd.venta_declarada }}</td>
                     <td>{{ vd.comentario }}</td>
@@ -216,7 +218,7 @@
                     </td>
                     <td>{{ factura.oc }}</td>
                     <td>{{ factura.importe }}</td>
-                    <td>{{ factura.idFactCertificacion }}</td>
+                    <td>{{ factura.certificacion }}</td>
                     <td>
                       <span *ngIf="factura.estado == 'Facturado'"   class="label estado-danger">{{ factura.estado }}</span>
                       <span *ngIf="factura.estado == 'Certificado'" class="label estado-succes">{{ factura.estado }}</span>

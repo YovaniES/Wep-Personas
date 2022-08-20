@@ -120,7 +120,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
       // this.facturaForm.controls['fecha_crea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
 
-
       // if(formValues.id_estado){
       //   this.agregarFacturaCambios()
       // }else{
@@ -264,7 +263,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   cargarVentaDeclarada(){
     this.blockUI.start("Cargando lista...");
     let parametro: any[] = [{
-      "queryId": 72,
+      "queryId": 112,
       "mapValue": { p_id : this.DATA_LIQUID }
     }];
     this.personalService.cargarVentaDeclarada( parametro[0]).subscribe( (resp: any) => {
@@ -301,7 +300,9 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   agregarVentaDeclarada(){
-    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%' });
+    // console.log('DA-LIQ', DATA);
+
+    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', });
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -309,16 +310,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
       }
     })
   }
-
-  // actualizarVentaDeclarada(DATA: any){
-  //   const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', data: this.facturaForm.value });
-
-  //   dialogRef.afterClosed().subscribe(resp => {
-  //     if (resp) {
-  //       this.cargarVentaDeclarada()
-  //     }
-  //   })
-  // }
 
   actualizarVentaDeclarada(DATA: any){
     console.log('DATA_VC', DATA);
@@ -342,8 +333,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
-  actualizarFactura(data: any){
-    const DATA = this.facturaForm.value
+  actualizarFactura(DATA: any){
+    // const DATA = this.facturaForm.value
 
     const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: DATA});
 
