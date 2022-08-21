@@ -152,20 +152,8 @@ export class EntidadComponent implements OnInit {
       this.listEntidad = resp.list;
 
       console.log('List-Ent', this.listEntidad, this.listEntidad.length);
-
     });
   }
-
-  // listTablas: any[] = [];
-  // getListTotalTablas(){
-  //   let parametro: any[] = [{ queryId: 47}]
-  //   this.personalService.getListTotalTablas(parametro[0]).subscribe( (resp: any) => {
-  //     this.listTablas = resp;
-
-  //     console.log('listado', this.listTablas);
-
-  //   })
-  // }
 
   crearEntidadLista(){
     this.dialog.open(ModalEntidadlistaComponent, {width:'25%'})
@@ -176,11 +164,13 @@ export class EntidadComponent implements OnInit {
     })
   }
 
+
   agregarEntidadTabla(){
     this.dialog.open(ModalEntidadtablaComponent, {width:'25%'})
                .afterClosed().subscribe(resp => {
             if (resp) {
               // this.cargarOBuscarEntidades()
+              this.getListEntidades()
             }
         })
    }
@@ -192,7 +182,7 @@ export class EntidadComponent implements OnInit {
       .open(ModalEntidadtablaComponent, { width: '25%', data: DATA})
       .afterClosed().subscribe((resp) => {
         if (resp == 'Actualizar') {
-          // this.cargarOBuscarEntidades();
+          this.cargarOBuscarEntidades(DATA);
         }
       });
   }

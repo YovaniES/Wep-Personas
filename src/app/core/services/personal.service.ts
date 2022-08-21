@@ -61,6 +61,10 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
+  actualizarTablaEntidad(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   agregarEntidadTabla(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }

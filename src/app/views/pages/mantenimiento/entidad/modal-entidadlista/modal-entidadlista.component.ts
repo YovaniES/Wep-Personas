@@ -77,8 +77,10 @@ export class ModalEntidadlistaComponent implements OnInit {
           "CONFIG_OUT_MSG_EXITO":''
         },
       };
-     console.log('AGREG-COMBO', this.entidadForm.value , parametro);
+
+     console.log('LISTA-ENT-AGREGADO', this.entidadForm.value , parametro);
     this.personalService.crearEntidadLista(parametro).subscribe((resp: any) => {
+
       Swal.fire({
         title: 'Crear lista Entidad!',
         text: `Entidad: ${formValues.nombre}, creado con éxito`,

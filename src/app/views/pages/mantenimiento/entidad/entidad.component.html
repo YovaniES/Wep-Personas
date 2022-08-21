@@ -59,7 +59,7 @@
           <thead>
             <tr class="bgc-turquey c-white">
               <th>Acción</th>
-              <th>ID</th>
+              <th>ID Correlativo</th>
               <th>Nombre</th>
               <th>Descripción</th>
               <th>Nombre Padre</th>
@@ -72,7 +72,7 @@
                       { itemsPerPage: pageSize,
                         currentPage : page,
                         totalItems  : totalEntidad }">
-              <td class="w100">
+              <td class="w90">
                 <div class="cli-table-actions">
                   <button
                     matTooltip="Actualizar"
@@ -89,8 +89,8 @@
                   </button>
                 </div>
               </td>
-              <td class="w100">{{ entidad.id }}</td>
-              <td>{{ entidad.nombre }}</td>
+              <td class="w90">{{ entidad.id }}</td>
+              <td class="w150">{{ entidad.nombre }}</td>
               <td>{{ entidad.descripcion | firstCapital    }}</td>
               <td>{{ entidad.nombrePadre | firstCapital }}</td>
             </tr>

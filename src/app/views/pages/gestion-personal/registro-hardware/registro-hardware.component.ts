@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 import { PersonalService } from 'src/app/core/services/personal.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 import { ModalHardwareComponent } from './modal-hardware/modal-hardware.component';
@@ -45,8 +44,8 @@ export class RegistroHardwareComponent implements OnInit {
 
   newFilfroForm(){
     this.filtroForm = this.fb.group({
-      tipo  : [''],
-      marca : [''],
+      tipo  : ['', Validators.required],
+      marca : ['', Validators.required],
       serie : [''],
       imei  : [''],
       estado: [''],
@@ -59,11 +58,6 @@ export class RegistroHardwareComponent implements OnInit {
       // console.log('ID-USER', this.userId);
     })
    }
-
-  getCurrentUser() {
-    const currentUser: any = localStorage.getItem('currentUser');
-    return of(currentUser ? JSON.parse(currentUser) : '');
-  }
 
   listaHardware: any[] = [];
   cargarOBuscarHardware(){
@@ -188,8 +182,9 @@ export class RegistroHardwareComponent implements OnInit {
     console.log('DATA_HARDWARE', DATA);
 
     this.dialog
-      .open(ModalHardwareComponent, { width: '55%', data: DATA, })
-      .afterClosed().subscribe((resp) => {
+      const dialogRef = this.dialog.open(ModalHardwareComponent, {width: '55%', data: DATA});
+
+      dialogRef.afterClosed().subscribe((resp) => {
         if (resp == 'Actualizar') {
           this.cargarOBuscarHardware();
         }

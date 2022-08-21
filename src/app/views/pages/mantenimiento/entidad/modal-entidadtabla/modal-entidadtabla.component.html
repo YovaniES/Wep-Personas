@@ -13,22 +13,24 @@
     <div class="row g-3">
 
       <ng-container *ngIf="DATA_ENTIDAD">
-        <div class="col-sm-6 cli-form-element">
+        <div class="col-sm-4 cli-form-element">
           <div class="form-group">
             <label>ID Tabla</label>
             <input
               type="number"
               readonly="true"
+              style="text-align: center"
               class="form-control cli-input-white"
               formControlName="id_tabla"/>
           </div>
         </div>
 
-        <div class="col-sm-6 cli-form-element">
+        <div class="col-sm-4 cli-form-element">
           <div class="form-group">
             <label>ID Correlativo </label>
             <input
               type="number"
+              style="text-align: center"
               readonly="true"
               class="form-control cli-input-white"
               formControlName="idCorrelativo"/>
@@ -61,7 +63,7 @@
 
       <div class="cli-form-element">
         <label>Entidad (Opcional)</label>
-        <select class="form-select" formControlName="entidad">
+        <select class="form-select" formControlName="idPadre">
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="entidad.id"
                   [id]="entidad.idPadre" *ngFor="let entidad of listEntidad">{{ entidad.nombre }}

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { of } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 
@@ -44,7 +43,7 @@ export class RegistroCuentaComponent implements OnInit {
 
   newFilfroForm(){
     this.filtroForm = this.fb.group({
-      usuario : [''],
+      usuario : ['', Validators.required],
       idEstado: [''],
     })
   }
@@ -56,11 +55,6 @@ export class RegistroCuentaComponent implements OnInit {
     })
    }
 
-  getCurrentUser() {
-    const currentUser: any = localStorage.getItem('currentUser');
-    // console.log('USER-ACTUAL',JSON.parse(currentUser));
-    return of(currentUser ? JSON.parse(currentUser) : '');
-  }
 
   listaCuenta: any[] = [];
   cargarOBuscarcuentas(){
@@ -157,10 +151,10 @@ export class RegistroCuentaComponent implements OnInit {
     })
   }
 
-  actualizarCuenta(cuenta: any) {
-    console.log('DATA_CUENTA', cuenta);
+  actualizarCuenta(DATA: any) {
+    console.log('DATA_CUENTA', DATA);
 
-    const dialogRef = this.dialog.open(ModalCuentaComponent, { width: '50%'});
+    const dialogRef = this.dialog.open(ModalCuentaComponent, { width: '50%', data: DATA});
 
     dialogRef.afterClosed().subscribe((resp) => {
         if (resp == 'Actualizar') {

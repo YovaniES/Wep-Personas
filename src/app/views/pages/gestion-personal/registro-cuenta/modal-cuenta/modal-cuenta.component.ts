@@ -21,7 +21,7 @@ export class ModalCuentaComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     private dialogRef: MatDialogRef<ModalCuentaComponent>,
-    @Inject(MAT_DIALOG_DATA) public EDIT_CUENTA: any
+    @Inject(MAT_DIALOG_DATA) public DATA_CUENTA: any
   ) { }
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class ModalCuentaComponent implements OnInit {
     console.log('CUENTAS', this.cuentaForm.value);
 
     this.spinner.show();
-    if (!this.EDIT_CUENTA) {
+    if (!this.DATA_CUENTA) {
       if (this.cuentaForm.valid) {this.crearCuenta();}
     } else {
       this.actualizarCuenta();
@@ -90,7 +90,7 @@ export class ModalCuentaComponent implements OnInit {
     const formValues = this.cuentaForm.getRawValue();
     let parametro: any[] = [{ queryId: 20,
         mapValue: {
-          param_id_recurso              : this.EDIT_CUENTA.id,
+          param_id_recurso              : this.DATA_CUENTA.id,
           param_usuario                 : formValues.usuario,
           param_password                : formValues.password,
           param_id_tipo                 : formValues.idTipo,
@@ -127,11 +127,11 @@ export class ModalCuentaComponent implements OnInit {
 
   actionBtn: string = 'Registrar'
   cargarCuentasByID(){
-    if (this.EDIT_CUENTA) {
+    if (this.DATA_CUENTA) {
       this.actionBtn = 'Actualizar'
-        this.cuentaForm.controls['usuario' ].setValue(this.EDIT_CUENTA.usuario);
-        this.cuentaForm.controls['password'].setValue(this.EDIT_CUENTA.password);
-        this.cuentaForm.controls['idTipo'  ].setValue(this.EDIT_CUENTA.id_tipo);
+        this.cuentaForm.controls['usuario' ].setValue(this.DATA_CUENTA.usuario);
+        this.cuentaForm.controls['password'].setValue(this.DATA_CUENTA.password);
+        this.cuentaForm.controls['idTipo'  ].setValue(this.DATA_CUENTA.id_tipo);
     }
   }
 
