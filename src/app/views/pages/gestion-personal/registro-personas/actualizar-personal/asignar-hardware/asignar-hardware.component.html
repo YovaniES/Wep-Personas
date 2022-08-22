@@ -8,7 +8,6 @@
   </button>
 </div>
 
-
 <div class="cli-card">
   <div style="padding: 5px 5px">
     <div>
@@ -48,7 +47,7 @@
                   style="border-radius: 2px; "
                   (click)="cargarOBuscarHardwareDisponible()"
                   ><mat-icon class="icon-18">search</mat-icon>
-                </button>
+                 </button>
                  <button
                   type="submit"
                   class="btn-hardware btn-grey"
@@ -97,16 +96,16 @@
                   <button
                     matTooltip="Asignar"
                     class="icon-btn btn-trans c-blue"
-                    (click)="asignarRecursoH(hardware.id_recurso)"
+                    (click)="asignarRecursoH(hardware.id_recurso, hardware.modelo)"
                   ><mat-icon class="icon-13">add</mat-icon>
                   </button>
                 </div>
               </td>
               <td>{{ hardware.id_recurso }}</td>
               <td>{{ hardware.tipo   | firstCapital}}</td>
-              <td>{{ hardware.marca  | uppercase }}</td>
-              <td>{{ hardware.equipo | firstCapital }}</td>
-              <td>{{ hardware.modelo | uppercase }}</td>
+              <td>{{ hardware.marca  | uppercase   }}</td>
+              <td>{{ hardware.equipo | firstCapital}}</td>
+              <td>{{ hardware.modelo | uppercase   }}</td>
               <td>{{ hardware.serie }}</td>
               <td>{{ hardware.imei }}</td>
               <td>{{ hardware.observacion | firstCapital}}</td>
@@ -115,15 +114,14 @@
         </table>
 
         <div class="cli-loader" *ngIf="loadingItem">
-          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-          cargando...
+          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>cargando...
         </div>
 
         <div
           *ngIf="!loadingItem && listaHardwareDisp.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
-        >No hay Hardware disponible para mostrar
+          >No hay Hardware disponible para mostrar
         </div>
       </div>
     </div>
@@ -133,8 +131,7 @@
         previousLabel="Anterior"
         nextLabel="Siguiente"
         [responsive]="false"
-        (pageChange)="cambiarPagina($event)"
-      >
+        (pageChange)="cambiarPagina($event)">
       </pagination-controls>
     </div>
   </div>

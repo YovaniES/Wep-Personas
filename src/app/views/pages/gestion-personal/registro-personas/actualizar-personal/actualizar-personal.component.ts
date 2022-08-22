@@ -17,7 +17,6 @@ import { AsignarCuentaComponent } from './asignar-cuenta/asignar-cuenta.componen
 export class ActualizarPersonalComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
-
   personalForm!: FormGroup;
 
   constructor(
@@ -38,12 +37,9 @@ export class ActualizarPersonalComponent implements OnInit {
     this.getListPerfiles();
     this.getHistoricoCambiosProyecto(this.DATA_PERSONAL);
     this.getUsuario();
-
     this.ListaHardwareAsignado();
     this.ListaCuentaAsignado();
-    // console.log('DATA_PERSONAL', this.DATA_PERSONAL);
   }
-
 
     newForm(){
       this.personalForm = this.fb.group({
@@ -107,7 +103,7 @@ export class ActualizarPersonalComponent implements OnInit {
 
       Swal.fire({
         title: 'Actualizar Personal!',
-        text : `El Personal:  ${formValues.nombre +' '+formValues.apPaterno }, fue actualizado con éxito`,
+        text : `El Personal:  ${ formValues.nombre +' '+formValues.apPaterno }, fue actualizado con éxito`,
         icon : 'success',
         confirmButtonText: 'Ok'
         })
@@ -184,7 +180,6 @@ export class ActualizarPersonalComponent implements OnInit {
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarPersonal(parametro[0]).subscribe(resp => {
-
             Swal.fire({
               title: 'Eliminar Personal',
               text: `El Personal: ${id}, fue eliminado con éxito`,
@@ -194,10 +189,50 @@ export class ActualizarPersonalComponent implements OnInit {
       }
     });
     this.spinner.hide();
+  };
+
+  desasignarRecurso(idRecurso: number){
+    this.spinner.show();
+
+    let parametro:any[] = [{
+      "queryId": 26,
+      "mapValue": {
+        "param_id_persona"    : this.DATA_PERSONAL.id,
+        "param_id_recurso"    : idRecurso,
+        "CONFIG_USER_ID"      : this.userID,
+        "CONFIG_OUT_MSG_ERROR": '',
+        "CONFIG_OUT_MSG_EXITO": ''
+      }
+    }];
+      Swal.fire({
+        title: '¿Desasignar Recurso?',
+        text: `¿Estas seguro que deseas desasignar el recurso: ${idRecurso} ?`,
+        icon: 'question',
+        confirmButtonColor: '#ec4756',
+        cancelButtonColor : '#0d6efd',
+        confirmButtonText : 'Si, Desasignar!',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+      }).then((resp) => {
+        if (resp.value) {
+          this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
+            this.ListaHardwareAsignado();
+
+              Swal.fire({
+                title: 'Desasignar Recurso',
+                text : `El Recurso: ${idRecurso}, fue desasignado con éxito`,
+                icon : 'success',
+              });
+            });
+        }
+    });
+    this.spinner.hide();
   }
 
   listHardwareAsignado: any[]=[];
   ListaHardwareAsignado(){
+    this.listHardwareAsignado = [];
+
     this.spinner.show();
     let parametro:any[] = [{
       "queryId": 27,
@@ -239,27 +274,6 @@ export class ActualizarPersonalComponent implements OnInit {
     this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
       this.histCambiosProyecto = resp;
       // console.log('ListHistCambID', resp)
-    });
-    this.spinner.hide();
-  }
-
-
-  desasignarRecurso(idRecurso: number){
-    this.spinner.show();
-
-    let parametro:any[] = [{
-      "queryId": 26,
-      "mapValue": {
-        "param_id_persona"    : this.DATA_PERSONAL.id,
-        "param_id_recurso"    : idRecurso,
-        "CONFIG_USER_ID"      : this.userID,
-        "CONFIG_OUT_MSG_ERROR": '',
-        "CONFIG_OUT_MSG_EXITO": ''
-      }
-    }];
-    this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
-      // const arrayData:any[] = Array.of(resp);
-      this.ngOnInit();
     });
     this.spinner.hide();
   }

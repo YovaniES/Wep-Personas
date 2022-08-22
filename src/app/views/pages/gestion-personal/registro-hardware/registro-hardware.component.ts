@@ -24,7 +24,6 @@ export class RegistroHardwareComponent implements OnInit {
   page = 1;
   totalHardware: number = 0;
   pageSize = 10;
-  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -144,7 +143,6 @@ export class RegistroHardwareComponent implements OnInit {
 
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})
-
     this.cargarOBuscarHardware();
   }
 

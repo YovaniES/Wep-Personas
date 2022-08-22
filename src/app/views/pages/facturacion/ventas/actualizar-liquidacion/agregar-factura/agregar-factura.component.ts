@@ -47,9 +47,14 @@ export class AgregarFacturaComponent implements OnInit {
    }
 
   agregarOactualizarFactura(){
-    this.spinner.show();
 
     if (!this.DATA_LIQUID) {
+      return
+    }
+
+    this.spinner.show();
+
+    if (this.DATA_LIQUID.isCreation) {
       if (this.facturaForm.valid) { this.agregarFactura() }
     } else {
       this.actualizarFactura();
@@ -59,14 +64,12 @@ export class AgregarFacturaComponent implements OnInit {
 
 
   agregarFactura() {
-    // this.spinner.show();
     const formValues = this.facturaForm.getRawValue();
 
     let parametro: any =  {
         queryId: 111,
         mapValue: {
-
-          p_idFactura         : this.DATA_LIQUID.idFactura, // CORREGIR A DINAMICO
+          p_idFactura         : this.DATA_LIQUID.facturaForm.id_factura,
           p_fecha_facturacion : formValues.fechaFact,
           p_importe           : formValues.importe,
           p_oc                : formValues.ordenCompra,
@@ -89,9 +92,9 @@ export class AgregarFacturaComponent implements OnInit {
         icon: 'success',
         confirmButtonText: 'Ok',
       });
+
       this.close(true);
     });
-    // this.spinner.hide();
   }
 
   actualizarFactura(){
@@ -100,7 +103,7 @@ export class AgregarFacturaComponent implements OnInit {
 
   actionBtn: string = 'Agregar'
   cargarFacturaByID(){
-    if (this.DATA_LIQUID) {
+    if (!this.DATA_LIQUID.isCreation) {
     this.actionBtn = 'Actualizar'
       this.facturaForm.controls['ordenCompra'  ].setValue(this.DATA_LIQUID.oc);
       this.facturaForm.controls['importe'      ].setValue(this.DATA_LIQUID.importe);

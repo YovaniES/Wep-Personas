@@ -49,6 +49,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.cargarFactura();
 
     console.log('DATA_LIQUID', this.DATA_LIQUID);
+
+    this.facturaForm.controls['id_factura'].setValue(this.DATA_LIQUID);
   }
 
 
@@ -73,9 +75,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
      user                : [''],
     })
    }
-
-
-
 
    actualizarLiquidacion() {
     this.spinner.show();
@@ -324,7 +323,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   agregarFactura(){
-    const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%'});
+    const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: {facturaForm: this.facturaForm.value, isCreation: true}});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {

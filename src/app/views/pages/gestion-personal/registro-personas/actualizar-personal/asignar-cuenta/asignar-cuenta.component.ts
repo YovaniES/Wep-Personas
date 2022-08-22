@@ -20,7 +20,6 @@ export class AsignarCuentaComponent implements OnInit {
   page = 1;
   totalCuenta: number = 0;
   pageSize = 5;
-  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -62,8 +61,6 @@ export class AsignarCuentaComponent implements OnInit {
       this.spinner.hide();
     });
   }
-
-
 
   asignarCuenta(idRecurso: number){
     this.spinner.show();
@@ -120,5 +117,4 @@ export class AsignarCuentaComponent implements OnInit {
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 }

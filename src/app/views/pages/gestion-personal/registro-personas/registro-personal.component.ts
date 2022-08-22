@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-
 import { PersonalService } from 'src/app/core/services/personal.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
@@ -25,7 +24,6 @@ export class RegistroPersonalComponent implements OnInit {
   page = 1;
   totalPersonal: number = 0;
   pageSize = 10;
-  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -53,8 +51,6 @@ export class RegistroPersonalComponent implements OnInit {
       fechaIngresoFin   : [''],
     })
   };
-
-
 
   listaPersonal: any[] = [];
   cargarOBuscarPersonal(){
@@ -120,12 +116,11 @@ export class RegistroPersonalComponent implements OnInit {
       const arrayData:any[] = Array.of(data);
       let msj  = arrayData[0].exitoMessage;
       let msj2 = arrayData[0].errorMessage
-
       if(msj == undefined){msj = ''}
       if (msj != '') {
 
         if (this.tooltipActivoInactivo == 'Desactivar') {this.activado_desactivado = 'Desactivado'}
-        if (this.tooltipActivoInactivo == 'Activar') {this.activado_desactivado = 'Activado'}
+        if (this.tooltipActivoInactivo == 'Activar'   ) {this.activado_desactivado = 'Activado'}
 
         Swal.fire({
           title: `${this.tooltipActivoInactivo} al Personal`,
@@ -146,9 +141,7 @@ export class RegistroPersonalComponent implements OnInit {
       this.cargarOBuscarPersonal();
     });
     this.spinner.hide();
-}
-
-
+  }
 
   abrirEliminarLogico(id:number, codCorporrativo:string, estado:string){
     this.idEliminar = id;
@@ -205,7 +198,6 @@ export class RegistroPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
-
   listCodProy: any[] = [];
   getListProyectos() {
     let arrayParametro: any[] = [{ queryId: 1 }];
@@ -217,7 +209,6 @@ export class RegistroPersonalComponent implements OnInit {
         // console.log('COD_PROY', resp);
       });
   }
-
 
   limpiarFiltro() {
     this.filtroForm.reset('', { emitEvent: false });

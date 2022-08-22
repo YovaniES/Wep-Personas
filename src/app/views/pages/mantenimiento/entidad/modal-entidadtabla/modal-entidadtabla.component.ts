@@ -31,9 +31,6 @@ export class ModalEntidadtablaComponent implements OnInit {
     this.cargarTablaEntidadByID();
     this.cargarOBuscarEntidades(1);
     console.log('ID_TABLA',this.DATA_ENTIDAD);
-
-    // console.log('DATA_ENTIDAD', this.listEntidadX);
-
   }
 
   newForm(){
@@ -42,7 +39,6 @@ export class ModalEntidadtablaComponent implements OnInit {
       descripcion  : [''],
       entidad      : [''],
       idPadre      : [''],
-
       idCorrelativo: [''],
       id_tabla     : ['']
     })
@@ -56,7 +52,6 @@ export class ModalEntidadtablaComponent implements OnInit {
     }
   }
 
-
   btnAction: string = 'Agregar'
   cargarTablaEntidadByID(){
     if (this.DATA_ENTIDAD) {
@@ -69,8 +64,6 @@ export class ModalEntidadtablaComponent implements OnInit {
         this.entidadTablaForm.controls['idPadre'      ].setValue(this.DATA_ENTIDAD.idPadre);
     }
   }
-
-
 
   actualizarTablaEntidad(){
     this.spinner.show();
@@ -94,7 +87,6 @@ export class ModalEntidadtablaComponent implements OnInit {
     this.personalService.actualizarTablaEntidad(parametro[0]).subscribe( {next: (resp) => {
       this.spinner.hide();
 
-      // console.log('DATA_ACTUALIZADO', resp);
       this.cargarTablaEntidadByID();
       this.dialogRef.close('Actualizar')
 
@@ -173,14 +165,11 @@ export class ModalEntidadtablaComponent implements OnInit {
   listEntidadX: any[] = [];
   ID_TABLE: number = 0;
   cargarOBuscarEntidades(id: any){
-    // this.blockUI.start("Cargando lista de entidades...");
-
     let parametro: any[] = [{
       "queryId": 48,
       "mapValue": { param_id_tabla: id }
     }];
     this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe((resp: any) => {
-    // this.blockUI.stop();
      this.ID_TABLE = resp.list.map((t: any) => t.nombre)
       console.log('IDX', this.ID_TABLE);
 

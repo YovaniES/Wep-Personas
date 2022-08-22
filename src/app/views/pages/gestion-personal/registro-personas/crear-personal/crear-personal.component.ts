@@ -32,7 +32,6 @@ export class CrearPersonalComponent implements OnInit {
     this.getListPerfiles();
   }
 
-
   newForm(){
     this.personalForm = this.fb.group({
      nombre         : ['', [Validators.required]],
@@ -92,8 +91,6 @@ export class CrearPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
-
-
   valueChanges(){
     this.personalForm.get('codProy')?.valueChanges.subscribe((valor: string) => {
       this.personalForm.patchValue( {codProy: valor.toUpperCase()}, {emitEvent: false});
@@ -152,5 +149,4 @@ export class CrearPersonalComponent implements OnInit {
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 }

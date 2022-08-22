@@ -28,7 +28,6 @@ export class ModalEntidadlistaComponent implements OnInit {
   ngOnInit(): void {
     this.newEntidadForm();
     this.getListEntidades();
-
     this.cargarListaEntidadByID();
   }
 
@@ -37,7 +36,6 @@ export class ModalEntidadlistaComponent implements OnInit {
       nombre      : ['', Validators.required],
       descripcion : [''],
       entidad     : [''],
-
       idPadre     : ['']
     })
   }

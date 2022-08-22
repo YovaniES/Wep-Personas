@@ -20,7 +20,6 @@ export class AsignarHardwareComponent implements OnInit {
   page = 1;
   totalHardware: number = 0;
   pageSize = 5;
-  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -75,17 +74,20 @@ export class AsignarHardwareComponent implements OnInit {
       this.listaHardwareDisp = [];
       this.listaHardwareDisp = resp.list;
 
-      this.nameHardware = resp.list.find((h: any) => h.modelo)
-      console.log('HARD_NAME', this.nameHardware);
-
       this.spinner.hide();
     });
   }
 
-  asignarRecursoH(idRecurso: number){
+  // buscarRecurso(id_recurso: number){
+  //   this.nameHardware = this.listaHardwareDisp.find((rh: any) => rh.id_recurso == id_recurso)
+  //     console.log('HARD_NAME', this.nameHardware);
+  // }
+
+  asignarRecursoH(idRecurso: number, nameModelo: string){
     this.spinner.show();
 
     if (this.DATA_PERSONA.estado == 'Activo') {
+      // this.buscarRecurso(idRecurso)
       let parametro: any[] = [{
         "queryId": 25,
         "mapValue": {
@@ -101,7 +103,7 @@ export class AsignarHardwareComponent implements OnInit {
 
         Swal.fire({
           title: 'Asignar recurso hardware',
-          text : `El recurso Hardware: ${this.nameHardware}, se asignó con exito`,
+          text : `El recurso Hardware: ${nameModelo}, se asignó con exito`,
           icon : 'success',
         });
       })
@@ -155,7 +157,6 @@ export class AsignarHardwareComponent implements OnInit {
     }
       this.page = event;
   }
-
 
   close(succes?: boolean) {
     this.dialogRef.close(succes);

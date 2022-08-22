@@ -94,7 +94,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           p_idFactVenta        : 179,
           p_idFactura          : this.DATA_LIQUID.idFactura,
           p_periodo            : this.utilService.generarPeriodo(formValues.periodo) ,
-          p_venta_declarada    : formValues.venta_declarada ,
+          p_venta_declarada    : formValues.ventaDeclarada ,
           p_comentario         : formValues.comentario ,
           p_dFecha             : '2025-02-14',
           p_usuario            : this.userID ,
@@ -130,11 +130,18 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     if (this.DATA_LIQUID) {
       this.titleBtn = 'Actualizar'
       this.ventaDeclaradaForm.controls['ventaDeclarada'].setValue(this.DATA_LIQUID.venta_declarada);
-      this.ventaDeclaradaForm.controls['periodo'       ].setValue(this.DATA_LIQUID.periodo);
+      this.ventaDeclaradaForm.controls['periodo'       ].setValue(this.formatPeriodo(this.DATA_LIQUID.periodo));
       this.ventaDeclaradaForm.controls['comentario'    ].setValue(this.DATA_LIQUID.comentario);
       this.ventaDeclaradaForm.controls['fechaCrea'     ].setValue(this.DATA_LIQUID.dFecha);
     }
   }
+
+  formatPeriodo(fechaPeriodo: string){
+    const mesAndYear = fechaPeriodo.split('/');
+
+    return mesAndYear[1] + '-' + mesAndYear[0]
+  }
+
 
   cargarVentaDeclaradaById(){ //NO SE USA ELIMINAR +++++++++++++++++++++++++++++++++
     this.spinner.show();

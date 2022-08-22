@@ -24,7 +24,6 @@ export class EntidadComponent implements OnInit {
   page = 1;
   totalEntidad: number = 0;
   pageSize = 4;
-  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,
@@ -37,9 +36,6 @@ export class EntidadComponent implements OnInit {
   ngOnInit(): void {
     this.newFilfroForm();
     this.getListEntidades();
-
-    // this.getListTotalTablas();
-    // this.cargarOBuscarEntidades(3);
   }
 
   newFilfroForm(){
@@ -107,7 +103,6 @@ export class EntidadComponent implements OnInit {
     }).then((resp) => {
       if (resp.value) {
         this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
-
           // this.cargarOBuscarEntidades();
             Swal.fire({
               title: 'Eliminar Hardware',
@@ -164,7 +159,6 @@ export class EntidadComponent implements OnInit {
     })
   }
 
-
   agregarEntidadTabla(){
     this.dialog.open(ModalEntidadtablaComponent, {width:'25%'})
                .afterClosed().subscribe(resp => {
@@ -174,7 +168,6 @@ export class EntidadComponent implements OnInit {
             }
         })
    }
-
 
    actualizarEntidadTabla(DATA: any) {
     console.log('DATA_ENTIDAD',DATA);

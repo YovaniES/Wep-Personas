@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
 
-
 @Component({
   selector: 'app-modal-hardware',
   templateUrl: './modal-hardware.component.html',
@@ -35,7 +34,6 @@ export class ModalHardwareComponent implements OnInit {
     // console.log('DATA_HARDWARE', this.DATA_HARDWARE);
   }
 
-
   newForm(){
     this.hardwareForm = this.fb.group({
      tipo        : ['', [Validators.required]],
@@ -59,7 +57,6 @@ export class ModalHardwareComponent implements OnInit {
       this.actualizarHardware();
       // this.cargarHardwareByID();
     }
-
     this.spinner.hide();
   }
 

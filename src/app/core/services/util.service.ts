@@ -23,3 +23,4 @@ export class UtilService {
     return this.datePipe.transform(fechaPeriodo, 'yyyy-MM-dd');
   }
 }
+
