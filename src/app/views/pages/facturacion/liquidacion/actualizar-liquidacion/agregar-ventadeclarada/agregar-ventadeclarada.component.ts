@@ -48,6 +48,10 @@ export class AgregarVentadeclaradaComponent implements OnInit {
 
    agregarOactualizarVentaDeclarada(){
     if (!this.DATA_LIQUID) {
+      return
+    }
+
+    if (!this.DATA_LIQUID) {
       if (this.ventaDeclaradaForm.valid) { this.agregarVentaDeclarada()}
     } else {
       this.actualizarVentaDeclarada();
@@ -61,7 +65,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     let parametro: any =  {
         queryId: 105,
         mapValue: {
-          p_idFactura       : this.DATA_LIQUID.idFactura,
+          p_idFactura       : this.DATA_LIQUID.vcForm.id_factura,
           p_periodo         : this.utilService.generarPeriodo(formValues.periodo),
           p_venta_declarada : formValues.ventaDeclarada,
           p_comentario      : formValues.comentario,
@@ -133,6 +137,10 @@ export class AgregarVentadeclaradaComponent implements OnInit {
       this.ventaDeclaradaForm.controls['periodo'       ].setValue(this.formatPeriodo(this.DATA_LIQUID.periodo));
       this.ventaDeclaradaForm.controls['comentario'    ].setValue(this.DATA_LIQUID.comentario);
       this.ventaDeclaradaForm.controls['fechaCrea'     ].setValue(this.DATA_LIQUID.dFecha);
+
+      if (this.DATA_LIQUID.fechaCrea !='null' && this.DATA_LIQUID.fechaCrea != '') {
+        this.ventaDeclaradaForm.controls['fecha_crea'].setValue(this.DATA_LIQUID.fechaCrea)
+        }
     }
   }
 

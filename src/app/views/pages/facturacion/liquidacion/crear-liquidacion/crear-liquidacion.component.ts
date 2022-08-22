@@ -55,7 +55,7 @@ export class CrearLiquidacionComponent implements OnInit {
     })
    }
 
-  crearFactura() {
+  crearLiquidacion() {
     this.spinner.show();
     let currentUser = this.authService.getUsername();
 
@@ -88,10 +88,10 @@ export class CrearLiquidacionComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO: '',
         }};
      console.log('VAOR', this.facturaForm.value , parametro);
-    this.personalService.crearFactura(parametro).subscribe((resp: any) => {
+    this.personalService.crearLiquidacion(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear Factura!',
-        text: `La Factura: ${formValues.id},fue creado con éxito`,    //FALTA EL ID ======================><>>>>>>>>>>>>>>>>>>
+        text: `La Liquidación: ${formValues.id_liquidacion},fue creado con éxito`,    //FALTA EL ID ======================><>>>>>>>>>>>>>>>>>>
         icon: 'success',
         confirmButtonText: 'Ok',
       });

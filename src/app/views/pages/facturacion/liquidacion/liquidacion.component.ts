@@ -8,15 +8,16 @@ import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
-import { CrearLiquidacionComponent } from './crear-liquidacion/crear-liquidacion.component';
-import { ActualizarLiquidacionComponent } from './actualizar-liquidacion/actualizar-liquidacion.component';
+import { CrearLiquidacionComponent } from '../liquidacion/crear-liquidacion/crear-liquidacion.component';
+import { ActualizarLiquidacionComponent } from '../liquidacion/actualizar-liquidacion/actualizar-liquidacion.component';
+
 
 @Component({
-  selector: 'app-ventas',
-  templateUrl: './ventas.component.html',
-  styleUrls: ['./ventas.component.scss']
+  selector: 'app-liquidacion',
+  templateUrl: './liquidacion.component.html',
+  styleUrls: ['./liquidacion.component.scss']
 })
-export class VentasComponent implements OnInit {
+export class LiquidacionComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
   userId!: number;
@@ -38,7 +39,7 @@ export class VentasComponent implements OnInit {
 
   ngOnInit(): void {
     this.newFilfroForm();
-    this.cargarOBuscarFacturas();
+    this.cargarOBuscarLiquidacion();
     this.getListEstados();
     this.getListProyectos();
     this.getListGestores();
@@ -96,7 +97,7 @@ export class VentasComponent implements OnInit {
   }
 
   listaFacturas: any[] = [];
-  cargarOBuscarFacturas(){
+  cargarOBuscarLiquidacion(){
     this.blockUI.start("Cargando facturas...");
     let parametro: any[] = [{
       "queryId": 68,
@@ -109,7 +110,7 @@ export class VentasComponent implements OnInit {
           fin            : this.datepipe.transform(this.filtroForm.value.fechaRegistroFin,"yyyy/MM/dd"),
       }
     }];
-    this.personalService.cargarOBuscarFacturas(parametro[0]).subscribe((resp: any) => {
+    this.personalService.cargarOBuscarLiquidacion(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
      console.log('Lista-Facturas', resp, resp.list.length);
@@ -142,7 +143,7 @@ export class VentasComponent implements OnInit {
       if (resp.value) {
         this.personalService.eliminarFactura(parametro[0]).subscribe(resp => {
 
-          this.cargarOBuscarFacturas();
+          this.cargarOBuscarLiquidacion();
 
             Swal.fire({
               title: 'Eliminar Factura',
@@ -159,7 +160,7 @@ export class VentasComponent implements OnInit {
     this.filtroForm.reset('', {emitEvent: false})
     this.newFilfroForm()
 
-    this.cargarOBuscarFacturas();
+    this.cargarOBuscarLiquidacion();
   }
 
   totalfiltro = 0;
@@ -168,7 +169,7 @@ export class VentasComponent implements OnInit {
     this.spinner.show();
 
     if (this.totalfiltro != this.totalFacturas) {
-      this.personalService.cargarOBuscarFacturas(offset.toString()).subscribe( (resp: any) => {
+      this.personalService.cargarOBuscarLiquidacion(offset.toString()).subscribe( (resp: any) => {
             this.listaFacturas = resp.list;
             this.spinner.hide();
           });
@@ -178,12 +179,12 @@ export class VentasComponent implements OnInit {
       this.page = event;
   }
 
-  crearFactura(){
+  crearLiquidacion(){
     const dialogRef = this.dialog.open(CrearLiquidacionComponent, {width:'55%'});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
-        this.cargarOBuscarFacturas()
+        this.cargarOBuscarLiquidacion()
       }
     })
   }
@@ -195,7 +196,7 @@ export class VentasComponent implements OnInit {
       .open(ActualizarLiquidacionComponent, { width: '55%', data: DATA })
       .afterClosed().subscribe((resp) => {
         if (resp) {
-          this.cargarOBuscarFacturas();
+          this.cargarOBuscarLiquidacion();
         }
       });
   }
@@ -203,5 +204,4 @@ export class VentasComponent implements OnInit {
   exportarRegistro(){
     this.exportExcellService.exportarExcel(this.listaFacturas, 'Factura')
   }
-
 }

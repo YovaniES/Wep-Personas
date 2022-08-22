@@ -72,7 +72,7 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  crearFactura(obj: any) {
+  crearLiquidacion(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
 
@@ -186,7 +186,7 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, id);
   };
 
-  cargarOBuscarFacturas(obj: any) {
+  cargarOBuscarLiquidacion(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
 

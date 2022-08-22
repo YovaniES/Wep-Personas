@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> {{DATA_LIQUID ? 'Actualizar': 'Agregar'}} venta declarada</div>
+  <div class="modal-title c-male"> {{DATA_LIQUID && DATA_LIQUID.isCreation ? 'Agregar': 'Actualizar'}} venta declarada</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -58,9 +58,9 @@
       </button>
       <button
         class="cli-btn btn-m btn-blue"
+        [disabled]="ventaDeclaradaForm.invalid"
         (click)="agregarOactualizarVentaDeclarada()">
         <mat-icon class="icon-18">save</mat-icon> {{titleBtn}}
-        <!-- [disabled]="ventaDeclaradaForm.invalid" -->
       </button>
     </div>
   </div>

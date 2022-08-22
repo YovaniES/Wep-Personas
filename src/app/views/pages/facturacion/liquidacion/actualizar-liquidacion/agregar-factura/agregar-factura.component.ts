@@ -47,13 +47,11 @@ export class AgregarFacturaComponent implements OnInit {
    }
 
   agregarOactualizarFactura(){
-
     if (!this.DATA_LIQUID) {
       return
     }
 
     this.spinner.show();
-
     if (this.DATA_LIQUID.isCreation) {
       if (this.facturaForm.valid) { this.agregarFactura() }
     } else {
@@ -69,7 +67,7 @@ export class AgregarFacturaComponent implements OnInit {
     let parametro: any =  {
         queryId: 111,
         mapValue: {
-          p_idFactura         : this.DATA_LIQUID.facturaForm.id_factura,
+          p_idFactura         : this.DATA_LIQUID.fForm.id_factura,
           p_fecha_facturacion : formValues.fechaFact,
           p_importe           : formValues.importe,
           p_oc                : formValues.ordenCompra,

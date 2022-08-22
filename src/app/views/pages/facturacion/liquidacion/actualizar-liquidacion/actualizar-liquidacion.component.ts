@@ -160,7 +160,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
         if (resp.list[i].fechaCrea !='null' && resp.list[i].fechaCrea != '') {
           this.facturaForm.controls['fecha_crea'].setValue(resp.list[i].fechaCrea)
-        }
+          }
       }
       this.spinner.hide();
     })
@@ -300,8 +300,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
   agregarVentaDeclarada(){
     // console.log('DA-LIQ', DATA);
-
-    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', });
+    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', data: {vcForm: this.facturaForm.value, isCreation: true}});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -323,7 +322,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   agregarFactura(){
-    const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: {facturaForm: this.facturaForm.value, isCreation: true}});
+    const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: {fForm: this.facturaForm.value, isCreation: true}});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
