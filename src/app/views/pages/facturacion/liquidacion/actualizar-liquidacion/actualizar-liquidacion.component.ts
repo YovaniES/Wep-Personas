@@ -109,7 +109,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO: '',
         }};
      console.log('VAOR', formValues , parametro);
-    this.personalService.actualizarFactura(parametro).subscribe((resp: any) => {
+    this.personalService.actualizarLiquidacion(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Actualizar Factura!',
         text: `La Factura: ${this.DATA_LIQUID}, ha sido actualizado con éxito`,
@@ -268,7 +268,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.personalService.cargarVentaDeclarada( parametro[0]).subscribe( (resp: any) => {
       this.blockUI.stop();
 
-      console.log('List-VC', resp.list);
+      console.log('List-VD', resp.list);
       this.listVentaDeclarada = resp.list;
 
       this.spinner.hide();
@@ -285,7 +285,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.personalService.cargarFactura( parametro[0]).subscribe( (resp: any) => {
       this.blockUI.stop();
 
-      console.log('List-Factu', resp.list);
+      console.log('List-F', resp.list);
       this.listFactura = resp.list;
 
       this.spinner.hide();
@@ -300,7 +300,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
   agregarVentaDeclarada(){
     // console.log('DA-LIQ', DATA);
-    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', data: {vcForm: this.facturaForm.value, isCreation: true}});
+    const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', data: {vdForm: this.facturaForm.value, isCreation: true}});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -310,7 +310,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   actualizarVentaDeclarada(DATA: any){
-    console.log('DATA_VC', DATA);
+    console.log('DATA_VD', DATA);
 
     const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', data: DATA });
 
@@ -332,6 +332,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   actualizarFactura(DATA: any){
+    console.log('DATA_F', DATA);
+
     // const DATA = this.facturaForm.value
 
     const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: DATA});

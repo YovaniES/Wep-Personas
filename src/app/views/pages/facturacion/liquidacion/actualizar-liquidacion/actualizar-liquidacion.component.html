@@ -41,6 +41,7 @@
             <label>Subservicio</label>
             <input
               type="text"
+              readonly="true"
               class="form-control cli-input-white"
               formControlName="subservicio"/>
           </div>
@@ -119,7 +120,7 @@
                     <th>ID Venta declarada</th>
                     <th>Periodo</th>
                     <th>Venta declarada</th>
-                    <th>Comentarios</th>
+                    <th>Comentario</th>
                   </tr>
                 </thead>
 
@@ -145,7 +146,7 @@
                     <td>{{ vd.idFactVenta }}</td>
                     <td>{{ vd.periodo }}</td>
                     <td>{{ vd.venta_declarada }}</td>
-                    <td>{{ vd.comentario }}</td>
+                    <td>{{ vd.comentario | firstCapital}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -188,6 +189,7 @@
                 <thead>
                   <tr class="bgc-blue-light c-white">
                     <th>Acción</th>
+                    <th>ID Certificación</th>
                     <th>Orden de compra</th>
                     <th>Importe</th>
                     <th>Certificación</th>
@@ -217,6 +219,7 @@
                         </button>
                       </div>
                     </td>
+                    <td>{{ factura.idFactCertificacion }}</td>
                     <td>{{ factura.oc }}</td>
                     <td>{{ factura.importe }}</td>
                     <td>{{ factura.certificacion }}</td>
@@ -226,7 +229,7 @@
                       <span *ngIf="factura.estado == 'Propuesto'"   class="label estado-info">  {{ factura.estado }}</span>
                     </td>
                     <td>{{ factura.factura }}</td>
-                    <td>{{ factura.comentario }}</td>
+                    <td>{{ factura.comentario | firstCapital}}</td>
                     <td>{{ factura.fecha_facturacion }}</td>
                   </tr>
                 </tbody>
@@ -272,7 +275,7 @@
                   <td>{{ cambios.estado }}</td>
                   <td>{{ cambios.proyecto }}</td>
                   <td>{{ cambios.fecha }}</td>
-                  <td>{{ cambios.username }}</td>
+                  <td>{{ cambios.usuario }}</td>
                 </tr>
               </tbody>
             </table>

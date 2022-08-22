@@ -252,7 +252,7 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  actualizarFactura(obj: any){
+  actualizarLiquidacion(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 
@@ -296,4 +296,11 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj)
   };
 
+  actualizarVentaDeclarada(obj: any){
+    return this.http.post(API_PERSONAS, obj)
+  };
+
+  actualizarCertificacion(obj: any){
+    return this.http.post(API_PERSONAS, obj)
+  }
 }

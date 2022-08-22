@@ -32,6 +32,7 @@ export class AgregarFacturaComponent implements OnInit {
     this.getListEstadosFacturacion();
     this.cargarFacturaByID();
     console.log('DATA_LIQUID_F', this.DATA_LIQUID);
+    console.log('DATA_LIQUID_F_ID', this.DATA_LIQUID.idFactCertificacion);
   }
 
   newForm(){
@@ -46,7 +47,7 @@ export class AgregarFacturaComponent implements OnInit {
     })
    }
 
-  agregarOactualizarFactura(){
+  agregarOactualizarCertificacion(){
     if (!this.DATA_LIQUID) {
       return
     }
@@ -55,7 +56,7 @@ export class AgregarFacturaComponent implements OnInit {
     if (this.DATA_LIQUID.isCreation) {
       if (this.facturaForm.valid) { this.agregarFactura() }
     } else {
-      this.actualizarFactura();
+      this.actualizarCertificacion();
     }
     this.spinner.hide();
   }
@@ -95,8 +96,49 @@ export class AgregarFacturaComponent implements OnInit {
     });
   }
 
-  actualizarFactura(){
+  actualizarCertificacion(){
+    this.spinner.show();
 
+    const formValues = this.facturaForm.getRawValue();
+    let parametro: any[] = [{ queryId: 114,
+        mapValue: {
+          p_idFactCertificacion   : this.DATA_LIQUID.idFactCertificacion,
+          p_idFactura             : this.DATA_LIQUID.idFactura,
+          p_fecha_facturacion     : formValues.fechaFact,
+          p_importe               : formValues.importe,
+          p_oc                    : formValues.ordenCompra,
+          p_certificacion         : formValues.certificacion,
+          p_idEstado              : formValues.estFactura,
+          p_factura               : formValues.factura,
+          p_dFecha                : this.DATA_LIQUID.dFecha,
+          p_comentario            : formValues.comentarios,
+          p_usuario               : this.userID,
+          CONFIG_USER_ID          : this.userID,
+          CONFIG_OUT_MSG_ERROR    : '',
+          CONFIG_OUT_MSG_EXITO    : ''
+        },
+      }];
+    this.personalService.actualizarCertificacion(parametro[0]).subscribe({next: (res) => {
+        this.spinner.hide();
+
+        this.close(true)
+          Swal.fire({
+            title: 'Actualizar Certificación!',
+            text : `La Certificación: ${formValues.certificacion}, se actualizó con éxito`,
+            icon : 'success',
+            confirmButtonText: 'Ok'
+            });
+
+          this.facturaForm.reset();
+          this.dialogRef.close('Actualizar');
+        }, error:()=>{
+          Swal.fire(
+            'ERROR',
+            'No se pudo actualizar la Certificación',
+            'warning'
+          );
+        }
+     });
   }
 
   actionBtn: string = 'Agregar'
@@ -110,7 +152,6 @@ export class AgregarFacturaComponent implements OnInit {
       this.facturaForm.controls['factura'      ].setValue(this.DATA_LIQUID.factura);
       // this.facturaForm.controls['fechaFact'    ].setValue(this.DATA_LIQUID.fecha_facturacion);
       this.facturaForm.controls['comentarios'  ].setValue(this.DATA_LIQUID.comentario);
-
       // if (this.DATA_LIQUID.fecha_facturacion !='null' && this.DATA_LIQUID.fecha_facturacion != '') {
       //   this.facturaForm.controls['fechaFact'].setValue(this.DATA_LIQUID.fecha_facturacion)
       // }
