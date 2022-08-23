@@ -121,7 +121,7 @@
               <th>Acción</th>
               <th>ID Personal</th>
               <th>Nombres y Apellidos</th>
-              <!-- <th>DNI</th> -->
+              <th>DNI</th>
               <th>Cód. Proyecto</th>
               <th>Cód. Corporativo</th>
               <th>Perfil</th>
@@ -161,6 +161,7 @@
               </td>
               <td>{{ personal.id }}</td>
               <td class="w300"> {{ personal.apellidos   | firstCapital}}, {{personal.nombres | firstCapital}}</td>
+              <td>{{ personal.dni }}</td>
               <td>{{ personal.codigo_proyecto | uppercase}}</td>
               <td>{{ personal.codigo_corporativo| uppercase }}</td>
               <td>{{ personal.perfil | firstCapital }}</td>

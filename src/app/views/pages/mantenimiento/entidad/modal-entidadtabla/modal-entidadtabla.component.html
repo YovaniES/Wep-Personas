@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">{{DATA_ENTIDAD ? 'Actualizar' : 'Agregar'}} entidad </div>
+  <div class="modal-title c-male">{{DATA_ENTIDAD && DATA_ENTIDAD.isCreation ? 'Agregar' : 'Actualizar'}} entidad </div>
     <div class="flex-1"></div>
 
     <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -12,7 +12,7 @@
   <div class="cli-form newvac-wrapper">
     <div class="row g-3">
 
-      <ng-container *ngIf="DATA_ENTIDAD">
+      <ng-container *ngIf="!DATA_ENTIDAD.isCreation">
         <div class="col-sm-4 cli-form-element">
           <div class="form-group">
             <label>ID Tabla</label>
@@ -62,7 +62,7 @@
       </div>
 
       <div class="cli-form-element">
-        <label>Entidad (Opcional)</label>
+        <label>Entidad Padre (Opcional)</label>
         <select class="form-select" formControlName="idPadre">
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="entidad.id"

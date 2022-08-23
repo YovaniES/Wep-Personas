@@ -42,6 +42,19 @@
   }
 }
 
+.estado-act{
+  background: #ef62a8;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 25px;
+  font-size: 15px;
+  border-radius: 6px
+}
+
 @media (max-width: 768px) {
   .modal-title {
     font-size: 1.2rem;

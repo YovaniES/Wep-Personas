@@ -45,6 +45,7 @@
                 placeholder="Escriba algún comentario de la venta declarada .."
                 formControlName="comentario"
               ></textarea>
+              <small class="form-text text-alert" *ngIf="campoNoValido('comentario')">* Ingrese el comentario es obligatorio</small>
             </div>
           </div>
         </div>

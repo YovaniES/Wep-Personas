@@ -1,4 +1,4 @@
-<div style="display: flex">
+<div style="display: flex;">
   <div class="flex-1"></div>
   <div class="modal-title c-male">Actualizar y asignar recursos</div>
   <div class="flex-1"></div>
@@ -12,7 +12,19 @@
   <div class="cli-form newvac-wrapper">
     <div class="chart-draw">
       <!-- REGISTROS DEL PERSONAL-------------------------------------------------------------------- -->
-      <div class="col-2 pr-subtitle mt-2">Datos Personales</div>
+      <!-- <div class="col-2 pr-subtitle mt-2">Datos Personales</div> -->
+      <div style="display: flex;" >
+        <div class="col-2 pr-subtitle">Datos Personales</div>
+        <div class="flex-1"></div>
+        <!-- <div  class="mt-2 id-factura">ID : <span  class="total">{{factura_Id}}</span></div> -->
+        <span>
+          <input
+            type="text"
+            class="form-control cli-input-white estado-act"
+            formControlName="estado"/>
+        </span>
+      </div>
+
       <div class="pr-section">
         <div class="pr-module-container">
           <div class="row g-3">
@@ -110,6 +122,13 @@
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
+            </div>
+
+            <div class="col-sm-4 cli-form-element">
+              <input
+                type="text"
+                class="form-control cli-input-white"
+                formControlName="estado"/>
             </div>
           </div>
         </div>

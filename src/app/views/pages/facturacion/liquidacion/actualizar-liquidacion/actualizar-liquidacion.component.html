@@ -18,7 +18,7 @@
       <div  class="mt-2 id-factura">ID : <span  class="total">{{factura_Id}}</span></div>
     </div>
     <div class="pr-section">
-      <div class="pr-module-container">
+      <div class="pr-module-container mb-3">
         <div class="row g-3">
 
           <div class="col-sm-4 cli-form-element">
@@ -41,7 +41,6 @@
             <label>Subservicio</label>
             <input
               type="text"
-              readonly="true"
               class="form-control cli-input-white"
               formControlName="subservicio"/>
           </div>
@@ -110,14 +109,15 @@
         </button>
       </div>
       <div class="pr-section">
-        <div class="pr-module-container">
+        <div class="pr-module-container mb-3">
           <div style="overflow: auto; min-height: 50px">
             <div *ngIf="listVentaDeclarada.length > 0">
               <table class="cli-table stripedtable underlinedtable">
                 <thead>
                   <tr class="bgc-blue-light c-white">
                     <th>Acción</th>
-                    <th>ID Venta declarada</th>
+                    <!-- <th>ID Venta declarada</th> -->
+                    <th style="width: 35px">#</th>
                     <th>Periodo</th>
                     <th>Venta declarada</th>
                     <th>Comentario</th>
@@ -143,7 +143,8 @@
                         </button>
                       </div>
                     </td>
-                    <td>{{ vd.idFactVenta }}</td>
+                    <!-- <td>{{ vd.idFactVenta }}</td> -->
+                    <td>{{ i + 1 }}</td>
                     <td>{{ vd.periodo }}</td>
                     <td>{{ vd.venta_declarada }}</td>
                     <td>{{ vd.comentario | firstCapital}}</td>
@@ -189,8 +190,9 @@
                 <thead>
                   <tr class="bgc-blue-light c-white">
                     <th>Acción</th>
-                    <th>ID Certificación</th>
-                    <th>Orden de compra</th>
+                    <!-- <th>ID Certificación</th> -->
+                    <th>#</th>
+                    <th>Ord. Compra</th>
                     <th>Importe</th>
                     <th>Certificación</th>
                     <th>Estado</th>
@@ -219,7 +221,8 @@
                         </button>
                       </div>
                     </td>
-                    <td>{{ factura.idFactCertificacion }}</td>
+                    <!-- <td>{{ factura.idFactCertificacion }}</td> -->
+                    <td>{{ i + 1 }}</td>
                     <td>{{ factura.oc }}</td>
                     <td>{{ factura.importe }}</td>
                     <td>{{ factura.certificacion }}</td>
@@ -255,10 +258,10 @@
       <div class="col-2 pr-subtitle mt-2">Historico de cambios de estado</div>
       <div class="pr-section">
         <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 150px">
+          <div style="overflow: auto; min-height: 150px; max-height: 156px;">
             <table class="cli-table stripedtable underlinedtable">
               <thead>
-                <tr class="bgc-purple c-white">
+                <tr class="bgc-turquey c-white">
                   <th>#</th>
                   <th>ID Factura</th>
                   <th>Estado</th>
@@ -275,7 +278,7 @@
                   <td>{{ cambios.estado }}</td>
                   <td>{{ cambios.proyecto }}</td>
                   <td>{{ cambios.fecha }}</td>
-                  <td>{{ cambios.usuario }}</td>
+                  <td>{{ cambios.username }}</td>
                 </tr>
               </tbody>
             </table>
@@ -283,7 +286,6 @@
         </div>
       </div>
       </div>
-      <!-- <pre>{{facturaForm.value | json}}</pre> -->
 
       <!-- --------------------------------------------BOTONES ------------------------------------------>
       <div class="cli-form-buttons">

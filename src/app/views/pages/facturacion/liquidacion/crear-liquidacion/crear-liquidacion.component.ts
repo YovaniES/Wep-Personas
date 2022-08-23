@@ -31,7 +31,7 @@ export class CrearLiquidacionComponent implements OnInit {
     this.newForm();
     this.getListProyectos();
     this.getUserID();
-    this.getListEstados();
+    // this.getListEstados();
     this.getListLiquidaciones();
     this.getListGestores();
   }
@@ -39,7 +39,7 @@ export class CrearLiquidacionComponent implements OnInit {
 
   newForm(){
     this.facturaForm = this.fb.group({
-     id_liquidacion      : ['',[Validators.required]],
+     id_liquidacion      : [ 1,[Validators.required]],
      codProy             : ['',[Validators.required]],
      subservicio         : ['',[Validators.required]],
      id_gestor           : ['',[Validators.required]],
@@ -117,15 +117,15 @@ export class CrearLiquidacionComponent implements OnInit {
     });
   }
 
-  listEstados: any[] = [];
-  getListEstados(){
-    let parametro: any[] = [{queryId: 101}];
+  // listEstados: any[] = [];
+  // getListEstados(){
+  //   let parametro: any[] = [{queryId: 101}];
 
-    this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
-            this.listEstados = resp.list;
-            console.log('EST-FACT', resp);
-    });
-  }
+  //   this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
+  //           this.listEstados = resp.list;
+  //           console.log('EST-FACT', resp);
+  //   });
+  // }
 
   listGestores: any[] = [];
   getListGestores(){

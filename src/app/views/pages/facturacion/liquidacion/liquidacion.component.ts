@@ -54,6 +54,7 @@ export class LiquidacionComponent implements OnInit {
       id_estado          : [''],
       fechaRegistroInicio: [''],
       fechaRegistroFin   : [''],
+      id_gestor          : [''],
     })
   };
 
@@ -106,6 +107,7 @@ export class LiquidacionComponent implements OnInit {
           id_proy        : this.filtroForm.value.id_proy,
           id_liquidacion : this.filtroForm.value.id_liquidacion,
           id_estado      : this.filtroForm.value.id_estado,
+          id_gestor      : this.filtroForm.value.id_gestor,
           inicio         : this.datepipe.transform(this.filtroForm.value.fechaRegistroInicio,"yyyy/MM/dd"),
           fin            : this.datepipe.transform(this.filtroForm.value.fechaRegistroFin,"yyyy/MM/dd"),
       }
@@ -193,7 +195,7 @@ export class LiquidacionComponent implements OnInit {
     console.log('DATA_LIQUID', DATA);
 
     this.dialog
-      .open(ActualizarLiquidacionComponent, { width: '55%', data: DATA })
+      .open(ActualizarLiquidacionComponent, { width: '55%', height: '95%', data: DATA })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarLiquidacion();

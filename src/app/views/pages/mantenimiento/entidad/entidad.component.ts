@@ -57,11 +57,13 @@ export class EntidadComponent implements OnInit {
     this.nombre  = evento.target["options"][evento.target["options"].selectedIndex].innerText;
     this.tablaEntidad = [];
 
+    console.log('NNOMBRE_ENT', this.nombre);
+
     this.cargarOBuscarEntidades(id);
   }
 
 
-  listEntidadX: any[] = [];
+  listEntidadTabla: any[] = [];
   cargarOBuscarEntidades(id: any){
     this.blockUI.start("Cargando lista de entidades...");
 
@@ -73,10 +75,12 @@ export class EntidadComponent implements OnInit {
     this.blockUI.stop();
 
      console.log('ID_TABLA_ENTIDAD', resp, [resp.list.length]);
-      this.listEntidadX = [];
-      this.listEntidadX = resp.list;
+      this.listEntidadTabla = [];
+      this.listEntidadTabla = resp.list;
 
-      this.spinner.hide();
+      // this.nombreEntidad = resp.list.find((n:any) => n.id == id);
+      // console.log('NAME_ENT',this.nombreEntidad);
+      // this.spinner.hide();
     });
   }
 
@@ -130,7 +134,7 @@ export class EntidadComponent implements OnInit {
     if (this.totalfiltro != this.totalEntidad) {
       this.personalService
         .cargarOBuscarPersonal(offset.toString()).subscribe((resp: any) => {
-          this.listEntidadX = resp.list;
+          this.listEntidadTabla = resp.list;
           this.spinner.hide();
         });
     } else {
@@ -139,6 +143,7 @@ export class EntidadComponent implements OnInit {
     this.page = event;
   }
 
+  nombreEntidad!: string;
   listEntidad: any[] = [];
   getListEntidades(){
     let parametro: any[] = [{queryId: 47}];
@@ -147,6 +152,10 @@ export class EntidadComponent implements OnInit {
       this.listEntidad = resp.list;
 
       console.log('List-Ent', this.listEntidad, this.listEntidad.length);
+
+      this.nombreEntidad = resp.list.map((n:any) => n.id);
+      console.log('NAME_ENT',this.nombreEntidad);
+
     });
   }
 
@@ -155,16 +164,17 @@ export class EntidadComponent implements OnInit {
                .afterClosed().subscribe(resp => {
       if (resp) {
         // this.cargarOBuscarEntidades()
+        this.getListEntidades()
       }
     })
   }
 
   agregarEntidadTabla(){
-    this.dialog.open(ModalEntidadtablaComponent, {width:'25%'})
+    this.dialog.open(ModalEntidadtablaComponent, {width:'25%', data: {eForm: this.filtroForm.value, isCreation: true}})
                .afterClosed().subscribe(resp => {
             if (resp) {
-              // this.cargarOBuscarEntidades()
-              this.getListEntidades()
+              this.cargarOBuscarEntidades(this.filtroForm.controls['entidad'].value)
+              // this.getListEntidades()
             }
         })
    }

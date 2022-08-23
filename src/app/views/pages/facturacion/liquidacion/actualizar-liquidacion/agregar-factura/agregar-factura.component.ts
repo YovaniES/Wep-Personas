@@ -43,7 +43,7 @@ export class AgregarFacturaComponent implements OnInit {
      estFactura    : [ 6,[Validators.required]],
      factura       : ['F001-',[Validators.required]],
      fechaFact     : ['',[Validators.required]],
-     comentarios   : ['']
+     comentario    : ['']
     })
    }
 
@@ -61,7 +61,6 @@ export class AgregarFacturaComponent implements OnInit {
     this.spinner.hide();
   }
 
-
   agregarFactura() {
     const formValues = this.facturaForm.getRawValue();
 
@@ -76,18 +75,18 @@ export class AgregarFacturaComponent implements OnInit {
           p_idEstado          : formValues.estFactura,
           p_factura           : formValues.factura,
           p_fechacreacion     : '',
-          p_comentario        : formValues.comentarios,
+          p_comentario        : formValues.comentario,
           p_usuario           : this.userID,
           CONFIG_USER_ID      : this.userID,
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: '',
         },
       };
-     console.log('VAOR_FACT', this.facturaForm.value , parametro);
+     console.log('VAOR_CERTIF', this.facturaForm.value , parametro);
     this.personalService.agregarFactura(parametro).subscribe((resp: any) => {
       Swal.fire({
-        title: 'Agregar Factura!',
-        text: `La Factura: ${formValues.factura}, fue agregado con éxito`,
+        title: 'Agregar Certificación!',
+        text: `La Certificación: ${formValues.factura}, fue agregado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });
@@ -150,7 +149,6 @@ export class AgregarFacturaComponent implements OnInit {
       this.facturaForm.controls['certificacion'].setValue(this.DATA_LIQUID.certificacion);
       this.facturaForm.controls['estFactura'   ].setValue(this.DATA_LIQUID.id_estado);
       this.facturaForm.controls['factura'      ].setValue(this.DATA_LIQUID.factura);
-      // this.facturaForm.controls['fechaFact'    ].setValue(this.DATA_LIQUID.fecha_facturacion);
       this.facturaForm.controls['comentarios'  ].setValue(this.DATA_LIQUID.comentario);
       // if (this.DATA_LIQUID.fecha_facturacion !='null' && this.DATA_LIQUID.fecha_facturacion != '') {
       //   this.facturaForm.controls['fechaFact'].setValue(this.DATA_LIQUID.fecha_facturacion)
@@ -174,7 +172,6 @@ export class AgregarFacturaComponent implements OnInit {
    })
   }
 
-
   listEstadosFacturacion: any[] = [];
   getListEstadosFacturacion(){
     let parametro: any[] = [{queryId: 106}];
@@ -184,7 +181,6 @@ export class AgregarFacturaComponent implements OnInit {
             console.log('EST-FACTX', resp);
     });
   }
-
 
   campoNoValido(campo: string): boolean {
     if (this.facturaForm.get(campo)?.invalid && this.facturaForm.get(campo)?.touched) {

@@ -16,7 +16,6 @@ import Swal from 'sweetalert2';
 })
 export class AgregarVentadeclaradaComponent implements OnInit {
   ventaDeclaradaForm!: FormGroup;
-  titleBtn: string = 'Agregar';
 
   constructor(
     private personalService: PersonalService,
@@ -38,9 +37,10 @@ export class AgregarVentadeclaradaComponent implements OnInit {
 
   newForm(){
     this.ventaDeclaradaForm = this.fb.group({
-     ventaDeclarada : ['', [Validators.required]],
+    //  ventaDeclarada : [this.DATA_LIQUID.vdForm.venta_declarada, [Validators.required]],
+    ventaDeclarada  : ['', [Validators.required]],
      periodo        : ['', [Validators.required]],
-     comentario     : [''],
+     comentario     : ['', [Validators.required]],
      fechaCrea      : ['']
     })
    }
@@ -75,7 +75,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           // CONFIG_OUT_MSG_EXITO    : "",
         },
       };
-     console.log('VAOR', this.ventaDeclaradaForm.value , parametro);
+     console.log('VAOR_VD', this.ventaDeclaradaForm.value , parametro);
     this.personalService.agregarVentaDeclarada(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar Venta Declarada!',
@@ -129,6 +129,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
      });
   }
 
+  titleBtn: string = 'Agregar';
   cargarVentaDeclaradaByID(){
     if (!this.DATA_LIQUID.isCreation) {
       this.titleBtn = 'Actualizar'
@@ -147,39 +148,6 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     const mesAndYear = fechaPeriodo.split('/');
 
     return mesAndYear[1] + '-' + mesAndYear[0]
-  }
-
-
-  cargarVentaDeclaradaById(){ //NO SE USA ELIMINAR +++++++++++++++++++++++++++++++++
-    this.spinner.show();
-    let parametro: any[] = [{
-      queryId: 107,
-      mapValue: {'param_id_factura': 200}
-  }];
-  this.personalService.cargarVentaDeclaradaById(parametro[0]).subscribe( (resp: any) => {
-          for (let i = 0; i < resp.list.length; i++) {
-          this.ventaDeclaradaForm.controls['ventaDeclarada'].setValue(resp.list[i].venta_declarada);
-          this.ventaDeclaradaForm.controls['comentario'    ].setValue(resp.list[i].comentario);
-          this.ventaDeclaradaForm.controls['periodo'       ].setValue(resp.list[i].periodo);
-          // this.ventaDeclaradaForm.controls['fechaCrea'     ].setValue(resp.list[i].fechaCrea);
-          if (resp.list[i].fechaCrea !='null' && resp.list[i].fechaCrea != '') {
-            let fechaIngr = resp.list[i].fechaCrea
-            const str   = fechaIngr.split('/');
-            const year  = Number(str[2]);
-            const month = Number(str[1]);
-            const date  = Number(str[0]);
-            this.ventaDeclaradaForm.controls['fechaCrea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
-          }
-          // if (resp.list[i].periodo !='null' && resp.list[i].periodo != '') {
-          //   let fechaIngr = resp.list[i].periodo
-          //   const str   = fechaIngr.split('/');
-          //   const year  = Number(str[2]);
-          //   const month = Number(str[1]);
-          //   // const date  = Number(str[0]);
-          //   this.ventaDeclaradaForm.controls['periodo'].setValue(this.datePipe.transform(new Date(year, month-1), 'yyyy-MM'))
-          // }
-          }
-    })
   }
 
    userID: number = 0;

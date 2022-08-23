@@ -60,6 +60,14 @@
               </div>
             </div>
 
+            <div class="col-sm-3 cli-form-element">
+              <label class="form-label">Gestor</label>
+              <select class="form-select" formControlName="id_gestor">
+                <option [value]="0" disabled>-Seleccione-</option>
+                <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+              </select>
+            </div>
+
             <div class="flex-1"></div>
 
             <div class="cli-form-buttons" style="margin-top: 8px">
