@@ -83,7 +83,7 @@ export class AsignarHardwareComponent implements OnInit {
   //     console.log('HARD_NAME', this.nameHardware);
   // }
 
-  asignarRecursoH(idRecurso: number, nameModelo: string){
+  asignarHardware(idRecurso: number, nameModelo: string){
     this.spinner.show();
 
     if (this.DATA_PERSONA.estado == 'Activo') {
@@ -111,8 +111,8 @@ export class AsignarHardwareComponent implements OnInit {
     } else {
     Swal.fire({
         title: 'Asignar recurso hardware',
-        text : `No se pudo asignar el recurso: ${'x'}, cuando el personal este Inactivo`,
-        icon : 'warning',
+        text : `No se pudo asignar el recurso: ${nameModelo}, cuando el personal este Inactivo`,
+        icon : 'error',
       });
     }
       this.spinner.hide();

@@ -77,11 +77,11 @@ export class RegistroPersonalComponent implements OnInit {
     });
   }
 
-  idEliminar: number = 0;
+  // idEliminar: number = 0;
   codCorporativo: any;
   tooltipActivoInactivo: string =''
-  abrirEliminar(id:number, codCorporrativo:string, estado:string){
-    this.idEliminar = id;
+  abrirEliminar(id: number, codCorporrativo: string, estado: string, fullname: string){
+    // this.idEliminar = id;
     this.codCorporativo = codCorporrativo;
 
     if (estado == 'Activo')   {this.tooltipActivoInactivo = "Desactivar"}
@@ -89,7 +89,7 @@ export class RegistroPersonalComponent implements OnInit {
 
     Swal.fire({
       title: `${this.tooltipActivoInactivo} al Personal?`,
-      text: `¿Desea ${this.tooltipActivoInactivo} al personal: ${id} ?`,
+      text: `¿Desea ${this.tooltipActivoInactivo} al personal: ${fullname} ?`,
       icon: 'question',
       confirmButtonColor: '#20c997',
       cancelButtonColor : '#b2b5b4',
@@ -98,14 +98,14 @@ export class RegistroPersonalComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
         if (resp.value) {
-          this.bajaOaltaAlPersonal(this.idEliminar);
+          this.bajaOaltaAlPersonal(id, fullname);
        }
       }
     );
   }
 
   activado_desactivado: string='';
-  bajaOaltaAlPersonal(id: number){
+  bajaOaltaAlPersonal(id: number, fullname: string){
     this.spinner.show();
     let parametro:any[] = [{
       "queryId": 9,
@@ -124,14 +124,14 @@ export class RegistroPersonalComponent implements OnInit {
 
         Swal.fire({
           title: `${this.tooltipActivoInactivo} al Personal`,
-          text: `El Personal: ${id}, fue ${this.activado_desactivado} con éxito`,
+          text: `El Personal: ${fullname}, fue ${this.activado_desactivado} con éxito`,
           icon: 'success',
         });
 
       }else if (msj2 != ''){
         Swal.fire({
           title: `${this.tooltipActivoInactivo} al Personal`,
-          text: `El Personal: ${id} No pudo ser: ${this.activado_desactivado}, por que tiene recursos asignados`,
+          text: `El Personal: ${fullname} No pudo ser: ${this.activado_desactivado}, por que tiene recursos asignados`,
           icon: 'error',
         });
 
@@ -143,13 +143,14 @@ export class RegistroPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
-  abrirEliminarLogico(id:number, codCorporrativo:string, estado:string){
-    this.idEliminar = id;
+
+  abrirEliminarLogico(id:number, codCorporrativo:string, estado: string, namePersonal: string){
+    // this.idEliminar = id;
     this.codCorporativo = codCorporrativo;
 
     Swal.fire({
       title: `Eliminar Personal?`,
-      text: `¿Desea eliminar al personal: ${id} ?`,
+      text: `¿Desea eliminar al personal: ${namePersonal} ?`,
       icon: 'question',
       confirmButtonColor: '#20c997',
       cancelButtonColor : '#b2b5b4',
@@ -158,36 +159,36 @@ export class RegistroPersonalComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
         if (resp.value) {
-          this.eliminacionLogica(this.idEliminar);
+          this.eliminacionLogica(id, namePersonal);
        }
-      }
-    );
+      });
   }
 
-  eliminacionLogica(id: number){
+  eliminacionLogica(id: number, fullname: string){
     this.spinner.show();
     let parametro:any[] = [{
       "queryId": 37,
       "mapValue": { param_id_persona : id }
     }];
 
-    this.personalService.eliminarPersonal(parametro[0]).subscribe(data => {
-      const arrayData:any[] = Array.of(data);
+    this.personalService.eliminarPersonal(parametro[0]).subscribe(resp => {
+      const arrayData:any[] = Array.of(resp);
       let msj  = arrayData[0].exitoMessage;
       let msj2 = arrayData[0].errorMessage
 
       if(msj == undefined){msj = ''}
+
       if (msj != '') {
         Swal.fire({
           title: 'Eliminar Personal',
-          text: `El Personal: ${id}, fue eliminado con éxito`,
+          text: `El Personal: ${fullname}, fue eliminado con éxito`,
           icon: 'success',
         });
 
       }else if (msj2 != ''){
         Swal.fire({
           title: `Eliminar al Personal`,
-          text: `El Personal: ${id}, no pudo ser eliminado por que tiene recursos asignados`,
+          text: `El Personal: ${fullname}, no pudo ser eliminado por que tiene recursos asignados`,
           icon: 'error',
         });
       }else{

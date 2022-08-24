@@ -64,23 +64,19 @@ export class EntidadComponent implements OnInit {
 
 
   listEntidadTabla: any[] = [];
-  cargarOBuscarEntidades(id: any){
+  cargarOBuscarEntidades(idTabla: any){
     this.blockUI.start("Cargando lista de entidades...");
 
     let parametro: any[] = [{
-      "queryId": 48,
-      "mapValue": { param_id_tabla: id }
+      "queryId": 115,
+      "mapValue": { param_id_tabla: idTabla }
     }];
     this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('ID_TABLA_ENTIDAD', resp, [resp.list.length]);
+     console.log('ID_TABLA_ENTIDAD', resp, resp.list, [resp.list.length]);
       this.listEntidadTabla = [];
       this.listEntidadTabla = resp.list;
-
-      // this.nombreEntidad = resp.list.find((n:any) => n.id == id);
-      // console.log('NAME_ENT',this.nombreEntidad);
-      // this.spinner.hide();
     });
   }
 
@@ -88,7 +84,7 @@ export class EntidadComponent implements OnInit {
     this.spinner.show();
 
     let parametro:any[] = [{
-      queryId: 42,
+      queryId: 53, //OJO: muy bien la query 53, Validar lo demás
       mapValue: {
         param_id_cuenta: id,
         CONFIG_USER_ID: this.userID,
@@ -97,8 +93,8 @@ export class EntidadComponent implements OnInit {
       }
     }];
     Swal.fire({
-      title: '¿Eliminar Cuenta?',
-      text : `¿Estas seguro que deseas eliminar la Cuenta: ${id} ?`,
+      title: '¿Eliminar entidad?',
+      text : `¿Estas seguro que deseas eliminar la Entidad: ${id} ?`,
       icon : 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -109,8 +105,8 @@ export class EntidadComponent implements OnInit {
         this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
           // this.cargarOBuscarEntidades();
             Swal.fire({
-              title: 'Eliminar Hardware',
-              text : `El Hardware: ${id}, fue eliminado con éxito`,
+              title: 'Eliminar entidad',
+              text : `La Entidad: ${id}, fue eliminado con éxito`,
               icon : 'success',
             });
           });

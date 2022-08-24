@@ -62,7 +62,7 @@ export class AsignarCuentaComponent implements OnInit {
     });
   }
 
-  asignarCuenta(idRecurso: number){
+  asignarCuenta(idRecurso: number, nameCuenta: string){
     this.spinner.show();
 
     if (this.DATA_PERSONA.estado == 'Activo') {
@@ -80,15 +80,15 @@ export class AsignarCuentaComponent implements OnInit {
 
         Swal.fire({
           title: 'Asignar recurso cuenta',
-          text: `El recurso Cuenta: ${'x'}, se asignó con exito`,
+          text: `El recurso Cuenta: ${nameCuenta}, se asignó con exito`,
           icon: 'success',
         })
       })
     } else {
       Swal.fire({
         title: 'Asignar recurso cuenta',
-        text: `No se pudo asignar el Cuenta: ${'XY'}, cuando el personal este Inactivo`,
-        icon: 'warning',
+        text: `No se pudo asignar el Cuenta: ${nameCuenta}, cuando el personal este Inactivo`,
+        icon: 'error',
       });
     }
   }

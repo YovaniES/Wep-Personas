@@ -18,7 +18,7 @@ import { ModalHardwareComponent } from './modal-hardware/modal-hardware.componen
 export class RegistroHardwareComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
-  userId!: number;
+  userID!: number;
   filtroForm!: FormGroup;
 
   page = 1;
@@ -53,7 +53,7 @@ export class RegistroHardwareComponent implements OnInit {
 
   getUsuario(){
     this.authService.getCurrentUser().subscribe( resp => {
-      this.userId   = resp.user.userId;
+      this.userID   = resp.user.userId;
       // console.log('ID-USER', this.userId);
     })
    }
@@ -101,42 +101,51 @@ export class RegistroHardwareComponent implements OnInit {
     });
   }
 
-
-
-  eliminarHardware(id: number){
-    this.spinner.show();
-
-    let parametro:any[] = [{
-      queryId: 42,
-      mapValue: {
-        param_id_cuenta: id,
-        CONFIG_USER_ID: this.userId,
-        CONFIG_OUT_MSG_ERROR: "",
-        CONFIG_OUT_MSG_EXITO: "",
-      }
-    }];
+  abrirEliminarHardware(id: number, estadoRecurso: string, nameHardware: string){
     Swal.fire({
-      title: '¿Eliminar Cuenta?',
-      text: `¿Estas seguro que deseas eliminar la Cuenta: ${id} ?`,
+      title: `Eliminar Hardware?`,
+      text: `¿Desea eliminar el Hardware: ${nameHardware}?`,
       icon: 'question',
-      confirmButtonColor: '#ec4756',
-      cancelButtonColor: '#0d6efd',
-      confirmButtonText: 'Si, Eliminar!',
+      confirmButtonColor: '#20c997',
+      cancelButtonColor : '#b2b5b4',
+      confirmButtonText : 'Si!',
       showCancelButton: true,
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
-      if (resp.value) {
-        this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
+        if (resp.value) {
+          this.eliminarHardwareAsignado(id, estadoRecurso, nameHardware);
+       }
+      });
+  }
 
-          this.cargarOBuscarHardware();
+  eliminarHardwareAsignado(idRecurso: number, estadoRecurso: string, nameHardware: string){
+    this.spinner.show();
 
-            Swal.fire({
-              title: 'Eliminar Hardware',
-              text: `El Hardware: ${id}, fue eliminado con éxito`,
-              icon: 'success',
-            });
-          });
+    let parametro:any[] = [{
+      queryId: 18,
+      mapValue: {
+        "param_id_hardware": idRecurso,
+        "CONFIG_USER_ID"   : this.userID,
+        // "CONFIG_OUT_MSG_ERROR":'',
+        // "CONFIG_OUT_MSG_EXITO":''
       }
+    }];
+    this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
+
+      if (estadoRecurso === 'Disponible') {
+        Swal.fire({
+          title: 'Eliminar Hardware',
+          text: `El Hardware: ${nameHardware}, fue eliminado con éxito`,
+          icon: 'success',
+        });
+      } else {
+        Swal.fire({
+          title: `Eliminar Hardware`,
+          text: `El Hardware: ${nameHardware}, no pudo ser eliminado por que se encuentra Asignado al Personal`,
+          icon: 'error',
+        });
+      }
+      this.cargarOBuscarHardware();
     });
     this.spinner.hide();
   }

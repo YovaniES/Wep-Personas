@@ -23,6 +23,14 @@
             </div>
 
             <div class="col-sm-3 cli-form-element">
+              <label class="form-label">Gestor</label>
+              <select class="form-select" formControlName="id_gestor">
+                <option [value]="0" disabled>-Seleccione-</option>
+                <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-3 cli-form-element">
               <label class="form-label">Liquidaciones</label>
               <select class="form-select" formControlName="id_liquidacion">
                 <option [value]="0" disabled>-Seleccione-</option>
@@ -30,15 +38,7 @@
               </select>
             </div>
 
-            <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Estado</label>
-              <select class="form-select" formControlName="id_estado">
-                <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
-              </select>
-            </div>
-
-            <div class="col-sm-3 cli-form-elemen cli-form-element">
+           <div class="col-sm-3 cli-form-elemen cli-form-element">
               <div class="form-group">
                 <label>Fecha registro <span class="date-rango">(desde)</span></label>
                  <input
@@ -61,14 +61,12 @@
             </div>
 
             <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Gestor</label>
-              <select class="form-select" formControlName="id_gestor">
+              <label class="form-label">Estado</label>
+              <select class="form-select" formControlName="id_estado">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+                <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
               </select>
             </div>
-
-            <div class="flex-1"></div>
 
             <div class="cli-form-buttons" style="margin-top: 8px">
               <button
@@ -126,9 +124,9 @@
               <th>Cod. Factura</th>
               <th>Periodo</th>
               <th>Proyecto</th>
+              <th>Gestor</th>
               <th>Liquidación</th>
               <th>Subservicio</th>
-              <th>Gestor</th>
               <th>Estado</th>
               <th>Importe</th>
               <th>Declarado</th>
@@ -161,9 +159,9 @@
               <td>{{ factura.idFactura }}</td>
               <td> {{ factura.periodo | date:"yyyy/MM" }}</td>
               <td>{{ factura.proyecto  | uppercase}}</td>
+              <td>{{ factura.gestor }}</td>
               <td class="w135">{{ factura.liquidacion| firstCapital }}</td>
               <td class="w250">{{ factura.subServicio }}</td>
-              <td>{{ factura.gestor }}</td>
               <td>{{ factura.estado }}</td>
               <td>{{ factura.importe}}</td>
               <td>{{ factura.declarado }}</td>

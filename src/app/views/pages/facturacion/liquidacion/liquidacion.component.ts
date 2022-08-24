@@ -26,7 +26,7 @@ export class LiquidacionComponent implements OnInit {
   page = 1;
   totalFacturas: number = 0;
   pageSize = 10;
-  pageSizes = [3, 6, 9];
+  // pageSizes = [3, 6, 9];
 
   constructor(
     private personalService: PersonalService,

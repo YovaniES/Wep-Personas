@@ -18,7 +18,7 @@ import { PersonalService } from 'src/app/core/services/personal.service';
 export class RegistroCuentaComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
-  userId!: number;
+  userID!: number;
   filtroForm!: FormGroup;
 
   page = 1;
@@ -50,7 +50,7 @@ export class RegistroCuentaComponent implements OnInit {
 
   getUsuario(){
     this.authService.getCurrentUser().subscribe( resp => {
-      this.userId   = resp.user.userId;
+      this.userID   = resp.user.userId;
       // console.log('ID-USER', this.userId);
     })
    }
@@ -77,21 +77,21 @@ export class RegistroCuentaComponent implements OnInit {
     });
   }
 
-  eliminarCuenta(id: number){
+  abrirEliminarCuenta(id: number, estado: string, nameUser: string){
     this.spinner.show();
 
     let parametro:any[] = [{
       queryId: 42,
       mapValue: {
         param_id_cuenta: id,
-        CONFIG_USER_ID: this.userId,
+        CONFIG_USER_ID: this.userID,
         CONFIG_OUT_MSG_ERROR: "",
         CONFIG_OUT_MSG_EXITO: "",
       }
     }];
     Swal.fire({
       title: '¿Eliminar Cuenta?',
-      text: `¿Estas seguro que deseas eliminar la Cuenta: ${id} ?`,
+      text: `¿Estas seguro que deseas eliminar la Cuenta: ${nameUser}?`,
       icon: 'question',
       confirmButtonColor: '#ec4756',
       cancelButtonColor: '#0d6efd',
@@ -100,20 +100,44 @@ export class RegistroCuentaComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
       if (resp.value) {
-        this.personalService.eliminarCuenta(parametro[0]).subscribe(resp => {
-
-          this.cargarOBuscarcuentas();
-
-            Swal.fire({
-              title: 'Eliminar Cuenta',
-              text: `La Cuenta: ${id}, fue eliminado con éxito`,
-              icon: 'success',
-            });
-          });
+        this.eliminarHardwareAsignado(id, estado, nameUser);
       }
     });
     this.spinner.hide();
   }
+
+  eliminarHardwareAsignado(idRecurso: number, estadoRecurso: string, nameUser: string){
+    this.spinner.show();
+
+    let parametro:any[] = [{
+      queryId: 42,
+      mapValue: {
+        "param_id_cuenta": idRecurso,
+        "CONFIG_USER_ID"   : this.userID,
+        // "CONFIG_OUT_MSG_ERROR":'',
+        // "CONFIG_OUT_MSG_EXITO":''
+      }
+    }];
+    this.personalService.eliminarCuenta(parametro[0]).subscribe(resp => {
+
+      if (estadoRecurso === 'Disponible') {
+        Swal.fire({
+          title: 'Eliminar Cuenta',
+          text: `La Cuenta: ${nameUser}, fue eliminado con éxito`,
+          icon: 'success',
+        });
+      } else {
+        Swal.fire({
+          title: `Eliminar Cuenta`,
+          text: `La Cuenta: ${nameUser}, no pudo ser eliminado por que se encuentra Asignado al Personal`,
+          icon: 'error',
+        });
+      }
+      this.cargarOBuscarcuentas();
+    });
+    this.spinner.hide();
+  }
+
 
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})

@@ -29,12 +29,13 @@ export class ModalEntidadtablaComponent implements OnInit {
     this.newForm();
     this.getListEntidades();
     this.cargarTablaEntidadByID();
-    this.cargarOBuscarEntidades(1);
+    // this.cargarOBuscarEntidades(1);
     console.log('DATA_TABLA_E', this.DATA_ENTIDAD, this.DATA_ENTIDAD.eForm);
   }
 
   newForm(){
     this.entidadTablaForm = this.fb.group({
+      id           : [''],
       nombre       : ['', Validators.required],
       descripcion  : [''],
       entidad      : [''],
@@ -56,14 +57,6 @@ export class ModalEntidadtablaComponent implements OnInit {
     }
   }
 
-  // CALL prc_ins_info_entidad(
-  //   @param_nombre,
-  //   @param_descripcion,
-  //   @param_id_padre,
-  //   @param_id_tabla,
-  //   @CONFIG_USER_ID,
-  //   @CONFIG_OUT_MSG_ERROR,
-  //   @CONFIG_OUT_MSG_EXITO )
 
   agregarEntidadTabla() {
     this.spinner.show();
@@ -96,7 +89,6 @@ export class ModalEntidadtablaComponent implements OnInit {
     this.spinner.hide();
   }
 
-
   actualizarTablaEntidad(){
     this.spinner.show();
 
@@ -104,7 +96,7 @@ export class ModalEntidadtablaComponent implements OnInit {
     let parametro: any[] = [{
         queryId: 56,
         mapValue: {
-          "param_id"         : this.DATA_ENTIDAD.entidad,
+          "param_id"         : formValues.id ,
           "param_tabla"      : formValues.id_tabla,
           "param_correlativo": formValues.idCorrelativo,
           "param_nombre"     : formValues.nombre,
@@ -141,7 +133,8 @@ export class ModalEntidadtablaComponent implements OnInit {
   cargarTablaEntidadByID(){
     if (!this.DATA_ENTIDAD.isCreation) {
       this.btnAction = 'Actualizar'
-        this.entidadTablaForm.controls['idCorrelativo'].setValue(this.DATA_ENTIDAD.id);
+        this.entidadTablaForm.controls['id'           ].setValue(this.DATA_ENTIDAD.id);
+        this.entidadTablaForm.controls['idCorrelativo'].setValue(this.DATA_ENTIDAD.id_correlativo);
         this.entidadTablaForm.controls['nombre'       ].setValue(this.DATA_ENTIDAD.nombre);
         this.entidadTablaForm.controls['descripcion'  ].setValue(this.DATA_ENTIDAD.descripcion);
         this.entidadTablaForm.controls['entidad'      ].setValue(this.DATA_ENTIDAD.entidad);
@@ -176,25 +169,7 @@ export class ModalEntidadtablaComponent implements OnInit {
     });
   }
 
-  listEntidadX: any[] = [];
-  ID_TABLE: number = 0;
-  cargarOBuscarEntidades(id: any){
-    let parametro: any[] = [{
-      "queryId": 48,
-      "mapValue": { param_id_tabla: id }
-    }];
-    this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe((resp: any) => {
-     this.ID_TABLE = resp.list.map((t: any) => t.nombre)
-      console.log('IDX', this.ID_TABLE);
 
-
-     console.log('ID_TABLA_ENTIDAD', resp, resp.list, [resp.list.length]);
-      this.listEntidadX = [];
-      this.listEntidadX = resp.list;
-
-      this.spinner.hide();
-    });
-  }
 
   close(succes?: boolean) {
     this.dialogRef.close(succes);

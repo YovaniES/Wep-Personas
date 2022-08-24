@@ -135,6 +135,8 @@ export class ActualizarPersonalComponent implements OnInit {
         this.personalForm.controls['codProy'   ].setValue(resp.list[i].id_codigo_proyecto);
         this.personalForm.controls['descProy'  ].setValue(resp.list[i].proyecto_descripcion);
 
+        this.personalForm.controls['estado'].setValue(resp.list[i].estado);
+
         if (resp.list[i].fecha_ingreso !='null' && resp.list[i].fecha_ingreso != '') {
           let fechaIngr = resp.list[i].fecha_ingreso
           const str   = fechaIngr.split('/');
@@ -152,7 +154,6 @@ export class ActualizarPersonalComponent implements OnInit {
           const date  = Number(str[0]);
           this.personalForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
-        this.personalForm.controls['estado'].setValue(resp.list[i].estado);
       }
       this.spinner.hide();
     })
@@ -206,7 +207,7 @@ export class ActualizarPersonalComponent implements OnInit {
     }];
       Swal.fire({
         title: '¿Desasignar Recurso?',
-        text: `¿Estas seguro que deseas desasignar el recurso: ${idRecurso} ?`,
+        text: `¿Estas seguro que desea Desasignar el recurso: ${idRecurso} ?`,
         icon: 'question',
         confirmButtonColor: '#ec4756',
         cancelButtonColor : '#0d6efd',

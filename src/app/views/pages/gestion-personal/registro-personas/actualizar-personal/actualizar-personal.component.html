@@ -16,13 +16,13 @@
       <div style="display: flex;" >
         <div class="col-2 pr-subtitle">Datos Personales</div>
         <div class="flex-1"></div>
-        <!-- <div  class="mt-2 id-factura">ID : <span  class="total">{{factura_Id}}</span></div> -->
         <span>
           <input
             type="text"
             class="form-control cli-input-white estado-act"
             formControlName="estado"/>
-        </span>
+          </span>
+          <!-- [ngClass]="estado == 'Activo' ? 'estado-act' : 'estado-danger'" -->
       </div>
 
       <div class="pr-section">
@@ -110,7 +110,7 @@
                 <label>Fecha de Ingreso</label>
                 <input
                   type="date"
-                  readonly="true"
+
                   class="form-control cli-input-white"
                   formControlName="fechaIngreso"/>
               </div>
@@ -122,13 +122,6 @@
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
-            </div>
-
-            <div class="col-sm-4 cli-form-element">
-              <input
-                type="text"
-                class="form-control cli-input-white"
-                formControlName="estado"/>
             </div>
           </div>
         </div>
@@ -193,7 +186,7 @@
               *ngIf="!loadingItem && listHardwareAsignado.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
-            >Aún no tiene recurso hardware
+              >Aún no tiene recurso hardware
             </div>
           </div>
         </div>
@@ -295,7 +288,7 @@
               *ngIf="!loadingItem && histCambiosProyecto.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
-            >Aquí se mostrará el historico de cambios de proyecto ...
+              >Aquí se mostrará el historico de cambios de proyecto ...
             </div>
           </div>
         </div>

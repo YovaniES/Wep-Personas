@@ -49,9 +49,6 @@
         </div>
       </div>
 
-
-
-
       <!-- BOTON MODAL PARA CREAR CUENTA ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <button
@@ -86,9 +83,9 @@
               <th>Password</th>
               <th>Tipo</th>
               <th>Persona Asignada</th>
+              <th>Estado</th>
               <th>Última Renovación</th>
               <th>Próxima Renovación</th>
-              <th>Estado</th>
             </tr>
           </thead>
 
@@ -99,29 +96,29 @@
                         totalItems: totalIniciativa
                       } ">
               <td>
-                <div class="cli-table-actions">
-                  <button
-                    matTooltip="Actualizar"
-                    class="icon-btn btn-trans c-blue"
-                    (click)="actualizarCuenta(cuenta)"
-                  ><mat-icon class="icon-18">edit</mat-icon>
-                  </button>
-                  <button
-                    matTooltip="Eliminar"
-                    class="icon-btn btn-trans c-fucsia"
-                    (click)="eliminarCuenta(cuenta.id)"
-                  ><mat-icon class="icon-18">delete_forever</mat-icon>
-                  </button>
-                </div>
+                  <div class="cli-table-actions">
+                    <button
+                      matTooltip="Actualizar"
+                      class="icon-btn btn-trans c-blue"
+                      (click)="actualizarCuenta(cuenta)"
+                      ><mat-icon class="icon-18">edit</mat-icon>
+                    </button>
+                    <button
+                      matTooltip="Eliminar"
+                      class="icon-btn btn-trans c-fucsia"
+                      (click)="abrirEliminarCuenta(cuenta.id, cuenta.estado, cuenta.usuario)"
+                      ><mat-icon class="icon-18">delete_forever</mat-icon>
+                    </button>
+                  </div>
               </td>
               <td>{{ cuenta.id }}</td>
               <td class="w155">{{ cuenta.usuario }}</td>
               <td class="w135">{{ cuenta.password}}</td>
               <td>{{ cuenta.tipo }}</td>
               <td class="w135">{{ cuenta.nombres | firstCapital }}</td>
+              <td>{{ cuenta.estado }}</td>
               <td>{{ cuenta.fechaUltimaRenovacion }}</td>
               <td>{{ cuenta.fechaProximaRenovacion }}</td>
-              <td>{{ cuenta.estado }}</td>
             </tr>
           </tbody>
         </table>

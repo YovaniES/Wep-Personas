@@ -119,7 +119,7 @@
           <thead>
             <tr class="bgc-blue-light c-white">
               <th>Acción</th>
-              <th>ID Personal</th>
+              <!-- <th>ID Personal</th> -->
               <th>Nombres y Apellidos</th>
               <th>DNI</th>
               <th>Cód. Proyecto</th>
@@ -148,18 +148,18 @@
 
                   <button matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
-                    (click)="abrirEliminarLogico(personal.id, personal.codigo_corporativo, '')"
+                    (click)="abrirEliminarLogico(personal.id, personal.codigo_corporativo, '', personal.nombres)"
                   ><mat-icon class="icon-18">person_remove</mat-icon>
                   </button>
 
                   <button matTooltip ="{{ tooltipActivoInactivo }}"
                     class="icon-btn btn-trans c-grey"
-                    (click)="abrirEliminar(personal.id, personal.codigo_corporativo, personal.estado)"
+                    (click)="abrirEliminar(personal.id, personal.codigo_corporativo, personal.estado, personal.nombres)"
                     ><mat-icon class="icon-18">person_off</mat-icon>
                   </button>
                 </div>
               </td>
-              <td>{{ personal.id }}</td>
+              <!-- <td>{{ personal.id }}</td> -->
               <td class="w300"> {{ personal.apellidos   | firstCapital}}, {{personal.nombres | firstCapital}}</td>
               <td>{{ personal.dni }}</td>
               <td>{{ personal.codigo_proyecto | uppercase}}</td>
