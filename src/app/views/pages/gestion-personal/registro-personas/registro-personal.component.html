@@ -119,15 +119,15 @@
           <thead>
             <tr class="bgc-blue-light c-white">
               <th>Acción</th>
-              <!-- <th>ID Personal</th> -->
+              <th>ID Personal</th>
               <th>Nombres y Apellidos</th>
-              <th>DNI</th>
-              <th>Cód. Proyecto</th>
-              <th>Cód. Corporativo</th>
-              <th>Perfil</th>
               <th>Correo</th>
-              <th>Estado</th>
+              <th>Perfil</th>
+              <th>Cód. Corporativo</th>
+              <th>Cód. Proyecto</th>
               <th>Descripción del Proyecto</th>
+              <th>DNI</th>
+              <th>Estado</th>
               <th>Fecha de Ingreso</th>
             </tr>
           </thead>
@@ -159,18 +159,18 @@
                   </button>
                 </div>
               </td>
-              <!-- <td>{{ personal.id }}</td> -->
+              <td>{{ personal.id }}</td>
               <td class="w300"> {{ personal.apellidos   | firstCapital}}, {{personal.nombres | firstCapital}}</td>
-              <td>{{ personal.dni }}</td>
-              <td>{{ personal.codigo_proyecto | uppercase}}</td>
-              <td>{{ personal.codigo_corporativo| uppercase }}</td>
-              <td>{{ personal.perfil | firstCapital }}</td>
               <td>{{ personal.correo }}</td>
-              <td>
-                <span *ngIf="personal.estado=='Activo'"     class="w135 label estado-info">  {{ personal.estado | uppercase }}</span>
-                <span *ngIf="personal.estado == 'Inactivo'" class="w135 label estado-danger">{{ personal.estado | uppercase }}</span>
-              </td>
+              <td>{{ personal.perfil | firstCapital }}</td>
+              <td>{{ personal.codigo_corporativo| uppercase }}</td>
+              <td>{{ personal.codigo_proyecto | uppercase}}</td>
               <td class="w300">{{ personal.proyecto_descripcion | firstCapital}}</td>
+              <td>{{ personal.dni }}</td>
+              <td>
+                <span *ngIf="personal.estado == 'Activo'"     class="w135 label estado-info">  {{ personal.estado | uppercase }}</span>
+                <span *ngIf="personal.estado == 'Inactivo'"   class="w135 label estado-danger">{{ personal.estado | uppercase }}</span>
+              </td>
               <td class="w100">{{ personal.fecha_ingreso }}</td>
             </tr>
           </tbody>

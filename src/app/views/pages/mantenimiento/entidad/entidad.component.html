@@ -58,7 +58,7 @@
       <div style="overflow: auto; min-height: 150px">
         <table class="cli-table stripedtable underlinedtable">
           <thead>
-            <tr class="bgc-turquey c-white">
+            <tr class="bgc-blue-light c-white">
               <th>Acción</th>
               <th>ID Tabla</th>
               <th>ID Correlativo</th>
@@ -86,7 +86,7 @@
                   <button
                     matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
-                    (click)="eliminarEntidad(entidad.id)"
+                    (click)="abrirEliminarEntidad(entidad.id_tabla, entidad.id_correlativo, entidad.nombre)"
                     ><mat-icon class="icon-18">delete_forever</mat-icon>
                   </button>
                 </div>

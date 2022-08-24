@@ -12,6 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./modal-hardware.component.scss']
 })
 export class ModalHardwareComponent implements OnInit {
+  loadingItem: boolean = false;
   userID: number = 0;
   hardwareForm!: FormGroup;
 
@@ -31,6 +32,8 @@ export class ModalHardwareComponent implements OnInit {
     this.getListTiposHardware();
     this.getUsuario();
     this.cargarHardwareByID();
+    this.getHistoricoHarwareByPersonal(this.DATA_HARDWARE);
+
     // console.log('DATA_HARDWARE', this.DATA_HARDWARE);
   }
 
@@ -146,6 +149,22 @@ export class ModalHardwareComponent implements OnInit {
         this.hardwareForm.controls['observacion'].setValue(this.DATA_HARDWARE.observacion);
     }
   }
+
+  histHardareByPersonal: any[] = [];
+  getHistoricoHarwareByPersonal(id: number){
+  this.spinner.show();
+    let parametro: any[] = [{ queryId: 116, mapValue: {
+        param_id_recurso: this.DATA_HARDWARE.id_recurso,
+      }
+    }];
+
+    this.personalService.getHistoricoHarwareByPersonal(parametro[0]).subscribe((resp: any) => {
+      this.histHardareByPersonal = resp.list;
+      console.log('ListHistHARDWARE', resp.list)
+    });
+    this.spinner.hide();
+  }
+
 
   campoNoValido(campo: string): boolean {
     if ( this.hardwareForm.get(campo)?.invalid && this.hardwareForm.get(campo)?.touched ) {

@@ -80,37 +80,52 @@ export class EntidadComponent implements OnInit {
     });
   }
 
-  eliminarEntidad(id: number){
+  abrirEliminarEntidad(idTabla: number, idCorrelativo: number, nameEntidad: string){
+    Swal.fire({
+      title: `Eliminar Entidad?`,
+      text: `¿Desea eliminar la Entidad: ${nameEntidad}?`,
+      icon: 'question',
+      confirmButtonColor: '#20c997',
+      cancelButtonColor : '#b2b5b4',
+      confirmButtonText : 'Si, Eliminar!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+    }).then((resp) => {
+        if (resp.value) {
+          this.eliminarEntidad(idTabla, idCorrelativo, nameEntidad);
+       }
+      });
+  }
+
+  eliminarEntidad(idTabla: number, idCorrelativo: number, nameEntidad: string){
     this.spinner.show();
 
     let parametro:any[] = [{
-      queryId: 53, //OJO: muy bien la query 53, Validar lo demás
+      queryId: 53,
       mapValue: {
-        param_id_cuenta: id,
-        CONFIG_USER_ID: this.userID,
-        CONFIG_OUT_MSG_ERROR: "",
-        CONFIG_OUT_MSG_EXITO: "",
+        "param_id_tabla"      : idTabla,
+        "param_id_correlativo": idCorrelativo,
+        "CONFIG_USER_ID"      : this.userID,
+        // "CONFIG_OUT_MSG_ERROR":'',
+        // "CONFIG_OUT_MSG_EXITO":''
       }
     }];
-    Swal.fire({
-      title: '¿Eliminar entidad?',
-      text : `¿Estas seguro que deseas eliminar la Entidad: ${id} ?`,
-      icon : 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor : '#d33',
-      confirmButtonText : 'Si, Eliminar!',
-    }).then((resp) => {
-      if (resp.value) {
-        this.personalService.eliminarHardware(parametro[0]).subscribe(resp => {
-          // this.cargarOBuscarEntidades();
-            Swal.fire({
-              title: 'Eliminar entidad',
-              text : `La Entidad: ${id}, fue eliminado con éxito`,
-              icon : 'success',
-            });
-          });
+    this.personalService.eliminarEntidad(parametro[0]).subscribe(resp => {
+
+      if (idTabla = idTabla) {
+        Swal.fire({
+          title: 'Eliminar Entidad',
+          text: `La Entidad: ${nameEntidad}, fue eliminado con éxito`,
+          icon: 'success',
+        });
+      } else {
+        Swal.fire({
+          title: `Eliminar Entidad`,
+          text: `La Entidad: ${nameEntidad}, no pudo ser eliminado por que se encuentra Asignado al Personal`,
+          icon: 'error',
+        });
       }
+      this.cargarOBuscarEntidades(idTabla);
     });
     this.spinner.hide();
   }

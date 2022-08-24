@@ -232,6 +232,10 @@ export class PersonalService {
     );
   }
 
+  getHistoricoHarwareByPersonal(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
   getHistoricoCambiosEstado(obj: any) {
     return this.http.post(API_PERSONAS, obj);
   }
@@ -261,6 +265,10 @@ export class PersonalService {
   }
 
   eliminarHardware(id: number) {
+    return this.http.post(API_PERSONAS, id);
+  }
+
+  eliminarEntidad(id: number){
     return this.http.post(API_PERSONAS, id);
   }
 

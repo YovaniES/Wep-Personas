@@ -271,7 +271,6 @@ export class ActualizarPersonalComponent implements OnInit {
         param_id_persona: this.DATA_PERSONAL.id,
       }
     }];
-
     this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
       this.histCambiosProyecto = resp;
       // console.log('ListHistCambID', resp)
