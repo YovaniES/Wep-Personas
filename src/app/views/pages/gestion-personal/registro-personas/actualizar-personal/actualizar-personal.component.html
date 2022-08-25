@@ -16,13 +16,13 @@
       <div style="display: flex;" >
         <div class="col-2 pr-subtitle">Datos Personales</div>
         <div class="flex-1"></div>
-        <span>
-          <input
-            type="text"
-            class="form-control cli-input-white estado-act"
-            formControlName="estado"/>
+        <ng-container *ngIf="personalForm.controls['estado'].value">
+          <span class="form-control cli-input-white"
+                [ngClass]="personalForm.controls['estado'].value == 'Activo' ? 'estado-act' : 'estado-danger'">
+                {{personalForm.controls['estado'].value}}
           </span>
-          <!-- [ngClass]="estado == 'Activo' ? 'estado-act' : 'estado-danger'" -->
+        </ng-container>
+
       </div>
 
       <div class="pr-section">

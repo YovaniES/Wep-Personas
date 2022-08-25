@@ -18,6 +18,7 @@ export class ActualizarPersonalComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
   personalForm!: FormGroup;
+  // estado: string = ''
 
   constructor(
     private personalService: PersonalService,
@@ -137,7 +138,7 @@ export class ActualizarPersonalComponent implements OnInit {
 
         this.personalForm.controls['estado'].setValue(resp.list[i].estado);
 
-        if (resp.list[i].fecha_ingreso !='null' && resp.list[i].fecha_ingreso != '') {
+        if (resp.list[i].fecha_ingreso) {
           let fechaIngr = resp.list[i].fecha_ingreso
           const str   = fechaIngr.split('/');
           const year  = Number(str[2]);
@@ -146,7 +147,7 @@ export class ActualizarPersonalComponent implements OnInit {
           this.personalForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
 
-        if (resp.list[i].fecha_nacimiento !='null' && resp.list[i].fecha_nacimiento != '') {
+        if (resp.list[i].fecha_nacimiento) {
           let fechaNac = resp.list[i].fecha_nacimiento
           const str   = fechaNac.split('/');
           const year  = Number(str[2]);

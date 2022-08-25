@@ -90,56 +90,56 @@
       </div>
 
 
-
-
-
-
       <!-- HISTORICO DE HARDWARE ------------------------------------------------------------------------->
-      <div class="pr-subtitle mt-2">Histórico de Hardware</div>
-      <div class="pr-section mb-3">
-        <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 100px">
-            <table class="cli-table stripedtable underlinedtable">
-              <thead>
-                <tr class="bgc-turquey c-white">
-                  <th>#</th>
-                  <th>Personal</th>
-                  <th>Proyecto</th>
-                  <th>Descripción Proyecto</th>
-                  <th>Fecha asignación</th>
-                  <th>Asignado por:</th>
-                  <th>Fecha Liberación</th>
-                  <th>Liberado por:</th>
-                </tr>
-              </thead>
+      <div *ngIf="DATA_HARDWARE">
+        <div class="pr-subtitle mt-2">Histórico de Hardware</div>
+        <div class="pr-section mb-3">
+          <div class="pr-module-container">
+            <div style="overflow: auto; min-height: 100px; max-height: 160px;">
+              <table class="cli-table stripedtable underlinedtable">
+                <thead>
+                  <tr class="bgc-turquey c-white">
+                    <th>#</th>
+                    <th>ID Personal</th>
+                    <th>Personal</th>
+                    <th>Proyecto</th>
+                    <!-- <th>Descripción Proyecto</th> -->
+                    <th>Fecha asignación</th>
+                    <th>Asignado por:</th>
+                    <th>Fecha Liberación</th>
+                    <th>Liberado por:</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr *ngFor="let cambios of histHardareByPersonal; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ cambios.id_persona }}</td>
-                  <td>{{ cambios.cod_proyecto }}</td>
-                  <td>{{ cambios.proyecto_descripcion }}</td>
-                  <td>{{ cambios.fecha_asignacion }}</td>
-                  <td>{{ cambios.nombre_usu_asignacion }}</td>
-                  <td>{{ cambios.fecha_liberacion }}</td>
-                  <td>{{ cambios.nombre_usu_liberacion }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="cli-loader" *ngIf="loadingItem">
-              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-              cargando...
+                <tbody>
+                  <tr *ngFor="let cambios of histHardareByPersonal; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ cambios.id_persona }}</td>
+                    <td class="w300">{{ cambios.persona }}</td>
+                    <td>{{ cambios.proyecto }}</td>
+                    <!-- <td>{{ cambios.proyecto_descripcion }}</td> -->
+                    <td class="w100">{{ cambios.fecha_asignacion }}</td>
+                    <td>{{ cambios.nombre_usu_asignacion }}</td>
+                    <td class="w100">{{ cambios.fecha_liberacion }}</td>
+                    <td>{{ cambios.nombre_usu_liberacion }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="cli-loader" *ngIf="loadingItem">
+                <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+                cargando...
+              </div>
+
+              <div
+                *ngIf="!loadingItem && histHardareByPersonal.length == 0"
+                class="cli-loader mt-2"
+                style="color: #c9c9c9"
+                >Aquí se mostrará el histórico del Hardware...
+              </div>
             </div>
 
-            <div
-              *ngIf="!loadingItem && histHardareByPersonal.length == 0"
-              class="cli-loader mt-2"
-              style="color: #c9c9c9"
-              >Aquí se mostrará el histórico del Hardware...
-            </div>
+
           </div>
-
-
         </div>
       </div>
     </div>

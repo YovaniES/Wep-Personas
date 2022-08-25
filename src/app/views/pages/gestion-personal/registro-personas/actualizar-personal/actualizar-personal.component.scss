@@ -43,7 +43,22 @@
 }
 
 .estado-act{
-  background: #cfcfcf;
+  background: #0b9272;
+  // background: #ff727f;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 25px;
+  font-size: 15px;
+  border-radius: 6px
+}
+
+
+.estado-danger{
+  background: #ef4343;
   // background: #ff727f;
   text-align: center;
   color: #fff;

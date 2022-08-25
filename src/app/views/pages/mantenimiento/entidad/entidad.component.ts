@@ -106,13 +106,13 @@ export class EntidadComponent implements OnInit {
         "param_id_tabla"      : idTabla,
         "param_id_correlativo": idCorrelativo,
         "CONFIG_USER_ID"      : this.userID,
-        // "CONFIG_OUT_MSG_ERROR":'',
-        // "CONFIG_OUT_MSG_EXITO":''
+        "CONFIG_OUT_MSG_ERROR":'',
+        "CONFIG_OUT_MSG_EXITO":''
       }
     }];
-    this.personalService.eliminarEntidad(parametro[0]).subscribe(resp => {
+    this.personalService.eliminarEntidad(parametro[0]).subscribe((resp: any) => {
 
-      if (idTabla = idTabla) {
+      if (resp && !resp.errorMessage) {
         Swal.fire({
           title: 'Eliminar Entidad',
           text: `La Entidad: ${nameEntidad}, fue eliminado con éxito`,
@@ -196,7 +196,7 @@ export class EntidadComponent implements OnInit {
       .open(ModalEntidadtablaComponent, { width: '25%', data: DATA})
       .afterClosed().subscribe((resp) => {
         if (resp == 'Actualizar') {
-          this.cargarOBuscarEntidades(DATA);
+          this.cargarOBuscarEntidades(DATA.id_tabla);
         }
       });
   }

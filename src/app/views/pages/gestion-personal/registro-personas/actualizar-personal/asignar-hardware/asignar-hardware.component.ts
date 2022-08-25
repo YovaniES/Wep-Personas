@@ -31,6 +31,7 @@ export class AsignarHardwareComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getUsuario()
     this.newFilfroForm();
     this.cargarOBuscarHardwareDisponible();
     this.getListMarcaHardware();
