@@ -47,6 +47,7 @@ export class AsignarCuentaComponent implements OnInit {
     this.blockUI.start("Cargando listado de cuentas...");
     let parametro: any[] = [{
       "queryId": 44,
+      // "queryId": 44,
       "mapValue": {
         param_username    : this.filtroForm.value.username,
       }
@@ -61,6 +62,26 @@ export class AsignarCuentaComponent implements OnInit {
       this.spinner.hide();
     });
   }
+
+  // listaCuentaDisp: any[] = [];
+  // cargarOBuscarCuentaDisponible(){
+  //   this.blockUI.start("Cargando listado de cuentas...");
+  //   let parametro: any[] = [{
+  //     "queryId": 24,
+  //     "mapValue": {
+  //       param_username    : this.filtroForm.value.username,
+  //     }
+  //   }];
+  //   this.personalService.cargarOBuscarCuentaDisponible(parametro[0]).subscribe((resp: any) => {
+  //   this.blockUI.stop();
+
+  //    console.log('Lista-Cuenta-disp', resp.list, resp.list.length);
+  //     this.listaCuentaDisp = [];
+  //     this.listaCuentaDisp = resp.list;
+
+  //     this.spinner.hide();
+  //   });
+  // }
 
   asignarCuenta(idRecurso: number, nameCuenta: string){
     this.spinner.show();

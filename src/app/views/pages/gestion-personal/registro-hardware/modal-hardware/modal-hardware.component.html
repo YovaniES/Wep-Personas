@@ -71,8 +71,8 @@
                 style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
                 rows="3"
                 placeholder="Describa el tipo, marca o modelo ..."
-                formControlName="equipo"
-              ></textarea>
+                formControlName="equipo">
+              </textarea>
             </div>
 
             <div class="col-sm-6 cli-form-element mb-2">
@@ -82,8 +82,8 @@
                 style="background-image: none; border-color: #a5a4a4; font-size: 14px;"
                 rows="3"
                 placeholder="Describa alguna observación del equipo hardware"
-                formControlName="observacion"
-              ></textarea>
+                formControlName="observacion">
+              </textarea>
             </div>
             </div>
         </div>
@@ -100,10 +100,9 @@
                 <thead>
                   <tr class="bgc-turquey c-white">
                     <th>#</th>
-                    <th>ID Personal</th>
+                    <!-- <th>ID Personal</th> -->
                     <th>Personal</th>
                     <th>Proyecto</th>
-                    <!-- <th>Descripción Proyecto</th> -->
                     <th>Fecha asignación</th>
                     <th>Asignado por:</th>
                     <th>Fecha Liberación</th>
@@ -114,20 +113,18 @@
                 <tbody>
                   <tr *ngFor="let cambios of histHardareByPersonal; let i = index">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ cambios.id_persona }}</td>
+                    <!-- <td>{{ cambios.id_persona }}</td> -->
                     <td class="w300">{{ cambios.persona }}</td>
                     <td>{{ cambios.proyecto }}</td>
-                    <!-- <td>{{ cambios.proyecto_descripcion }}</td> -->
                     <td class="w100">{{ cambios.fecha_asignacion }}</td>
-                    <td>{{ cambios.nombre_usu_asignacion }}</td>
+                    <td>{{ cambios.usuario_asignacion }}</td>
                     <td class="w100">{{ cambios.fecha_liberacion }}</td>
-                    <td>{{ cambios.nombre_usu_liberacion }}</td>
+                    <td>{{ cambios.usuario_asignacion }}</td>
                   </tr>
                 </tbody>
               </table>
               <div class="cli-loader" *ngIf="loadingItem">
-                <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-                cargando...
+                <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>cargando...
               </div>
 
               <div
@@ -137,8 +134,6 @@
                 >Aquí se mostrará el histórico del Hardware...
               </div>
             </div>
-
-
           </div>
         </div>
       </div>

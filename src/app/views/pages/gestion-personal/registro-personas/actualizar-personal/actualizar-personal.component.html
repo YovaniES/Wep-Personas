@@ -12,7 +12,6 @@
   <div class="cli-form newvac-wrapper">
     <div class="chart-draw">
       <!-- REGISTROS DEL PERSONAL-------------------------------------------------------------------- -->
-      <!-- <div class="col-2 pr-subtitle mt-2">Datos Personales</div> -->
       <div style="display: flex;" >
         <div class="col-2 pr-subtitle">Datos Personales</div>
         <div class="flex-1"></div>
@@ -22,7 +21,6 @@
                 {{personalForm.controls['estado'].value}}
           </span>
         </ng-container>
-
       </div>
 
       <div class="pr-section">
@@ -31,8 +29,7 @@
             <div class="col-sm-4 cli-form-element">
               <div class="form-group">
                 <label>Nombre(s)</label>
-                <input
-                  type="text"
+                <input type="text"
                   class="form-control cli-input-white"
                   formControlName="nombre"/>
                 <small class="text-alert" *ngIf="campoNoValido('nombre')">* Este campo es obligatorio</small>
@@ -41,40 +38,35 @@
 
             <div class="col-sm-4 cli-form-element">
               <label>Apellido paterno</label>
-              <input
-                type="text"
+              <input type="text"
                 class="form-control cli-input-white"
                 formControlName="apPaterno"/>
             </div>
 
             <div class="col-sm-4 cli-form-element">
               <label>Apellido materno</label>
-              <input
-                type="text"
+              <input type="text"
                 class="form-control cli-input-white"
                 formControlName="apMaterno"/>
             </div>
 
             <div class="col-sm-4 cli-form-element">
               <label>DNI</label>
-              <input
-                maxlength="8"
+              <input maxlength="8"
                 class="form-control cli-input-white"
                 formControlName="dni"/>
             </div>
 
             <div class="col-sm-4 cli-form-element">
               <label>Correo</label>
-              <input
-                type="text"
+              <input type="text"
                 class="form-control cli-input-white"
                 formControlName="correo"/>
             </div>
 
             <div class="col-sm-4 cli-form-element">
-                <label>Fecha Nacimiento</label>
-                <input
-                  type="date"
+              <label>Fecha Nacimiento</label>
+              <input type="date"
                   class="form-control"
                   formControlName="fechaNacimiento"/>
               </div>

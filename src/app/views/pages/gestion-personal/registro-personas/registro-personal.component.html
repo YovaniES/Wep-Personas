@@ -119,7 +119,7 @@
           <thead>
             <tr class="bgc-blue-light c-white">
               <th>Acción</th>
-              <th>ID Personal</th>
+              <!-- <th>ID Personal</th> -->
               <th>Nombres y Apellidos</th>
               <th>Correo</th>
               <th>Perfil</th>
@@ -143,13 +143,13 @@
                   <button matTooltip="Actualizar"
                     class="icon-btn btn-trans c-blue"
                     (click)="actualizarPersonal(personal)"
-                  ><mat-icon class="icon-18">manage_accounts</mat-icon>
+                    ><mat-icon class="icon-18">manage_accounts</mat-icon>
                   </button>
 
                   <button matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
                     (click)="abrirEliminarLogico(personal.id, personal.codigo_corporativo, '', personal.nombres)"
-                  ><mat-icon class="icon-18">person_remove</mat-icon>
+                    ><mat-icon class="icon-18">person_remove</mat-icon>
                   </button>
 
                   <button matTooltip ="{{ tooltipActivoInactivo }}"
@@ -159,7 +159,7 @@
                   </button>
                 </div>
               </td>
-              <td>{{ personal.id }}</td>
+              <!-- <td>{{ personal.id }}</td> -->
               <td class="w300"> {{ personal.apellidos   | firstCapital}}, {{personal.nombres | firstCapital}}</td>
               <td>{{ personal.correo }}</td>
               <td>{{ personal.perfil | firstCapital }}</td>
@@ -168,8 +168,8 @@
               <td class="w300">{{ personal.proyecto_descripcion | firstCapital}}</td>
               <td>{{ personal.dni }}</td>
               <td>
-                <span *ngIf="personal.estado == 'Activo'"     class="w135 label estado-info">  {{ personal.estado | uppercase }}</span>
-                <span *ngIf="personal.estado == 'Inactivo'"   class="w135 label estado-danger">{{ personal.estado | uppercase }}</span>
+                <span *ngIf="personal.estado == 'Activo'"   class="w135 label estado-info">  {{ personal.estado | uppercase }}</span>
+                <span *ngIf="personal.estado == 'Inactivo'" class="w135 label estado-danger">{{ personal.estado | uppercase }}</span>
               </td>
               <td class="w100">{{ personal.fecha_ingreso }}</td>
             </tr>
@@ -177,8 +177,7 @@
         </table>
 
         <div class="cli-loader" *ngIf="loadingItem">
-          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-          cargando...
+          <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>cargando...
         </div>
 
         <div
