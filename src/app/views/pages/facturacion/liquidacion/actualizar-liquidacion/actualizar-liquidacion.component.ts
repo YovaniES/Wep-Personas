@@ -49,7 +49,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.cargarFactura();
 
     console.log('DATA_LIQUID', this.DATA_LIQUID);
-
     this.facturaForm.controls['id_factura'].setValue(this.DATA_LIQUID);
   }
 
@@ -142,13 +141,13 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
       console.log('LISTA-EDITAR_BY_ID', resp );
       for (let i = 0; i < resp.list.length; i++) {
-        this.facturaForm.controls['id_liquidacion' ].setValue(resp.list[i].idLiquidacion);
-        this.facturaForm.controls['codProy'        ].setValue(resp.list[i].idProyecto);
+        this.facturaForm.controls['id_liquidacion' ].setValue(resp.list[i].id_liquidacion);
+        this.facturaForm.controls['codProy'        ].setValue(resp.list[i].id_proyecto);
         this.facturaForm.controls['subservicio'    ].setValue(resp.list[i].subServicio);
-        this.facturaForm.controls['id_gestor'      ].setValue(resp.list[i].idGestor);
+        this.facturaForm.controls['id_gestor'      ].setValue(resp.list[i].id_gestor);
         this.facturaForm.controls['venta_declarada'].setValue(resp.list[i].venta_declarada);
         this.facturaForm.controls['fechaPeriodo'   ].setValue(resp.list[i].periodo);
-        this.facturaForm.controls['id_estado'      ].setValue(resp.list[i].idEstado);
+        this.facturaForm.controls['id_estado'      ].setValue(resp.list[i].id_estado);
         this.facturaForm.controls['orden_compra'   ].setValue(resp.list[i].orden_compra);
         this.facturaForm.controls['certificacion'  ].setValue(resp.list[i].cod_certificacion);
         this.facturaForm.controls['factura'        ].setValue(resp.list[i].factura);
@@ -333,9 +332,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
   actualizarFactura(DATA: any){
     console.log('DATA_F', DATA);
-
     // const DATA = this.facturaForm.value
-
     const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: DATA});
 
     dialogRef.afterClosed().subscribe(resp => {

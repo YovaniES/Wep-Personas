@@ -23,7 +23,13 @@
               </select>
             </div>
 
-            <div class="flex-1"></div>
+            <div class="col-sm-3 cli-form-element">
+              <label>Tipo</label>
+              <select class="cli-input-white" formControlName="id_tipo">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="tipo.id" *ngFor="let tipo of tipos">{{ tipo.nombre }}</option>
+              </select>
+            </div>
 
             <div class="cli-form-buttons" style="margin-top: 8px">
               <button
@@ -31,8 +37,7 @@
                 class="cli-btn btn-grey"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
                 (click)="limpiarFiltro()"
-              ><mat-icon class="icon-18">rotate_left</mat-icon>
-                Limpiar
+                ><mat-icon class="icon-18">rotate_left</mat-icon>Limpiar
               </button>
 
               <button

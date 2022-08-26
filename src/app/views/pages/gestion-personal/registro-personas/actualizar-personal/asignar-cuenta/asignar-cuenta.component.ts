@@ -31,6 +31,7 @@ export class AsignarCuentaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getUsuario()
     this.newFilfroForm();
     this.cargarOBuscarCuentaDisponible();
     console.log('ID_PERSON_REC', this.DATA_PERSONA);
@@ -42,14 +43,23 @@ export class AsignarCuentaComponent implements OnInit {
     })
   }
 
-  listaCuentaDisp: any[] = [];
-  cargarOBuscarCuentaDisponible(){
+  userID: number = 0;
+  getUsuario(){
+   this.authService.getCurrentUser().subscribe( resp => {
+     this.userID   = resp.user.userId;
+     // console.log('ID-USER', this.userID);
+   })
+  }
+
+
+  // listaCuentaDisp: any[] = [];
+  cargarOBuscarCuentaDisponibleX(){
     this.blockUI.start("Cargando listado de cuentas...");
     let parametro: any[] = [{
       "queryId": 44,
       // "queryId": 44,
       "mapValue": {
-        param_username    : this.filtroForm.value.username,
+        param_username: this.filtroForm.value.username,
       }
     }];
     this.personalService.cargarOBuscarCuentaDisponible(parametro[0]).subscribe((resp: any) => {
@@ -63,25 +73,23 @@ export class AsignarCuentaComponent implements OnInit {
     });
   }
 
-  // listaCuentaDisp: any[] = [];
-  // cargarOBuscarCuentaDisponible(){
-  //   this.blockUI.start("Cargando listado de cuentas...");
-  //   let parametro: any[] = [{
-  //     "queryId": 24,
-  //     "mapValue": {
-  //       param_username    : this.filtroForm.value.username,
-  //     }
-  //   }];
-  //   this.personalService.cargarOBuscarCuentaDisponible(parametro[0]).subscribe((resp: any) => {
-  //   this.blockUI.stop();
+  listaCuentaDisp: any[] = [];
+  cargarOBuscarCuentaDisponible(){
+    this.blockUI.start("Cargando listado de cuentas...");
+    let parametro: any[] = [{
+      "queryId": 24,
+      // "mapValue": { param_username    : this.filtroForm.value.username }
+    }];
+    this.personalService.cargarOBuscarCuentaDisponible(parametro[0]).subscribe((resp: any) => {
+    this.blockUI.stop();
 
-  //    console.log('Lista-Cuenta-disp', resp.list, resp.list.length);
-  //     this.listaCuentaDisp = [];
-  //     this.listaCuentaDisp = resp.list;
+     console.log('Lista-Cuenta-disp', resp.list, resp.list.length);
+      this.listaCuentaDisp = [];
+      this.listaCuentaDisp = resp.list;
 
-  //     this.spinner.hide();
-  //   });
-  // }
+      this.spinner.hide();
+    });
+  }
 
   asignarCuenta(idRecurso: number, nameCuenta: string){
     this.spinner.show();
@@ -92,7 +100,7 @@ export class AsignarCuentaComponent implements OnInit {
         "mapValue": {
           "param_id_persona": this.DATA_PERSONA.idPersonal,
           "param_id_recurso": idRecurso,
-          "CONFIG_USER_ID"  : this.authService.getCurrentUser(),
+          "CONFIG_USER_ID"  : this.userID, //this.authService.getCurrentUser(),
           "CONFIG_OUT_MSG_ERROR":'',
           "CONFIG_OUT_MSG_EXITO":''}
       }];

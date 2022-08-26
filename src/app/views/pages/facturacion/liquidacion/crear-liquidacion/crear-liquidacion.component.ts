@@ -62,7 +62,7 @@ export class CrearLiquidacionComponent implements OnInit {
     const formValues = this.facturaForm.getRawValue();
 
     let parametro: any =  {
-        queryId: 70,
+        queryId: 117,
         mapValue:{
           p_periodo           : this.utilService.generarPeriodo(formValues.fechaPeriodo),
           p_idProyecto        : formValues.codProy,

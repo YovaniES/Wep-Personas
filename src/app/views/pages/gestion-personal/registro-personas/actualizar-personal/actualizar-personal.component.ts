@@ -219,6 +219,7 @@ export class ActualizarPersonalComponent implements OnInit {
         if (resp.value) {
           this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
             this.ListaHardwareAsignado();
+            this.ListaCuentaAsignado();
 
               Swal.fire({
                 title: 'Desasignar Recurso',

@@ -120,9 +120,9 @@
         <table class="cli-table stripedtable underlinedtable">
           <thead>
             <tr class="bgc-blue-light c-white">
-              <th>Acción</th>
-              <th>Cod. Factura</th>
-              <th>Periodo</th>
+              <th class="w50">Acción</th>
+              <th class="w90">Cod. Factura</th>
+              <th class="w100">Periodo</th>
               <th>Proyecto</th>
               <th>Gestor</th>
               <th>Liquidación</th>
@@ -160,7 +160,7 @@
               <td> {{ factura.periodo | date:"yyyy/MM" }}</td>
               <td>{{ factura.proyecto  | uppercase}}</td>
               <td>{{ factura.gestor }}</td>
-              <td class="w135">{{ factura.liquidacion| firstCapital }}</td>
+              <td class="w135">{{ factura.liquidacion }}</td>
               <td class="w250">{{ factura.subServicio }}</td>
               <td>{{ factura.estado }}</td>
               <td>{{ factura.importe}}</td>

@@ -63,6 +63,10 @@
   font-size: 10px;
 }
 
+.w150{
+  width: 150px;   // OJO: FALTA VALIDAR
+}
+
 @media (max-width: 768px) {
   .modal-title {
     font-size: 1.2rem;

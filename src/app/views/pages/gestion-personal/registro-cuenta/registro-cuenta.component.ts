@@ -38,6 +38,7 @@ export class RegistroCuentaComponent implements OnInit {
   ngOnInit(): void {
     this.newFilfroForm();
     this.cargarOBuscarcuentas();
+    this.getListTiposCuentas();
     this.getUsuario();
   }
 
@@ -45,6 +46,7 @@ export class RegistroCuentaComponent implements OnInit {
     this.filtroForm = this.fb.group({
       usuario : ['', Validators.required],
       idEstado: [''],
+      id_tipo : ['']
     })
   }
 
@@ -64,6 +66,7 @@ export class RegistroCuentaComponent implements OnInit {
       "mapValue": {
         param_usuario  : this.filtroForm.value.usuario,
         param_id_estado: this.filtroForm.value.idEstado,
+        param_id_tipo  : this.filtroForm.value.id_tipo
       }
     }];
     this.personalService.cargarOBuscarcuentas(parametro[0]).subscribe((resp: any) => {
@@ -138,6 +141,14 @@ export class RegistroCuentaComponent implements OnInit {
     this.spinner.hide();
   }
 
+  tipos: any[] = [];
+  getListTiposCuentas() {
+    let Parametro: any[] = [{ queryId: 40}];
+    this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp) => {
+      this.tipos = resp;
+      // console.log('TIPOS', resp);
+    });
+  }
 
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})
