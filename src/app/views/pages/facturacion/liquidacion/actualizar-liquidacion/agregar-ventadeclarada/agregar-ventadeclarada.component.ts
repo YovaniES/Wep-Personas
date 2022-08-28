@@ -33,12 +33,13 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     this.getUserID();
     this.cargarVentaDeclaradaByID();
     console.log('DATA_LIQUID_VD', this.DATA_LIQUID, this.DATA_LIQUID.vdForm);
+    // console.log('VENTA_DECL_VD', this.DATA_LIQUID.vdForm.venta_declarada);
   }
 
   newForm(){
     this.ventaDeclaradaForm = this.fb.group({
-    //  ventaDeclarada : [this.DATA_LIQUID.vdForm.venta_declarada, [Validators.required]],
-    ventaDeclarada  : ['', [Validators.required]],
+     ventaDeclarada : [this.DATA_LIQUID.vdForm.venta_declarada, [Validators.required]],
+    //  ventaDeclarada : ['', [Validators.required]],
      periodo        : ['', [Validators.required]],
      comentario     : ['', [Validators.required]],
      fechaCrea      : ['']
@@ -66,7 +67,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
         mapValue: {
           p_idFactura       : this.DATA_LIQUID.vdForm.id_factura,
           p_periodo         : this.utilService.generarPeriodo(formValues.periodo),
-          p_venta_declarada : formValues.ventaDeclarada,
+          p_venta_declarada : formValues.ventaDeclarada, //this.DATA_LIQUID.vdForm.venta_declarada,
           p_comentario      : formValues.comentario,
           p_fecha_creacion  : '',
           p_usuario_creacion: this.userID,
@@ -106,7 +107,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO : "",
         },
       }];
-    this.personalService.actualizarVentaDeclarada(parametro[0]).subscribe({next: (res) => {
+     this.personalService.actualizarVentaDeclarada(parametro[0]).subscribe({next: (res) => {
         this.spinner.hide();
 
         this.close(true)

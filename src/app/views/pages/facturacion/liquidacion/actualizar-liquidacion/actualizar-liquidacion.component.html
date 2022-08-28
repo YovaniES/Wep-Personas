@@ -119,7 +119,7 @@
                     <!-- <th>ID Venta declarada</th> -->
                     <th style="width: 35px">#</th>
                     <th>Periodo</th>
-                    <th>Venta declarada</th>
+                    <th>Importe declarado</th>
                     <th>Comentario</th>
                   </tr>
                 </thead>
@@ -193,18 +193,18 @@
                     <!-- <th>ID Certificación</th> -->
                     <th>#</th>
                     <th>Ord. Compra</th>
-                    <th>Importe</th>
                     <th>Certificación</th>
                     <th>Estado</th>
                     <th>Factura</th>
                     <th>Comentario</th>
+                    <th>Importe</th>
                     <th>Fecha de facturación</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr *ngFor="let factura of listFactura; let i = index">
-                    <td class="w55">
+                    <td class="w55X">
                       <div class="cli-table-actions">
                         <button
                           matTooltip="Actualizar"
@@ -224,7 +224,6 @@
                     <!-- <td>{{ factura.idFactCertificacion }}</td> -->
                     <td>{{ i + 1 }}</td>
                     <td>{{ factura.oc }}</td>
-                    <td>{{ factura.importe }}</td>
                     <td>{{ factura.certificacion }}</td>
                     <td>
                       <span *ngIf="factura.id_estado == 8"   class="label estado-danger">{{ factura.estado }}</span>
@@ -233,10 +232,18 @@
                     </td>
                     <td>{{ factura.factura }}</td>
                     <td>{{ factura.comentario | firstCapital}}</td>
+                    <td>{{ factura.importe }}</td>
                     <td>{{ factura.fecha_facturacion }}</td>
                   </tr>
                 </tbody>
               </table>
+              <ng-container >
+                <div class="col-12 fact-total">Total: 2000</div>
+              </ng-container>
+
+
+                <!-- <mat-icon class="icon-18">attach_money</mat-icon> -->
+
               <div class="cli-loader" *ngIf="loadingItem">
                 <mat-spinner
                   style="margin-right: 20px"

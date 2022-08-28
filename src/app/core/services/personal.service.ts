@@ -194,7 +194,7 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, obj);
   }
 
-  agregarFactura(obj: any){
+  agregarCertificacion(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 

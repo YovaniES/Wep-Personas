@@ -9,11 +9,11 @@ import { CrearPersonalComponent } from 'src/app/views/pages/gestion-personal/reg
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-agregar-factura',
-  templateUrl: './agregar-factura.component.html',
-  styleUrls: ['./agregar-factura.component.scss']
+  selector: 'app-agregar-certificacion',
+  templateUrl: './agregar-certificacion.component.html',
+  styleUrls: ['./agregar-certificacion.component.scss']
 })
-export class AgregarFacturaComponent implements OnInit {
+export class AgregarCertificacionComponent implements OnInit {
   facturaForm!: FormGroup;
 
   constructor(
@@ -40,7 +40,8 @@ export class AgregarFacturaComponent implements OnInit {
      ordenCompra   : ['',[Validators.required]],
      importe       : ['',[Validators.required]],
      certificacion : ['',[Validators.required]],
-     estFactura    : [ 6,[Validators.required]],
+     estFactura    : [ '',[Validators.required]],
+    //  estFactura    : [ 6,[Validators.required]],
      factura       : ['F001-',[Validators.required]],
      fechaFact     : ['',[Validators.required]],
      comentario    : ['']
@@ -54,14 +55,13 @@ export class AgregarFacturaComponent implements OnInit {
 
     this.spinner.show();
     if (this.DATA_LIQUID.isCreation) {
-      if (this.facturaForm.valid) { this.agregarFactura() }
+      if (this.facturaForm.valid) { this.agregarCertificacion() }
     } else {
       this.actualizarCertificacion();
     }
-    this.spinner.hide();
   }
 
-  agregarFactura() {
+  agregarCertificacion() {
     const formValues = this.facturaForm.getRawValue();
 
     let parametro: any =  {
@@ -83,7 +83,7 @@ export class AgregarFacturaComponent implements OnInit {
         },
       };
      console.log('VAOR_CERTIF', this.facturaForm.value , parametro);
-    this.personalService.agregarFactura(parametro).subscribe((resp: any) => {
+    this.personalService.agregarCertificacion(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar Factura!',
         text: `La Factura: ${formValues.factura}, fue agregado con éxito`,
@@ -150,7 +150,7 @@ export class AgregarFacturaComponent implements OnInit {
       this.facturaForm.controls['certificacion'].setValue(this.DATA_LIQUID.certificacion);
       this.facturaForm.controls['estFactura'   ].setValue(this.DATA_LIQUID.id_estado);
       this.facturaForm.controls['factura'      ].setValue(this.DATA_LIQUID.factura);
-      this.facturaForm.controls['comentario'  ].setValue(this.DATA_LIQUID.comentario);
+      this.facturaForm.controls['comentario'   ].setValue(this.DATA_LIQUID.comentario);
 
       // if (this.DATA_LIQUID.fecha_facturacion !='null' && this.DATA_LIQUID.fecha_facturacion != '') {
       //   this.facturaForm.controls['fechaFact'].setValue(this.DATA_LIQUID.fecha_facturacion)
@@ -195,5 +195,5 @@ export class AgregarFacturaComponent implements OnInit {
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-}
 
+}

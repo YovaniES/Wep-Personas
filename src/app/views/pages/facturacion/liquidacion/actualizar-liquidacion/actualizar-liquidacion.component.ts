@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import { UtilService } from 'src/app/core/services/util.service';
 import Swal from 'sweetalert2';
-import { AgregarFacturaComponent } from './agregar-factura/agregar-factura.component';
+import { AgregarCertificacionComponent } from './agregar-certificacion/agregar-certificacion.component';
 import { AgregarVentadeclaradaComponent } from './agregar-ventadeclarada/agregar-ventadeclarada.component';
 
 @Component({
@@ -380,7 +380,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   agregarFactura(){
-    const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: {fForm: this.facturaForm.value, isCreation: true}});
+    const dialogRef = this.dialog.open(AgregarCertificacionComponent, { width:'35%', data: {fForm: this.facturaForm.value, isCreation: true}});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -392,7 +392,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   actualizarFactura(DATA: any){
     console.log('DATA_F', DATA);
     // const DATA = this.facturaForm.value
-    const dialogRef = this.dialog.open(AgregarFacturaComponent, { width:'35%', data: DATA});
+    const dialogRef = this.dialog.open(AgregarCertificacionComponent, { width:'35%', data: DATA});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {

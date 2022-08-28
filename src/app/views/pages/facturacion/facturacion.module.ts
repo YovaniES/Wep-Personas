@@ -9,8 +9,8 @@ import { CoreModule } from 'src/app/core/core.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgregarVentadeclaradaComponent } from './liquidacion/actualizar-liquidacion/agregar-ventadeclarada/agregar-ventadeclarada.component';
-import { AgregarFacturaComponent } from './liquidacion/actualizar-liquidacion/agregar-factura/agregar-factura.component';
 import { LiquidacionComponent } from './liquidacion/liquidacion.component';
+import { AgregarCertificacionComponent } from './liquidacion/actualizar-liquidacion/agregar-certificacion/agregar-certificacion.component';
 
 
 @NgModule({
@@ -18,8 +18,8 @@ import { LiquidacionComponent } from './liquidacion/liquidacion.component';
     CrearLiquidacionComponent,
     ActualizarLiquidacionComponent,
     AgregarVentadeclaradaComponent,
-    AgregarFacturaComponent,
-    LiquidacionComponent
+    LiquidacionComponent,
+    AgregarCertificacionComponent
   ],
   imports: [
     CommonModule,
