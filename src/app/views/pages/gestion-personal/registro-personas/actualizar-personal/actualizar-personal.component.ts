@@ -232,6 +232,7 @@ export class ActualizarPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
+  totalHardareAsignado: number = 0;
   listHardwareAsignado: any[]=[];
   ListaHardwareAsignado(){
     this.listHardwareAsignado = [];
@@ -246,10 +247,12 @@ export class ActualizarPersonalComponent implements OnInit {
 
     this.personalService.ListaHardwareAsignado(parametro[0]).subscribe( (resp: any) => {
       this.listHardwareAsignado = resp.list;
-      console.log('HARD-ASIG', resp.list), resp.list.length;
+      this.totalHardareAsignado = resp.list.length
+      console.log('HARD-ASIG', resp.list, this.totalHardareAsignado);
     })
   }
 
+  totalCuentaAsignado: number = 0;
   listCuentaAsignado: any[]=[];
   ListaCuentaAsignado(){
     this.spinner.show();
@@ -262,7 +265,8 @@ export class ActualizarPersonalComponent implements OnInit {
 
     this.personalService.ListaCuentaAsignado(parametro[0]).subscribe( (resp: any) => {
       this.listCuentaAsignado = resp.list;
-      console.log('CUENT-ASIG', resp.list), resp.list.length;
+      this.totalCuentaAsignado = resp.list.length;
+      console.log('CUENT-ASIG', resp.list, this.totalCuentaAsignado);
     })
   }
 

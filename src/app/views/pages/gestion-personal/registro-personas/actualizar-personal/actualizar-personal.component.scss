@@ -17,6 +17,25 @@
   width: 55px;
 }
 
+
+.btn-asignar {
+  border: none;
+  border-radius: 2px;
+  margin: 0 5px;
+  display: flex;
+  height: 18px;
+  align-items: center;
+  border: solid 0.5px #4a93ff;
+  color: #fff;
+  & mat-icon {
+    margin: 0 5px;
+  }
+  &:disabled {
+    background-color: #bcd7ff;
+    color: #fff;
+  }
+}
+
 .cli-table {
   width: 100%;
   background-color: #fff;
@@ -49,8 +68,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 75px;
-  height: 25px;
+  width: 60px;
+  height: 20px;
   font-size: 15px;
   border-radius: 6px
 }
@@ -63,11 +82,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 75px;
-  height: 25px;
+  width: 60px;
+  height: 20px;
   font-size: 15px;
   border-radius: 6px
 }
+
+.h-divider {
+  height: 30px;
+  width: 1px;
+  background-color: #D3D4D3;
+  margin: 0 10px;
+}
+
 
 @media (max-width: 768px) {
   .modal-title {

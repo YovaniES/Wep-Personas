@@ -14,11 +14,11 @@
 
       <div class="col-sm-4 cli-form-element">
         <label>Proyecto</label>
-        <select class="cli-input-white" formControlName="codProy">
+        <select class="cli-input-white" formControlName="id_proyecto">
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('codProy')">* Seleccione el Proyecto es obligatorio</small>
+        <small class="form-text text-alert" *ngIf="campoNoValido('id_proyecto')">* Seleccione el Proyecto es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">

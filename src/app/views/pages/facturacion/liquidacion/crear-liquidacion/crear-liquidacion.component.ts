@@ -40,7 +40,7 @@ export class CrearLiquidacionComponent implements OnInit {
   newForm(){
     this.facturaForm = this.fb.group({
      id_liquidacion      : [ 1,[Validators.required]],
-     codProy             : ['',[Validators.required]],
+     id_proyecto         : ['',[Validators.required]],
      subservicio         : ['',[Validators.required]],
      id_gestor           : ['',[Validators.required]],
      venta_declarada     : ['',[Validators.required]],
@@ -65,7 +65,7 @@ export class CrearLiquidacionComponent implements OnInit {
         queryId: 117,
         mapValue:{
           p_periodo           : this.utilService.generarPeriodo(formValues.fechaPeriodo),
-          p_idProyecto        : formValues.codProy,
+          p_idProyecto        : formValues.id_proyecto,
           p_idLiquidacion     : formValues.id_liquidacion,
           p_subServicio       : formValues.subservicio,
           p_gestor            : formValues.gestor,

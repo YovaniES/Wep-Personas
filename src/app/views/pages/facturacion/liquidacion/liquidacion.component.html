@@ -111,7 +111,7 @@
 
         <div class="flex-1"></div>
         <div class="mt-2" style="color: #345df3; font-weight: 600;">
-          Total : <span class="total">{{ listaFacturas.length }} Facturas</span>
+          Total : <span class="total">{{ listaLiquidacion.length }} Facturas</span>
         </div>
       </div>
 
@@ -135,7 +135,7 @@
           </thead>
 
           <tbody>
-            <tr *ngFor="let factura of listaFacturas | paginate:
+            <tr *ngFor="let factura of listaLiquidacion | paginate:
                       { itemsPerPage: pageSize,
                         currentPage : page,
                         totalItems  : totalFacturas
@@ -151,7 +151,7 @@
                   <button
                     matTooltip="Eliminar"
                     class="icon-btn btn-trans c-fucsia"
-                    (click)="eliminarFactura(factura.idFactura)"
+                    (click)="eliminarLiquidacion(factura.idFactura)"
                   ><mat-icon class="icon-18">delete_forever</mat-icon>
                   </button>
                 </div>
@@ -176,7 +176,7 @@
         </div>
 
         <div
-          *ngIf="!loadingItem && listaFacturas.length == 0"
+          *ngIf="!loadingItem && listaLiquidacion.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
           >No hay facturas para mostrar

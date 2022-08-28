@@ -20,6 +20,8 @@ export class RegistroPersonalComponent implements OnInit {
   loadingItem: boolean = false;
   userId!: number;
   filtroForm!: FormGroup;
+  totalCuenta: number = 0;
+  totalHardware: number = 5;
 
   page = 1;
   totalPersonal: number = 0;
@@ -77,11 +79,9 @@ export class RegistroPersonalComponent implements OnInit {
     });
   }
 
-  // idEliminar: number = 0;
   codCorporativo: any;
   tooltipActivoInactivo: string =''
   abrirEliminar(id: number, codCorporrativo: string, estado: string, fullname: string){
-    // this.idEliminar = id;
     this.codCorporativo = codCorporrativo;
 
     if (estado == 'Activo')   {this.tooltipActivoInactivo = "Desactivar"}
@@ -150,7 +150,7 @@ export class RegistroPersonalComponent implements OnInit {
 
     Swal.fire({
       title: `Eliminar Personal?`,
-      text: `¿Desea eliminar al personal: ${namePersonal} ?`,
+      text: `¿Desea eliminar al personal: ${namePersonal}?`,
       icon: 'question',
       confirmButtonColor: '#20c997',
       cancelButtonColor : '#b2b5b4',
@@ -249,7 +249,7 @@ export class RegistroPersonalComponent implements OnInit {
   }
 
   actualizarPersonal(DATA: any) {
-    console.log('DATA_PERSONA', DATA);
+    console.log('DATA_PERSONA_HC', DATA);
 
     this.dialog
       .open(ActualizarPersonalComponent, {width: '55%', height: '90%', data: DATA})

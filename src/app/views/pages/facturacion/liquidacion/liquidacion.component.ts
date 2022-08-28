@@ -97,11 +97,11 @@ export class LiquidacionComponent implements OnInit {
     });
   }
 
-  listaFacturas: any[] = [];
+  listaLiquidacion: any[] = [];
   cargarOBuscarLiquidacion(){
     this.blockUI.start("Cargando facturas...");
     let parametro: any[] = [{
-      "queryId": 68,
+      "queryId": 118,
       "mapValue": {
           cod_fact       : this.filtroForm.value.codFact,
           id_proy        : this.filtroForm.value.id_proy,
@@ -116,14 +116,14 @@ export class LiquidacionComponent implements OnInit {
     this.blockUI.stop();
 
      console.log('Lista-Facturas', resp, resp.list.length);
-      this.listaFacturas = [];
-      this.listaFacturas = resp.list;
+      this.listaLiquidacion = [];
+      this.listaLiquidacion = resp.list;
 
       this.spinner.hide();
     });
   }
 
-  eliminarFactura(id: number){
+  eliminarLiquidacion(id: number){
     this.spinner.show();
 
     let parametro:any[] = [{
@@ -133,8 +133,8 @@ export class LiquidacionComponent implements OnInit {
       }
     }];
     Swal.fire({
-      title: '¿Eliminar Factura?',
-      text: `¿Estas seguro que deseas eliminar la Factura: ${id} ?`,
+      title: '¿Eliminar Liquidación?',
+      text: `¿Estas seguro que deseas eliminar la Liquidación: ${id} ?`,
       icon: 'question',
       confirmButtonColor: '#ec4756',
       cancelButtonColor: '#0d6efd',
@@ -143,13 +143,13 @@ export class LiquidacionComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
       if (resp.value) {
-        this.personalService.eliminarFactura(parametro[0]).subscribe(resp => {
+        this.personalService.eliminarLiquidacion(parametro[0]).subscribe(resp => {
 
           this.cargarOBuscarLiquidacion();
 
             Swal.fire({
-              title: 'Eliminar Factura',
-              text: `La Factura: ${id}, fue eliminado con éxito`,
+              title: 'Eliminar Liquidación',
+              text: `La Liquidación: ${id}, fue eliminado con éxito`,
               icon: 'success',
             });
           });
@@ -172,7 +172,7 @@ export class LiquidacionComponent implements OnInit {
 
     if (this.totalfiltro != this.totalFacturas) {
       this.personalService.cargarOBuscarLiquidacion(offset.toString()).subscribe( (resp: any) => {
-            this.listaFacturas = resp.list;
+            this.listaLiquidacion = resp.list;
             this.spinner.hide();
           });
     } else {
@@ -204,6 +204,6 @@ export class LiquidacionComponent implements OnInit {
   }
 
   exportarRegistro(){
-    this.exportExcellService.exportarExcel(this.listaFacturas, 'Factura')
+    this.exportExcellService.exportarExcel(this.listaLiquidacion, 'Factura')
   }
 }

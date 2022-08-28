@@ -65,8 +65,6 @@
               </div>
             </div>
 
-            <div class="flex-1"></div>
-
             <div class="cli-form-buttons" style="margin-top: 8px">
               <button
                 type="submit"
@@ -125,7 +123,7 @@
               <th>Perfil</th>
               <th>Cód. Corporativo</th>
               <th>Cód. Proyecto</th>
-              <th>Descripción del Proyecto</th>
+              <th>Recurso Asignado</th>
               <th>DNI</th>
               <th>Estado</th>
               <th>Fecha de Ingreso</th>
@@ -165,7 +163,30 @@
               <td>{{ personal.perfil | firstCapital }}</td>
               <td>{{ personal.codigo_corporativo| uppercase }}</td>
               <td>{{ personal.codigo_proyecto | uppercase}}</td>
-              <td class="w300">{{ personal.proyecto_descripcion | firstCapital}}</td>
+              <td class="w100">
+                <div class="cli-table-actions">
+                  <ng-container *ngIf="totalHardware > 0">
+                    <small class="c-indigo">{{totalHardware}}</small>
+                    <button
+                      class="icon-btn c-indigo"
+                      style="background: none; cursor: none;"
+                      ><mat-icon class="icon-13">devices</mat-icon>
+                    </button>
+                  </ng-container>
+
+                  <div class="h-divider"></div>
+
+                  <ng-container *ngIf="totalCuenta >= 0"  >
+                    <small class="c-cyan">{{totalCuenta}}</small>
+                    <button
+                      class="icon-btn  c-cyan"
+                      style="background: none; cursor: none;"
+                      ><mat-icon class="icon-13">vpn_lock</mat-icon>
+                    </button>
+                  </ng-container>
+                </div>
+              </td>
+
               <td>{{ personal.dni }}</td>
               <td>
                 <span *ngIf="personal.estado == 'Activo'"   class="w135 label estado-info">  {{ personal.estado | uppercase }}</span>

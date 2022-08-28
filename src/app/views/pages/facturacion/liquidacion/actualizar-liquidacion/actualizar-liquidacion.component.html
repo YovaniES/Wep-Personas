@@ -138,7 +138,7 @@
                         <button
                           matTooltip="Eliminar"
                           class="icon-btn btn-trans c-fucsia"
-                          (click)="EliminarVentaDeclarada(vd.id)"
+                          (click)="eliminarVentaDeclarada(vd.idFactVenta)"
                         ><mat-icon class="icon-13">delete_forever</mat-icon>
                         </button>
                       </div>
@@ -216,7 +216,7 @@
                         <button
                           matTooltip="Eliminar"
                           class="icon-btn btn-trans c-fucsia"
-                          (click)="EliminarFactura(factura.id)"
+                          (click)="eliminaFactura(factura.idFactCertificacion)"
                         ><mat-icon class="icon-13">delete_forever</mat-icon>
                         </button>
                       </div>
@@ -227,9 +227,9 @@
                     <td>{{ factura.importe }}</td>
                     <td>{{ factura.certificacion }}</td>
                     <td>
-                      <span *ngIf="factura.estado == 'Facturado'"   class="label estado-danger">{{ factura.estado }}</span>
-                      <span *ngIf="factura.estado == 'Certificado'" class="label estado-succes">{{ factura.estado }}</span>
-                      <span *ngIf="factura.estado == 'Propuesto'"   class="label estado-info">  {{ factura.estado }}</span>
+                      <span *ngIf="factura.id_estado == 8"   class="label estado-danger">{{ factura.estado }}</span>
+                      <span *ngIf="factura.id_estado == 6"   class="label estado-succes">{{ factura.estado }}</span>
+                      <span *ngIf="factura.id_estado == 7"   class="label estado-info">  {{ factura.estado }}</span>
                     </td>
                     <td>{{ factura.factura }}</td>
                     <td>{{ factura.comentario | firstCapital}}</td>

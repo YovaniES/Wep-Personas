@@ -166,8 +166,68 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
 
-  EliminarVentaDeclarada(id: any){
+  eliminarVentaDeclarada(id: any){
+    this.spinner.show();
+    let parametro:any[] = [{
+      "queryId": 120,
+      "mapValue": { p_idFactVenta : id }
+    }];
 
+    Swal.fire({
+      title: `Eliminar Venta declarada?`,
+      text: `¿Desea eliminar la venta declarada: ${id}?`,
+      icon: 'question',
+      confirmButtonColor: '#20c997',
+      cancelButtonColor : '#b2b5b4',
+      confirmButtonText : 'Si!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+    }).then((resp) => {
+
+    this.personalService.eliminarVentaDeclarada(parametro[0]).subscribe(resp => {
+      if (resp) {
+        Swal.fire({
+          title: 'Eliminar Venta declarada',
+          text: `La venta declarada: ${id}, fue eliminado con éxito`,
+          icon: 'success',
+        });
+      this.cargarVentaDeclarada()
+        }
+      });
+    });
+    this.spinner.hide();
+  }
+
+  eliminaFactura(id: any){
+    this.spinner.show();
+    let parametro:any[] = [{
+      "queryId": 119,
+      "mapValue": { p_idFactCertificacion : id }
+    }];
+
+    Swal.fire({
+      title: `Eliminar Factura?`,
+      text: `¿Desea eliminar la factura: ${id}?`,
+      icon: 'question',
+      confirmButtonColor: '#20c997',
+      cancelButtonColor : '#b2b5b4',
+      confirmButtonText : 'Si!',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+    }).then((resp) => {
+
+    this.personalService.eliminaFactura(parametro[0]).subscribe(resp => {
+      if (resp) {
+        Swal.fire({
+          title: 'Eliminar Factura',
+          text: `La factura: ${id}, fue eliminado con éxito`,
+          icon: 'success',
+        });
+      this.cargarFactura()
+        }
+      });
+    });
+    this.spinner.hide();
   }
 
   agregarFacturaCambios(){
@@ -291,7 +351,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
-  EliminarFactura(id: number){}
 
   close(succes?: boolean) {
     this.dialogRef.close(succes);

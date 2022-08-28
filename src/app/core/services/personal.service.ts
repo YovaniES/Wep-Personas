@@ -284,7 +284,7 @@ export class PersonalService {
     return this.http.post(API_PERSONAS, id);
   }
 
-  eliminarFactura(id: number) {
+  eliminarLiquidacion(id: number) {
     return this.http.post(API_PERSONAS, id);
   }
 
@@ -309,6 +309,14 @@ export class PersonalService {
   };
 
   actualizarCertificacion(obj: any){
+    return this.http.post(API_PERSONAS, obj)
+  }
+
+  eliminarVentaDeclarada(obj: any){
+    return this.http.post(API_PERSONAS, obj)
+  }
+
+  eliminaFactura(obj: any){
     return this.http.post(API_PERSONAS, obj)
   }
 }
