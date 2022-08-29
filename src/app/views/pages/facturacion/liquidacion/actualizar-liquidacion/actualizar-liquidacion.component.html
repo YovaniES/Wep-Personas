@@ -120,6 +120,7 @@
                     <th style="width: 35px">#</th>
                     <th>Periodo</th>
                     <th>Importe declarado</th>
+                    <th>Saldo</th>
                     <th>Comentario</th>
                   </tr>
                 </thead>
@@ -147,6 +148,7 @@
                     <td>{{ i + 1 }}</td>
                     <td>{{ vd.periodo }}</td>
                     <td>{{ vd.venta_declarada }}</td>
+                    <td>{{ vd.venta_declarada - importTotal }}</td>
                     <td>{{ vd.comentario | firstCapital}}</td>
                   </tr>
                 </tbody>
@@ -238,12 +240,10 @@
                 </tbody>
               </table>
               <ng-container >
-                <div class="col-12 fact-total">Total: 2000</div>
+                <div class="col-12 fact-total">Total:  {{obtenerImporteTotal()}}</div>
               </ng-container>
 
-
                 <!-- <mat-icon class="icon-18">attach_money</mat-icon> -->
-
               <div class="cli-loader" *ngIf="loadingItem">
                 <mat-spinner
                   style="margin-right: 20px"

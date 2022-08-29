@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -19,6 +19,7 @@ import { AgregarVentadeclaradaComponent } from './agregar-ventadeclarada/agregar
 export class ActualizarLiquidacionComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
+  importTotal: number = 0;
 
   userID: number = 0;
   facturaForm!: FormGroup;
@@ -33,7 +34,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
     public datePipe: DatePipe,
     private dialog: MatDialog,
     private dialogRef: MatDialogRef<ActualizarLiquidacionComponent>,
-    @Inject(MAT_DIALOG_DATA) public DATA_LIQUID: any
+    @Inject(MAT_DIALOG_DATA) public DATA_LIQUID: any,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,11 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.facturaForm.controls['id_factura'].setValue(this.DATA_LIQUID);
   }
 
+  // ngOnDestroy()
+
+  ngAfterViewChecked(){
+    this.cdr.detectChanges();
+  }
 
   newForm(){
     this.facturaForm = this.fb.group({
@@ -351,6 +358,14 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
+  obtenerImporteTotal(): number{
+    this.importTotal = 0;
+
+    this.listFactura.map(factura => {
+      this.importTotal = this.importTotal + factura.importe
+    })
+    return this.importTotal;
+  }
 
   close(succes?: boolean) {
     this.dialogRef.close(succes);
