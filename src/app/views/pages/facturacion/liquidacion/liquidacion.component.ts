@@ -127,14 +127,14 @@ export class LiquidacionComponent implements OnInit {
     this.spinner.show();
 
     let parametro:any[] = [{
-      queryId: 37,
+      queryId: 122,
       mapValue: {
-        param_id_persona: id,
+        p_idFactura: id,
       }
     }];
     Swal.fire({
       title: '¿Eliminar Liquidación?',
-      text: `¿Estas seguro que deseas eliminar la Liquidación: ${id} ?`,
+      text: `¿Estas seguro que deseas eliminar la Liquidación: ${id}?`,
       icon: 'question',
       confirmButtonColor: '#ec4756',
       cancelButtonColor: '#0d6efd',

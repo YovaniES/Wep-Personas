@@ -15,6 +15,14 @@
             </div>
 
             <div class="col-sm-3 cli-form-element">
+              <label class="form-label">Gestor</label>
+              <select class="form-select" formControlName="id_gestor">
+                <option [value]="0" disabled>-Seleccione-</option>
+                <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-3 cli-form-element">
               <label class="form-label">Proyecto</label>
               <select class="form-select" formControlName="id_proy">
                 <option [value]="0" disabled>-Seleccione-</option>
@@ -22,13 +30,6 @@
               </select>
             </div>
 
-            <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Gestor</label>
-              <select class="form-select" formControlName="id_gestor">
-                <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
-              </select>
-            </div>
 
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Liquidaciones</label>
@@ -44,8 +45,7 @@
                  <input
                   type="date"
                   class="form-control"
-                  formControlName="fechaRegistroInicio"
-                />
+                  formControlName="fechaRegistroInicio"/>
               </div>
             </div>
 
@@ -55,8 +55,7 @@
                 <input
                   type="date"
                   class="form-control"
-                  formControlName="fechaRegistroFin"
-                />
+                  formControlName="fechaRegistroFin"/>
               </div>
             </div>
 
@@ -74,7 +73,7 @@
                 class="cli-btn btn-grey"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
                 (click)="limpiarFiltro()"
-              ><mat-icon class="icon-18">rotate_left</mat-icon>
+                ><mat-icon class="icon-18">rotate_left</mat-icon>
                 Limpiar
               </button>
 
@@ -123,8 +122,8 @@
               <th class="w50">Acción</th>
               <th class="w90">Cod. Factura</th>
               <th class="w100">Periodo</th>
-              <th>Proyecto</th>
               <th>Gestor</th>
+              <th>Proyecto</th>
               <th>Liquidación</th>
               <th>Subservicio</th>
               <th>Estado</th>
@@ -158,8 +157,8 @@
               </td>
               <td>{{ factura.idFactura }}</td>
               <td> {{ factura.periodo | date:"yyyy/MM" }}</td>
+              <td class="w155">{{ factura.gestor }}</td>
               <td>{{ factura.proyecto  | uppercase}}</td>
-              <td>{{ factura.gestor }}</td>
               <td class="w135">{{ factura.liquidacion }}</td>
               <td class="w250">{{ factura.subServicio }}</td>
               <td>{{ factura.estado }}</td>

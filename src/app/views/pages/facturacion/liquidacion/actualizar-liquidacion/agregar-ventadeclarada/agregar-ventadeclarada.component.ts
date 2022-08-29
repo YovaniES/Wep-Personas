@@ -34,12 +34,13 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     this.cargarVentaDeclaradaByID();
     console.log('DATA_LIQUID_VD', this.DATA_LIQUID, this.DATA_LIQUID.vdForm);
     // console.log('VENTA_DECL_VD', this.DATA_LIQUID.vdForm.venta_declarada);
+    // console.log('VD',this.cargarVentaDeclarada());
   }
 
   newForm(){
     this.ventaDeclaradaForm = this.fb.group({
-     ventaDeclarada : [this.DATA_LIQUID.vdForm.venta_declarada, [Validators.required]],
-    //  ventaDeclarada : ['', [Validators.required]],
+    //  ventaDeclarada : [this.DATA_LIQUID.vdForm.venta_declarada, [Validators.required]],
+     ventaDeclarada : ['', [Validators.required]],
      periodo        : ['', [Validators.required]],
      comentario     : ['', [Validators.required]],
      fechaCrea      : ['']
@@ -48,8 +49,8 @@ export class AgregarVentadeclaradaComponent implements OnInit {
 
    agregarOactualizarVentaDeclarada(){
     if (!this.DATA_LIQUID) {
-      return
-    }
+    return
+      }
 
     if (this.DATA_LIQUID.isCreation) {
       if (this.ventaDeclaradaForm.valid) { this.agregarVentaDeclarada()}
@@ -67,7 +68,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
         mapValue: {
           p_idFactura       : this.DATA_LIQUID.vdForm.id_factura,
           p_periodo         : this.utilService.generarPeriodo(formValues.periodo),
-          p_venta_declarada : formValues.ventaDeclarada, //this.DATA_LIQUID.vdForm.venta_declarada,
+          p_venta_declarada : this.DATA_LIQUID.vdForm.venta_declarada, //formValues.ventaDeclarada,
           p_comentario      : formValues.comentario,
           p_fecha_creacion  : '',
           p_usuario_creacion: this.userID,

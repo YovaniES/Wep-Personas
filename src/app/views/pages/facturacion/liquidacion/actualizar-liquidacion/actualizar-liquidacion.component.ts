@@ -54,8 +54,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.facturaForm.controls['id_factura'].setValue(this.DATA_LIQUID);
   }
 
-  // ngOnDestroy()
-
   ngAfterViewChecked(){
     this.cdr.detectChanges();
   }
@@ -123,13 +121,6 @@ export class ActualizarLiquidacionComponent implements OnInit {
         confirmButtonText: 'Ok',
       });
 
-      // this.facturaForm.controls['fecha_crea'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
-
-      // if(formValues.id_estado){
-      //   this.agregarFacturaCambios()
-      // }else{
-      //   this.close(true)
-      // }
       this.close(true);
     });
     this.spinner.hide();
@@ -363,7 +354,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
 
     this.listFactura.map(factura => {
       this.importTotal = this.importTotal + factura.importe
-    })
+      })
     return this.importTotal;
   }
 

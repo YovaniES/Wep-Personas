@@ -17,7 +17,6 @@
   width: 55px;
 }
 
-
 .btn-asignar {
   border: none;
   border-radius: 2px;
@@ -26,7 +25,8 @@
   height: 18px;
   align-items: center;
   border: solid 0.5px #4a93ff;
-  color: #fff;
+  color: #4a93ff;
+  margin-right: 6px;
   & mat-icon {
     margin: 0 5px;
   }
@@ -61,7 +61,7 @@
   }
 }
 
-.estado-act{
+.estado-act {
   background: #20c997;
   text-align: center;
   color: #fff;
@@ -71,11 +71,10 @@
   width: 60px;
   height: 20px;
   font-size: 15px;
-  border-radius: 6px
+  border-radius: 6px;
 }
 
-
-.estado-danger{
+.estado-danger {
   background: #ff727f;
   text-align: center;
   color: #fff;
@@ -85,16 +84,15 @@
   width: 60px;
   height: 20px;
   font-size: 15px;
-  border-radius: 6px
+  border-radius: 6px;
 }
 
 .h-divider {
-  height: 30px;
+  height: 20px;
   width: 1px;
-  background-color: #D3D4D3;
+  background-color: #d3d4d3;
   margin: 0 10px;
 }
-
 
 @media (max-width: 768px) {
   .modal-title {

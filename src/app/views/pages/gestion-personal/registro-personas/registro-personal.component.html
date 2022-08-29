@@ -117,7 +117,7 @@
           <thead>
             <tr class="bgc-blue-light c-white">
               <th>Acción</th>
-              <th>ID Personal</th>
+              <!-- <th>ID Personal</th> -->
               <th>Nombres y Apellidos</th>
               <th>Correo</th>
               <th>Perfil</th>
@@ -157,7 +157,7 @@
                   </button>
                 </div>
               </td>
-              <td>{{ personal.id }}</td>
+              <!-- <td>{{ personal.id }}</td> -->
               <td class="w300"> {{ personal.apellidos   | firstCapital}}, {{personal.nombres | firstCapital}}</td>
               <td>{{ personal.correo }}</td>
               <td>{{ personal.perfil | firstCapital }}</td>
@@ -165,8 +165,9 @@
               <td>{{ personal.codigo_proyecto | uppercase}}</td>
               <td class="w100">
                 <div class="cli-table-actions">
-                  <ng-container *ngIf="totalHardware > 0">
-                    <small class="c-indigo">{{totalHardware}}</small>
+                  <!-- <ng-container *ngIf="personal.total_rh >=1 &&  personal.total_rc == 0"> -->
+                  <ng-container *ngIf="personal.total_rh >=1" >
+                    <small class="c-indigo" style="display:flex; flex-direction:inherit">{{personal.total_rh}}</small>
                     <button
                       class="icon-btn c-indigo"
                       style="background: none; cursor: none;"
@@ -174,10 +175,10 @@
                     </button>
                   </ng-container>
 
-                  <div class="h-divider"></div>
+                  <div *ngIf="personal.total_rh != 0 && personal.total_rc != 0" class="h-divider"></div>
 
-                  <ng-container *ngIf="totalCuenta >= 0"  >
-                    <small class="c-cyan">{{totalCuenta}}</small>
+                  <ng-container *ngIf="personal.total_rc >= 1">
+                    <small   class="c-cyan">{{personal.total_rc}}</small>
                     <button
                       class="icon-btn  c-cyan"
                       style="background: none; cursor: none;"
@@ -205,7 +206,7 @@
           *ngIf="!loadingItem && listaPersonal.length == 0"
           class="cli-loader mt-5"
           style="color: #f83434"
-        >No hay personal para mostrar
+          >No hay personal para mostrar
         </div>
       </div>
     </div>

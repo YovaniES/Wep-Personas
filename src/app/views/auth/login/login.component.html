@@ -9,26 +9,31 @@
     </div>
 
     <form [formGroup]="loginForm" class="loginform my-2">
-      <!-- email de usuario -->
-      <div class="cli-form-element">
-        <label class="lab-color">Username</label>
-        <div>
-          <input class="form-control" type="email" formControlName="username" />
-          <small class="form-text text-danger" *ngIf="campoNoValido('username')">* Debe ingresar un username válido</small>
+      <div class="input-group mb-3 mt-4" >
+        <input
+          type="email"
+          class="form-control"
+          placeholder="Username"
+          formControlName="username"/>
+          <ng-container class="input-group-append">
+            <div class="input-group-text"><mat-icon>person</mat-icon></div>
+          </ng-container>
+          <small class="form-text text-danger" *ngIf="campoNoValido('username')">* Debe ingresar un Username válido</small>
         </div>
-      </div>
 
-      <!-- Contraseña -->
-      <div class="cli-form-element form-group mt-2">
-        <label class="lab-color">Contraseña</label>
-        <div class="">
-          <input
-            type="password"
-            class="form-control"
-            formControlName="password"
-          /><small class="form-text text-danger" *ngIf="campoNoValido('password')">* Debe ingresar una contraseña válida</small>
+      <div class="input-group mb-3">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Password"
+          formControlName="password"/>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <mat-icon>lock</mat-icon>
+            </div>
+          </div>
         </div>
-      </div>
+        <small class="form-text text-danger" *ngIf="campoNoValido('password')">* Debe ingresar una Password válido</small>
 
       <!-- Iniciar sesión-->
       <div class="form-group text-center">

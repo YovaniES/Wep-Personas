@@ -58,7 +58,7 @@ export class RegistroPersonalComponent implements OnInit {
   cargarOBuscarPersonal(){
     this.blockUI.start("Cargando personal...");
     let parametro: any[] = [{
-      "queryId": 30,
+      "queryId": 121,
       "mapValue": {
           nombre         : this.filtroForm.value.nombres + " " + this.filtroForm.value.apellidos,
           dni            : this.filtroForm.value.dni,

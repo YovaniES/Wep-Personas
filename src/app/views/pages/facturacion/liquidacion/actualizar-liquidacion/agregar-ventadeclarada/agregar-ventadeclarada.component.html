@@ -14,18 +14,18 @@
       <!-- VENTA DECLARADA---------------------------------------------------------- -->
         <div class="pr-module-container">
           <div class="row g-3">
-            <div class=" cli-form-element">
+            <div class="cli-form-element">
               <div class="form-group">
-                <label>Venta declarada</label>
+                <label>Importe declarado</label>
                 <input
-                  type="text"
+                  type="number"
                   class="form-control cli-input-white"
                   formControlName="ventaDeclarada"/>
                 <small class="form-text text-alert" *ngIf="campoNoValido('ventaDeclarada')">* Ingrese la Venta declarada es obligatorio</small>
               </div>
             </div>
 
-            <div class=" cli-form-element">
+            <div class="cli-form-element">
               <div class="form-group">
                 <label>Periodo</label>
                 <input
@@ -49,7 +49,6 @@
             </div>
           </div>
         </div>
-
     </div>
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>

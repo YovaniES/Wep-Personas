@@ -95,214 +95,213 @@
       </div>
     </div>
 
-      <!-- AGREGAR VENTA DECLARADA-------------------------------------------------------------------- -->
-      <div style="display: flex; background-color: #f6f3f3">
-        <div class="pr-subtitle">Venta declarada</div>
-        <div class="flex-1"></div>
-        <button
-          class="cli-btn btn-grey"
-          matTooltip="Agregar venta declarada"
-          type="submit"
-          style="color: #9b9797; height: 20px; margin-right: 6px"
-          (click)="agregarVentaDeclarada()"
-        ><mat-icon class="icon-18">add</mat-icon>
-        </button>
-      </div>
-      <div class="pr-section">
-        <div class="pr-module-container mb-3">
-          <div style="overflow: auto; min-height: 50px">
-            <div *ngIf="listVentaDeclarada.length > 0">
-              <table class="cli-table stripedtable underlinedtable">
-                <thead>
-                  <tr class="bgc-blue-light c-white">
-                    <th>Acción</th>
-                    <!-- <th>ID Venta declarada</th> -->
-                    <th style="width: 35px">#</th>
-                    <th>Periodo</th>
-                    <th>Importe declarado</th>
-                    <th>Saldo</th>
-                    <th>Comentario</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr
-                    *ngFor="let vd of listVentaDeclarada; let i = index">
-                    <td class="w55">
-                      <div class="cli-table-actions">
-                        <button
-                          matTooltip="Actualizar"
-                          class="icon-btn btn-trans c-blue"
-                          (click)="actualizarVentaDeclarada(vd)"
-                        ><mat-icon class="icon-13">edit</mat-icon>
-                        </button>
-                        <button
-                          matTooltip="Eliminar"
-                          class="icon-btn btn-trans c-fucsia"
-                          (click)="eliminarVentaDeclarada(vd.idFactVenta)"
-                        ><mat-icon class="icon-13">delete_forever</mat-icon>
-                        </button>
-                      </div>
-                    </td>
-                    <!-- <td>{{ vd.idFactVenta }}</td> -->
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ vd.periodo }}</td>
-                    <td>{{ vd.venta_declarada }}</td>
-                    <td>{{ vd.venta_declarada - importTotal }}</td>
-                    <td>{{ vd.comentario | firstCapital}}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="cli-loader" *ngIf="loadingItem">
-                <mat-spinner
-                  style="margin-right: 20px"
-                  diameter="20"
-                ></mat-spinner>cargando...
-              </div>
-            </div>
-            <div
-              *ngIf="!loadingItem && listVentaDeclarada.length == 0"
-              class="cli-loader mt-2"
-              style="color: #c9c9c9"
-              >Aún no tiene venta declarada
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AGREGAR FACTURA-------------------------------------------------------------------- -->
-      <div style="display: flex; background-color: #f6f3f3">
-        <div class="pr-subtitle">Factura</div>
-        <div class="flex-1"></div>
-        <button
-          class="cli-btn btn-grey"
-          matTooltip="Agregar factura"
-          type="submit"
-          style="color: #9b9797; height: 20px; margin-right: 6px"
-          (click)="agregarFactura()"
-        >
-          <mat-icon class="icon-18">add</mat-icon>
-        </button>
-      </div>
-      <div class="pr-section">
-        <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 50px">
-            <div *ngIf="listFactura.length > 0">
-              <table class="cli-table stripedtable underlinedtable">
-                <thead>
-                  <tr class="bgc-blue-light c-white">
-                    <th>Acción</th>
-                    <!-- <th>ID Certificación</th> -->
-                    <th>#</th>
-                    <th>Ord. Compra</th>
-                    <th>Certificación</th>
-                    <th>Estado</th>
-                    <th>Factura</th>
-                    <th>Comentario</th>
-                    <th>Importe</th>
-                    <th>Fecha de facturación</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr *ngFor="let factura of listFactura; let i = index">
-                    <td class="w55X">
-                      <div class="cli-table-actions">
-                        <button
-                          matTooltip="Actualizar"
-                          class="icon-btn btn-trans c-blue"
-                          (click)="actualizarFactura(factura)"
-                        ><mat-icon class="icon-13">edit</mat-icon>
-                        </button>
-
-                        <button
-                          matTooltip="Eliminar"
-                          class="icon-btn btn-trans c-fucsia"
-                          (click)="eliminaFactura(factura.idFactCertificacion)"
-                        ><mat-icon class="icon-13">delete_forever</mat-icon>
-                        </button>
-                      </div>
-                    </td>
-                    <!-- <td>{{ factura.idFactCertificacion }}</td> -->
-                    <td>{{ i + 1 }}</td>
-                    <td>{{ factura.oc }}</td>
-                    <td>{{ factura.certificacion }}</td>
-                    <td>
-                      <span *ngIf="factura.id_estado == 8"   class="label estado-danger">{{ factura.estado }}</span>
-                      <span *ngIf="factura.id_estado == 6"   class="label estado-succes">{{ factura.estado }}</span>
-                      <span *ngIf="factura.id_estado == 7"   class="label estado-info">  {{ factura.estado }}</span>
-                    </td>
-                    <td>{{ factura.factura }}</td>
-                    <td>{{ factura.comentario | firstCapital}}</td>
-                    <td>{{ factura.importe }}</td>
-                    <td>{{ factura.fecha_facturacion }}</td>
-                  </tr>
-                </tbody>
-              </table>
-              <ng-container >
-                <div class="col-12 fact-total">Total:  {{obtenerImporteTotal()}}</div>
-              </ng-container>
-
-                <!-- <mat-icon class="icon-18">attach_money</mat-icon> -->
-              <div class="cli-loader" *ngIf="loadingItem">
-                <mat-spinner
-                  style="margin-right: 20px"
-                  diameter="20">
-                </mat-spinner>cargando...
-              </div>
-            </div>
-            <div
-              *ngIf="!loadingItem && listFactura.length == 0"
-              class="cli-loader mt-2"
-              style="color: #c9c9c9"
-              >Aún no tiene factura agregada
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ------------------------------HISTORICO DE CAMBIOS DE ESTADO------------------------------->
-      <div class="col-2 pr-subtitle mt-2">Histórico de cambios de estado</div>
-      <div class="pr-section">
-        <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 150px; max-height: 156px;">
+    <!-- AGREGAR VENTA DECLARADA-------------------------------------------------------------------- -->
+    <div style="display: flex; background-color: #f6f3f3">
+      <div class="pr-subtitle">Venta declarada</div>
+      <div class="flex-1"></div>
+      <button
+        class="btn-asignar btn-grey"
+        matTooltip="Agregar venta declarada"
+        type="submit"
+        (click)="agregarVentaDeclarada()"
+      ><mat-icon class="icon-18">add</mat-icon>
+      </button>
+    </div>
+    <div class="pr-section">
+      <div class="pr-module-container mb-3">
+        <div style="overflow: auto; min-height: 50px">
+          <div *ngIf="listVentaDeclarada.length > 0">
             <table class="cli-table stripedtable underlinedtable">
               <thead>
-                <tr class="bgc-turquey c-white">
-                  <th>#</th>
-                  <th>ID Factura</th>
-                  <th>Estado</th>
-                  <th>Proyecto</th>
-                  <th>Fecha y hora</th>
-                  <th>Modificado por:</th>
+                <tr class="bgc-blue-light c-white">
+                  <th>Acción</th>
+                  <!-- <th>ID Venta declarada</th> -->
+                  <th style="width: 35px">#</th>
+                  <th>Periodo</th>
+                  <th>Importe declarado</th>
+                  <th>Saldo</th>
+                  <th>Comentario</th>
                 </tr>
               </thead>
 
               <tbody>
-                <tr *ngFor="let cambios of histCambiosEstado; let i = index">
+                <tr
+                  *ngFor="let vd of listVentaDeclarada; let i = index">
+                  <td class="w55">
+                    <div class="cli-table-actions">
+                      <button
+                        matTooltip="Actualizar"
+                        class="icon-btn btn-trans c-blue"
+                        (click)="actualizarVentaDeclarada(vd)"
+                      ><mat-icon class="icon-13">edit</mat-icon>
+                      </button>
+                      <button
+                        matTooltip="Eliminar"
+                        class="icon-btn btn-trans c-fucsia"
+                        (click)="eliminarVentaDeclarada(vd.idFactVenta)"
+                      ><mat-icon class="icon-13">delete_forever</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                  <!-- <td>{{ vd.idFactVenta }}</td> -->
                   <td>{{ i + 1 }}</td>
-                  <td>{{ cambios.idFactura }}</td>
-                  <td>{{ cambios.estado }}</td>
-                  <td>{{ cambios.proyecto }}</td>
-                  <td>{{ cambios.fecha }}</td>
-                  <td>{{ cambios.username }}</td>
+                  <td>{{ vd.periodo }}</td>
+                  <td style="font-weight: 600">{{ vd.venta_declarada }}</td>
+                  <td class="fact-saldo">{{ vd.venta_declarada - importTotal }}</td>
+                  <td>{{ vd.comentario | firstCapital}}</td>
                 </tr>
               </tbody>
             </table>
+            <div class="cli-loader" *ngIf="loadingItem">
+              <mat-spinner
+                style="margin-right: 20px"
+                diameter="20"
+              ></mat-spinner>cargando...
+            </div>
+          </div>
+          <div
+            *ngIf="!loadingItem && listVentaDeclarada.length == 0"
+            class="cli-loader mt-2"
+            style="color: #c9c9c9"
+            >Aún no tiene venta declarada
           </div>
         </div>
       </div>
-      </div>
+    </div>
 
-      <!-- --------------------------------------------BOTONES ------------------------------------------>
-      <div class="cli-form-buttons">
-        <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
-          <mat-icon class="icon-18">cancel</mat-icon> Cancelar
-        </button>
-        <button class="cli-btn btn-m btn-blue" (click)="actualizarLiquidacion()">
-          <mat-icon class="icon-18">save</mat-icon> Actualizar
-        </button>
+    <!-- AGREGAR FACTURA-------------------------------------------------------------------- -->
+    <div style="display: flex; background-color: #f6f3f3">
+      <div class="pr-subtitle">Factura</div>
+      <div class="flex-1"></div>
+      <button
+        class="btn-asignar btn-grey"
+        matTooltip="Agregar factura"
+        type="submit"
+        (click)="agregarFactura()"
+      >
+        <mat-icon class="icon-18">add</mat-icon>
+      </button>
+    </div>
+    <div class="pr-section">
+      <div class="pr-module-container">
+        <div style="overflow: auto; min-height: 50px">
+          <div *ngIf="listFactura.length > 0">
+            <table class="cli-table stripedtable underlinedtable">
+              <thead>
+                <tr class="bgc-blue-light c-white">
+                  <th>Acción</th>
+                  <!-- <th>ID Certificación</th> -->
+                  <th>#</th>
+                  <th>Ord. Compra</th>
+                  <th>Certificación</th>
+                  <th>Estado</th>
+                  <th>Factura</th>
+                  <th>Comentario</th>
+                  <th>Importe</th>
+                  <th>Fecha de facturación</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let factura of listFactura; let i = index">
+                  <td class="w55X">
+                    <div class="cli-table-actions">
+                      <button
+                        matTooltip="Actualizar"
+                        class="icon-btn btn-trans c-blue"
+                        (click)="actualizarFactura(factura)"
+                      ><mat-icon class="icon-13">edit</mat-icon>
+                      </button>
+
+                      <button
+                        matTooltip="Eliminar"
+                        class="icon-btn btn-trans c-fucsia"
+                        (click)="eliminaFactura(factura.idFactCertificacion)"
+                      ><mat-icon class="icon-13">delete_forever</mat-icon>
+                      </button>
+                    </div>
+                  </td>
+                  <!-- <td>{{ factura.idFactCertificacion }}</td> -->
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ factura.oc }}</td>
+                  <td>{{ factura.certificacion }}</td>
+                  <td>
+                    <span *ngIf="factura.id_estado == 8"   class="label estado-danger">{{ factura.estado }}</span>
+                    <span *ngIf="factura.id_estado == 6"   class="label estado-succes">{{ factura.estado }}</span>
+                    <span *ngIf="factura.id_estado == 7"   class="label estado-info">  {{ factura.estado }}</span>
+                  </td>
+                  <td>{{ factura.factura }}</td>
+                  <td>{{ factura.comentario | firstCapital}}</td>
+                  <td>{{ factura.importe }}</td>
+                  <td>{{ factura.fecha_facturacion }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <ng-container >
+              <div class="col-12 fact-total">Total:
+                <mat-icon class="icon-18">attach_money</mat-icon>{{obtenerImporteTotal()}}
+              </div>
+            </ng-container>
+
+            <div class="cli-loader" *ngIf="loadingItem">
+              <mat-spinner
+                style="margin-right: 20px"
+                diameter="20">
+              </mat-spinner>cargando...
+            </div>
+          </div>
+          <div
+            *ngIf="!loadingItem && listFactura.length == 0"
+            class="cli-loader mt-2"
+            style="color: #c9c9c9"
+            >Aún no tiene factura agregada
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- ------------------------------HISTORICO DE CAMBIOS DE ESTADO------------------------------->
+    <div class="col-2 pr-subtitle mt-2">Histórico de cambios de estado</div>
+    <div class="pr-section">
+      <div class="pr-module-container">
+        <div style="overflow: auto; min-height: 150px; max-height: 156px;">
+          <table class="cli-table stripedtable underlinedtable">
+            <thead>
+              <tr class="bgc-turquey c-white">
+                <th>#</th>
+                <th>ID Factura</th>
+                <th>Estado</th>
+                <th>Proyecto</th>
+                <th>Fecha y hora</th>
+                <th>Modificado por:</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let cambios of histCambiosEstado; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ cambios.idFactura }}</td>
+                <td>{{ cambios.estado }}</td>
+                <td>{{ cambios.proyecto }}</td>
+                <td>{{ cambios.fecha }}</td>
+                <td>{{ cambios.username }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- --------------------------------------------BOTONES ------------------------------------------>
+    <div class="cli-form-buttons">
+      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+        <mat-icon class="icon-18">cancel</mat-icon> Cancelar
+      </button>
+      <button class="cli-btn btn-m btn-blue" (click)="actualizarLiquidacion()">
+        <mat-icon class="icon-18">save</mat-icon> Actualizar
+      </button>
+    </div>
   </div>
 </form>
 
