@@ -43,6 +43,7 @@
               <div style="margin-top: 18px; display: flex;">
                 <button
                   type="button"
+                  matTooltip="Buscar"
                   class="btn-hardware btn-blue-light"
                   style="border-radius: 2px; "
                   (click)="cargarOBuscarHardwareDisponible()"
@@ -50,7 +51,8 @@
                  </button>
                  <button
                   type="submit"
-                  class="btn-hardware btn-grey"
+                  matTooltip="Limpiar"
+                  class="btn-hardware btn-cancel"
                   style="border-radius: 2px;"
                   (click)="limpiarFiltro()"
                 ><mat-icon class="icon-18">rotate_left</mat-icon>
@@ -97,7 +99,7 @@
                     matTooltip="Asignar"
                     class="icon-btn btn-trans c-blue"
                     (click)="asignarHardware(hardware.id_recurso, hardware.modelo)"
-                  ><mat-icon class="icon-13">add</mat-icon>
+                    ><mat-icon class="icon-13">add</mat-icon>
                   </button>
                 </div>
               </td>

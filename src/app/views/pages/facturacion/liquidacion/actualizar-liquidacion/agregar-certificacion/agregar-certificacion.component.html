@@ -54,7 +54,7 @@
               <label class="form-label">Estado</label>
               <select class="cli-input-white" formControlName="estFactura">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="est.id_estado" *ngFor="let est of listEstadosFacturacion">{{est.nombre}}</option>
+                <option [value]="est.id" *ngFor="let est of listEstadosFacturacion">{{est.nombre}}</option>
               </select>
               <small class="form-text text-alert" *ngIf="campoNoValido('estFactura')">* Ingrese el Estado es obligatorio</small>
             </div>
@@ -88,7 +88,7 @@
                 class="form-control"
                 style="background-image: none; border-color: #bdbdbd; font-size: 14px; font-size: 12px;"
                 rows="3"
-                placeholder="Escriba algún comentario sobre la certificacion..."
+                placeholder="Escriba algún comentario sobre la certificación..."
                 formControlName="comentario"
               ></textarea>
             </div>
@@ -98,7 +98,7 @@
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
     <div class="cli-form-buttons" style="margin-top: 8%">
-      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+      <button class="cli-btn btn-m btn-cancel" type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button

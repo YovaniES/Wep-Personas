@@ -58,48 +58,9 @@ export class LiquidacionComponent implements OnInit {
     })
   };
 
-  listEstados: any[] = [];
-  getListEstados(){
-    let arrayParametro: any[] = [{queryId: 101}];
-
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
-            this.listEstados = resp.list;
-            console.log('EST-FACT', resp);
-    });
-  }
-
-  listGestores: any[] = [];
-  getListGestores(){
-    let arrayParametro: any[] = [{queryId: 102}];
-
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
-            this.listGestores = resp.list;
-            console.log('GESTORES', resp);
-    });
-  };
-
-  listProyectos: any[] = [];
-  getListProyectos(){
-    let parametro: any[] = [{queryId: 1}];
-
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp;
-            console.log('COD_PROY', resp);
-    });
-  };
-
-  listLiquidaciones: any[] = [];
-  getListLiquidaciones(){
-    let arrayParametro: any[] = [{queryId: 82}];
-    this.personalService.getListLiquidaciones(arrayParametro[0]).subscribe((resp: any) => {
-            this.listLiquidaciones = resp.list;
-            console.log('LIQUIDAC', resp);
-    });
-  }
-
   listaLiquidacion: any[] = [];
   cargarOBuscarLiquidacion(){
-    this.blockUI.start("Cargando facturas...");
+    this.blockUI.start("Cargando liquidaciones...");
     let parametro: any[] = [{
       "queryId": 118,
       "mapValue": {
@@ -115,7 +76,7 @@ export class LiquidacionComponent implements OnInit {
     this.personalService.cargarOBuscarLiquidacion(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Facturas', resp, resp.list.length);
+     console.log('Lista-Liquidaciones', resp, resp.list.length);
       this.listaLiquidacion = [];
       this.listaLiquidacion = resp.list;
 
@@ -158,6 +119,46 @@ export class LiquidacionComponent implements OnInit {
     this.spinner.hide();
   }
 
+  listEstados: any[] = [];
+  getListEstados(){
+    let arrayParametro: any[] = [{queryId: 101}];
+
+    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+            this.listEstados = resp.list;
+            console.log('EST-FACT', resp);
+    });
+  }
+
+  listGestores: any[] = [];
+  getListGestores(){
+    let arrayParametro: any[] = [{queryId: 102}];
+
+    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+            this.listGestores = resp.list;
+            console.log('GESTORES', resp);
+    });
+  };
+
+  listProyectos: any[] = [];
+  getListProyectos(){
+    let parametro: any[] = [{queryId: 1}];
+
+    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+            this.listProyectos = resp;
+            console.log('COD_PROY', resp);
+    });
+  };
+
+  listLiquidaciones: any[] = [];
+  getListLiquidaciones(){
+    let arrayParametro: any[] = [{queryId: 82}];
+    this.personalService.getListLiquidaciones(arrayParametro[0]).subscribe((resp: any) => {
+            this.listLiquidaciones = resp.list;
+            console.log('LIQUIDAC', resp);
+    });
+  }
+
+
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})
     this.newFilfroForm()
@@ -195,7 +196,7 @@ export class LiquidacionComponent implements OnInit {
     console.log('DATA_LIQUID', DATA);
 
     this.dialog
-      .open(ActualizarLiquidacionComponent, { width: '55%', height: '95%', data: DATA })
+      .open(ActualizarLiquidacionComponent, { width: '65%', height: '95%', data: DATA })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarLiquidacion();

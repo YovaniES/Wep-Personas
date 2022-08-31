@@ -1,5 +1,5 @@
 .view-backgrond {
-  background-image: url("../../../../assets/images/background/megamenu.jpg");
+  background-image: url("../../../../assets/images/background/fac2.webp");
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 1.7;
@@ -103,6 +103,12 @@
   &:hover:enabled:active {
     background-color: #019df42e;
   }
+}
+
+.alert-login{
+  margin-top: -17px;
+  font-size: 10px;
+  color:#ff1087
 }
 
 @media (max-width: 850px) {

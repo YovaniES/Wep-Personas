@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">Crear Personal</div>
+  <div class="modal-title c-male">Crear personal</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -18,7 +18,7 @@
           <div class="row g-3">
             <div class="col-sm-4 cli-form-element">
               <div class="form-group">
-                <label>Nombre(s)</label>
+                <label>Nombre(s) *</label>
                 <input
                   type="text"
                   class="form-control cli-input-white"
@@ -28,7 +28,7 @@
             </div>
 
             <div class="col-sm-4 cli-form-element">
-              <label>Apellido paterno</label>
+              <label>Apellido paterno *</label>
               <input
                 type="text"
                 class="form-control cli-input-white"
@@ -37,7 +37,7 @@
             </div>
 
             <div class="col-sm-4 cli-form-element">
-              <label>Apellido materno</label>
+              <label>Apellido materno *</label>
               <input
                 type="text"
                 class="form-control cli-input-white"
@@ -55,7 +55,7 @@
             </div>
 
             <div class="col-sm-4 cli-form-element">
-              <label>Correo</label>
+              <label>Correo *</label>
               <input
                 type="correo"
                 class="form-control cli-input-white"
@@ -84,7 +84,7 @@
         <div class="pr-module-container">
           <div class="row g-3">
             <div class="col-sm-4 cli-form-element">
-              <label>Cód. Corporativo</label>
+              <label>Cód. Corporativo *</label>
               <input
                 maxlength="6"
                 class="form-control cli-input-white"
@@ -96,7 +96,7 @@
             </div>
 
             <div class="col-sm-4 cli-form-element">
-              <label>Cód. Perfil</label>
+              <label>Cód. Perfil *</label>
               <select
                 class="cli-input-white"
                 formControlName="codPerfil"
@@ -115,7 +115,7 @@
 
             <div class="col-sm-4 cli-form-element">
               <div class="form-group">
-                <label>Fecha de Ingreso</label>
+                <label>Fecha de Ingreso *</label>
                 <input
                   type="date"
                   class="form-control"
@@ -125,7 +125,7 @@
             </div>
 
             <div class="col-sm-4 cli-form-element">
-              <label>Cód. Proyecto</label>
+              <label>Cód. Proyecto *</label>
               <select
                 class="cli-input-white"
                 formControlName="codProy"
@@ -148,7 +148,7 @@
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
     <div class="cli-form-buttons" style="margin-top: 8%">
-      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+      <button class="cli-btn btn-m btn-cancel" type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button

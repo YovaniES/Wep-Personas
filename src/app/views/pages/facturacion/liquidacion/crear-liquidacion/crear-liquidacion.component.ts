@@ -39,13 +39,13 @@ export class CrearLiquidacionComponent implements OnInit {
 
   newForm(){
     this.facturaForm = this.fb.group({
-     id_liquidacion      : [ 1,[Validators.required]],
+     id_liquidacion      : [ 676,[Validators.required]],
      id_proyecto         : ['',[Validators.required]],
      subservicio         : ['',[Validators.required]],
      id_gestor           : ['',[Validators.required]],
      venta_declarada     : ['',[Validators.required]],
      fechaPeriodo        : ['',[Validators.required]],
-     id_estado           : [ 1,[Validators.required]],
+     id_estado           : [ 177,[Validators.required]],
      orden_compra        : [''],
      certificacion       : [''],
      factura             : [''],

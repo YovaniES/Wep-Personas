@@ -18,7 +18,7 @@
               <label class="form-label">Gestor</label>
               <select class="form-select" formControlName="id_gestor">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+                <option [value]="g.id" *ngFor="let g of listGestores">{{g.nombre}}</option>
               </select>
             </div>
 
@@ -35,7 +35,7 @@
               <label class="form-label">Liquidaciones</label>
               <select class="form-select" formControlName="id_liquidacion">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="liq.id_correlativo" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
+                <option [value]="liq.id" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
               </select>
             </div>
 
@@ -63,14 +63,14 @@
               <label class="form-label">Estado</label>
               <select class="form-select" formControlName="id_estado">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="est.id_estado" *ngFor="let est of listEstados">{{est.nombre}}</option>
+                <option [value]="est.id" *ngFor="let est of listEstados">{{est.nombre}}</option>
               </select>
             </div>
 
             <div class="cli-form-buttons" style="margin-top: 8px">
               <button
                 type="submit"
-                class="cli-btn btn-grey"
+                class="cli-btn btn-m btn-cancel"
                 style="border-radius: 2px; padding: 0.225rem 0.75rem"
                 (click)="limpiarFiltro()"
                 ><mat-icon class="icon-18">rotate_left</mat-icon>

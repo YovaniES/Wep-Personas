@@ -13,7 +13,7 @@
     <div class="row g-3">
 
       <div class="col-sm-4 cli-form-element">
-        <label>Proyecto</label>
+        <label>Proyecto *</label>
         <select class="cli-input-white" formControlName="id_proyecto">
           <option [value]="0" disabled>- Seleccione -</option>
           <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
@@ -22,16 +22,16 @@
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label class="form-label">Tipo de liquidación</label>
+        <label class="form-label">Tipo de liquidación *</label>
         <select class="form-select" formControlName="id_liquidacion">
           <option [value]="0" disabled>-Seleccione-</option>
-          <option [value]="liq.id_correlativo" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
+          <option [value]="liq.id" *ngFor="let liq of listLiquidaciones">{{liq.nombre}}</option>
         </select>
         <small class="form-text text-alert" *ngIf="campoNoValido('id_liquidacion')">* Seleccione la Liquidación es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label>Subservicio</label>
+        <label>Subservicio *</label>
         <input
           type="text"
           class="form-control cli-input-white"
@@ -40,16 +40,16 @@
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label class="form-label">Gestor</label>
+        <label class="form-label">Gestor *</label>
         <select class="form-select" formControlName="id_gestor">
           <option [value]="0" disabled>-Seleccione-</option>
-          <option [value]="g.id_gestor" *ngFor="let g of listGestores">{{g.nombre}}</option>
+          <option [value]="g.id" *ngFor="let g of listGestores">{{g.nombre}}</option>
         </select>
-        <small class="form-text text-alert" *ngIf="campoNoValido('id_gestor')">* Seleccione el Gestor campo es obligatorio</small>
+        <small class="form-text text-alert" *ngIf="campoNoValido('id_gestor')">* Seleccione el Gestor es obligatorio</small>
       </div>
 
       <div class="col-sm-4 cli-form-element">
-        <label>Importe</label>
+        <label>Importe *</label>
         <input
           type="number"
           min="0"
@@ -60,7 +60,7 @@
 
       <div class="col-sm-4 cli-form-element">
         <div class="form-group">
-          <label>Fecha Periodo</label>
+          <label>Fecha Periodo *</label>
            <input
             type="month"
             class="form-control"
@@ -82,9 +82,11 @@
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
     <div class="cli-form-buttons" style="margin-top: 8%">
-      <button class="cli-btn btn-m btn-grey" type="submit" (click)="close()">
+      <button class="cli-btn btn-m btn-cancel"
+              type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
+
       <button class="cli-btn btn-m btn-blue"
               (click)="crearLiquidacion()"
               [disabled]="facturaForm.invalid"

@@ -18,10 +18,10 @@
           <ng-container class="input-group-append">
             <div class="input-group-text"><mat-icon>person</mat-icon></div>
           </ng-container>
-          <small class="form-text text-danger" *ngIf="campoNoValido('username')">* Debe ingresar un Username válido</small>
         </div>
+        <small class="form-text alert-login" *ngIf="campoNoValido('username')">* Debe ingresar un Username válido</small>
 
-      <div class="input-group mb-3">
+      <div class="input-group mb-3 mt-3">
         <input
           type="password"
           class="form-control"
@@ -33,7 +33,7 @@
             </div>
           </div>
         </div>
-        <small class="form-text text-danger" *ngIf="campoNoValido('password')">* Debe ingresar una Password válido</small>
+        <small class="form-text alert-login" *ngIf="campoNoValido('password')">* Debe ingresar un Password válido</small>
 
       <!-- Iniciar sesión-->
       <div class="form-group text-center">
