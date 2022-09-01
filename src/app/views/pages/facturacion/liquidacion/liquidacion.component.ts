@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 import { CrearLiquidacionComponent } from '../liquidacion/crear-liquidacion/crear-liquidacion.component';
 import { ActualizarLiquidacionComponent } from '../liquidacion/actualizar-liquidacion/actualizar-liquidacion.component';
+import { ActualizacionMasivaComponent } from './actualizacion-masiva/actualizacion-masiva.component';
 
 
 @Component({
@@ -144,8 +145,8 @@ export class LiquidacionComponent implements OnInit {
     let parametro: any[] = [{queryId: 1}];
 
     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp;
-            console.log('COD_PROY', resp);
+            this.listProyectos = resp.list;
+            console.log('COD_PROY', resp.list);
     });
   };
 
@@ -192,11 +193,22 @@ export class LiquidacionComponent implements OnInit {
     })
   }
 
+  actualizacionMasiva(){
+    const dialogRef = this.dialog.open(ActualizacionMasivaComponent, {width:'35%', });
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp) {
+        this.cargarOBuscarLiquidacion()
+      }
+    })
+  }
+
+
   actualizarFactura(DATA: any) {
     console.log('DATA_LIQUID', DATA);
 
     this.dialog
-      .open(ActualizarLiquidacionComponent, { width: '65%', height: '95%', data: DATA })
+      .open(ActualizarLiquidacionComponent, { width: '70%', height: '95%', data: DATA })
       .afterClosed().subscribe((resp) => {
         if (resp) {
           this.cargarOBuscarLiquidacion();
@@ -208,3 +220,6 @@ export class LiquidacionComponent implements OnInit {
     this.exportExcellService.exportarExcel(this.listaLiquidacion, 'Factura')
   }
 }
+
+
+

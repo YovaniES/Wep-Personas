@@ -110,9 +110,9 @@
 
             <div class="col-sm-4 cli-form-element">
               <label>Cód. Proyecto</label>
-              <select class="cli-input-white" formControlName="codProy">
+              <select class="cli-input-white" formControlName="id_proyecto">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="cod.id" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
+                <option [value]="cod.id_proyecto" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
             </div>
           </div>

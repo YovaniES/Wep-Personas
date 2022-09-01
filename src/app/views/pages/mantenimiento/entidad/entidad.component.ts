@@ -23,7 +23,7 @@ export class EntidadComponent implements OnInit {
 
   page = 1;
   totalEntidad: number = 0;
-  pageSize = 4;
+  pageSize = 5;
 
   constructor(
     private personalService: PersonalService,

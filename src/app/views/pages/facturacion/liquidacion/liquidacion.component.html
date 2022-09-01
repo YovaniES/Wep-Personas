@@ -91,7 +91,7 @@
       </div>
 
 
-      <!-- BOTON MODAL PARA CREAR PERSONAS ----------------------------------------------------->
+      <!-- BOTON MODAL PARA CREAR LIQIDACION ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
         <button
           class="cli-btn btn-blue"
@@ -101,6 +101,13 @@
         ><mat-icon class="icon-18">add</mat-icon>Crear liquidación
         </button>
 
+        <button
+          class="cli-btn btn-cancel mx-1"
+          style="margin: 0"
+          type="button"
+          (click)="actualizacionMasiva()"
+        ><mat-icon class="icon-18">edit</mat-icon>Act. masiva
+        </button>
           <button
             matTooltip="Descargar registro"
             class="icon-btn btn-trans c-green-export mx-1"

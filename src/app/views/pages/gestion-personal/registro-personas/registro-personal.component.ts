@@ -204,9 +204,8 @@ export class RegistroPersonalComponent implements OnInit {
     let arrayParametro: any[] = [{ queryId: 1 }];
 
     this.personalService
-      .getListProyectos(arrayParametro[0])
-      .subscribe((resp) => {
-        this.listCodProy = resp;
+      .getListProyectos(arrayParametro[0]).subscribe((resp: any) => {
+        this.listCodProy = resp.list;
         // console.log('COD_PROY', resp);
       });
   }

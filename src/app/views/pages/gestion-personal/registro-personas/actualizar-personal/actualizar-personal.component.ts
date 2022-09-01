@@ -18,7 +18,6 @@ export class ActualizarPersonalComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
   personalForm!: FormGroup;
-  // estado: string = ''
 
   constructor(
     private personalService: PersonalService,
@@ -40,6 +39,8 @@ export class ActualizarPersonalComponent implements OnInit {
     this.getUsuario();
     this.ListaHardwareAsignado();
     this.ListaCuentaAsignado();
+    console.log('DATA_PERSONA', this.DATA_PERSONAL);
+
   }
 
     newForm(){
@@ -55,7 +56,7 @@ export class ActualizarPersonalComponent implements OnInit {
        codPerfil      : [''],
        descPerfil     : [''],
        fechaIngreso   : [''],
-       codProy        : [''],
+       id_proyecto    : [''],
        descProy       : [''],
        estado         : [''],
        perfil         : [''],
@@ -87,7 +88,7 @@ export class ActualizarPersonalComponent implements OnInit {
           param_correo            : formValues.correo,
           param_fecha_ingreso     : formValues.fechaIngreso,
           param_fecha_nacimiento  : formValues.fechaNacimiento,
-          param_id_proyecto       : formValues.codProy,
+          param_id_proyecto       : formValues.id_proyecto,
           param_id_perfil         : formValues.codPerfil,
           param_estado            : 1,
           CONFIG_USER_ID          : this.userID,
@@ -113,33 +114,23 @@ export class ActualizarPersonalComponent implements OnInit {
 
   cargarPersonalById(){
     this.spinner.show();
+        this.personalForm.controls['idPersonal' ].setValue(this.DATA_PERSONAL.id);
+        this.personalForm.controls['nombre'     ].setValue(this.DATA_PERSONAL.nombres);
+        this.personalForm.controls['apPaterno'  ].setValue(this.DATA_PERSONAL.apellido_paterno);
+        this.personalForm.controls['apMaterno'  ].setValue(this.DATA_PERSONAL.apellido_materno);
+        this.personalForm.controls['dni'        ].setValue(this.DATA_PERSONAL.dni);
+        this.personalForm.controls['correo'     ].setValue(this.DATA_PERSONAL.correo);
+        this.personalForm.controls['codCorp'    ].setValue(this.DATA_PERSONAL.codigo_corporativo);
+        this.personalForm.controls['codPerfil'  ].setValue(this.DATA_PERSONAL.id_perfil);
+        this.personalForm.controls['perfil'     ].setValue(this.DATA_PERSONAL.perfil);
+        this.personalForm.controls['proyecto'   ].setValue(this.DATA_PERSONAL.codigo_proyecto);
+        this.personalForm.controls['id_proyecto'].setValue(this.DATA_PERSONAL.id_proyecto);
+        this.personalForm.controls['descProy'   ].setValue(this.DATA_PERSONAL.proyecto_descripcion);
 
-    let parametro: any[] = [{
-      queryId: 31,
-      mapValue: {'param_id_persona': this.DATA_PERSONAL.id}
-    }];
+        this.personalForm.controls['estado'].setValue(this.DATA_PERSONAL.estado);
 
-    this.personalService.cargarPersonalById(parametro[0]).subscribe( (resp: any) => {
-
-      console.log('LISTA-EDITAR_BY_ID', resp );
-      for (let i = 0; i < resp.list.length; i++) {
-        this.personalForm.controls['idPersonal'].setValue(resp.list[i].id);
-        this.personalForm.controls['nombre'    ].setValue(resp.list[i].nombres);
-        this.personalForm.controls['apPaterno' ].setValue(resp.list[i].apellido_paterno);
-        this.personalForm.controls['apMaterno' ].setValue(resp.list[i].apellido_materno);
-        this.personalForm.controls['dni'       ].setValue(resp.list[i].dni);
-        this.personalForm.controls['correo'    ].setValue(resp.list[i].correo);
-        this.personalForm.controls['codCorp'   ].setValue(resp.list[i].codigo_corporativo);
-        this.personalForm.controls['codPerfil' ].setValue(resp.list[i].id_perfil);
-        this.personalForm.controls['perfil'    ].setValue(resp.list[i].perfil);
-        this.personalForm.controls['proyecto'  ].setValue(resp.list[i].codigo_proyecto);
-        this.personalForm.controls['codProy'   ].setValue(resp.list[i].id_codigo_proyecto);
-        this.personalForm.controls['descProy'  ].setValue(resp.list[i].proyecto_descripcion);
-
-        this.personalForm.controls['estado'].setValue(resp.list[i].estado);
-
-        if (resp.list[i].fecha_ingreso) {
-          let fechaIngr = resp.list[i].fecha_ingreso
+        if (this.DATA_PERSONAL.fecha_ingreso) {
+          let fechaIngr = this.DATA_PERSONAL.fecha_ingreso
           const str   = fechaIngr.split('/');
           const year  = Number(str[2]);
           const month = Number(str[1]);
@@ -147,17 +138,15 @@ export class ActualizarPersonalComponent implements OnInit {
           this.personalForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
 
-        if (resp.list[i].fecha_nacimiento) {
-          let fechaNac = resp.list[i].fecha_nacimiento
+        if (this.DATA_PERSONAL.fecha_nacimiento) {
+          let fechaNac = this.DATA_PERSONAL.fecha_nacimiento
           const str   = fechaNac.split('/');
           const year  = Number(str[2]);
           const month = Number(str[1]);
           const date  = Number(str[0]);
           this.personalForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
-      }
       this.spinner.hide();
-    })
   }
 
   desasignarRecurso(idRecurso: number){
@@ -256,8 +245,8 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro: any[] = [{queryId: 1}];
 
     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp;
-            // console.log('COD_PROY', resp);
+            this.listProyectos = resp.list;
+            console.log('ID_PROYECTOS', resp.list);
     });
   };
 

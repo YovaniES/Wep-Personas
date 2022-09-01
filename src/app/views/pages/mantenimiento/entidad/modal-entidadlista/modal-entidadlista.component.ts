@@ -56,9 +56,7 @@ export class ModalEntidadlistaComponent implements OnInit {
     }
   }
 
-  actualizarListaEntidad(){
-
-  }
+  actualizarListaEntidad(){}
 
   crearEntidadLista() {
     this.spinner.show();

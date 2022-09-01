@@ -310,7 +310,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     let parametro: any[] = [{queryId: 1}];
 
     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp;
+            this.listProyectos = resp.list;
             // console.log('COD_PROY', resp);
     });
   };
@@ -408,5 +408,3 @@ export class ActualizarLiquidacionComponent implements OnInit {
   };
 
 }
-
-

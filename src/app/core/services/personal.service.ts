@@ -92,17 +92,7 @@ export class PersonalService {
   };
 
   getListProyectos(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((proyectos: any) => {
-        return proyectos.list.map((p: any) => {
-          return {
-            id          : p.id,
-            codigo      : p.codigo,
-            descripcion : p.descripcion
-          }
-        })
-      })
-    );
+    return this.http.post(API_PERSONAS, obj);
   };
 
   getListPerfiles(obj: any){
@@ -257,6 +247,10 @@ export class PersonalService {
   }
 
   actualizarLiquidacion(obj: any){
+    return this.http.post(API_PERSONAS, obj);
+  }
+
+  actualizacionMasiva(obj: any){
     return this.http.post(API_PERSONAS, obj);
   }
 

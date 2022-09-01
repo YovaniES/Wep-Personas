@@ -11,6 +11,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgregarVentadeclaradaComponent } from './liquidacion/actualizar-liquidacion/agregar-ventadeclarada/agregar-ventadeclarada.component';
 import { LiquidacionComponent } from './liquidacion/liquidacion.component';
 import { AgregarCertificacionComponent } from './liquidacion/actualizar-liquidacion/agregar-certificacion/agregar-certificacion.component';
+import { ActualizacionMasivaComponent } from './liquidacion/actualizacion-masiva/actualizacion-masiva.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AgregarCertificacionComponent } from './liquidacion/actualizar-liquidac
     ActualizarLiquidacionComponent,
     AgregarVentadeclaradaComponent,
     LiquidacionComponent,
-    AgregarCertificacionComponent
+    AgregarCertificacionComponent,
+    ActualizacionMasivaComponent
   ],
   imports: [
     CommonModule,
