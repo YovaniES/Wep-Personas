@@ -4,7 +4,8 @@
   bottom: 0;
   left: 0;
   z-index: 50;
-  background-color: #24344b;
+  background-color: #242a33;
+  // background-color: #24344b;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -64,7 +65,7 @@
 .menu-link {
   padding: 9px 25px;
   cursor: pointer;
-  min-height: 44px;
+  min-height: 40px;
   display: flex;
   flex-grow: 1;
   align-items: stretch;
@@ -72,29 +73,39 @@
   text-decoration: none;
   position: relative;
   transition: 0.3s ease;
-  background-color: #24344b;
+  background-color: #242a33;
+  // background-color: #24344b;
   color: #fff;
 }
 .menu-link:hover {
   text-decoration: none;
-  background-color: #f8f9fa;
-  color: rgb(63, 63, 63);
+  // background-color: #bebebe; // se deshabilita prueba
+  color: #00ddff;
+  // color: rgb(63, 63, 63);
 }
 .active-link {
   color: #011821 !important;
-  background-color: #f2f4ff;
-  border-right: 4px #03fff2 solid;
+  background: #f2f4ff;
+  border-right: 4px #0daef4 solid;
+  font-weight: 600;
+  // border-right: 4px #03fff2 solid;
 }
 
 .active-sublink {
-  background-color: #c2c3c92e;
-  border-right: 4px #03fff2 solid;
-  color: #03fff2 !important;
+  background-color: #e9edf21a;
+  // background-color: #c2c3c92e;
+  // border-right: 4px #03fff2 solid;
+  border-right: 4px #00d4ff solid;
+  color: #00d4ff !important;
+  // color: #03fff2 !important;
 }
 
 .menu-link-open {
-  background-color: #43b6f7;
+  background-color: #0daef4;
   color: #fff;
+
+  border-radius: 6px;
+
 }
 .menu-icon {
   flex: 0 0 35px;
@@ -114,7 +125,7 @@
 .menu-link span,
 .submenu-link span {
   font-weight: 300;
-  font-size: 15px;
+  font-size: 13.5px;
   text-transform: none;
   display: flex;
   align-items: center;
@@ -125,7 +136,13 @@
 .sub-menu {
   max-height: 0px;
   overflow: hidden;
-  background: #3c3949;
+  // background: #f2f4ff;
+  background: #3b414ab5;
+
+
+
+
+  // background: #3c3949;
   flex-grow: 1;
   flex-direction: column;
   transition: 0.3s ease;
@@ -143,7 +160,8 @@
 
 .submenu-link {
   padding: 4px 25px 4px 40px;
-  color: #fff;
+  color: #ffffff99;
+  // color: #fff;
   cursor: pointer;
   min-height: 44px;
   display: flex;
@@ -155,14 +173,15 @@
   transition: 0.3s ease;
 }
 .submenu-link:hover {
-  color: #303030;
+  color: #0daef4;
+  // color: #303030;
   text-decoration: none;
-  background-color: #f8f9fa;
+  // background-color: #f8faf8;
 }
 
 .submenu-icon {
   text-align: left;
-  flex: 0 0 35px;
+  flex: 0 0 30px;
 }
 .aside-divider {
   width: 80%;
@@ -182,6 +201,10 @@
 
 .cli-menu-item:hover .aside-hover-menu {
   display: block;
+}
+
+.material-icons{
+  font-size: 18px;
 }
 
 @include mobile {

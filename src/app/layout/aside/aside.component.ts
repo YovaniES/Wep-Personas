@@ -11,7 +11,7 @@ export class AsideComponent implements OnInit {
     {
       id: 1,
       code: 'MAN',
-      text: 'Gestión Personal',
+      text: 'GESTIÓN PERSONAL',
       order: 1,
       icon: 'people',
       type: 'PAREN',
@@ -59,7 +59,7 @@ export class AsideComponent implements OnInit {
     {
       id: 2,
       code: 'HER',
-      text: 'Mantenimiento',
+      text: 'MANTENIMIENTO',
       order: 1,
       icon: 'settings_suggest',
       type: 'PAREN',
@@ -85,7 +85,7 @@ export class AsideComponent implements OnInit {
     {
       id: 3,
       code: 'HER',
-      text: 'Facturación',
+      text: 'FACTURACIÓN',
       order: 1,
       icon: 'currency_exchange',
       type: 'PAREN',
