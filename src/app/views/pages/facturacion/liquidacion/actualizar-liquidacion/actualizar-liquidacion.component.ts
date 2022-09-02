@@ -19,7 +19,6 @@ import { AgregarVentadeclaradaComponent } from './agregar-ventadeclarada/agregar
 export class ActualizarLiquidacionComponent implements OnInit {
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
-  importTotal: number = 0;
 
   userID: number = 0;
   facturaForm!: FormGroup;
@@ -349,12 +348,14 @@ export class ActualizarLiquidacionComponent implements OnInit {
     })
   }
 
+  importTotal: number = 0;
   obtenerImporteTotal(): number{
     this.importTotal = 0;
 
     this.listFactura.map(factura => {
       this.importTotal = this.importTotal + factura.importe
       })
+
     return this.importTotal;
   }
 

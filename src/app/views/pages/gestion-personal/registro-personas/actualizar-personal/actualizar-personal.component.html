@@ -89,11 +89,19 @@
                 formControlName="codCorp"/>
             </div>
 
-            <div class="col-sm-4 cli-form-element">
+            <div class="col-sm-2 cli-form-element">
               <label>Cód. Perfil</label>
               <select class="cli-input-white" formControlName="codPerfil">
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="perfil.id" *ngFor="let perfil of listPerfiles">{{ perfil.nombre }}</option>
+              </select>
+            </div>
+
+            <div class="col-sm-2 cli-form-element">
+              <label>Cód. Proyecto</label>
+              <select class="cli-input-white" formControlName="id_proyecto">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="cod.id_proyecto" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
               </select>
             </div>
 
@@ -108,13 +116,6 @@
               </div>
             </div>
 
-            <div class="col-sm-4 cli-form-element">
-              <label>Cód. Proyecto</label>
-              <select class="cli-input-white" formControlName="id_proyecto">
-                <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="cod.id_proyecto" *ngFor="let cod of listProyectos">{{ cod.codigo }}</option>
-              </select>
-            </div>
           </div>
         </div>
       </div>

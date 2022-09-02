@@ -11,7 +11,7 @@
 <form class="row g-3" [formGroup]="facturaForm">
   <div class="cli-form newvac-wrapper">
     <div class="row g-3">
-      <div class="col-sm-6 cli-form-element">
+      <div class="col-sm-12 cli-form-element">
         <label>Proyecto *</label>
         <select class="cli-input-white" formControlName="id_proyecto">
           <option [value]="0" disabled>- Seleccione -</option>
@@ -20,7 +20,7 @@
         <small class="form-text text-alert" *ngIf="campoNoValido('id_proyecto')">* Seleccione el Proyecto es obligatorio</small>
       </div>
 
-      <div class="col-sm-6 cli-form-element">
+      <div class="col-sm-12 cli-form-element">
         <label class="form-label">Estado *</label>
               <select class="cli-input-white" formControlName="id_estado">
           <option [value]="0" disabled>-Seleccione-</option>
@@ -29,7 +29,7 @@
         <small class="form-text text-alert" *ngIf="campoNoValido('id_estado')">* Seleccione el Estado es obligatorio</small>
       </div>
 
-      <div class="col-sm-6 cli-form-element">
+      <div class="col-sm-12 cli-form-element">
         <div class="form-group">
           <label>Fecha Periodo *</label>
            <input
@@ -43,7 +43,7 @@
     </div>
 
     <!-- --------------------------------------------BOTONES ------------------------------------------>
-    <div class="cli-form-buttons" style="margin-top: 8%">
+    <div class="cli-form-buttons" style="margin-top: 12%">
       <button class="cli-btn btn-m btn-cancel"
               type="submit" (click)="close()">
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar

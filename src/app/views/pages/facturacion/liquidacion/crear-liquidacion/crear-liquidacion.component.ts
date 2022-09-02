@@ -46,6 +46,7 @@ export class CrearLiquidacionComponent implements OnInit {
      venta_declarada     : ['',[Validators.required]],
      fechaPeriodo        : ['',[Validators.required]],
      id_estado           : [ 177,[Validators.required]],
+    //  id_estado           : ['',[Validators.required]],
      orden_compra        : [''],
      certificacion       : [''],
      factura             : [''],
@@ -57,8 +58,6 @@ export class CrearLiquidacionComponent implements OnInit {
 
   crearLiquidacion() {
     this.spinner.show();
-    let currentUser = this.authService.getUsername();
-
     const formValues = this.facturaForm.getRawValue();
 
     let parametro: any =  {
@@ -90,16 +89,16 @@ export class CrearLiquidacionComponent implements OnInit {
      console.log('VAOR', this.facturaForm.value , parametro);
     this.personalService.crearLiquidacion(parametro).subscribe((resp: any) => {
       Swal.fire({
-        title: 'Crear Factura!',
-        text: `La Liquidación: ${formValues.id_liquidacion},fue creado con éxito`,
-        icon: 'success',
+        title: 'Crear liquidación!',
+        text : `La Liquidación, fue creado con éxito`,
+        // text : `La Liquidación: ${formValues.id_liquidacion},fue creado con éxito`,
+        icon : 'success',
         confirmButtonText: 'Ok',
       });
       this.close(true);
     });
     this.spinner.hide();
   }
-
 
   getUserID(){
     this.authService.getCurrentUser().subscribe( resp => {
@@ -142,8 +141,8 @@ export class CrearLiquidacionComponent implements OnInit {
     let parametro: any[] = [{queryId: 1}];
 
     this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp;
-            console.log('COD_PROY', resp);
+            this.listProyectos = resp.list;
+            console.log('COD_PROY', resp.list);
     });
   };
 

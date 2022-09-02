@@ -134,7 +134,7 @@ export class LiquidacionComponent implements OnInit {
   getListGestores(){
     let arrayParametro: any[] = [{queryId: 102}];
 
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+    this.personalService.getListGestores(arrayParametro[0]).subscribe((resp: any) => {
             this.listGestores = resp.list;
             console.log('GESTORES', resp);
     });
@@ -194,7 +194,7 @@ export class LiquidacionComponent implements OnInit {
   }
 
   actualizacionMasiva(){
-    const dialogRef = this.dialog.open(ActualizacionMasivaComponent, {width:'35%', });
+    const dialogRef = this.dialog.open(ActualizacionMasivaComponent, {width:'20%', });
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {

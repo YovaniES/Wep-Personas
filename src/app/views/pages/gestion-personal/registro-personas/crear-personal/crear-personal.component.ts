@@ -81,8 +81,8 @@ export class CrearPersonalComponent implements OnInit {
      console.log('VAOR', this.personalForm.value , parametro);
     this.personalService.crearPersonal(parametro).subscribe((resp: any) => {
       Swal.fire({
-        title: 'Crear Personal!',
-        text: `Personal: ${formValues.nombre+ ' '+ formValues.apMaterno}, creado con éxito`,
+        title: 'Crear personal!',
+        text: `Personal: ${formValues.nombre+ ' '+ formValues.apMaterno + ' '+ formValues.apMaterno}, creado con éxito`,
         icon: 'success',
         confirmButtonText: 'Ok',
       });

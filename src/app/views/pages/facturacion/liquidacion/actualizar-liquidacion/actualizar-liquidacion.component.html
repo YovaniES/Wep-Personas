@@ -148,7 +148,8 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{ vd.periodo }}</td>
                       <td style="font-weight: 600">{{ vd.venta_declarada }}</td>
-                      <td class="fact-saldo">{{ vd.venta_declarada - importTotal }}</td>
+                      <!-- <td class="fact-saldo">{{ saldo }}</td> -->
+                      <td class="fact-saldo">{{ (vd.venta_declarada - importTotal).toFixed(2) }}</td>
                       <!-- <td>{{ vd.comentario | firstCapital}}</td> -->
                     </tr>
                   </tbody>
