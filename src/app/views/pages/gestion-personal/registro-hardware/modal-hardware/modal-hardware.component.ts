@@ -81,7 +81,7 @@ export class ModalHardwareComponent implements OnInit {
         },
       };
 
-     console.log('VAOR', this.hardwareForm.value , parametro);
+    //  console.log('VAOR', this.hardwareForm.value , parametro);
     this.personalService.crearOactualizarHardware(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear Hardware!',
@@ -160,7 +160,7 @@ export class ModalHardwareComponent implements OnInit {
 
     this.personalService.getHistoricoHarwareByPersonal(parametro[0]).subscribe((resp: any) => {
       this.histHardareByPersonal = resp.list;
-      console.log('ListHistHARDWARE', resp.list)
+      // console.log('ListHistHARDWARE', resp.list)
     });
     this.spinner.hide();
   }
@@ -187,7 +187,7 @@ export class ModalHardwareComponent implements OnInit {
   getUsuario(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
-      console.log('ID-USER', this.userID);
+      // console.log('ID-USER', this.userID);
     })
    }
 
@@ -195,8 +195,8 @@ export class ModalHardwareComponent implements OnInit {
    getListTiposHardware(){
      let arrayParametro: any[] = [{queryId: 32}];
 
-     this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp) => {
-       this.listTipos = resp;
+     this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp: any) => {
+       this.listTipos = resp.list;
      });
    }
 
@@ -204,13 +204,12 @@ export class ModalHardwareComponent implements OnInit {
    getListMarcaHardware(){
      let arrayParametro: any[] = [{ queryId: 33 }];
 
-     this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp) => {
-       this.listMarca = resp;
+     this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp: any) => {
+       this.listMarca = resp.list;
      });
    }
 
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 }

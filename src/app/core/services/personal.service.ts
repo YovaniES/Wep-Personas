@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { API_PERSONAS } from '../constants/url.constants';
+import { API_DYNAMO } from '../constants/url.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -9,308 +8,131 @@ import { API_PERSONAS } from '../constants/url.constants';
 export class PersonalService {
   constructor(private http: HttpClient) {}
 
-  getListTiposHardware(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((marca: any) => {
-        return marca.list.map((m: any) => {
-          return {
-            id         : m.id,
-            nombre     : m.nombre,
-            descripcion: m.descripcion
-          }
-        })
-      })
-    )
+  getListTiposHardware(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  getListMarcaHardware(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((marca: any) => {
-        return marca.list.map((m: any) => {
-          return {
-            id         : m.id,
-            nombre     : m.nombre,
-            descripcion: m.descripcion
-          }
-        })
-      })
-    )
-  };
-
-  getListEstados(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  };
-
-  getListGestores(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  };
-
-  getListLiquidaciones(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  };
-
-  crearOactualizarHardware(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  getListMarcaHardware(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  crearOactualizarCuenta(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  };
-
-  crearEntidadLista(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+  crearOactualizarHardware(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  actualizarTablaEntidad(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  agregarEntidadTabla(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  }
   crearPersonal(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  crearLiquidacion(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+  getListTiposCuentas(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  // Listado de TIPOS
-  getListTiposCuentas(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((tipo: any) => {
-        return tipo.list.map((t: any) => {
-          return {
-            id          : t.id,
-            nombre      : t.nombre,
-            descripcion : t.descripcion
-          }
-        })
-      })
-    );
-  };
-
-  getListProyectos(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  };
-
-  getListPerfiles(obj: any){
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((perfil: any) => {
-        return perfil.list.map((p: any) => {
-          return {
-            id          : p.id,
-            nombre      : p.nombre,
-            descripcion : p.descripcion
-          }
-        })
-      })
-    );
-  };
-
-  getDescPerfil(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  getListProyectos(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  getDescProy(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  getListPerfiles(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  getListEntidades(obj: any){
-    return this.http.post(API_PERSONAS, obj)
-  };
-
-  getListTotalTablas(obj: any) {
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((tablas: any) => {
-        return tablas.list.map((t: any) => {
-          return {
-            id         : t.id,
-            nombre     : t.nombre,
-            descripcion: t.descripcion,
-            idPadre    : t.idPadre,
-          };
-        });
-      })
-    );
+  getDescPerfil(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  ListaHardwareAsignado(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  getDescProy(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  ListaCuentaAsignado(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  ListaHardwareAsignado(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  asignarRecurso(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  ListaCuentaAsignado(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  desasignarRecurso(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  asignarRecurso(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
+  }
+
+  desasignarRecurso(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
   cargarOBuscarcuentas(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+    return this.http.post(API_DYNAMO, obj);
   }
 
   cargarOBuscarHardware(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+    return this.http.post(API_DYNAMO, obj);
   }
 
   cargarOBuscarPersonal(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+    return this.http.post(API_DYNAMO, obj);
   }
 
   cargarOBuscarHardwareDisponible(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  cargarOBuscarCuentaDisponible(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  cargarOBuscarEntidades(id: any) {
-    return this.http.post(API_PERSONAS, id);
-  };
-
-  cargarOBuscarLiquidacion(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  agregarVentaDeclarada(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  agregarCertificacion(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  cargarVentaDeclarada(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  cargarVentaDeclaradaById(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  cargarFactura(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  getListEstadosFacturacion(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  cargarOBuscarCuentaDisponible(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
   getHistoricoCambiosProyecto(obj: any) {
-    return this.http.post(API_PERSONAS, obj).pipe(
-      map((histCamb: any) => {
-        return histCamb.list.map( (historico: any) => {
-          return {
-            id_persona                : historico.id_persona,
-            id_proyecto               : historico.id_proyecto,
-            proyecto_codigo           : historico.proyecto_codigo,
-            proyecto_descripcion      : historico.proyecto_descripcion,
-            fecha_asignacion          : historico.fecha_asignacion,
-            id_usuario_asignacion     : historico.id_usuario_asignacion,
-            nombre_usuario_asignacion : historico.nombre_usuario_asignacion,
-          }
-        })
-      })
-    );
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  getHistoricoHarwareByPersonal(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  getHistoricoCambiosEstado(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  agregarFacturaCambios(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+  getHistoricoHarwareByPersonal(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
   actualizarCuenta(obj: any) {
-    return this.http.post(API_PERSONAS, obj);
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  actualizarHardware(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  actualizarHardware(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  actualizarPersonal(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  actualizarLiquidacion(obj: any){
-    return this.http.post(API_PERSONAS, obj);
-  }
-
-  actualizacionMasiva(obj: any){
-    return this.http.post(API_PERSONAS, obj);
+  actualizarPersonal(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 
   eliminarCuenta(id: number) {
-    return this.http.post(API_PERSONAS, id);
+    return this.http.post(API_DYNAMO, id);
   }
 
   eliminarHardware(id: number) {
-    return this.http.post(API_PERSONAS, id);
-  }
-
-  eliminarEntidad(id: number){
-    return this.http.post(API_PERSONAS, id);
+    return this.http.post(API_DYNAMO, id);
   }
 
   eliminarPersonal(id: number) {
-    return this.http.post(API_PERSONAS, id);
+    return this.http.post(API_DYNAMO, id);
   }
 
   darBajaOaltaPersonal(id: number) {
-    return this.http.post(API_PERSONAS, id);
+    return this.http.post(API_DYNAMO, id);
   }
 
-  bajaOaltaAlPersonal(id: number){
-    return this.http.post(API_PERSONAS, id);
-  }
-
-  eliminarLiquidacion(id: number) {
-    return this.http.post(API_PERSONAS, id);
+  bajaOaltaAlPersonal(id: number) {
+    return this.http.post(API_DYNAMO, id);
   }
 
   cargarCuentasById(obj: any) {
-    return this.http.post(API_PERSONAS, obj)
-  };
+    return this.http.post(API_DYNAMO, obj);
+  }
 
   cargarPersonalById(obj: any) {
-    return this.http.post(API_PERSONAS, obj)
-  };
+    return this.http.post(API_DYNAMO, obj);
+  }
 
   cargarHardwareById(obj: any) {
-    return this.http.post(API_PERSONAS, obj)
+    return this.http.post(API_DYNAMO, obj);
   }
 
-  cargarFacturaById(obj: any) {
-    return this.http.post(API_PERSONAS, obj)
-  };
-
-  actualizarVentaDeclarada(obj: any){
-    return this.http.post(API_PERSONAS, obj)
-  };
-
-  actualizarCertificacion(obj: any){
-    return this.http.post(API_PERSONAS, obj)
-  }
-
-  eliminarVentaDeclarada(obj: any){
-    return this.http.post(API_PERSONAS, obj)
-  }
-
-  eliminaFactura(obj: any){
-    return this.http.post(API_PERSONAS, obj)
+  crearOactualizarCuenta(obj: any) {
+    return this.http.post(API_DYNAMO, obj);
   }
 }

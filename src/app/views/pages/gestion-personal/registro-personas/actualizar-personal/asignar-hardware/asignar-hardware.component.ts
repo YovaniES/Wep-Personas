@@ -36,7 +36,7 @@ export class AsignarHardwareComponent implements OnInit {
     this.cargarOBuscarHardwareDisponible();
     this.getListMarcaHardware();
     this.getListTiposHardware();
-    console.log('ID_PERSON_REC', this.DATA_PERSONA);
+    // console.log('ID_PERSON_REC', this.DATA_PERSONA);
   }
 
   newFilfroForm(){
@@ -71,7 +71,7 @@ export class AsignarHardwareComponent implements OnInit {
     this.personalService.cargarOBuscarHardwareDisponible(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Hardware-disp', resp, resp.list.length);
+    //  console.log('Lista-Hardware-disp', resp, resp.list.length);
       this.listaHardwareDisp = [];
       this.listaHardwareDisp = resp.list;
 
@@ -123,8 +123,8 @@ export class AsignarHardwareComponent implements OnInit {
   getListTiposHardware(){
     let arrayParametro: any[] = [{queryId: 32}];
 
-    this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp) => {
-      this.listTipos = resp;
+    this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp: any) => {
+      this.listTipos = resp.list;
     });
   }
 
@@ -132,8 +132,8 @@ export class AsignarHardwareComponent implements OnInit {
   getListMarcaHardware(){
     let arrayParametro: any[] = [{ queryId: 33 }];
 
-    this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp) => {
-      this.listMarca = resp;
+    this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp: any) => {
+      this.listMarca = resp.list;
     });
   }
 

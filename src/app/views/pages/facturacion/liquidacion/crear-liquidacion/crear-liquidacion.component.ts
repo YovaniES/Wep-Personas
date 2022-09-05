@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { FacturacionService } from 'src/app/core/services/facturacion.service';
 import { UtilService } from 'src/app/core/services/util.service';
 import Swal from 'sweetalert2';
 
@@ -18,7 +18,7 @@ export class CrearLiquidacionComponent implements OnInit {
   facturaForm!: FormGroup;
 
   constructor(
-    private personalService: PersonalService,
+    private facturacionService: FacturacionService,
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -31,7 +31,6 @@ export class CrearLiquidacionComponent implements OnInit {
     this.newForm();
     this.getListProyectos();
     this.getUserID();
-    // this.getListEstados();
     this.getListLiquidaciones();
     this.getListGestores();
   }
@@ -86,8 +85,8 @@ export class CrearLiquidacionComponent implements OnInit {
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: '',
         }};
-     console.log('VAOR', this.facturaForm.value , parametro);
-    this.personalService.crearLiquidacion(parametro).subscribe((resp: any) => {
+    //  console.log('VAOR', this.facturaForm.value , parametro);
+    this.facturacionService.crearLiquidacion(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Crear liquidación!',
         text : `La Liquidación, fue creado con éxito`,
@@ -103,36 +102,26 @@ export class CrearLiquidacionComponent implements OnInit {
   getUserID(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
-      console.log('ID-USER', this.userID);
+      // console.log('ID-USER', this.userID);
     })
    }
 
   listLiquidaciones: any[] = [];
   getListLiquidaciones(){
     let parametro: any[] = [{queryId: 82}];
-    this.personalService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
             this.listLiquidaciones = resp.list;
-            console.log('LIQUIDAC', resp);
+            // console.log('LIQUIDAC', resp);
     });
   }
-
-  // listEstados: any[] = [];
-  // getListEstados(){
-  //   let parametro: any[] = [{queryId: 101}];
-
-  //   this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
-  //           this.listEstados = resp.list;
-  //           console.log('EST-FACT', resp);
-  //   });
-  // }
 
   listGestores: any[] = [];
   getListGestores(){
     let arrayParametro: any[] = [{queryId: 102}];
 
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
             this.listGestores = resp.list;
-            console.log('GESTORES', resp);
+            // console.log('GESTORES', resp);
     });
   };
 
@@ -140,12 +129,11 @@ export class CrearLiquidacionComponent implements OnInit {
   getListProyectos(){
     let parametro: any[] = [{queryId: 1}];
 
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListProyectos(parametro[0]).subscribe((resp: any) => {
             this.listProyectos = resp.list;
-            console.log('COD_PROY', resp.list);
+            // console.log('COD_PROY', resp.list);
     });
   };
-
 
   campoNoValido(campo: string): boolean {
     if (this.facturaForm.get(campo)?.invalid && this.facturaForm.get(campo)?.touched ) {
@@ -158,5 +146,4 @@ export class CrearLiquidacionComponent implements OnInit {
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 }

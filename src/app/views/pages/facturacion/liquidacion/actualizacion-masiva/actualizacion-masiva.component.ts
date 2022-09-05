@@ -2,11 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UtilService } from 'src/app/core/services/util.service';
 import { DatePipe } from '@angular/common';
+import { FacturacionService } from 'src/app/core/services/facturacion.service';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class ActualizacionMasivaComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private personalService: PersonalService,
+    private facturacionService: FacturacionService,
     private fb: FormBuilder,
     private utilService: UtilService,
     public datePipe: DatePipe,
@@ -36,8 +36,7 @@ export class ActualizacionMasivaComponent implements OnInit {
     this.getUserID();
     this.getListProyectos();
 
-    console.log('DATA_LIQUI', this.DATA_LIQUID);
-
+    // console.log('DATA_LIQUI', this.DATA_LIQUID);
   }
 
   newForm(){
@@ -66,8 +65,8 @@ export class ActualizacionMasivaComponent implements OnInit {
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: '',
         }};
-     console.log('ACT. MASIVA', formValues , parametro);
-    this.personalService.actualizacionMasiva(parametro).subscribe((resp: any) => {
+    //  console.log('ACT. MASIVA', formValues , parametro);
+    this.facturacionService.actualizacionMasiva(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Actualización masiva!',
         text: `Los Proyectos cambiaron de Estado con éxito`,
@@ -83,7 +82,7 @@ export class ActualizacionMasivaComponent implements OnInit {
   getUserID(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
-      console.log('ID-USER', this.userID);
+      // console.log('ID-USER', this.userID);
     })
    }
 
@@ -91,7 +90,7 @@ export class ActualizacionMasivaComponent implements OnInit {
   getListEstados(){
     let parametro: any[] = [{queryId: 101}];
 
-    this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstados(parametro[0]).subscribe((resp: any) => {
             this.listEstados = resp.list;
             // console.log('EST-FACT', resp);
     });
@@ -101,7 +100,7 @@ export class ActualizacionMasivaComponent implements OnInit {
   getListProyectos(){
     let parametro: any[] = [{queryId: 1}];
 
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListProyectos(parametro[0]).subscribe((resp: any) => {
             this.listProyectos = resp.list;
             // console.log('COD_PROY', resp);
     });

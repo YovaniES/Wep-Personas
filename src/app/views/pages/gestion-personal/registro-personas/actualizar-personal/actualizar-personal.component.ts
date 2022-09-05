@@ -222,7 +222,7 @@ export class ActualizarPersonalComponent implements OnInit {
     this.personalService.ListaCuentaAsignado(parametro[0]).subscribe( (resp: any) => {
       this.listCuentaAsignado = resp.list;
       this.totalCuentaAsignado = resp.list.length;
-      console.log('CUENT-ASIG', resp.list, this.totalCuentaAsignado);
+      // console.log('CUENT-ASIG', resp.list, this.totalCuentaAsignado);
     })
   }
 
@@ -234,7 +234,7 @@ export class ActualizarPersonalComponent implements OnInit {
       }
     }];
     this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
-      this.histCambiosProyecto = resp;
+      this.histCambiosProyecto = resp.list;
       // console.log('ListHistCambID', resp)
     });
     this.spinner.hide();
@@ -254,9 +254,9 @@ export class ActualizarPersonalComponent implements OnInit {
   getListPerfiles(){
     let parametro: any[] = [{queryId: 10}];
 
-    this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
-            this.listPerfiles = resp;
-            // console.log('PERFILES', resp);
+    this.personalService.getListPerfiles(parametro[0]).subscribe((resp: any) => {
+            this.listPerfiles = resp.list;
+            // console.log('PERFILES', resp.list);
     });
   };
 

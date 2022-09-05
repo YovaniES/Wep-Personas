@@ -144,8 +144,8 @@ export class RegistroCuentaComponent implements OnInit {
   tipos: any[] = [];
   getListTiposCuentas() {
     let Parametro: any[] = [{ queryId: 40}];
-    this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp) => {
-      this.tipos = resp;
+    this.personalService.getListTiposCuentas(Parametro[0]).subscribe((resp: any) => {
+      this.tipos = resp.list;
       // console.log('TIPOS', resp);
     });
   }

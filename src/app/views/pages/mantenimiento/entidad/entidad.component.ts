@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { EntidadService } from 'src/app/core/services/entidad.service';
 import Swal from 'sweetalert2';
 import { ModalEntidadlistaComponent } from './modal-entidadlista/modal-entidadlista.component';
 import { ModalEntidadtablaComponent } from './modal-entidadtabla/modal-entidadtabla.component';
@@ -26,7 +26,7 @@ export class EntidadComponent implements OnInit {
   pageSize = 5;
 
   constructor(
-    private personalService: PersonalService,
+    private entidadService: EntidadService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -57,8 +57,7 @@ export class EntidadComponent implements OnInit {
     this.nombre  = evento.target["options"][evento.target["options"].selectedIndex].innerText;
     this.tablaEntidad = [];
 
-    console.log('NNOMBRE_ENT', this.nombre);
-
+    // console.log('NNOMBRE_ENT', this.nombre);
     this.cargarOBuscarEntidades(id);
   }
 
@@ -71,10 +70,10 @@ export class EntidadComponent implements OnInit {
       "queryId": 115,
       "mapValue": { param_id_tabla: idTabla }
     }];
-    this.personalService.cargarOBuscarEntidades(parametro[0]).subscribe((resp: any) => {
+    this.entidadService.cargarOBuscarEntidades(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('ID_TABLA_ENTIDAD', resp, resp.list, [resp.list.length]);
+    //  console.log('ID_TABLA_ENTIDAD', resp, resp.list, [resp.list.length]);
       this.listEntidadTabla = [];
       this.listEntidadTabla = resp.list;
     });
@@ -110,7 +109,7 @@ export class EntidadComponent implements OnInit {
         "CONFIG_OUT_MSG_EXITO":''
       }
     }];
-    this.personalService.eliminarEntidad(parametro[0]).subscribe((resp: any) => {
+    this.entidadService.eliminarEntidad(parametro[0]).subscribe((resp: any) => {
 
       if (resp && !resp.errorMessage) {
         Swal.fire({
@@ -133,7 +132,7 @@ export class EntidadComponent implements OnInit {
   getUserID(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
-      console.log('ID-USER', this.userID);
+      // console.log('ID-USER', this.userID);
     })
    }
 
@@ -143,8 +142,7 @@ export class EntidadComponent implements OnInit {
     this.spinner.show();
 
     if (this.totalfiltro != this.totalEntidad) {
-      this.personalService
-        .cargarOBuscarPersonal(offset.toString()).subscribe((resp: any) => {
+      this.entidadService.cargarOBuscarEntidades(offset.toString()).subscribe((resp: any) => {
           this.listEntidadTabla = resp.list;
           this.spinner.hide();
         });
@@ -159,13 +157,13 @@ export class EntidadComponent implements OnInit {
   getListEntidades(){
     let parametro: any[] = [{queryId: 47}];
 
-    this.personalService.getListEntidades(parametro[0]).subscribe((resp: any) => {
+    this.entidadService.getListEntidades(parametro[0]).subscribe((resp: any) => {
       this.listEntidad = resp.list;
 
-      console.log('List-Ent', this.listEntidad, this.listEntidad.length);
+      // console.log('List-Ent', this.listEntidad, this.listEntidad.length);
 
       this.nombreEntidad = resp.list.map((n:any) => n.id);
-      console.log('NAME_ENT',this.nombreEntidad);
+      // console.log('NAME_ENT',this.nombreEntidad);
 
     });
   }
@@ -191,7 +189,7 @@ export class EntidadComponent implements OnInit {
    }
 
    actualizarEntidadTabla(DATA: any) {
-    console.log('DATA_ENTIDAD',DATA);
+    // console.log('DATA_ENTIDAD',DATA);
     this.dialog
       .open(ModalEntidadtablaComponent, { width: '25%', data: DATA})
       .afterClosed().subscribe((resp) => {

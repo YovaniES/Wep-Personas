@@ -74,7 +74,7 @@ export class RegistroHardwareComponent implements OnInit {
     this.personalService.cargarOBuscarHardware(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Hardware', resp, resp.list.length);
+    //  console.log('Lista-Hardware', resp, resp.list.length);
       this.listaHardware = [];
       this.listaHardware = resp.list;
 
@@ -86,8 +86,8 @@ export class RegistroHardwareComponent implements OnInit {
   getListTiposHardware(){
     let arrayParametro: any[] = [{queryId: 32}];
 
-    this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp) => {
-      this.listTipos = resp;
+    this.personalService.getListTiposHardware(arrayParametro[0]).subscribe((resp: any) => {
+      this.listTipos = resp.list;
     });
   }
 
@@ -96,8 +96,8 @@ export class RegistroHardwareComponent implements OnInit {
   getListMarcaHardware(){
     let arrayParametro: any[] = [{ queryId: 33 }];
 
-    this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp) => {
-      this.listMarca = resp;
+    this.personalService.getListMarcaHardware(arrayParametro[0]).subscribe((resp: any) => {
+      this.listMarca = resp.list;
     });
   }
 
@@ -186,8 +186,7 @@ export class RegistroHardwareComponent implements OnInit {
   }
 
   actualizarHardware(DATA: any) {
-    console.log('DATA_HARDWARE', DATA);
-
+    // console.log('DATA_HARDWARE', DATA);
     this.dialog
       const dialogRef = this.dialog.open(ModalHardwareComponent, {width: '55%', data: DATA});
 
