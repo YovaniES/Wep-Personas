@@ -248,7 +248,7 @@ export class RegistroPersonalComponent implements OnInit {
   }
 
   actualizarPersonal(DATA: any) {
-    console.log('DATA_PERSONA_HC', DATA);
+    // console.log('DATA_PERSONA_HC', DATA);
 
     this.dialog
       .open(ActualizarPersonalComponent, {width: '55%', height: '90%', data: DATA})

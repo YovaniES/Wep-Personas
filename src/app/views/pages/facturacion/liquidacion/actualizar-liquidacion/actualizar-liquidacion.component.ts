@@ -5,7 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { FacturacionService } from 'src/app/core/services/facturacion.service';
 import { UtilService } from 'src/app/core/services/util.service';
 import Swal from 'sweetalert2';
 import { AgregarCertificacionComponent } from './agregar-certificacion/agregar-certificacion.component';
@@ -25,7 +25,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   factura_Id = this.DATA_LIQUID;
 
   constructor(
-    private personalService: PersonalService,
+    private facturacionService: FacturacionService,
     private authService: AuthService,
     private fb: FormBuilder,
     private utilService: UtilService,
@@ -49,7 +49,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.cargarVentaDeclarada();
     this.cargarFactura();
 
-    console.log('DATA_LIQUID', this.DATA_LIQUID);
+    // console.log('DATA_LIQUID', this.DATA_LIQUID);
     this.facturaForm.controls['id_factura'].setValue(this.DATA_LIQUID);
   }
 
@@ -111,8 +111,8 @@ export class ActualizarLiquidacionComponent implements OnInit {
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: '',
         }};
-     console.log('VAOR', formValues , parametro);
-    this.personalService.actualizarLiquidacion(parametro).subscribe((resp: any) => {
+    //  console.log('VAOR', formValues , parametro);
+    this.facturacionService.actualizarLiquidacion(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Actualizar Factura!',
         text: `La Factura: ${this.DATA_LIQUID}, ha sido actualizado con éxito`,
@@ -134,9 +134,9 @@ export class ActualizarLiquidacionComponent implements OnInit {
       mapValue: {'param_id_factura': this.DATA_LIQUID}
     }];
 
-    this.personalService.cargarFacturaById(parametro[0]).subscribe( (resp: any) => {
+    this.facturacionService.cargarFacturaById(parametro[0]).subscribe( (resp: any) => {
 
-      console.log('LISTA-EDITAR_BY_ID', resp );
+      // console.log('LISTA-EDITAR_BY_ID', resp );
       for (let i = 0; i < resp.list.length; i++) {
         this.facturaForm.controls['id_liquidacion' ].setValue(resp.list[i].id_liquidacion);
         this.facturaForm.controls['codProy'        ].setValue(resp.list[i].id_proyecto);
@@ -181,7 +181,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
 
-    this.personalService.eliminarVentaDeclarada(parametro[0]).subscribe(resp => {
+    this.facturacionService.eliminarVentaDeclarada(parametro[0]).subscribe(resp => {
       if (resp) {
         Swal.fire({
           title: 'Eliminar Venta declarada',
@@ -213,7 +213,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
 
-    this.personalService.eliminaFactura(parametro[0]).subscribe(resp => {
+    this.facturacionService.eliminaFactura(parametro[0]).subscribe(resp => {
       if (resp) {
         Swal.fire({
           title: 'Eliminar Factura',
@@ -247,7 +247,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
         }
       }];
       // console.log('EST', this.estadoInicial, this.iniciativaEditForm.value);
-      this.personalService.agregarFacturaCambios(parametro[0]).subscribe( resp => {
+      this.facturacionService.agregarFacturaCambios(parametro[0]).subscribe( resp => {
      })
     }
   }
@@ -261,9 +261,9 @@ export class ActualizarLiquidacionComponent implements OnInit {
       mapValue: {p_id: this.DATA_LIQUID}
     }];
 
-    this.personalService.getHistoricoCambiosEstado(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getHistoricoCambiosEstado(parametro[0]).subscribe((resp: any) => {
       this.histCambiosEstado = resp.list;
-      console.log('HistCambIDFact', resp.list)
+      // console.log('HistCambIDFact', resp.list)
     });
     this.spinner.hide();
   }
@@ -271,14 +271,14 @@ export class ActualizarLiquidacionComponent implements OnInit {
   getUserID(){
     this.authService.getCurrentUser().subscribe( resp => {
       this.userID   = resp.user.userId;
-      console.log('ID-USER', this.userID);
+      // console.log('ID-USER', this.userID);
     })
    }
 
   listLiquidaciones: any[] = [];
   getListLiquidaciones(){
     let parametro: any[] = [{queryId: 82}];
-    this.personalService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
             this.listLiquidaciones = resp.list;
             // console.log('LIQUIDAC', resp);
     });
@@ -288,7 +288,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   getListEstados(){
     let parametro: any[] = [{queryId: 101}];
 
-    this.personalService.getListEstados(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstados(parametro[0]).subscribe((resp: any) => {
             this.listEstados = resp.list;
             // console.log('EST-FACT', resp);
     });
@@ -298,7 +298,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   getListGestores(){
     let arrayParametro: any[] = [{queryId: 102}];
 
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
             this.listGestores = resp.list;
             // console.log('GESTORES', resp);
     });
@@ -308,7 +308,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   getListProyectos(){
     let parametro: any[] = [{queryId: 1}];
 
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListProyectos(parametro[0]).subscribe((resp: any) => {
             this.listProyectos = resp.list;
             // console.log('COD_PROY', resp);
     });
@@ -321,10 +321,10 @@ export class ActualizarLiquidacionComponent implements OnInit {
       "queryId": 112,
       "mapValue": { p_id : this.DATA_LIQUID }
     }];
-    this.personalService.cargarVentaDeclarada( parametro[0]).subscribe( (resp: any) => {
+    this.facturacionService.cargarVentaDeclarada( parametro[0]).subscribe( (resp: any) => {
       this.blockUI.stop();
 
-      console.log('List-VD', resp.list);
+      // console.log('List-VD', resp.list);
       this.listVentaDeclarada = resp.list;
 
       this.spinner.hide();
@@ -338,10 +338,10 @@ export class ActualizarLiquidacionComponent implements OnInit {
       "queryId": 71,
       "mapValue": { p_id : this.DATA_LIQUID }
     }];
-    this.personalService.cargarFactura( parametro[0]).subscribe( (resp: any) => {
+    this.facturacionService.cargarFactura( parametro[0]).subscribe( (resp: any) => {
       this.blockUI.stop();
 
-      console.log('List-F', resp.list);
+      // console.log('List-F', resp.list);
       this.listFactura = resp.list;
 
       this.spinner.hide();
@@ -375,8 +375,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   actualizarVentaDeclarada(DATA: any){
-    console.log('DATA_VD', DATA);
-
+    // console.log('DATA_VD', DATA);
     const dialogRef = this.dialog.open(AgregarVentadeclaradaComponent, { width:'25%', data: DATA });
 
     dialogRef.afterClosed().subscribe(resp => {
@@ -397,7 +396,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
   }
 
   actualizarFactura(DATA: any){
-    console.log('DATA_F', DATA);
+    // console.log('DATA_F', DATA);
     // const DATA = this.facturaForm.value
     const dialogRef = this.dialog.open(AgregarCertificacionComponent, { width:'35%', data: DATA});
 

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { FacturacionService } from 'src/app/core/services/facturacion.service';
 import { UtilService } from 'src/app/core/services/util.service';
 import { CrearPersonalComponent } from 'src/app/views/pages/gestion-personal/registro-personas/crear-personal/crear-personal.component';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
   ventaDeclaradaForm!: FormGroup;
 
   constructor(
-    private personalService: PersonalService,
+    private facturacionService: FacturacionService,
     private utilService: UtilService,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -78,7 +78,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
         },
       };
      console.log('VAOR_VD', this.ventaDeclaradaForm.value , parametro);
-    this.personalService.agregarVentaDeclarada(parametro).subscribe((resp: any) => {
+    this.facturacionService.agregarVentaDeclarada(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar Venta Declarada!',
         text : `La venta declarada: ${formValues.ventaDeclarada}, fue creado con éxito`,
@@ -108,7 +108,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO : "",
         },
       }];
-     this.personalService.actualizarVentaDeclarada(parametro[0]).subscribe({next: (res) => {
+     this.facturacionService.actualizarVentaDeclarada(parametro[0]).subscribe({next: (res) => {
         this.spinner.hide();
 
         this.close(true)

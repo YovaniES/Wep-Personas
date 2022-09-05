@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { EntidadService } from 'src/app/core/services/entidad.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +17,7 @@ export class ModalEntidadtablaComponent implements OnInit {
   entidadTablaForm!: FormGroup;
 
   constructor(
-    private personalService: PersonalService,
+    private entidadService: EntidadService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -30,7 +30,7 @@ export class ModalEntidadtablaComponent implements OnInit {
     this.getListEntidades();
     this.cargarTablaEntidadByID();
     // this.cargarOBuscarEntidades(1);
-    console.log('DATA_TABLA_E', this.DATA_ENTIDAD, this.DATA_ENTIDAD.eForm);
+    // console.log('DATA_TABLA_E', this.DATA_ENTIDAD, this.DATA_ENTIDAD.eForm);
   }
 
   newForm(){
@@ -76,7 +76,7 @@ export class ModalEntidadtablaComponent implements OnInit {
       };
 
      console.log('TABLA-ENT-AGREGADO', this.entidadTablaForm.value , parametro);
-    this.personalService.agregarEntidadTabla(parametro).subscribe((resp: any) => {
+    this.entidadService.agregarEntidadTabla(parametro).subscribe((resp: any) => {
 
       Swal.fire({
         title: 'Agregar Entidad!',
@@ -108,7 +108,7 @@ export class ModalEntidadtablaComponent implements OnInit {
         },
       }];
 
-    this.personalService.actualizarTablaEntidad(parametro[0]).subscribe( {next: (resp) => {
+    this.entidadService.actualizarTablaEntidad(parametro[0]).subscribe( {next: (resp) => {
       this.spinner.hide();
 
       this.cargarTablaEntidadByID();
@@ -147,10 +147,9 @@ export class ModalEntidadtablaComponent implements OnInit {
   getListEntidades(){
     let parametro: any[] = [{queryId: 47}];
 
-    this.personalService.getListEntidades(parametro[0]).subscribe((resp: any) => {
+    this.entidadService.getListEntidades(parametro[0]).subscribe((resp: any) => {
       this.listEntidad = resp.list;
-
-      console.log('List-Ent', this.listEntidad, this.listEntidad.length);
+      // console.log('List-Ent', this.listEntidad, this.listEntidad.length);
     });
   }
 
@@ -168,8 +167,6 @@ export class ModalEntidadtablaComponent implements OnInit {
       // console.log('ID-USER', this.userID);
     });
   }
-
-
 
   close(succes?: boolean) {
     this.dialogRef.close(succes);

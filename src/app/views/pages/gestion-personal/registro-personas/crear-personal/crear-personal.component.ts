@@ -111,9 +111,9 @@ export class CrearPersonalComponent implements OnInit {
   getListPerfiles(){
     let parametro: any[] = [{queryId: 10}];
 
-    this.personalService.getListPerfiles(parametro[0]).subscribe((resp) => {
-            this.listPerfiles = resp;
-            console.log('PERFILES', resp);
+    this.personalService.getListPerfiles(parametro[0]).subscribe((resp: any) => {
+            this.listPerfiles = resp.list;
+            // console.log('PERFILES', resp);
     });
   }
 

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { EntidadService } from 'src/app/core/services/entidad.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +17,7 @@ export class ModalEntidadlistaComponent implements OnInit {
   entidadForm!: FormGroup;
 
   constructor(
-    private personalService: PersonalService,
+    private entidadService: EntidadService,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
@@ -52,7 +52,6 @@ export class ModalEntidadlistaComponent implements OnInit {
   cargarListaEntidadByID(){
     if (this.DATA_ENTIDAD) {
       this.btnAction = 'Actualizar'
-
     }
   }
 
@@ -74,8 +73,8 @@ export class ModalEntidadlistaComponent implements OnInit {
         },
       };
 
-     console.log('LISTA-ENT-AGREGADO', this.entidadForm.value , parametro);
-    this.personalService.crearEntidadLista(parametro).subscribe((resp: any) => {
+    //  console.log('LISTA-ENT-AGREGADO', this.entidadForm.value , parametro);
+    this.entidadService.crearEntidadLista(parametro).subscribe((resp: any) => {
 
       Swal.fire({
         title: 'Crear lista Entidad!',
@@ -108,7 +107,7 @@ export class ModalEntidadlistaComponent implements OnInit {
   getListEntidades(){
     let arrayParametro: any[] = [{queryId: 47}];
 
-    this.personalService.getListEntidades(arrayParametro[0]).subscribe((resp: any) => {
+    this.entidadService.getListEntidades(arrayParametro[0]).subscribe((resp: any) => {
       this.listEntidad = resp.list;
     });
   }

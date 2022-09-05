@@ -33,11 +33,6 @@ const routes: Routes = [
         loadChildren: () => import ('./views/pages/facturacion/facturacion.module').then((m)=>m.FacturacionModule),
         canActivate: [ValidarTokenGuard],
       },
-      {
-        path:'evento',
-        loadChildren: () => import ('./views/pages/evento/evento.module').then((m)=>m.EventoModule),
-        canActivate: [ValidarTokenGuard],
-      },
       {path: '', redirectTo: 'home', pathMatch: 'full'},
       { path:'**', redirectTo:'/error/404' }
     ]

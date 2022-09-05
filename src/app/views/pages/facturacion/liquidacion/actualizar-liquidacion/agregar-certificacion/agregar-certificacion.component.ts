@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
+import { FacturacionService } from 'src/app/core/services/facturacion.service';
 import { CrearPersonalComponent } from 'src/app/views/pages/gestion-personal/registro-personas/crear-personal/crear-personal.component';
 import Swal from 'sweetalert2';
 
@@ -17,7 +17,7 @@ export class AgregarCertificacionComponent implements OnInit {
   facturaForm!: FormGroup;
 
   constructor(
-    private personalService: PersonalService,
+    private facturacionService: FacturacionService,
     private authService: AuthService,
     private fb: FormBuilder,
     public datePipe: DatePipe,
@@ -83,7 +83,7 @@ export class AgregarCertificacionComponent implements OnInit {
         },
       };
      console.log('VAOR_CERTIF', this.facturaForm.value , parametro);
-    this.personalService.agregarCertificacion(parametro).subscribe((resp: any) => {
+    this.facturacionService.agregarCertificacion(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar Factura!',
         text: `La Factura: ${formValues.factura}, fue agregado con éxito`,
@@ -118,7 +118,7 @@ export class AgregarCertificacionComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO    : ''
         },
       }];
-    this.personalService.actualizarCertificacion(parametro[0]).subscribe({next: (res) => {
+    this.facturacionService.actualizarCertificacion(parametro[0]).subscribe({next: (res) => {
         this.spinner.hide();
 
         this.close(true)
@@ -178,7 +178,7 @@ export class AgregarCertificacionComponent implements OnInit {
   getListEstadosFacturacion(){
     let parametro: any[] = [{queryId: 106}];
 
-    this.personalService.getListEstadosFacturacion(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstadosFacturacion(parametro[0]).subscribe((resp: any) => {
             this.listEstadosFacturacion = resp.list;
             console.log('EST-FACTX', resp);
     });

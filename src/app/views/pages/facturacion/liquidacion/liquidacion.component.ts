@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
-import { PersonalService } from 'src/app/core/services/personal.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
@@ -11,6 +10,7 @@ import { ExportExcellService } from 'src/app/core/services/export-excell.service
 import { CrearLiquidacionComponent } from '../liquidacion/crear-liquidacion/crear-liquidacion.component';
 import { ActualizarLiquidacionComponent } from '../liquidacion/actualizar-liquidacion/actualizar-liquidacion.component';
 import { ActualizacionMasivaComponent } from './actualizacion-masiva/actualizacion-masiva.component';
+import { FacturacionService } from 'src/app/core/services/facturacion.service';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class LiquidacionComponent implements OnInit {
   // pageSizes = [3, 6, 9];
 
   constructor(
-    private personalService: PersonalService,
+    private facturacionService: FacturacionService,
     private exportExcellService: ExportExcellService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -74,7 +74,7 @@ export class LiquidacionComponent implements OnInit {
           fin            : this.datepipe.transform(this.filtroForm.value.fechaRegistroFin,"yyyy/MM/dd"),
       }
     }];
-    this.personalService.cargarOBuscarLiquidacion(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.cargarOBuscarLiquidacion(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
      console.log('Lista-Liquidaciones', resp, resp.list.length);
@@ -105,7 +105,7 @@ export class LiquidacionComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((resp) => {
       if (resp.value) {
-        this.personalService.eliminarLiquidacion(parametro[0]).subscribe(resp => {
+        this.facturacionService.eliminarLiquidacion(parametro[0]).subscribe(resp => {
 
           this.cargarOBuscarLiquidacion();
 
@@ -124,9 +124,9 @@ export class LiquidacionComponent implements OnInit {
   getListEstados(){
     let arrayParametro: any[] = [{queryId: 101}];
 
-    this.personalService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
             this.listEstados = resp.list;
-            console.log('EST-FACT', resp);
+            // console.log('EST-FACT', resp);
     });
   }
 
@@ -134,9 +134,9 @@ export class LiquidacionComponent implements OnInit {
   getListGestores(){
     let arrayParametro: any[] = [{queryId: 102}];
 
-    this.personalService.getListGestores(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListGestores(arrayParametro[0]).subscribe((resp: any) => {
             this.listGestores = resp.list;
-            console.log('GESTORES', resp);
+            // console.log('GESTORES', resp);
     });
   };
 
@@ -144,18 +144,18 @@ export class LiquidacionComponent implements OnInit {
   getListProyectos(){
     let parametro: any[] = [{queryId: 1}];
 
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListProyectos(parametro[0]).subscribe((resp: any) => {
             this.listProyectos = resp.list;
-            console.log('COD_PROY', resp.list);
+            // console.log('COD_PROY', resp.list);
     });
   };
 
   listLiquidaciones: any[] = [];
   getListLiquidaciones(){
     let arrayParametro: any[] = [{queryId: 82}];
-    this.personalService.getListLiquidaciones(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListLiquidaciones(arrayParametro[0]).subscribe((resp: any) => {
             this.listLiquidaciones = resp.list;
-            console.log('LIQUIDAC', resp);
+            // console.log('LIQUIDAC', resp);
     });
   }
 
@@ -173,7 +173,7 @@ export class LiquidacionComponent implements OnInit {
     this.spinner.show();
 
     if (this.totalfiltro != this.totalFacturas) {
-      this.personalService.cargarOBuscarLiquidacion(offset.toString()).subscribe( (resp: any) => {
+      this.facturacionService.cargarOBuscarLiquidacion(offset.toString()).subscribe( (resp: any) => {
             this.listaLiquidacion = resp.list;
             this.spinner.hide();
           });
@@ -205,7 +205,7 @@ export class LiquidacionComponent implements OnInit {
 
 
   actualizarFactura(DATA: any) {
-    console.log('DATA_LIQUID', DATA);
+    // console.log('DATA_LIQUID', DATA);
 
     this.dialog
       .open(ActualizarLiquidacionComponent, { width: '70%', height: '95%', data: DATA })
