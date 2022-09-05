@@ -10,7 +10,7 @@ export class AsideComponent implements OnInit {
   menuList = [
     {
       id: 1,
-      code: 'MAN',
+      code: 'GES',
       text: 'GESTIÓN PERSONAL',
       order: 1,
       icon: 'people',
@@ -58,7 +58,7 @@ export class AsideComponent implements OnInit {
 
     {
       id: 2,
-      code: 'HER',
+      code: 'MAN',
       text: 'MANTENIMIENTO',
       order: 1,
       icon: 'settings_suggest',
@@ -84,7 +84,7 @@ export class AsideComponent implements OnInit {
 
     {
       id: 3,
-      code: 'HER',
+      code: 'FAC',
       text: 'FACTURACIÓN',
       order: 1,
       icon: 'currency_exchange',
@@ -107,6 +107,32 @@ export class AsideComponent implements OnInit {
         },
       ],
     },
+
+    // {
+    //   id: 4,
+    //   code: 'EVE',
+    //   text: 'EVENTO',
+    //   order: 1,
+    //   icon: 'timer',
+    //   type: 'PAREN',
+    //   link: 'evento',
+    //   enable: false,
+    //   module: 'administrador',
+    //   displayed: false,
+    //   submenus: [
+    //     {
+    //       code: 'PAS-001',
+    //       text: 'Lista Eventos',
+    //       order: 3,
+    //       icon: 'pending_actions',
+    //       type: 'PAREN',
+    //       link: 'evento/lista',
+    //       enable: false,
+    //       module: 'PAS',
+    //       displayed: false,
+    //     },
+    //   ],
+    // },
   ];
 
 
