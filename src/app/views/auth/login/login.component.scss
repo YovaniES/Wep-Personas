@@ -49,10 +49,6 @@
   margin-block: 10px;
 }
 
-// .c-male {
-//   color: #019df4;
-// }
-
 .cli-btn {
   border: none;
   border-radius: 4px;
@@ -105,10 +101,16 @@
   }
 }
 
-.alert-login{
+.alert-login {
   margin-top: -17px;
   font-size: 10px;
-  color:#ff1087
+  color: #ff1087;
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: none;
+  padding: .5px 5px;
 }
 
 @media (max-width: 850px) {

@@ -12,6 +12,7 @@ import { AgregarVentadeclaradaComponent } from './liquidacion/actualizar-liquida
 import { LiquidacionComponent } from './liquidacion/liquidacion.component';
 import { AgregarCertificacionComponent } from './liquidacion/actualizar-liquidacion/agregar-certificacion/agregar-certificacion.component';
 import { ActualizacionMasivaComponent } from './liquidacion/actualizacion-masiva/actualizacion-masiva.component';
+import { ReporteLiquidacionComponent } from './liquidacion/reporte-liquidacion/reporte-liquidacion.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ActualizacionMasivaComponent } from './liquidacion/actualizacion-masiva
     AgregarVentadeclaradaComponent,
     LiquidacionComponent,
     AgregarCertificacionComponent,
-    ActualizacionMasivaComponent
+    ActualizacionMasivaComponent,
+    ReporteLiquidacionComponent
   ],
   imports: [
     CommonModule,

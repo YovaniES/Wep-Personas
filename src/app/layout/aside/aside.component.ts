@@ -95,8 +95,8 @@ export class AsideComponent implements OnInit {
       displayed: false,
       submenus: [
         {
-          code: 'PAS-001',
-          text: 'Venta declarada',
+          code: 'FAC-001',
+          text: 'Liquidación',
           order: 3,
           icon: 'paid',
           type: 'PAREN',
@@ -105,34 +105,19 @@ export class AsideComponent implements OnInit {
           module: 'PAS',
           displayed: false,
         },
+        {
+          code: 'FAC-002',
+          text: 'Reporte',
+          order: 3,
+          icon: 'bar_chart',
+          type: 'PAREN',
+          link: 'facturacion/reporte',
+          enable: false,
+          module: 'PAS',
+          displayed: false,
+        }
       ],
     },
-
-    // {
-    //   id: 4,
-    //   code: 'EVE',
-    //   text: 'EVENTO',
-    //   order: 1,
-    //   icon: 'timer',
-    //   type: 'PAREN',
-    //   link: 'evento',
-    //   enable: false,
-    //   module: 'administrador',
-    //   displayed: false,
-    //   submenus: [
-    //     {
-    //       code: 'PAS-001',
-    //       text: 'Lista Eventos',
-    //       order: 3,
-    //       icon: 'pending_actions',
-    //       type: 'PAREN',
-    //       link: 'evento/lista',
-    //       enable: false,
-    //       module: 'PAS',
-    //       displayed: false,
-    //     },
-    //   ],
-    // },
   ];
 
 

@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --prod --aot --vendor-chunk --common-chunk --delete-output-path --buildOptimizer --outputHashing=bundles",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
