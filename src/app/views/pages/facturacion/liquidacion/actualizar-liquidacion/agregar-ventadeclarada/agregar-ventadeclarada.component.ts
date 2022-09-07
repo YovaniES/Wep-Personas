@@ -42,7 +42,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     //  ventaDeclarada : [this.DATA_LIQUID.vdForm.venta_declarada, [Validators.required]],
      ventaDeclarada : ['', [Validators.required]],
      periodo        : ['', [Validators.required]],
-     comentario     : ['', [Validators.required]],
+     comentario     : ['-',[Validators.required]],
      fechaCrea      : ['']
     })
    }
@@ -68,7 +68,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
         mapValue: {
           p_idFactura       : this.DATA_LIQUID.vdForm.id_factura,
           p_periodo         : this.utilService.generarPeriodo(formValues.periodo),
-          p_venta_declarada : this.DATA_LIQUID.vdForm.venta_declarada, //formValues.ventaDeclarada,
+          p_venta_declarada : formValues.ventaDeclarada, //this.DATA_LIQUID.vdForm.venta_declarada, //formValues.ventaDeclarada,
           p_comentario      : formValues.comentario,
           p_fecha_creacion  : '',
           p_usuario_creacion: this.userID,
@@ -99,6 +99,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
           p_idFactVenta        : this.DATA_LIQUID.idFactVenta,
           p_idFactura          : this.DATA_LIQUID.idFactura,
           p_periodo            : this.utilService.generarPeriodo(formValues.periodo) ,
+          // p_venta_declarada    : this.DATA_LIQUID.vdForm.venta_declarada,
           p_venta_declarada    : formValues.ventaDeclarada ,
           p_comentario         : formValues.comentario ,
           p_dFecha             : formValues.fechaCrea,

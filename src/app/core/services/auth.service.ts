@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
 import { Usuario } from '../interfaces/auth.interface';
-import { API_AUTH_SESSION } from '../constants/url.constants';
+import { AUTH_SESSION_B2B } from '../constants/url.constants';
 import { of } from 'rxjs';
 import { ROL_GESTOR, ROL_USUARIO } from '../constants/rol.constants';
 
@@ -16,14 +16,24 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(loginData: Usuario) {
-    return this.http.post<any>(API_AUTH_SESSION, loginData).pipe(
+  // login(loginData: Usuario) {
+  //   return this.http.post<any>(API_AUTH_SESSION, loginData).pipe(
+  //     tap((resp: any) => {
+  //       localStorage.setItem('token', resp.user.token);
+  //       localStorage.setItem('currentUser', JSON.stringify(resp));
+  //     })
+  //   );
+  // }
+
+  login_b2b(loginData: any) {
+    return this.http.post<any>(AUTH_SESSION_B2B, loginData).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.user.token);
         localStorage.setItem('currentUser', JSON.stringify(resp));
       })
     );
   }
+
 
   getRolID(){
     const decodedToken: any = this.decodeToken();
@@ -36,7 +46,8 @@ export class AuthService {
     if (!usuarioLogeado || usuarioLogeado.ROL_ID != ROL_USUARIO.rolID ) {
       return null
     } else {
-      return usuarioLogeado.name
+      // return usuarioLogeado.name
+      return usuarioLogeado.unique_name
     }
   }
 
@@ -62,15 +73,17 @@ export class AuthService {
     }
   }
 
+  // userName:"fjdioses"
   getUsername() {
     const decodedToken: any = this.decodeToken();
-    // console.log('ROL', decodedToken);
-    return decodedToken ? decodedToken.name : '';
+    // console.log('USER-TOKEN', decodedToken);
+    // return decodedToken ? decodedToken.name : '';
+    return decodedToken ? decodedToken.unique_name : '';
   }
 
   getCurrentUser() {
     const currentUser: any = localStorage.getItem('currentUser');
-    // console.log('USER-ACTUAL',JSON.parse(currentUser));
+    // console.log('USER-LOGUEADO',JSON.parse(currentUser));
     return of(currentUser ? JSON.parse(currentUser) : '');
   }
 

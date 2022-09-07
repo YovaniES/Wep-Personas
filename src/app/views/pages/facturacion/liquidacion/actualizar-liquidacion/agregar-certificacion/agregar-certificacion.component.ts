@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Usuario } from 'src/app/core/interfaces/auth.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FacturacionService } from 'src/app/core/services/facturacion.service';
 import { CrearPersonalComponent } from 'src/app/views/pages/gestion-personal/registro-personas/crear-personal/crear-personal.component';
@@ -40,9 +41,9 @@ export class AgregarCertificacionComponent implements OnInit {
      ordenCompra   : ['',[Validators.required]],
      importe       : ['',[Validators.required]],
      certificacion : ['',[Validators.required]],
-     estFactura    : [ '',[Validators.required]],
+     estFactura    : [182,[Validators.required]],
     //  estFactura    : [ 6,[Validators.required]],
-     factura       : ['F001-',[Validators.required]],
+     factura       : ['',[Validators.required]],
      fechaFact     : ['',[Validators.required]],
      comentario    : ['']
     })
@@ -195,5 +196,4 @@ export class AgregarCertificacionComponent implements OnInit {
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
-
 }
