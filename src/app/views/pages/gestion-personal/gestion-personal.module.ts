@@ -14,6 +14,9 @@ import { AsignarHardwareComponent } from './registro-personas/actualizar-persona
 import { AsignarCuentaComponent } from './registro-personas/actualizar-personal/asignar-cuenta/asignar-cuenta.component';
 import { ModalHardwareComponent } from './registro-hardware/modal-hardware/modal-hardware.component';
 import { ModalCuentaComponent } from './registro-cuenta/modal-cuenta/modal-cuenta.component';
+import { RegistroVacacionesComponent } from './registro-vacaciones/registro-vacaciones.component';
+import { ModalVacacionesComponent } from './registro-vacaciones/modal-vacaciones/modal-vacaciones.component';
+import { AsignarVacacionesComponent } from './registro-vacaciones/modal-vacaciones/asignar-vacaciones/asignar-vacaciones.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import { ModalCuentaComponent } from './registro-cuenta/modal-cuenta/modal-cuent
     AsignarHardwareComponent,
     AsignarCuentaComponent,
     ModalHardwareComponent,
-    ModalCuentaComponent
+    ModalCuentaComponent,
+    RegistroVacacionesComponent,
+    ModalVacacionesComponent,
+    AsignarVacacionesComponent
   ],
   imports: [
     GestionPersonalRoutingModule,

@@ -33,6 +33,17 @@ export class AsideComponent implements OnInit {
         },
         {
           code: 'MAN-002',
+          text: 'Registro vacaciones',
+          order: 20,
+          icon: 'surfing',
+          type: 'PAREN',
+          link: 'gestion/vacaciones',
+          enable: false,
+          module: 'MAN',
+          displayed: false,
+        },
+        {
+          code: 'MAN-003',
           text: 'Recurso Hardware',
           order: 20,
           icon: 'phonelink',
@@ -43,7 +54,7 @@ export class AsideComponent implements OnInit {
           displayed: false,
         },
         {
-          code: 'MAN-002',
+          code: 'MAN-004',
           text: 'Recurso Cuenta',
           order: 20,
           icon: 'lock_clock',

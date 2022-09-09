@@ -12,7 +12,6 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent  {
   loginForm: FormGroup = this.fb.group({
-    // idaplicacion: ['1'],
     username    : ['', [Validators.required]],
     password    : ['', [Validators.required, Validators.minLength(6)]],
   });
@@ -48,9 +47,9 @@ export class LoginComponent  {
     this.spinner.show();
 
     this.authService.login_b2b(this.loginForm.value).subscribe((resp: any) => {
-        this.spinner.hide();
 
-        if (resp) {
+      if (resp.user) {
+          this.spinner.hide();
           Swal.fire(
             "Inicio de Sesión",
             "Bienvenid@ <br />" + `${resp.user.nombres} ${resp.user.apellidoPaterno}`,

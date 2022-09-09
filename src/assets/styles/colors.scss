@@ -1,6 +1,7 @@
 /* GLOBAL COLORES*/
 .c-female {
   color: $color-magenta;
+  border: solid 0.5px $color-magenta;
 }
 .c-male {
   // color: $color-blue;
@@ -27,10 +28,17 @@
 }
 .c-indigo{
   color: #6f42c1;
+  // border: solid 0.5px #6f42c1;
+}
+
+.c-darkcyan{
+  color: #00bcd4;
+  border: solid 0.5px #00bcd4;
 }
 
 .c-cyan{
   color: #0dcaf0;
+  // border: solid 0.5px #0dcaf0;
 }
 
 .c-fucsia {

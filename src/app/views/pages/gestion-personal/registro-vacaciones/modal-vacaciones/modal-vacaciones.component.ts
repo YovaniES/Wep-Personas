@@ -6,46 +6,46 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
+import { VacacionesPersonalService } from 'src/app/core/services/vacaciones-personal.service';
 import Swal from 'sweetalert2';
-import { AsignarHardwareComponent } from './asignar-hardware/asignar-hardware.component';
-import { AsignarCuentaComponent } from './asignar-cuenta/asignar-cuenta.component';
+import { AsignarVacacionesComponent } from './asignar-vacaciones/asignar-vacaciones.component';
 
 @Component({
-  selector: 'app-actualizar-personas',
-  templateUrl: './actualizar-personal.component.html',
-  styleUrls: ['./actualizar-personal.component.scss']
+  selector: 'app-modal-vacaciones',
+  templateUrl: './modal-vacaciones.component.html',
+  styleUrls: ['./modal-vacaciones.component.scss']
 })
-export class ActualizarPersonalComponent implements OnInit {
+export class ModalVacacionesComponent implements OnInit {
+
   @BlockUI() blockUI!: NgBlockUI;
   loadingItem: boolean = false;
-  personalForm!: FormGroup;
+  vacacionesForm!: FormGroup;
 
   constructor(
     private personalService: PersonalService,
+    private vacacionesService: VacacionesPersonalService,
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<ActualizarPersonalComponent>,
-    @Inject(MAT_DIALOG_DATA) public DATA_PERSONAL: any
+    private dialogRef: MatDialogRef<ModalVacacionesComponent>,
+    @Inject(MAT_DIALOG_DATA) public DATA_VACACIONES: any
   ) { }
 
   ngOnInit(): void {
     this.newForm();
-    this.cargarPersonalById();
-    this.getListProyectos();
-    this.getListPerfiles();
-    this.getHistoricoCambiosProyecto(this.DATA_PERSONAL);
+    this.cargarVacacionesById();
+    this.getHistoricoCambiosProyecto(this.DATA_VACACIONES);
     this.getUsuario();
     this.ListaHardwareAsignado();
     this.ListaCuentaAsignado();
-    console.log('DATA_PERSONA', this.DATA_PERSONAL);
+    console.log('DATA_PERSONA', this.DATA_VACACIONES);
 
   }
 
     newForm(){
-      this.personalForm = this.fb.group({
+      this.vacacionesForm = this.fb.group({
        idPersonal     : [''],
        nombre         : ['', [Validators.required]],
        apPaterno      : [''],
@@ -73,10 +73,10 @@ export class ActualizarPersonalComponent implements OnInit {
     })
    };
 
-  actualizarPersonal(){
+  actualizarPersonalVacaciones(){
     this.spinner.show();
 
-    const formValues = this.personalForm.getRawValue();
+    const formValues = this.vacacionesForm.getRawValue();
     let parametro: any[] = [{
         queryId: 8,
         mapValue: {
@@ -97,66 +97,66 @@ export class ActualizarPersonalComponent implements OnInit {
           CONFIG_OUT_MSG_EXITO    : "",
         },
       }];
-    this.personalService.actualizarPersonal(parametro[0]).subscribe( resp => {
+    this.vacacionesService.actualizarPersonalVacaciones(parametro[0]).subscribe( resp => {
       this.spinner.hide();
       console.log('DATA_ACTUALIZADO', resp);
 
-      this.cargarPersonalById();
+      this.cargarVacacionesById();
       this.close(true)
 
       Swal.fire({
-        title: 'Actualizar Personal!',
-        text : `El Personal:  ${ formValues.nombre +' '+formValues.apPaterno }, fue actualizado con éxito`,
+        title: 'Actualizar Vacaciones!',
+        text : `La vacación:  ${ formValues.nombre +' '+formValues.apPaterno }, fue actualizado con éxito`,
         icon : 'success',
         confirmButtonText: 'Ok'
         })
     });
   };
 
-  cargarPersonalById(){
+  cargarVacacionesById(){
     this.spinner.show();
-        this.personalForm.controls['idPersonal' ].setValue(this.DATA_PERSONAL.id);
-        this.personalForm.controls['nombre'     ].setValue(this.DATA_PERSONAL.nombres);
-        this.personalForm.controls['apPaterno'  ].setValue(this.DATA_PERSONAL.apellido_paterno);
-        this.personalForm.controls['apMaterno'  ].setValue(this.DATA_PERSONAL.apellido_materno);
-        this.personalForm.controls['dni'        ].setValue(this.DATA_PERSONAL.dni);
-        this.personalForm.controls['correo'     ].setValue(this.DATA_PERSONAL.correo);
-        this.personalForm.controls['codCorp'    ].setValue(this.DATA_PERSONAL.codigo_corporativo);
-        this.personalForm.controls['codPerfil'  ].setValue(this.DATA_PERSONAL.id_perfil);
-        this.personalForm.controls['perfil'     ].setValue(this.DATA_PERSONAL.perfil);
-        this.personalForm.controls['proyecto'   ].setValue(this.DATA_PERSONAL.codigo_proyecto);
-        this.personalForm.controls['id_proyecto'].setValue(this.DATA_PERSONAL.id_proyecto);
-        this.personalForm.controls['descProy'   ].setValue(this.DATA_PERSONAL.proyecto_descripcion);
+        this.vacacionesForm.controls['idPersonal' ].setValue(this.DATA_VACACIONES.id);
+        this.vacacionesForm.controls['nombre'     ].setValue(this.DATA_VACACIONES.nombres);
+        this.vacacionesForm.controls['apPaterno'  ].setValue(this.DATA_VACACIONES.apellido_paterno);
+        this.vacacionesForm.controls['apMaterno'  ].setValue(this.DATA_VACACIONES.apellido_materno);
+        this.vacacionesForm.controls['dni'        ].setValue(this.DATA_VACACIONES.dni);
+        this.vacacionesForm.controls['correo'     ].setValue(this.DATA_VACACIONES.correo);
+        this.vacacionesForm.controls['codCorp'    ].setValue(this.DATA_VACACIONES.codigo_corporativo);
+        this.vacacionesForm.controls['codPerfil'  ].setValue(this.DATA_VACACIONES.id_perfil);
+        this.vacacionesForm.controls['perfil'     ].setValue(this.DATA_VACACIONES.perfil);
+        this.vacacionesForm.controls['proyecto'   ].setValue(this.DATA_VACACIONES.codigo_proyecto);
+        this.vacacionesForm.controls['id_proyecto'].setValue(this.DATA_VACACIONES.id_proyecto);
+        this.vacacionesForm.controls['descProy'   ].setValue(this.DATA_VACACIONES.proyecto_descripcion);
 
-        this.personalForm.controls['estado'].setValue(this.DATA_PERSONAL.estado);
+        this.vacacionesForm.controls['estado'].setValue(this.DATA_VACACIONES.estado);
 
-        if (this.DATA_PERSONAL.fecha_ingreso) {
-          let fechaIngr = this.DATA_PERSONAL.fecha_ingreso
+        if (this.DATA_VACACIONES.fecha_ingreso) {
+          let fechaIngr = this.DATA_VACACIONES.fecha_ingreso
           const str   = fechaIngr.split('/');
           const year  = Number(str[2]);
           const month = Number(str[1]);
           const date  = Number(str[0]);
-          this.personalForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+          this.vacacionesForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
 
-        if (this.DATA_PERSONAL.fecha_nacimiento) {
-          let fechaNac = this.DATA_PERSONAL.fecha_nacimiento
+        if (this.DATA_VACACIONES.fecha_nacimiento) {
+          let fechaNac = this.DATA_VACACIONES.fecha_nacimiento
           const str   = fechaNac.split('/');
           const year  = Number(str[2]);
           const month = Number(str[1]);
           const date  = Number(str[0]);
-          this.personalForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+          this.vacacionesForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
       this.spinner.hide();
   }
 
-  desasignarRecurso(idRecurso: number){
+  eliminarVacaciones(idRecurso: number){
     this.spinner.show();
 
     let parametro:any[] = [{
       "queryId": 26,
       "mapValue": {
-        "param_id_persona"    : this.DATA_PERSONAL.id,
+        "param_id_persona"    : this.DATA_VACACIONES.id,
         "param_id_recurso"    : idRecurso,
         "CONFIG_USER_ID"      : this.userID,
         "CONFIG_OUT_MSG_ERROR": '',
@@ -164,8 +164,8 @@ export class ActualizarPersonalComponent implements OnInit {
       }
     }];
       Swal.fire({
-        title: '¿Desasignar Recurso?',
-        text: `¿Estas seguro que desea Desasignar el recurso: ${idRecurso}?`,
+        title: 'Eliminar vacaciones?',
+        text: `¿Estas seguro que desea Eliminar la vacación: ${idRecurso}?`,
         icon: 'question',
         confirmButtonColor: '#ec4756',
         cancelButtonColor : '#0d6efd',
@@ -174,13 +174,13 @@ export class ActualizarPersonalComponent implements OnInit {
         cancelButtonText: 'Cancelar',
       }).then((resp) => {
         if (resp.value) {
-          this.personalService.desasignarRecurso(parametro[0]).subscribe(resp => {
+          this.vacacionesService.eliminarVacaciones(parametro[0]).subscribe(resp => {
             this.ListaHardwareAsignado();
             this.ListaCuentaAsignado();
 
               Swal.fire({
-                title: 'Desasignar Recurso',
-                text : `El Recurso: ${idRecurso}, fue desasignado con éxito`,
+                title: 'Eliminar vacaciones',
+                text : `La vacación: ${idRecurso}, fue eliminado con éxito`,
                 icon : 'success',
               });
             });
@@ -198,7 +198,7 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 27,
       "mapValue": {
-      "param_id_persona": this.DATA_PERSONAL.id,
+      "param_id_persona": this.DATA_VACACIONES.id,
       }
     }];
 
@@ -216,7 +216,7 @@ export class ActualizarPersonalComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 28,
       "mapValue": {
-      "param_id_persona": this.DATA_PERSONAL.id,
+      "param_id_persona": this.DATA_VACACIONES.id,
       }
     }];
 
@@ -231,7 +231,7 @@ export class ActualizarPersonalComponent implements OnInit {
   getHistoricoCambiosProyecto(id: number){
   this.spinner.show();
     let parametro: any[] = [{ queryId: 57, mapValue: {
-        param_id_persona: this.DATA_PERSONAL.id,
+        param_id_persona: this.DATA_VACACIONES.id,
       }
     }];
     this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
@@ -241,40 +241,20 @@ export class ActualizarPersonalComponent implements OnInit {
     this.spinner.hide();
   }
 
-  listProyectos: any[] = [];
-  getListProyectos(){
-    let parametro: any[] = [{queryId: 1}];
-
-    this.personalService.getListProyectos(parametro[0]).subscribe((resp: any) => {
-            this.listProyectos = resp.list;
-            console.log('ID_PROYECTOS', resp.list);
-    });
-  };
-
-  listPerfiles: any[] = [];
-  getListPerfiles(){
-    let parametro: any[] = [{queryId: 10}];
-
-    this.personalService.getListPerfiles(parametro[0]).subscribe((resp: any) => {
-            this.listPerfiles = resp.list;
-            // console.log('PERFILES', resp.list);
-    });
-  };
-
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
 
   campoNoValido(campo: string): boolean {
-    if ( this.personalForm.get(campo)?.invalid && (this.personalForm.get(campo)?.dirty || this.personalForm.get(campo)?.touched) ) {
+    if ( this.vacacionesForm.get(campo)?.invalid && (this.vacacionesForm.get(campo)?.dirty || this.vacacionesForm.get(campo)?.touched) ) {
       return true;
     } else {
       return false;
     }
   }
 
-  asignarHardware(){
-    const dialogRef = this.dialog.open(AsignarHardwareComponent, { width:'35%', data: this.personalForm.value });
+  asignarVacaciones(){
+    const dialogRef = this.dialog.open(AsignarVacacionesComponent, { width:'35%', data: this.vacacionesForm.value });
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
@@ -283,21 +263,17 @@ export class ActualizarPersonalComponent implements OnInit {
     })
   };
 
-  agregarCuenta(){
-    const dialogRef = this.dialog.open(AsignarCuentaComponent, { width:'35%', data: this.personalForm.value });
+
+  actualizarVacaciones(DATA: any){
+    console.log('DATA_VACACIONES', DATA);
+    // const DATA = this.facturaForm.value
+    const dialogRef = this.dialog.open(AsignarVacacionesComponent, { width:'35%', data: DATA});
 
     dialogRef.afterClosed().subscribe(resp => {
       if (resp) {
-        this.ListaCuentaAsignado()
+        this.ListaHardwareAsignado()
       }
     })
   };
 
 }
-
-
-
-
-
-
-
