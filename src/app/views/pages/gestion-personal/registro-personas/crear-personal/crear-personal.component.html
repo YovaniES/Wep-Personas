@@ -87,11 +87,11 @@
               <input
                 maxlength="6"
                 class="form-control cli-input-white"
-                placeholder="Ej. 1234567"
+                placeholder="Ej. 123456"
                 formControlName="codCorp"/>
               <small
                 class="text-alert"
-                *ngIf="campoNoValido('codCorp')">* Ingrese el cód. numérico de 6 dígitos</small>
+                *ngIf="campoNoValido('codCorp')">* Ingrese el cód. Corporativo es obligatorio</small>
             </div>
 
             <div class="col-sm-4 cli-form-element">

@@ -44,9 +44,26 @@ export class VacacionesPersonalService {
     return this.http.post(API_DYNAMO, id);
   }
 
-
   actualizarPersonalVacaciones(id: any) {
     return this.http.post(API_DYNAMO, id);
   }
+
+  getLstEstadoVacaciones(id: any) {
+    return this.http.post(API_DYNAMO, id);
+  }
+
+  getLstMotivosVacaciones(id: any) {
+    return this.http.post(API_DYNAMO, id);
+  }
+
+  getLstSistemaVacaciones(id: any) {
+    return this.http.post(API_DYNAMO, id);
+  }
+
+
+  getListAdminVacaciones(id: any) {
+    return this.http.post(API_DYNAMO, id);
+  }
+
 }
 

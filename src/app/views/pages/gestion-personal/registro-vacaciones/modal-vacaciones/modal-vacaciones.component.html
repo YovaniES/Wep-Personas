@@ -14,7 +14,6 @@
       <!-- REGISTROS DEL PERSONAL-------------------------------------------------------------------- -->
       <!-- <div style="display: flex;" >
         <div class="col-2 pr-subtitle">Datos Personales</div>
-
       </div> -->
 
       <div class="pr-sectionx mx-4 mt-2">
@@ -31,15 +30,12 @@
               <div class="info">{{vacacionesForm.controls['proyecto'].value}}</div>
             </div>
 
-
             <div class="input-group col-sm-4"
-            [ngClass]="vacacionesForm.controls['estado'].value == 'Activo' ? 'estado-act' : 'estado-danger'"
-            >
+                 [ngClass]="vacacionesForm.controls['estado'].value == 'Activo' ? 'estado-act' : 'estado-danger'">
               <div class="input-group-text"
-            [ngClass]="vacacionesForm.controls['estado'].value == 'Activo' ? 'estado-act' : 'estado-danger'"
-              ><mat-icon>info</mat-icon></div>
-              <div class="info"
-              >{{vacacionesForm.controls['estado'].value}}</div>
+                 [ngClass]="vacacionesForm.controls['estado'].value == 'Activo' ? 'estado-act' : 'estado-danger'"
+                 ><mat-icon>info</mat-icon></div>
+              <div class="info">{{vacacionesForm.controls['estado'].value}}</div>
             </div>
 
             <!-- <div class="col-sm-4 cli-form-element">
@@ -53,7 +49,7 @@
       </div>
 
       <!-- DATOS DE LA EMPRESA ------------------------------------------------------------------------->
-      <div class="pr-subtitle mt-2">Data personal</div>
+      <div class="pr-subtitle mt-2">Data empresa</div>
       <div class="pr-section mb-3">
         <div class="pr-module-container">
           <div class="row g-3">
@@ -71,8 +67,7 @@
               <label>Sistema</label>
               <select class="cli-input-white" formControlName="id_proyecto">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="1"> GABIN</option>
-                <option [value]="2">TAWA</option>
+                <option [value]="sistema.id_correlativo" *ngFor="let sistema of listSistemaVacaciones">{{sistema.valor_texto_1}}</option>
               </select>
             </div>
 
@@ -147,10 +142,10 @@
                     <td>1</td>
                     <td>15-10-2022</td>
                     <td>30-10-2022</td>
-                    <td>14</td>
+                    <td>16</td>
                     <td>Planificado</td>
                     <td>Motivos empresariales</td>
-                    <td>{{ hardware.imei }}</td>
+                    <td>09-09-2022</td>
                   </tr>
                 </tbody>
               </table>
@@ -169,7 +164,7 @@
         </div>
       </div>
 
-      <!-- HISTORICO DE CAMBIOS DE PROYECTO---------------------------------------------------------- -->
+      <!-- HISTORICO DE PERIODOS DE VACACIONES---------------------------------------------------------- -->
       <div class="pr-subtitle mt-2">Histórico Vacaciones registradas</div>
       <div class="pr-section">
         <div class="pr-module-container">

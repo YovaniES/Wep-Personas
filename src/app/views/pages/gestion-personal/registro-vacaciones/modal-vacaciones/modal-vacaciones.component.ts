@@ -40,8 +40,8 @@ export class ModalVacacionesComponent implements OnInit {
     this.getUsuario();
     this.ListaHardwareAsignado();
     this.ListaCuentaAsignado();
-    console.log('DATA_PERSONA', this.DATA_VACACIONES);
-
+    this.getLstSistemaVacaciones();
+    console.log('DATA_VACACIONES', this.DATA_VACACIONES);
   }
 
     newForm(){
@@ -50,17 +50,10 @@ export class ModalVacacionesComponent implements OnInit {
        nombre         : ['', [Validators.required]],
        apPaterno      : [''],
        apMaterno      : [''],
-       dni            : [''],
-       correo         : [''],
-       fechaNacimiento: [''],
        codCorp        : [''],
-       codPerfil      : [''],
-       descPerfil     : [''],
        fechaIngreso   : [''],
        id_proyecto    : [''],
-       descProy       : [''],
        estado         : [''],
-       perfil         : [''],
        proyecto       : [''],
       })
      }
@@ -119,15 +112,9 @@ export class ModalVacacionesComponent implements OnInit {
         this.vacacionesForm.controls['nombre'     ].setValue(this.DATA_VACACIONES.nombres);
         this.vacacionesForm.controls['apPaterno'  ].setValue(this.DATA_VACACIONES.apellido_paterno);
         this.vacacionesForm.controls['apMaterno'  ].setValue(this.DATA_VACACIONES.apellido_materno);
-        this.vacacionesForm.controls['dni'        ].setValue(this.DATA_VACACIONES.dni);
-        this.vacacionesForm.controls['correo'     ].setValue(this.DATA_VACACIONES.correo);
         this.vacacionesForm.controls['codCorp'    ].setValue(this.DATA_VACACIONES.codigo_corporativo);
-        this.vacacionesForm.controls['codPerfil'  ].setValue(this.DATA_VACACIONES.id_perfil);
-        this.vacacionesForm.controls['perfil'     ].setValue(this.DATA_VACACIONES.perfil);
         this.vacacionesForm.controls['proyecto'   ].setValue(this.DATA_VACACIONES.codigo_proyecto);
         this.vacacionesForm.controls['id_proyecto'].setValue(this.DATA_VACACIONES.id_proyecto);
-        this.vacacionesForm.controls['descProy'   ].setValue(this.DATA_VACACIONES.proyecto_descripcion);
-
         this.vacacionesForm.controls['estado'].setValue(this.DATA_VACACIONES.estado);
 
         if (this.DATA_VACACIONES.fecha_ingreso) {
@@ -137,15 +124,6 @@ export class ModalVacacionesComponent implements OnInit {
           const month = Number(str[1]);
           const date  = Number(str[0]);
           this.vacacionesForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
-        }
-
-        if (this.DATA_VACACIONES.fecha_nacimiento) {
-          let fechaNac = this.DATA_VACACIONES.fecha_nacimiento
-          const str   = fechaNac.split('/');
-          const year  = Number(str[2]);
-          const month = Number(str[1]);
-          const date  = Number(str[0]);
-          this.vacacionesForm.controls['fechaNacimiento'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
         }
       this.spinner.hide();
   }
@@ -241,6 +219,16 @@ export class ModalVacacionesComponent implements OnInit {
     this.spinner.hide();
   }
 
+  listSistemaVacaciones: any[] = [];
+  getLstSistemaVacaciones(){
+  let parametro: any[] = [{ queryId: 126}];
+  this.vacacionesService.getLstSistemaVacaciones(parametro[0]).subscribe((resp: any) => {
+    this.listSistemaVacaciones = resp.list;
+    console.log('SISTAMA-VACAS', resp.list);
+    })
+  }
+
+
   close(succes?: boolean) {
     this.dialogRef.close(succes);
   }
@@ -275,5 +263,4 @@ export class ModalVacacionesComponent implements OnInit {
       }
     })
   };
-
 }

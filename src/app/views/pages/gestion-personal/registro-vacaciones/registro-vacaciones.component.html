@@ -40,9 +40,8 @@
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Estado</label>
               <select class="form-select" formControlName="estado">
-                <option [value]="" disabled>-Seleccione-</option>
-                <option [value]="1" >Activo</option>
-                <option [value]="0" >Inactivo</option>
+                <option [value]="0" disabled>-Seleccione-</option>
+                <option [value]="estado.id_correlativo" *ngFor="let estado of listVacacionesEstado" >{{estado.valor_texto_1}}</option>
               </select>
             </div>
 
@@ -51,13 +50,13 @@
               <label class="form-label">Registros de:</label>
               <select class="form-select" formControlName="codProy">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="cod.id" *ngFor="let cod of listCodProy">{{cod.codigo}}</option>
+                <option [value]="admin.id_correlativo" *ngFor="let admin of listAdminVacaciones">{{admin.valor_texto_1}}</option>
               </select>
             </div>
 
             <div class="col-sm-3 cli-form-element">
               <div class="form-group">
-                <label>Fecha registro <span class="date-rango">(desde)</span></label>
+                <label>Fecha registro vacaciones <span class="date-rango">(desde)</span></label>
                  <input
                   type="date"
                   class="form-control"
@@ -67,7 +66,7 @@
 
             <div class="col-sm-3 cli-form-element">
               <div class="form-group">
-                <label>Fecha registro <span class="date-rango">(hasta)</span></label>
+                <label>Fecha registro vacaciones<span class="date-rango">(hasta)</span></label>
                 <input
                   type="date"
                   class="form-control"
@@ -98,16 +97,8 @@
       </div>
 
 
-      <!-- BOTON MODAL PARA CREAR VACACIONES ----------------------------------------------------->
+      <!-- EXPORTAR REGISTRO DE VACACIONES ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
-          <!-- <button
-            class="cli-btn btn-blue"
-            style="margin: 0"
-            type="button"
-            (click)="crearVacaciones()"
-            ><mat-icon class="icon-18">add</mat-icon>Agregar vacaciones
-          </button> -->
-
           <button
             matTooltip="Descargar registro"
             class="icon-btn btn-trans c-green-export"
@@ -130,6 +121,7 @@
               <th>Código</th>
               <th>Nombres y Apellidos</th>
               <th>Cód. Proyecto</th>
+              <th>Registrado por:</th>
               <th>Fecha registro</th>
               <th>Cant. días</th>
               <th>Periodo</th>
@@ -153,16 +145,12 @@
                     (click)="actualizarVacaciones(vacaciones)"
                     ><mat-icon class="icon-18">hail</mat-icon>
                   </button>
-                  <!-- <button matTooltip="Eliminar"
-                    class="icon-btn btn-trans c-fucsia"
-                    (click)="abrirEliminarLogico(vacaciones.id, vacaciones.codigo_corporativo, '', vacaciones.nombres)"
-                    ><mat-icon class="icon-18">delete_forever</mat-icon>
-                  </button> -->
                 </div>
               </td>
-              <td>{{ vacaciones.id }}</td>
+              <td>{{ vacaciones.codigo_corporativo }}</td>
               <td class="w350"> {{ vacaciones.apellidos |firstCapital}}, {{vacaciones.nombres | firstCapital}}</td>
               <td>{{ vacaciones.codigo_proyecto | uppercase}}</td>
+              <td class="w100">Marcela</td>
               <td class="w100">{{ vacaciones.fecha_ingreso }}</td>
               <td>{{ 20}}</td>
               <td>{{ vacaciones.perfil | firstCapital }}</td>

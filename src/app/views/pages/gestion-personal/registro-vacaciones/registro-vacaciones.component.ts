@@ -5,8 +5,6 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-// import { ActualizarPersonalComponent } from './actualizar-personal/actualizar-personal.component';
-// import { CrearPersonalComponent } from './crear-personal/crear-personal.component';
 import { DatePipe } from '@angular/common';
 import { ExportExcellService } from 'src/app/core/services/export-excell.service';
 import { VacacionesPersonalService } from 'src/app/core/services/vacaciones-personal.service';
@@ -45,6 +43,8 @@ export class RegistroVacacionesComponent implements OnInit {
     this.newFilfroForm();
     this.cargarOBuscarVacaciones();
     this.getListProyectos();
+    this.getLstEstadoVacaciones();
+    this.getListAdminVacaciones();
   }
 
     newFilfroForm(){
@@ -84,126 +84,6 @@ export class RegistroVacacionesComponent implements OnInit {
     });
   }
 
-  codCorporativo: any;
-  tooltipActivoInactivo: string =''
-  abrirEliminar(id: number, codCorporrativo: string, estado: string, fullname: string){
-    this.codCorporativo = codCorporrativo;
-
-    if (estado == 'Activo')   {this.tooltipActivoInactivo = "Desactivar"}
-    if (estado == 'Inactivo') {this.tooltipActivoInactivo = "Activar"}
-
-    Swal.fire({
-      title: `${this.tooltipActivoInactivo} al Personal?`,
-      text: `¿Desea ${this.tooltipActivoInactivo} al personal: ${fullname} ?`,
-      icon: 'question',
-      confirmButtonColor: '#20c997',
-      cancelButtonColor : '#b2b5b4',
-      confirmButtonText : 'Si!',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar',
-    }).then((resp) => {
-        if (resp.value) {
-          this.bajaOaltaAlPersonal(id, fullname);
-       }
-      }
-    );
-  }
-
-  activado_desactivado: string='';
-  bajaOaltaAlPersonal(id: number, fullname: string){
-    this.spinner.show();
-    let parametro:any[] = [{
-      "queryId": 9,
-      "mapValue": { param_id_persona : id }
-    }];
-
-    this.personalService.bajaOaltaAlPersonal(parametro[0]).subscribe(data => {
-      const arrayData:any[] = Array.of(data);
-      let msj  = arrayData[0].exitoMessage;
-      let msj2 = arrayData[0].errorMessage
-      if(msj == undefined){msj = ''}
-      if (msj != '') {
-
-        if (this.tooltipActivoInactivo == 'Desactivar') {this.activado_desactivado = 'Desactivado'}
-        if (this.tooltipActivoInactivo == 'Activar'   ) {this.activado_desactivado = 'Activado'}
-
-        Swal.fire({
-          title: `${this.tooltipActivoInactivo} al Personal`,
-          text: `El Personal: ${fullname}, fue ${this.activado_desactivado} con éxito`,
-          icon: 'success',
-        });
-
-      }else if (msj2 != ''){
-        Swal.fire({
-          title: `${this.tooltipActivoInactivo} al Personal`,
-          text: `El Personal: ${fullname} No pudo ser: ${this.activado_desactivado}, por que tiene recursos asignados`,
-          icon: 'error',
-        });
-
-      }else{
-        // this.showError('Error');
-      }
-      this.cargarOBuscarVacaciones();
-    });
-    this.spinner.hide();
-  }
-
-
-  abrirEliminarLogico(id:number, codCorporrativo:string, estado: string, namePersonal: string){
-    // this.idEliminar = id;
-    this.codCorporativo = codCorporrativo;
-
-    Swal.fire({
-      title: `Eliminar Personal?`,
-      text: `¿Desea eliminar al personal: ${namePersonal}?`,
-      icon: 'question',
-      confirmButtonColor: '#20c997',
-      cancelButtonColor : '#b2b5b4',
-      confirmButtonText : 'Si!',
-      showCancelButton: true,
-      cancelButtonText: 'Cancelar',
-    }).then((resp) => {
-        if (resp.value) {
-          this.eliminacionLogica(id, namePersonal);
-       }
-      });
-  }
-
-  eliminacionLogica(id: number, fullname: string){
-    this.spinner.show();
-    let parametro:any[] = [{
-      "queryId": 37,
-      "mapValue": { param_id_persona : id }
-    }];
-
-    this.personalService.eliminarPersonal(parametro[0]).subscribe(resp => {
-      const arrayData:any[] = Array.of(resp);
-      let msj  = arrayData[0].exitoMessage;
-      let msj2 = arrayData[0].errorMessage
-
-      if(msj == undefined){msj = ''}
-
-      if (msj != '') {
-        Swal.fire({
-          title: 'Eliminar Personal',
-          text: `El Personal: ${fullname}, fue eliminado con éxito`,
-          icon: 'success',
-        });
-
-      }else if (msj2 != ''){
-        Swal.fire({
-          title: `Eliminar al Personal`,
-          text: `El Personal: ${fullname}, no pudo ser eliminado por que tiene recursos asignados`,
-          icon: 'error',
-        });
-      }else{
-        // this.showError('Error');
-      }
-      this.cargarOBuscarVacaciones();
-    });
-    this.spinner.hide();
-  }
-
   listCodProy: any[] = [];
   getListProyectos() {
     let arrayParametro: any[] = [{ queryId: 1 }];
@@ -213,6 +93,25 @@ export class RegistroVacacionesComponent implements OnInit {
         // console.log('COD_PROY', resp);
       });
   }
+
+  listVacacionesEstado: any[] = [];
+  getLstEstadoVacaciones(){
+  let parametro: any[] = [{ queryId: 124}];
+  this.vacacionesService.getLstEstadoVacaciones(parametro[0]).subscribe((resp: any) => {
+    this.listVacacionesEstado = resp.list;
+    console.log('VACAS-ESTADO', resp.list);
+    })
+  }
+
+  listAdminVacaciones: any[] = [];
+  getListAdminVacaciones(){
+  let parametro: any[] = [{ queryId: 127}];
+  this.vacacionesService.getListAdminVacaciones(parametro[0]).subscribe((resp: any) => {
+    this.listAdminVacaciones = resp.list;
+    console.log('ADMIN-VACAS', resp.list);
+    })
+  }
+
 
   limpiarFiltro() {
     this.filtroForm.reset('', { emitEvent: false });
@@ -262,5 +161,4 @@ export class RegistroVacacionesComponent implements OnInit {
   exportarRegistro() {
     this.exportExcellService.exportarExcel(this.listaRegVacaciones, 'Vacaciones');
   }
-
 }
