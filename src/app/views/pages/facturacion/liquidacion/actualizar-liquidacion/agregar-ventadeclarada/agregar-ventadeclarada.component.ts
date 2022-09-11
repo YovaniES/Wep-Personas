@@ -24,7 +24,7 @@ export class AgregarVentadeclaradaComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
-    private dialogRef: MatDialogRef<CrearPersonalComponent>,
+    private dialogRef: MatDialogRef<AgregarVentadeclaradaComponent>,
     @Inject(MAT_DIALOG_DATA) public DATA_LIQUID: any
   ) { }
 

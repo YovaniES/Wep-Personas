@@ -63,7 +63,7 @@ export class RegistroVacacionesComponent implements OnInit {
   cargarOBuscarVacaciones(){
     this.blockUI.start("Cargando Registro de Vacaciones...");
     let parametro: any[] = [{
-      "queryId": 121,
+      "queryId": 130,
       "mapValue": {
           nombre         : this.filtroForm.value.nombres + " " + this.filtroForm.value.apellidos,
           dni            : this.filtroForm.value.dni,
@@ -76,7 +76,7 @@ export class RegistroVacacionesComponent implements OnInit {
     this.vacacionesService.cargarOBuscarVacaciones(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Personal', resp, resp.list.length);
+     console.log('Lista-VACACIONES-Personal', resp, resp.list.length);
       this.listaRegVacaciones = [];
       this.listaRegVacaciones = resp.list;
 

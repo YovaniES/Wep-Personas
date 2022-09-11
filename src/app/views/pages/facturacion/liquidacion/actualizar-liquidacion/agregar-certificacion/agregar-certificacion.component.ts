@@ -6,7 +6,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Usuario } from 'src/app/core/interfaces/auth.interface';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { FacturacionService } from 'src/app/core/services/facturacion.service';
-import { CrearPersonalComponent } from 'src/app/views/pages/gestion-personal/registro-personas/crear-personal/crear-personal.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -23,7 +22,7 @@ export class AgregarCertificacionComponent implements OnInit {
     private fb: FormBuilder,
     public datePipe: DatePipe,
     private spinner: NgxSpinnerService,
-    private dialogRef: MatDialogRef<CrearPersonalComponent>,
+    private dialogRef: MatDialogRef<AgregarCertificacionComponent>,
     @Inject(MAT_DIALOG_DATA) public DATA_LIQUID: any
   ) { }
 

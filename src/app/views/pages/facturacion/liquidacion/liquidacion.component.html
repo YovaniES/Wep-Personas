@@ -169,8 +169,8 @@
               <td class="w135">{{ factura.liquidacion }}</td>
               <td class="w250">{{ factura.subServicio }}</td>
               <td>{{ factura.estado }}</td>
-              <td>{{ factura.importe}}</td>
-              <td>{{ factura.declarado }}</td>
+              <td><small style="font-weight: 400; margin-right:3px;">S/</small>{{ factura.importe}}</td>
+              <td><small *ngIf="factura.declarado >0" style="font-weight: 400; margin-right:3px;">S/</small>{{ factura.declarado }}</td>
               <td>{{ factura.facturado }}</td>
             </tr>
           </tbody>

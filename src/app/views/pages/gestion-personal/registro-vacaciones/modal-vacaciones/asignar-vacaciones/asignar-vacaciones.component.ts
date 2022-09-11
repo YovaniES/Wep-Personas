@@ -6,7 +6,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { UtilService } from 'src/app/core/services/util.service';
 import { VacacionesPersonalService } from 'src/app/core/services/vacaciones-personal.service';
-import { CrearPersonalComponent } from 'src/app/views/pages/gestion-personal/registro-personas/crear-personal/crear-personal.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,7 +23,7 @@ export class AsignarVacacionesComponent implements OnInit {
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
     public datePipe: DatePipe,
-    private dialogRef: MatDialogRef<CrearPersonalComponent>,
+    private dialogRef: MatDialogRef<AsignarVacacionesComponent>,
     @Inject(MAT_DIALOG_DATA) public DATA_VACAC: any
   ) { }
 
@@ -34,8 +33,9 @@ export class AsignarVacacionesComponent implements OnInit {
     this.cargarVacacionesByID();
     this.getLstEstadoVacaciones();
     this.getLstMotivosVacaciones();
-    console.log('DATA_VACAC_VD', this.DATA_VACAC, this.DATA_VACAC.vdForm);
-    // console.log('VENTA_DECL_VD', this.DATA_VACAC.vdForm.venta_declarada);
+    console.log('DATA_VACAC_PERSONAL', this.DATA_VACAC, this.DATA_VACAC.vdForm);
+    console.log('ID_PERS_VACAC', this.DATA_VACAC.vacForm.idPersonal); //idPersonal= 496
+
   }
 
   newForm(){
@@ -44,7 +44,7 @@ export class AsignarVacacionesComponent implements OnInit {
       fechaFin      : ['', [Validators.required]],
       id_estado     : ['', [Validators.required]],
       id_motivo     : ['', [Validators.required]],
-      observaciones : ['-',[Validators.required]],
+      observaciones : ['-'],
     })
    }
 
@@ -62,25 +62,26 @@ export class AsignarVacacionesComponent implements OnInit {
     this.spinner.show();
     const formValues = this.asigVacacionesForm.getRawValue();
 
-    let parametro: any =  {
-        queryId: 105,
-        mapValue: {
-          p_idFactura       : this.DATA_VACAC.vdForm.id_factura,
-          p_periodo         : this.utilService.generarPeriodo(formValues.periodo),
-          p_venta_declarada : formValues.id_motivo, //this.DATA_VACAC.vdForm.venta_declarada, //formValues.ventaDeclarada,
-          p_comentario      : formValues.observaciones,
-          p_fecha_creacion  : '',
-          p_usuario_creacion: this.userID,
-          CONFIG_USER_ID    : this.userID,
-          // CONFIG_OUT_MSG_ERROR    : "",
-          // CONFIG_OUT_MSG_EXITO    : "",
+    let parametro: any =  {queryId: 129, mapValue: {
+          p_id_persona           : this.DATA_VACAC.vacForm.idPersonal ,
+          p_fecha_vac_ini        : formValues.fechaInicio ,
+          p_fecha_vac_fin        : formValues.fechaFin ,
+          p_id_vac_estado        : formValues.id_estado ,
+          p_id_vac_motivo        : formValues.id_motivo ,
+          p_observacion          : formValues.observaciones ,
+          p_id_usuario_asignacion: this.userID ,
+          p_fecha_vac_creacion   : '' ,
+          p_id_sist_vac          : 2,
+          CONFIG_USER_ID         : this.userID ,
+          CONFIG_OUT_MSG_ERROR   : '' ,
+          CONFIG_OUT_MSG_EXITO   : ''
         },
       };
      console.log('VAOR_VACA', this.asigVacacionesForm.value , parametro);
     this.vacacionesService.agregarVacaciones(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar vacaciones!',
-        text : `La vacación: ${formValues.ventaDeclarada}, fue creado con éxito`,
+        text : `La vacación, fue creado con éxito`,
         icon : 'success',
         confirmButtonText: 'Ok',
       });
@@ -93,19 +94,23 @@ export class AsignarVacacionesComponent implements OnInit {
     this.spinner.show();
 
     const formValues = this.asigVacacionesForm.getRawValue();
-    let parametro: any[] = [{ queryId: 110,
+    let parametro: any[] = [{ queryId: 131,
         mapValue: {
-          p_idFactVenta        : this.DATA_VACAC.idFactVenta,
-          p_idFactura          : this.DATA_VACAC.idFactura,
-          p_periodo            : this.utilService.generarPeriodo(formValues.periodo) ,
-          // p_venta_declarada    : this.DATA_VACAC.vdForm.venta_declarada,
-          p_venta_declarada    : formValues.id_motivo ,
-          p_comentario         : formValues.comentario ,
-          p_dFecha             : formValues.fechaInicio,
-          p_usuario            : this.userID ,
-          CONFIG_USER_ID       : this.userID,
-          CONFIG_OUT_MSG_ERROR : "",
-          CONFIG_OUT_MSG_EXITO : "",
+          p_idVacaciones         : this.DATA_VACAC.idVacaciones ,
+          p_id_persona           : this.DATA_VACAC.id_persona ,
+          p_fecha_vac_ini        : formValues.fechaInicio ,
+          p_fecha_vac_fin        : formValues.fechaFin ,
+          p_id_vac_estado        : formValues.id_estado ,
+          p_id_vac_motivo        : formValues.id_motivo ,
+          p_observacion          : formValues.observaciones ,
+          p_id_usuario_asignacion: this.userID ,
+          p_fecha_vac_creacion   : '' ,
+          CONFIG_USER_ID      : this.userID,
+          CONFIG_OUT_MSG_ERROR: '',
+          CONFIG_OUT_MSG_EXITO: ''
+
+
+
         },
       }];
      this.vacacionesService.actualizarVacaciones(parametro[0]).subscribe({next: (res) => {
@@ -114,7 +119,7 @@ export class AsignarVacacionesComponent implements OnInit {
         this.close(true)
           Swal.fire({
             title: 'Actualizar vacaciones!',
-            text : `La Vacación: ${formValues.ventaDeclarada }, se actualizó con éxito`,
+            text : `La Vacación: ${this.DATA_VACAC.idVacaciones }, se actualizó con éxito`,
             icon : 'success',
             confirmButtonText: 'Ok'
             });
@@ -131,18 +136,37 @@ export class AsignarVacacionesComponent implements OnInit {
      });
   }
 
+
   titleBtn: string = 'Agregar';
   cargarVacacionesByID(){
     if (!this.DATA_VACAC.isCreation) {
       this.titleBtn = 'Actualizar'
-      this.asigVacacionesForm.controls['id_motivo'].setValue(this.DATA_VACAC.venta_declarada);
-      // this.asigVacacionesForm.controls['periodo'       ].setValue(this.formatPeriodo(this.DATA_VACAC.periodo));
-      this.asigVacacionesForm.controls['observaciones'    ].setValue(this.DATA_VACAC.comentario);
+      this.asigVacacionesForm.controls['id_motivo'    ].setValue(this.DATA_VACAC.id_vac_motivo);
+      this.asigVacacionesForm.controls['id_estado'    ].setValue(this.DATA_VACAC.id_vac_estado);
+      this.asigVacacionesForm.controls['observaciones'].setValue(this.DATA_VACAC.observacion);
       // this.asigVacacionesForm.controls['fechaCrea'     ].setValue(this.DATA_VACAC.dFecha);
 
-      if (this.DATA_VACAC.dFecha !='null' && this.DATA_VACAC.dFecha != '') {
-        this.asigVacacionesForm.controls['fechaFin'].setValue(this.DATA_VACAC.dFecha)
-        }
+      // if (this.DATA_VACAC.dFecha !='null' && this.DATA_VACAC.dFecha != '') {
+      //   this.asigVacacionesForm.controls['fechaFin'].setValue(this.DATA_VACAC.dFecha)
+      //   }
+
+      if (this.DATA_VACAC.fecha_inicio !='null' && this.DATA_VACAC.fecha_inicio != '') {
+          let fecha_x = this.DATA_VACAC.fecha_inicio
+          const str   = fecha_x.split('/');
+          const year  = Number(str[2]);
+          const month = Number(str[1]);
+          const date  = Number(str[0]);
+          this.asigVacacionesForm.controls['fechaInicio'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+      }
+
+      if (this.DATA_VACAC.fecha_fin !='null' && this.DATA_VACAC.fecha_fin != '') {
+        let fecha_x = this.DATA_VACAC.fecha_fin
+        const str   = fecha_x.split('/');
+        const year  = Number(str[2]);
+        const month = Number(str[1]);
+        const date  = Number(str[0]);
+        this.asigVacacionesForm.controls['fechaFin'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+      }
     }
   }
 
@@ -167,7 +191,7 @@ export class AsignarVacacionesComponent implements OnInit {
   let parametro: any[] = [{ queryId: 125}];
   this.vacacionesService.getLstMotivosVacaciones(parametro[0]).subscribe((resp: any) => {
     this.listVacacionesMotivo = resp.list;
-    console.log('VACAS-ESTADO', resp.list);
+    console.log('VACAS-MOTIVO', resp.list);
     })
   }
 

@@ -147,9 +147,9 @@
                       <!-- <td>{{ vd.idFactVenta }}</td> -->
                       <td>{{ i + 1 }}</td>
                       <td>{{ vd.periodo }}</td>
-                      <td style="font-weight: 600">{{ vd.venta_declarada }}</td>
+                      <td style="font-weight: 600"><small style="font-weight: 200; margin-right:3px;">S/</small>{{ vd.venta_declarada }}</td>
                       <!-- <td class="fact-saldo">{{ saldo }}</td> -->
-                      <td class="fact-saldo">{{ (vd.venta_declarada - importTotal).toFixed(2) }}</td>
+                      <td class="fact-saldo"><small style="font-weight: 200; margin-right:3px;">S/</small>{{(vd.venta_declarada - importTotal).toFixed(2) }}</td>
                       <!-- <td>{{ vd.comentario | firstCapital}}</td> -->
                     </tr>
                   </tbody>
@@ -230,14 +230,15 @@
                       </td>
                       <td class="w100">{{ factura.factura }}</td>
                       <!-- <td>{{ factura.comentario | firstCapital}}</td> -->
-                      <td>{{ factura.importe }}</td>
+                      <td><small style="font-weight: 200; margin-right:3px;">S/</small>{{ factura.importe }}</td>
                       <td>{{ factura.fecha_facturacion }}</td>
                     </tr>
                   </tbody>
                 </table>
                 <ng-container >
-                  <div class="col-12 fact-total">Total:
-                    <mat-icon class="icon-18">attach_money</mat-icon>{{obtenerImporteTotal()}}
+                  <div class="col-12 fact-total"><small style="font-weight: 300; margin-right:3px;">Total: S/</small>
+                    {{obtenerImporteTotal()}}
+                    <!-- <mat-icon class="icon-18">attach_money</mat-icon>{{obtenerImporteTotal()}} -->
                   </div>
                 </ng-container>
 

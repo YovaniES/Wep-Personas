@@ -65,7 +65,7 @@
 
             <div class="col-sm-3 cli-form-element">
               <label>Sistema</label>
-              <select class="cli-input-white" formControlName="id_proyecto">
+              <select class="cli-input-white" formControlName="idSistema">
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="sistema.id_correlativo" *ngFor="let sistema of listSistemaVacaciones">{{sistema.valor_texto_1}}</option>
               </select>
@@ -73,7 +73,7 @@
 
             <div class="col-sm-3 cli-form-element">
               <label>Periodos</label>
-              <select class="cli-input-white" formControlName="id_proyecto">
+              <select class="cli-input-white" formControlName="periodoVac">
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="1">1</option>
                 <option [value]="2">2</option>
@@ -106,7 +106,7 @@
       <div class="pr-section mb-2">
         <div class="pr-module-container">
           <div style="overflow: auto; min-height: 50px">
-            <div *ngIf="listHardwareAsignado.length > 0">
+            <div *ngIf="listVacacionesAsignado.length > 0">
               <table class="cli-table stripedtable underlinedtable">
                 <thead>
                   <tr class="bgc-blue-light c-white">
@@ -122,30 +122,30 @@
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let hardware of listHardwareAsignado; let i = index">
+                  <tr *ngFor="let vacaciones of listVacacionesAsignado; let i = index">
                     <td class="w55">
                       <div class="cli-table-actions">
                         <button
                             matTooltip="Actualizar"
                             class="icon-btn btn-trans c-blue"
-                            (click)="actualizarVacaciones(hardware.id)"
+                            (click)="actualizarVacaciones(vacaciones)"
                             ><mat-icon class="icon-13">edit</mat-icon>
                           </button>
                         <button
                           matTooltip="Eliminar"
                           class="icon-btn c-fucsia"
-                          (click)="eliminarVacaciones(hardware.id)"
+                          (click)="eliminarVacaciones(vacaciones.idVacaciones)"
                           ><mat-icon class="icon-13">delete_forever</mat-icon>
                         </button>
                       </div>
                     </td>
-                    <td>1</td>
-                    <td>15-10-2022</td>
-                    <td>30-10-2022</td>
+                    <td>{{i+1}}</td>
+                    <td>{{vacaciones.fecha_inicio}}</td>
+                    <td>{{vacaciones.fecha_fin}}</td>
                     <td>16</td>
-                    <td>Planificado</td>
-                    <td>Motivos empresariales</td>
-                    <td>09-09-2022</td>
+                    <td>{{vacaciones.vac_estado}}</td>
+                    <td>{{vacaciones.vac_motivo}}</td>
+                    <td>{{vacaciones.fecha_creacion}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -155,7 +155,7 @@
               </div>
             </div>
             <div
-              *ngIf="!loadingItem && listHardwareAsignado.length == 0"
+              *ngIf="!loadingItem && listVacacionesAsignado.length == 0"
               class="cli-loader mt-2"
               style="color: #c9c9c9"
               >Aún no tiene Vacaciones Registradas
@@ -212,7 +212,7 @@
         <mat-icon class="icon-18">cancel</mat-icon> Cancelar
       </button>
       <button class="cli-btn btn-m btn-blue" (click)="actualizarPersonalVacaciones()">
-        <!-- [disabled]="hardwareForm.invalid" -->
+        <!-- [disabled]="vacacionesForm.invalid" -->
         <mat-icon class="icon-18">save</mat-icon> Actualizar
       </button>
     </div>

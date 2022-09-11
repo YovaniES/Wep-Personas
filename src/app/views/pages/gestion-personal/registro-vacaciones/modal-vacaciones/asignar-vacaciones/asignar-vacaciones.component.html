@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> {{DATA_VACAC && DATA_VACAC.isCreation ? 'Actualizar': 'Agregar'}} vacaciones</div>
+  <div class="modal-title c-male"> {{DATA_VACAC && DATA_VACAC.isCreation ? 'Agregar': 'Actualizar'}} vacaciones</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -77,7 +77,7 @@
       <button
         class="cli-btn btn-m btn-blue"
         [disabled]="asigVacacionesForm.invalid"
-        (click)="actualizarVacaciones()">
+        (click)="agregarOactualizarVacaciones()">
         <mat-icon class="icon-18">save</mat-icon> {{titleBtn}}
       </button>
     </div>
