@@ -42,7 +42,7 @@
               <label class="form-label">Estado</label>
               <select class="form-select" formControlName="estado">
                 <option [value]="0" disabled>-Seleccione-</option>
-                <option [value]="estado.id_correlativo" *ngFor="let estado of listVacacionesEstado" >{{estado.valor_texto_1}}</option>
+                <option [value]="estado.id_correlativo" *ngFor="let estado of listEstadoVacacionesAprobadas" >{{estado.valor_texto_1}}</option>
               </select>
             </div>
 
@@ -100,6 +100,13 @@
 
       <!-- EXPORTAR REGISTRO DE VACACIONES ----------------------------------------------------->
       <div style="display: flex" class="mt-4 mb-1">
+            <button
+            class="cli-btn btn-blue"
+            style="margin: 0"
+            type="button"
+            (click)="crearVacaciones()"
+            ><mat-icon class="icon-18">person_add</mat-icon>Agregar vacaciones
+          </button>
           <button
             matTooltip="Descargar registro"
             class="icon-btn btn-trans c-green-export"
@@ -122,7 +129,7 @@
               <th>Código</th>
               <th>Nombres y Apellidos</th>
               <th>Cód. Proyecto</th>
-              <th>Registrado por:</th>
+              <th>Responsable</th>
               <th>Fecha registro</th>
               <th>Cant. días</th>
               <th>Periodo</th>
@@ -153,12 +160,12 @@
               <td>{{ vacaciones.codigo_proyecto | uppercase}}</td>
               <td class="w350">{{vacaciones.usu_asig}}</td>
               <td class="w100">{{ vacaciones.fecha_ingreso }}</td>
-              <td style="color: #0d6efd"> 20 <small>Días</small></td>
+              <td style="color: #0daef4; width: 100px; font-weight: 600;"> 20 <small>d</small></td>
               <td>{{ vacaciones.perfil | firstCapital }}</td>
               <td> {{vacaciones.sistema}}</td>
               <td>{{vacaciones.vac_estado}}</td>
-              <td style="color: #20c997"> 12 <small>Días</small></td>
-              <td style="color: red"> 8 <small>Días</small></td>
+              <td style="color: #20c997; font-weight:600;"> 12 <small>d</small></td>
+              <td style="color: red"> 8 <small>d</small></td>
 
               <!-- <td class="w100">
                 <div class="cli-table-actions">

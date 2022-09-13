@@ -33,8 +33,9 @@ export class AsignarVacacionesComponent implements OnInit {
     this.cargarVacacionesByID();
     this.getLstEstadoVacaciones();
     this.getLstMotivosVacaciones();
+    this.getLstSistemaVacaciones();
     console.log('DATA_VACAC_PERSONAL', this.DATA_VACAC, this.DATA_VACAC.vdForm);
-    console.log('ID_PERS_VACAC', this.DATA_VACAC.vacForm.idPersonal); //idPersonal= 496
+    // console.log('ID_PERS_VACAC', this.DATA_VACAC.vacForm.idPersonal); //idPersonal= 496
 
   }
 
@@ -108,9 +109,6 @@ export class AsignarVacacionesComponent implements OnInit {
           CONFIG_USER_ID      : this.userID,
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: ''
-
-
-
         },
       }];
      this.vacacionesService.actualizarVacaciones(parametro[0]).subscribe({next: (res) => {
@@ -176,6 +174,14 @@ export class AsignarVacacionesComponent implements OnInit {
     return mesAndYear[1] + '-' + mesAndYear[0]
   }
 
+  listSistemaVacaciones: any[] = [];
+  getLstSistemaVacaciones(){
+  let parametro: any[] = [{ queryId: 126}];
+  this.vacacionesService.getLstSistemaVacaciones(parametro[0]).subscribe((resp: any) => {
+    this.listSistemaVacaciones = resp.list;
+    console.log('SISTEMA-ASIG_VAC', resp.list);
+    })
+  }
 
   listVacacionesEstado: any[] = [];
   getLstEstadoVacaciones(){

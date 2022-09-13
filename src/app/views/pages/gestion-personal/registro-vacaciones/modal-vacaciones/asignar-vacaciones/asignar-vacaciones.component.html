@@ -14,9 +14,17 @@
       <!-- REGISTRAR VACACIONES---------------------------------------------------------- -->
         <div class="pr-module-container">
           <div class="row g-3">
+            <!-- <div class="col-sm-4 cli-form-element">
+              <label>Sistema de registro</label>
+              <select class="cli-input-white" formControlName="idSistema">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="sistema.id_correlativo" *ngFor="let sistema of listSistemaVacaciones">{{sistema.valor_texto_1}}</option>
+              </select>
+            </div> -->
+
             <div class="col-sm-6 cli-form-element">
               <div class="form-group">
-                <label>Fecha inicio</label>
+                <label>Fecha inicio vacaciones</label>
                 <input
                   type="date"
                   class="form-control cli-input-white"
@@ -27,7 +35,7 @@
 
             <div class="col-sm-6 cli-form-element">
               <div class="form-group">
-                <label>Fecha fin</label>
+                <label>Fecha fin vacaciones</label>
                 <input
                   type="date"
                   class="form-control cli-input-white"
@@ -53,6 +61,16 @@
               </select>
                 <small class="form-text text-alert" *ngIf="campoNoValido('id_motivo')">* Ingrese el Motivo es obligatorio</small>
             </div>
+
+            <!-- <div class="col-sm-4 cli-form-element">
+              <label>Periodo</label>
+              <select class="cli-input-white" formControlName="periodoVac">
+                <option [value]="0" disabled>- Seleccione -</option>
+                <option [value]="1">1</option>
+                <option [value]="2">2</option>
+                <option [value]="3">3</option>
+              </select>
+            </div> -->
 
             <div class="cli-form-element mb-2">
               <label>Obervaciones *</label>

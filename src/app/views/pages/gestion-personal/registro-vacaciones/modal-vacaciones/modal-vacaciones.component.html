@@ -1,6 +1,6 @@
 <div style="display: flex;">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">Actualizar y asignar vacaciones</div>
+  <div class="modal-title c-male">{{DATA_VACACIONES ? 'Actualizar' : 'Agregar'}} vacaciones</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -12,12 +12,16 @@
   <div class="cli-form newvac-wrapper">
     <div class="chart-draw">
       <!-- REGISTROS DEL PERSONAL-------------------------------------------------------------------- -->
-      <!-- <div style="display: flex;" >
-        <div class="col-2 pr-subtitle">Datos Personales</div>
-      </div> -->
+      <div style="display: flex; background-color: #f6f3f3;" *ngIf="!DATA_VACACIONES">
+        <div class="pr-subtitle">Datos del personal</div>
+        <div class="flex-1"></div>
+          <button class="btn-asignar btn-grey"  matTooltip="Agregar personal" type="submit" style="color: #4a93ff; margin-right: 6px;" (click)="asignarPersonal()">
+            <mat-icon class="icon-13">add</mat-icon><mat-icon class="icon-13">person</mat-icon>
+          </button>
+      </div>
 
-      <div class="pr-sectionx mx-4 mt-2">
-        <div class="pr-module-containerX">
+      <div class="pr-section mt-2" *ngIf="DATA_VACACIONES">
+        <div class="pr-module-containerXZ">
           <div class="row" style="justify-content: space-between;">
             <!-- account_circle / sensor_occupied-->
             <div class="input-group col-sm-4">
@@ -37,16 +41,15 @@
                  ><mat-icon>info</mat-icon></div>
               <div class="info">{{vacacionesForm.controls['estado'].value}}</div>
             </div>
-
-            <!-- <div class="col-sm-4 cli-form-element">
-              <label>Fecha Registro</label>
-              <input type="date"
-                  class="form-control"
-                  formControlName="fechaNacimiento"/>
-            </div> -->
           </div>
         </div>
       </div>
+
+      <div *ngIf="!loadingItem && listVacacionesAsignado.length == 0"
+              class="cli-loader"
+              style="color: #c9c9c9"
+              >Aún no hay personal registrado
+     </div>
 
       <!-- DATOS DE LA EMPRESA ------------------------------------------------------------------------->
       <div class="pr-subtitle mt-2">Data empresa</div>
@@ -54,7 +57,7 @@
         <div class="pr-module-container">
           <div class="row g-3">
             <div class="col-sm-3 cli-form-element">
-              <label>Código</label>
+              <label>Código coprp.</label>
               <input
                 type="number"
                 maxlength="6"
@@ -72,18 +75,17 @@
             </div>
 
             <div class="col-sm-3 cli-form-element">
-              <label>Periodos</label>
-              <select class="cli-input-white" formControlName="periodoVac">
+              <label>Estado *</label>
+              <select class="cli-input-white" formControlName="id_estado">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="1">1</option>
-                <option [value]="2">2</option>
-                <option [value]="3">3</option>
+                <option [value]="estado.id_correlativo" *ngFor="let estado of listEstadoVacacionesAprobadas">{{estado.valor_texto_1}}</option>
               </select>
+                <small class="form-text text-alert" *ngIf="campoNoValido('id_estado')">* Ingrese el Estado es obligatorio</small>
             </div>
 
             <div class="col-sm-3 cli-form-element">
               <div class="form-group">
-                <label>Fecha de registro</label>
+                <label>Fecha de registro Vacaciones</label>
                 <input
                   type="date"
                   readonly="true"
@@ -111,10 +113,12 @@
                 <thead>
                   <tr class="bgc-blue-light c-white">
                     <th>Accíón</th>
-                    <th>#</th>
+                    <th>N°</th>
+                    <th>Sistema</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
                     <th>Días Calendario</th>
+                    <th>Periodo</th>
                     <th>Estado</th>
                     <th>Motivo</th>
                     <th>Fecha registro</th>
@@ -140,9 +144,11 @@
                       </div>
                     </td>
                     <td>{{i+1}}</td>
+                    <td>GABIN</td>
                     <td>{{vacaciones.fecha_inicio}}</td>
                     <td>{{vacaciones.fecha_fin}}</td>
                     <td>16</td>
+                    <td>{{i+1}}</td>
                     <td>{{vacaciones.vac_estado}}</td>
                     <td>{{vacaciones.vac_motivo}}</td>
                     <td>{{vacaciones.fecha_creacion}}</td>
@@ -165,45 +171,49 @@
       </div>
 
       <!-- HISTORICO DE PERIODOS DE VACACIONES---------------------------------------------------------- -->
-      <div class="pr-subtitle mt-2">Histórico Vacaciones registradas</div>
-      <div class="pr-section">
-        <div class="pr-module-container">
-          <div style="overflow: auto; min-height: 100px">
-            <table class="cli-table stripedtable underlinedtable">
-              <thead>
-                <tr class="bgc-turquey c-white">
-                  <th>#</th>
-                  <th>Cód. Proyecto</th>
-                  <th>Descripción</th>
-                  <th>Fecha de Cambio</th>
-                  <th>Asignado por</th>
-                </tr>
-              </thead>
+      <div *ngIf="DATA_VACACIONES">
+        <div class="pr-subtitle mt-2">Histórico Vacaciones registradas</div>
+        <div class="pr-section">
+          <div class="pr-module-container">
+            <div style="overflow: auto; min-height: 100px">
+              <table class="cli-table stripedtable underlinedtable">
+                <thead>
+                  <tr class="bgc-turquey c-white">
+                    <th>#</th>
+                    <th>Cód. Proyecto</th>
+                    <th>Estado</th>
+                    <th>Fecha de Cambio</th>
+                    <th>Responsable</th>
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ cambios.proyecto_codigo }}</td>
-                  <td>{{ cambios.proyecto_descripcion }}</td>
-                  <td>{{ cambios.fecha_asignacion }}</td>
-                  <td>{{ cambios.nombre_usuario_asignacion }}</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="cli-loader" *ngIf="loadingItem">
-              <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
-              cargando...
-            </div>
+                <tbody>
+                  <tr *ngFor="let cambios of histCambiosProyecto; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ cambios.proyecto_codigo }}</td>
+                    <td>En curso</td>
+                    <!-- <td>{{ cambios.proyecto_descripcion }}</td> -->
+                    <td>{{ cambios.fecha_asignacion }}</td>
+                    <td>{{ cambios.nombre_usuario_asignacion }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="cli-loader" *ngIf="loadingItem">
+                <mat-spinner style="margin-right: 20px" diameter="20"></mat-spinner>
+                cargando...
+              </div>
 
-            <div
-              *ngIf="!loadingItem && histCambiosProyecto.length == 0"
-              class="cli-loader mt-2"
-              style="color: #c9c9c9"
-              >Aquí se mostrará el histórico de Vacaciones ...
+              <div
+                *ngIf="!loadingItem && histCambiosProyecto.length == 0"
+                class="cli-loader mt-2"
+                style="color: #c9c9c9"
+                >Aquí se mostrará el histórico de Vacaciones ...
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
     <!-- --------------------------------------------BOTONES ------------------------------------------->
@@ -213,7 +223,7 @@
       </button>
       <button class="cli-btn btn-m btn-blue" (click)="actualizarPersonalVacaciones()">
         <!-- [disabled]="vacacionesForm.invalid" -->
-        <mat-icon class="icon-18">save</mat-icon> Actualizar
+        <mat-icon class="icon-18">save</mat-icon> {{actionBtn}}
       </button>
     </div>
   </div>

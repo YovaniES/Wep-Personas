@@ -84,6 +84,8 @@ export class RegistroVacacionesComponent implements OnInit {
     });
   }
 
+
+
   listCodProy: any[] = [];
   getListProyectos() {
     let arrayParametro: any[] = [{ queryId: 1 }];
@@ -94,12 +96,12 @@ export class RegistroVacacionesComponent implements OnInit {
       });
   }
 
-  listVacacionesEstado: any[] = [];
+  listEstadoVacacionesAprobadas: any[] = [];
   getLstEstadoVacaciones(){
-  let parametro: any[] = [{ queryId: 124}];
+  let parametro: any[] = [{ queryId: 132}];
   this.vacacionesService.getLstEstadoVacaciones(parametro[0]).subscribe((resp: any) => {
-    this.listVacacionesEstado = resp.list;
-    console.log('VACAS-ESTADO', resp.list);
+    this.listEstadoVacacionesAprobadas = resp.list;
+    console.log('VACAC-ESTADO-APROB', resp.list);
     })
   }
 
@@ -136,6 +138,19 @@ export class RegistroVacacionesComponent implements OnInit {
     }
     this.page = event;
   }
+
+
+  // crearPersonal() {
+  //   const dialogRef = this.dialog.open(CrearPersonalComponent, {
+  //     width: '55%',
+  //   });
+
+  //   dialogRef.afterClosed().subscribe((resp) => {
+  //     if (resp) {
+  //       this.cargarOBuscarPersonal();
+  //     }
+  //   });
+  // }
 
   crearVacaciones() {
     const dialogRef = this.dialog.open(ModalVacacionesComponent, {width: '55%',});

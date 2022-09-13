@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
 import { PersonalService } from 'src/app/core/services/personal.service';
 import { VacacionesPersonalService } from 'src/app/core/services/vacaciones-personal.service';
 import Swal from 'sweetalert2';
+import { AsignarPersonalComponent } from './asignar-personal/asignar-personal.component';
 import { AsignarVacacionesComponent } from './asignar-vacaciones/asignar-vacaciones.component';
 
 @Component({
@@ -38,6 +39,7 @@ export class ModalVacacionesComponent implements OnInit {
     this.cargarVacacionesById();
     this.getHistoricoCambiosProyecto(this.DATA_VACACIONES);
     this.getUsuario();
+    this.getLstEstadoVacaciones();
     this.cargarVacacionesAsignado();
     this.ListaCuentaAsignado();
     this.getLstSistemaVacaciones();
@@ -55,7 +57,7 @@ export class ModalVacacionesComponent implements OnInit {
        id_proyecto  : [''],
        estado       : [''],
        proyecto     : [''],
-
+       id_estado    : [''],
        idSistema    : [''],
        periodoVac   : ['']
       })
@@ -103,28 +105,33 @@ export class ModalVacacionesComponent implements OnInit {
     });
   };
 
+  actionBtn: string = 'Registrar';
   cargarVacacionesById(){
     this.spinner.show();
-        this.vacacionesForm.controls['idPersonal' ].setValue(this.DATA_VACACIONES.id);
-        this.vacacionesForm.controls['nombre'     ].setValue(this.DATA_VACACIONES.nombres);
-        this.vacacionesForm.controls['apPaterno'  ].setValue(this.DATA_VACACIONES.apellido_paterno);
-        this.vacacionesForm.controls['apMaterno'  ].setValue(this.DATA_VACACIONES.apellido_materno);
-        this.vacacionesForm.controls['codCorp'    ].setValue(this.DATA_VACACIONES.codigo_corporativo);
-        this.vacacionesForm.controls['proyecto'   ].setValue(this.DATA_VACACIONES.codigo_proyecto);
-        this.vacacionesForm.controls['id_proyecto'].setValue(this.DATA_VACACIONES.id_proyecto);
-        this.vacacionesForm.controls['estado'     ].setValue(this.DATA_VACACIONES.estado);
+    if (this.DATA_VACACIONES) {
+    this.actionBtn = 'Actualizar'
+      this.vacacionesForm.controls['idPersonal' ].setValue(this.DATA_VACACIONES.id);
+      this.vacacionesForm.controls['nombre'     ].setValue(this.DATA_VACACIONES.nombres);
+      this.vacacionesForm.controls['apPaterno'  ].setValue(this.DATA_VACACIONES.apellido_paterno);
+      this.vacacionesForm.controls['apMaterno'  ].setValue(this.DATA_VACACIONES.apellido_materno);
+      this.vacacionesForm.controls['codCorp'    ].setValue(this.DATA_VACACIONES.codigo_corporativo);
+      this.vacacionesForm.controls['proyecto'   ].setValue(this.DATA_VACACIONES.codigo_proyecto);
+      this.vacacionesForm.controls['id_proyecto'].setValue(this.DATA_VACACIONES.id_proyecto);
+      this.vacacionesForm.controls['estado'     ].setValue(this.DATA_VACACIONES.estado);
 
-        this.vacacionesForm.controls['idSistema' ].setValue(this.DATA_VACACIONES.id_sistema);
-        // this.vacacionesForm.controls['periodoVac' ].setValue(this.DATA_VACACIONES.periodo);
+      this.vacacionesForm.controls['idSistema' ].setValue(this.DATA_VACACIONES.id_sistema);
+      // this.vacacionesForm.controls['periodoVac' ].setValue(this.DATA_VACACIONES.periodo);
 
-        if (this.DATA_VACACIONES.fecha_ingreso) {
-          let fechaIngr = this.DATA_VACACIONES.fecha_ingreso
-          const str   = fechaIngr.split('/');
-          const year  = Number(str[2]);
-          const month = Number(str[1]);
-          const date  = Number(str[0]);
-          this.vacacionesForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
-        }
+      if (this.DATA_VACACIONES.fecha_ingreso) {
+        let fechaIngr = this.DATA_VACACIONES.fecha_ingreso
+        const str   = fechaIngr.split('/');
+        const year  = Number(str[2]);
+        const month = Number(str[1]);
+        const date  = Number(str[0]);
+        this.vacacionesForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+      }
+
+    }
       this.spinner.hide();
   }
 
@@ -227,6 +234,15 @@ export class ModalVacacionesComponent implements OnInit {
     })
   }
 
+  listEstadoVacacionesAprobadas: any[] = [];
+  getLstEstadoVacaciones(){
+  let parametro: any[] = [{ queryId: 132}];
+  this.vacacionesService.getLstEstadoVacaciones(parametro[0]).subscribe((resp: any) => {
+    this.listEstadoVacacionesAprobadas = resp.list;
+    console.log('VACAS-ESTADO', resp.list);
+    })
+  }
+
   userID: number = 0;
   getUsuario(){
    this.authService.getCurrentUser().subscribe( resp => {
@@ -246,6 +262,17 @@ export class ModalVacacionesComponent implements OnInit {
       return false;
     }
   }
+
+  //CORREGIR EL MODAL DE AGREGAR PERSONAL
+  asignarPersonal(){
+    const dialogRef = this.dialog.open(AsignarPersonalComponent, { width:'35%', data: {vacForm: this.vacacionesForm.value, isCreation: true} });
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp) {
+        this.cargarVacacionesAsignado()
+      }
+    })
+  };
 
   asignarVacaciones(){
     const dialogRef = this.dialog.open(AsignarVacacionesComponent, { width:'35%', data: {vacForm: this.vacacionesForm.value, isCreation: true} });
