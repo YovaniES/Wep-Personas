@@ -95,5 +95,9 @@ export class FacturacionService {
   getHistoricoCambiosEstado(obj: any) {
     return this.http.post(API_DYNAMO, obj);
   }
+
+  exportListVD_Fact(obj: any){
+    return this.http.post(API_DYNAMO, obj);
+  }
 }
 

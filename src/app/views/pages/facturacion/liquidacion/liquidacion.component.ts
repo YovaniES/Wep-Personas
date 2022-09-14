@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
@@ -11,7 +11,6 @@ import { CrearLiquidacionComponent } from '../liquidacion/crear-liquidacion/crea
 import { ActualizarLiquidacionComponent } from '../liquidacion/actualizar-liquidacion/actualizar-liquidacion.component';
 import { ActualizacionMasivaComponent } from './actualizacion-masiva/actualizacion-masiva.component';
 import { FacturacionService } from 'src/app/core/services/facturacion.service';
-
 
 @Component({
   selector: 'app-liquidacion',
@@ -45,6 +44,7 @@ export class LiquidacionComponent implements OnInit {
     this.getListProyectos();
     this.getListGestores();
     this.getListLiquidaciones();
+    this.exportListVD_Fact();
   }
 
   newFilfroForm(){
@@ -56,6 +56,7 @@ export class LiquidacionComponent implements OnInit {
       fechaRegistroInicio: [''],
       fechaRegistroFin   : [''],
       id_gestor          : [''],
+      importe            : ['']
     })
   };
 
@@ -70,6 +71,7 @@ export class LiquidacionComponent implements OnInit {
           id_liquidacion : this.filtroForm.value.id_liquidacion,
           id_estado      : this.filtroForm.value.id_estado,
           id_gestor      : this.filtroForm.value.id_gestor,
+          importe        : this.filtroForm.value.importe,
           inicio         : this.datepipe.transform(this.filtroForm.value.fechaRegistroInicio,"yyyy/MM/dd"),
           fin            : this.datepipe.transform(this.filtroForm.value.fechaRegistroFin,"yyyy/MM/dd"),
       }
@@ -77,7 +79,7 @@ export class LiquidacionComponent implements OnInit {
     this.facturacionService.cargarOBuscarLiquidacion(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-Liquidaciones', resp, resp.list.length);
+     console.log('Lista-Liquidaciones', resp.list, resp.list.length);
       this.listaLiquidacion = [];
       this.listaLiquidacion = resp.list;
 
@@ -122,19 +124,29 @@ export class LiquidacionComponent implements OnInit {
 
   listEstados: any[] = [];
   getListEstados(){
-    let arrayParametro: any[] = [{queryId: 101}];
+    let parametro: any[] = [{queryId: 101}];
 
-    this.facturacionService.getListEstados(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListEstados(parametro[0]).subscribe((resp: any) => {
             this.listEstados = resp.list;
             // console.log('EST-FACT', resp);
     });
   }
 
+  listVD_Fact: any[] = [];
+  exportListVD_Fact(){
+    let parametro: any[] = [{queryId: 136}];
+
+    this.facturacionService.exportListVD_Fact(parametro[0]).subscribe((resp: any) => {
+            this.listVD_Fact = resp.list;
+            console.log('EXPORT-VD_FACT', resp);
+    });
+  }
+
   listGestores: any[] = [];
   getListGestores(){
-    let arrayParametro: any[] = [{queryId: 102}];
+    let parametro: any[] = [{queryId: 102}];
 
-    this.facturacionService.getListGestores(arrayParametro[0]).subscribe((resp: any) => {
+    this.facturacionService.getListGestores(parametro[0]).subscribe((resp: any) => {
             this.listGestores = resp.list;
             // console.log('GESTORES', resp);
     });
@@ -152,8 +164,8 @@ export class LiquidacionComponent implements OnInit {
 
   listLiquidaciones: any[] = [];
   getListLiquidaciones(){
-    let arrayParametro: any[] = [{queryId: 82}];
-    this.facturacionService.getListLiquidaciones(arrayParametro[0]).subscribe((resp: any) => {
+    let parametro: any[] = [{queryId: 82}];
+    this.facturacionService.getListLiquidaciones(parametro[0]).subscribe((resp: any) => {
             this.listLiquidaciones = resp.list;
             // console.log('LIQUIDAC', resp);
     });
@@ -217,7 +229,11 @@ export class LiquidacionComponent implements OnInit {
   }
 
   exportarRegistro(){
-    this.exportExcellService.exportarExcel(this.listaLiquidacion, 'Factura')
+    this.exportExcellService.exportarExcel(this.listaLiquidacion, 'Factura_Filtro')
+  }
+
+  exportarVD_FACT(){
+    this.exportExcellService.exportarExcel(this.listVD_Fact, 'FACTURACION-VENT_DECLARADA')
   }
 }
 

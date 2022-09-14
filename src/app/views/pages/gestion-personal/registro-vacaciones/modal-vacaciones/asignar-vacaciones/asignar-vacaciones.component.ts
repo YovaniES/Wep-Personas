@@ -18,7 +18,6 @@ export class AsignarVacacionesComponent implements OnInit {
 
   constructor(
     private vacacionesService: VacacionesPersonalService,
-    private utilService: UtilService,
     private authService: AuthService,
     private fb: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -34,7 +33,7 @@ export class AsignarVacacionesComponent implements OnInit {
     this.getLstEstadoVacaciones();
     this.getLstMotivosVacaciones();
     this.getLstSistemaVacaciones();
-    console.log('DATA_VACAC_PERSONAL', this.DATA_VACAC, this.DATA_VACAC.vdForm);
+    console.log('DATA_VACAC_PERIODO', this.DATA_VACAC, this.DATA_VACAC.vdForm);
     // console.log('ID_PERS_VACAC', this.DATA_VACAC.vacForm.idPersonal); //idPersonal= 496
 
   }
@@ -53,18 +52,19 @@ export class AsignarVacacionesComponent implements OnInit {
     if (!this.DATA_VACAC) {return}
 
     if (this.DATA_VACAC.isCreation) {
-      if (this.asigVacacionesForm.valid) { this.agregarVacaciones()}
+      if (this.asigVacacionesForm.valid) { this.agregarPeriodoVacaciones()}
     } else {
       this.actualizarVacaciones();
     }
    }
 
-   agregarVacaciones() {
+   agregarPeriodoVacaciones() {
     this.spinner.show();
     const formValues = this.asigVacacionesForm.getRawValue();
 
     let parametro: any =  {queryId: 129, mapValue: {
-          p_id_persona           : this.DATA_VACAC.vacForm.idPersonal ,
+          p_id_vacaciones        : this.DATA_VACAC.vacForm.idVacaciones.id_vacaciones,
+          p_id_persona           : this.DATA_VACAC.vacForm.idVacaciones.id_persona ,
           p_fecha_vac_ini        : formValues.fechaInicio ,
           p_fecha_vac_fin        : formValues.fechaFin ,
           p_id_vac_estado        : formValues.id_estado ,
@@ -72,17 +72,17 @@ export class AsignarVacacionesComponent implements OnInit {
           p_observacion          : formValues.observaciones ,
           p_id_usuario_asignacion: this.userID ,
           p_fecha_vac_creacion   : '' ,
-          p_id_sist_vac          : 2,
+          p_id_sist_vac          : this.DATA_VACAC.vacForm.idVacaciones.id_sist_vac,
           CONFIG_USER_ID         : this.userID ,
           CONFIG_OUT_MSG_ERROR   : '' ,
           CONFIG_OUT_MSG_EXITO   : ''
         },
       };
      console.log('VAOR_VACA', this.asigVacacionesForm.value , parametro);
-    this.vacacionesService.agregarVacaciones(parametro).subscribe((resp: any) => {
+    this.vacacionesService.agregarPeriodoVacaciones(parametro).subscribe((resp: any) => {
       Swal.fire({
         title: 'Agregar vacaciones!',
-        text : `La vacación, fue creado con éxito`,
+        text : `La vacación fue planificado con éxito`,
         icon : 'success',
         confirmButtonText: 'Ok',
       });
@@ -97,7 +97,8 @@ export class AsignarVacacionesComponent implements OnInit {
     const formValues = this.asigVacacionesForm.getRawValue();
     let parametro: any[] = [{ queryId: 131,
         mapValue: {
-          p_idVacaciones         : this.DATA_VACAC.idVacaciones ,
+          p_idPeriodoVac         : this.DATA_VACAC.id_periodo,
+          p_id_vacaciones        : this.DATA_VACAC.id_vacaciones ,
           p_id_persona           : this.DATA_VACAC.id_persona ,
           p_fecha_vac_ini        : formValues.fechaInicio ,
           p_fecha_vac_fin        : formValues.fechaFin ,
@@ -106,6 +107,7 @@ export class AsignarVacacionesComponent implements OnInit {
           p_observacion          : formValues.observaciones ,
           p_id_usuario_asignacion: this.userID ,
           p_fecha_vac_creacion   : '' ,
+          p_id_sist_vac          : this.DATA_VACAC.id_sist,
           CONFIG_USER_ID      : this.userID,
           CONFIG_OUT_MSG_ERROR: '',
           CONFIG_OUT_MSG_EXITO: ''
@@ -116,8 +118,8 @@ export class AsignarVacacionesComponent implements OnInit {
 
         this.close(true)
           Swal.fire({
-            title: 'Actualizar vacaciones!',
-            text : `La Vacación: ${this.DATA_VACAC.idVacaciones }, se actualizó con éxito`,
+            title: 'Actualizar periodo!',
+            text : `El Periodo: ${this.DATA_VACAC.id_periodo}, se actualizó con éxito`,
             icon : 'success',
             confirmButtonText: 'Ok'
             });
@@ -127,7 +129,7 @@ export class AsignarVacacionesComponent implements OnInit {
         }, error:()=>{
           Swal.fire(
             'ERROR',
-            'No se pudo actualizar la vacación',
+            'No se pudo actualizar el periodo',
             'warning'
           );
         }
@@ -142,11 +144,6 @@ export class AsignarVacacionesComponent implements OnInit {
       this.asigVacacionesForm.controls['id_motivo'    ].setValue(this.DATA_VACAC.id_vac_motivo);
       this.asigVacacionesForm.controls['id_estado'    ].setValue(this.DATA_VACAC.id_vac_estado);
       this.asigVacacionesForm.controls['observaciones'].setValue(this.DATA_VACAC.observacion);
-      // this.asigVacacionesForm.controls['fechaCrea'     ].setValue(this.DATA_VACAC.dFecha);
-
-      // if (this.DATA_VACAC.dFecha !='null' && this.DATA_VACAC.dFecha != '') {
-      //   this.asigVacacionesForm.controls['fechaFin'].setValue(this.DATA_VACAC.dFecha)
-      //   }
 
       if (this.DATA_VACAC.fecha_inicio !='null' && this.DATA_VACAC.fecha_inicio != '') {
           let fecha_x = this.DATA_VACAC.fecha_inicio

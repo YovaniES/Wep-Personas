@@ -43,6 +43,9 @@ export class ModalVacacionesComponent implements OnInit {
     this.cargarVacacionesById();
     // this.getHistoricoCambiosProyecto(this.DATA_VACACIONES);
     console.log('DATA_VACACIONES', this.DATA_VACACIONES);
+    console.log('ID_DATA_VACACIONES', this.DATA_VACACIONES.id_vacaciones);
+
+    this.vacacionesForm.controls['idVacaciones'].setValue(this.DATA_VACACIONES)
   }
 
     newForm(){
@@ -59,13 +62,13 @@ export class ModalVacacionesComponent implements OnInit {
        proyecto      : [''],
        id_estado_vac : [''],
        idSistema     : [''],
-       periodoVac    : ['']
+       periodoVac    : [''],
+
+       idVacaciones  : ['']
+
       })
      }
 
-  crearOactualizarVacaciones(){
-
-  }
 
   actualizarPersonalVacaciones(){
     this.spinner.show();
@@ -211,13 +214,13 @@ export class ModalVacacionesComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 128,
       "mapValue": {
-      "p_id_persona": this.DATA_VACACIONES.id_vacaciones,
+      "p_id_vacaciones": this.DATA_VACACIONES.id_vacaciones,
       }
     }];
 
     this.vacacionesService.cargarVacacionesAsignado(parametro[0]).subscribe( (resp: any) => {
       this.listVacacionesPeriodo = resp.list;
-      console.log('VACACIONES-ASIG', resp.list);
+      console.log('VACACIONES-PLANIFICADAS', resp.list);
     })
   }
 

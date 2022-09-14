@@ -126,6 +126,8 @@
           <thead>
             <tr class="bgc-blue-light c-white">
               <th>Acción</th>
+              <th>ID Vacaciones</th>
+              <th>ID Persona</th>
               <th>Código</th>
               <th>Nombres y Apellidos</th>
               <th>Cód. Proyecto</th>
@@ -156,6 +158,8 @@
                   </button>
                 </div>
               </td>
+              <td>{{ vacaciones.id_vacaciones }}</td>
+              <td>{{ vacaciones.id_persona }}</td>
               <td>{{ vacaciones.codigo_corporativo }}</td>
               <td class="w350"> {{ vacaciones.apellidos |firstCapital}}, {{vacaciones.nombres | firstCapital}}</td>
               <td>{{ vacaciones.codigo_proyecto | uppercase}}</td>

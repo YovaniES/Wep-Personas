@@ -56,24 +56,6 @@ export class CrearVacacionesComponent implements OnInit {
       })
      }
 
-  // apellido_materno:"Chávez"
-  // apellido_paterno:"Zaá "
-  // apellidos:"Zaá  Chávez"
-  // codigo_corporativo:"470793"
-  // codigo_proyecto:"TRAMOP"
-  // estado_vac:"En curso"
-  // fecha_fin_vac:"26/10/2022"
-  // fecha_ini_vac:"20/10/2022"
-  // id_estado_vac:1
-  // id_proyecto:14
-  // id_responsable:10
-  // id_sist_vac:2
-  // id_vacaciones:5
-  // nombres:"Ursula"
-  // responsable:"Soto Vilcapoma, Jhon Jimmy"
-  // sist_vac:"TAWA"
- // id_estado_vac
-
  crearVacaciones(){
 
  }

@@ -125,3 +125,5 @@ export class AsignarPersonalComponent implements OnInit {
     this.dialogRef.close(succes);
   }
 }
+
+

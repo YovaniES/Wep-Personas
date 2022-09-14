@@ -30,7 +30,7 @@
             </div>
 
             <div class="input-group col-sm-4">
-              <div class="input-group-text"><mat-icon>sensor_occupied</mat-icon></div>
+              <div class="input-group-text"><mat-icon>account_circle</mat-icon></div>
               <div class="info">{{vacacionesForm.controls['nombre'].value | uppercase}} {{vacacionesForm.controls['apPaterno'].value | uppercase}} {{vacacionesForm.controls['apMaterno'].value | uppercase}}</div>
             </div>
 
@@ -51,11 +51,11 @@
         </div>
       </div>
 
-      <div *ngIf="!loadingItem && listSistemaVacaciones.length == 0"
+      <!-- <div *ngIf="!loadingItem"
               class="cli-loader"
               style="color: #c9c9c9"
               >Aún no hay personal registrado
-     </div>
+     </div> -->
 
       <!-- DATOS DE LA EMPRESA ------------------------------------------------------------------------->
       <div class="pr-subtitle mt-2">Data empresa</div>

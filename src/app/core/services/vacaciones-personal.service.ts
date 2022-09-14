@@ -36,7 +36,7 @@ export class VacacionesPersonalService {
     return this.http.post(API_DYNAMO, id);
   }
 
-  agregarVacaciones(id: any) {
+  agregarPeriodoVacaciones(id: any) {
     return this.http.post(API_DYNAMO, id);
   }
 

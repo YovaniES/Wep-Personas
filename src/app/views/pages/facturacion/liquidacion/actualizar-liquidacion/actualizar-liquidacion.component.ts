@@ -49,7 +49,7 @@ export class ActualizarLiquidacionComponent implements OnInit {
     this.cargarVentaDeclarada();
     this.cargarFactura();
 
-    // console.log('DATA_LIQUID', this.DATA_LIQUID);
+    console.log('DATA_LIQUID', this.DATA_LIQUID);
     this.facturaForm.controls['id_factura'].setValue(this.DATA_LIQUID);
   }
 

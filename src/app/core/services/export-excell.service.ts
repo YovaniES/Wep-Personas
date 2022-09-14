@@ -12,8 +12,8 @@ export class ExportExcellService {
   exportarExcel(json: any[], excelFileName: string){
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(json);
     const wb: XLSX.WorkBook = {
-          Sheets    : {'Personal': ws},
-          SheetNames: ['Personal']
+          Sheets    : {'Dynamo': ws},
+          SheetNames: ['Dynamo']
     };
 
     const excelBuffer: any = XLSX.write(wb, {bookType: 'xlsx', type: 'array'});
