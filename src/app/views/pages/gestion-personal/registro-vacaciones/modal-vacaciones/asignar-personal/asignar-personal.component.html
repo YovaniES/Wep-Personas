@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male">Listado personal</div>
+  <div class="modal-title c-male">Personal activo</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -9,18 +9,18 @@
 </div>
 
 <div class="cli-card">
-  <div style="padding: 5px 5px">
+  <div style="padding: 2px 2px">
     <div>
       <!-- BUSCADOR POR FILTRO ---------------------------------------------------------------->
       <div class="buscar">
           <form class="row g-3" [formGroup]="filtroForm">
             <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Código</label>
+              <label class="form-label">Código Corp.</label>
               <input
                 type="text"
                 class="form-control"
                 placeholder="Ingrese Código"
-                formControlName="nombres"/>
+                formControlName="codigo_corp"/>
             </div>
 
             <div class="col-sm-3 cli-form-element">
@@ -29,7 +29,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Ingrese nombre(s)"
-                formControlName="apellidos"/>
+                formControlName="nombres"/>
             </div>
 
             <div class="col-sm-4 cli-form-element">
@@ -38,7 +38,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Ingrese Apellidos"
-                formControlName="codigo_corp"/>
+                formControlName="apellidos"/>
             </div>
 
             <div class="col-sm-2">
@@ -48,7 +48,7 @@
                   matTooltip="Buscar"
                   class="btn-hardware btn-blue-light"
                   style="border-radius: 2px; "
-                  (click)="cargarOBuscarPersonal()"
+                  (click)="cargarOBuscarPersonalActivo()"
                   ><mat-icon class="icon-18">search</mat-icon>
                  </button>
                  <button
@@ -65,7 +65,7 @@
       </div>
 
       <!-- BOTON MODAL PARA AGREGAR PEERSONAL ----------------------------------------------------->
-      <div style="display: flex" class="mt-4 mb-1">
+      <div style="display: flex">
         <div class="flex-1"></div>
         <div style="color: #345df3;">
           Total : <span class="total">{{ listaPersonal.length }} Activos</span>
@@ -77,19 +77,18 @@
         <table class="cli-table stripedtable underlinedtable">
           <thead>
             <tr class="bgc-turquey c-white">
-              <th>Acción</th>
-              <th>Código</th>
-              <th>Nombres y Apellidos</th>
+              <th style="width: 40px">Acción</th>
+              <th style="width: 50px">Código</th>
+              <th style="width: 220px">Nombres y Apellidos</th>
               <th>Proyecto</th>
-              <th>Estado</th>
             </tr>
           </thead>
 
           <tbody>
             <tr *ngFor="let personal of listaPersonal | paginate:
                       { itemsPerPage: pageSize,
-                        currentPage: page,
-                        totalItems: totalHardware
+                        currentPage : page,
+                        totalItems  : totalPersonal
                       } ">
               <td>
                 <div class="cli-table-actions">
@@ -104,10 +103,6 @@
               <td>{{ personal.codigo_corporativo }}</td>
               <td class="w350"> {{ personal.apellidos |firstCapital}}, {{personal.nombres | firstCapital}}</td>
               <td>{{ personal.codigo_proyecto  | uppercase   }}</td>
-              <td>
-                <span *ngIf="personal.estado == 'Activo'"   class="w135 label estado-info">  {{ personal.estado | uppercase }}</span>
-                <span *ngIf="personal.estado == 'Inactivo'" class="w135 label estado-danger">{{ personal.estado | uppercase }}</span>
-              </td>
             </tr>
           </tbody>
         </table>

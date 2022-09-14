@@ -1,6 +1,6 @@
 <div style="display: flex">
   <div class="flex-1"></div>
-  <div class="modal-title c-male"> {{DATA_VACAC && DATA_VACAC.isCreation ? 'Agregar': 'Actualizar'}} vacaciones</div>
+  <div class="modal-title c-male"> {{DATA_VACAC && DATA_VACAC.isCreation ? 'Planificar': 'Actualizar'}} vacaciones</div>
   <div class="flex-1"></div>
 
   <button (click)="close()" class="icon-btn btn-trans c-orange moda-close-btn">
@@ -14,13 +14,6 @@
       <!-- REGISTRAR VACACIONES---------------------------------------------------------- -->
         <div class="pr-module-container">
           <div class="row g-3">
-            <!-- <div class="col-sm-4 cli-form-element">
-              <label>Sistema de registro</label>
-              <select class="cli-input-white" formControlName="idSistema">
-                <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="sistema.id_correlativo" *ngFor="let sistema of listSistemaVacaciones">{{sistema.valor_texto_1}}</option>
-              </select>
-            </div> -->
 
             <div class="col-sm-6 cli-form-element">
               <div class="form-group">
@@ -78,7 +71,7 @@
                 class="form-control"
                 style="background-image: none; border-color: #bdbdbd; font-size: 14px; font-size: 12px;"
                 rows="3"
-                placeholder="Escriba algún Comentario de sobre la Asignación de vacaciones..."
+                placeholder="Escriba algún Comentario de sobre la Planificación de vacaciones..."
                 formControlName="observaciones"
                ></textarea>
                 <small class="form-text text-alert" *ngIf="campoNoValido('observaciones')">* Ingrese la Observación es obligatorio</small>

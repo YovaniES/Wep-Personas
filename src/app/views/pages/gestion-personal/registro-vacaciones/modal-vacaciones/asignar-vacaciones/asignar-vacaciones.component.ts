@@ -45,7 +45,7 @@ export class AsignarVacacionesComponent implements OnInit {
       fechaFin      : ['', [Validators.required]],
       id_estado     : ['', [Validators.required]],
       id_motivo     : ['', [Validators.required]],
-      observaciones : ['-'],
+      observaciones : [''],
     })
    }
 

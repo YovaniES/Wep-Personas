@@ -69,5 +69,13 @@ export class VacacionesPersonalService {
     return this.http.post(API_DYNAMO, id);
   }
 
+
+  cargarOBuscarPersonalActivo(id: any) {
+    return this.http.post(API_DYNAMO, id);
+  }
+
+  asignarPersonal(id: any) {
+    return this.http.post(API_DYNAMO, id);
+  }
 }
 

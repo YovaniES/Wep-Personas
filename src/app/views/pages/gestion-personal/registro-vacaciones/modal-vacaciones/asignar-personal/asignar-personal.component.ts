@@ -5,8 +5,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PersonalService } from 'src/app/core/services/personal.service';
-import Swal from 'sweetalert2';
+import { VacacionesPersonalService } from 'src/app/core/services/vacaciones-personal.service';
 
 @Component({
   selector: 'app-asignar-personal',
@@ -19,11 +18,11 @@ export class AsignarPersonalComponent implements OnInit {
   filtroForm!: FormGroup;
 
   page = 1;
-  totalHardware: number = 0;
-  pageSize = 5;
+  totalPersonal: number = 0;
+  pageSize = 4;
 
   constructor(
-    private personalService: PersonalService,
+    private vacacionesService: VacacionesPersonalService,
     private fb: FormBuilder,
     private authService: AuthService,
     private spinner: NgxSpinnerService,
@@ -33,9 +32,9 @@ export class AsignarPersonalComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getUsuario()
     this.newFilfroForm();
-    this.cargarOBuscarPersonal();
+    this.getUsuario()
+    this.cargarOBuscarPersonalActivo();
     // console.log('ID_PERSON_REC', this.DATA_PERSONA);
   }
 
@@ -56,19 +55,20 @@ export class AsignarPersonalComponent implements OnInit {
   }
 
   listaPersonal: any[] = [];
-  cargarOBuscarPersonal(){
+  cargarOBuscarPersonalActivo(){
     this.blockUI.start("Cargando personal...");
     let parametro: any[] = [{
-      "queryId": 121,
+      "queryId": 134,
       "mapValue": {
-          nombre     : this.filtroForm.value.nombres + " " + this.filtroForm.value.apellidos,
-          codigo_corp: this.filtroForm.value.codigo_corp,
+          nombre   : this.filtroForm.value.nombres + " " + this.filtroForm.value.apellidos,
+          // apellidos: this.filtroForm.value.apellidos,
+          cod_corp : this.filtroForm.value.codigo_corp,
       }
     }];
-    this.personalService.cargarOBuscarPersonal(parametro[0]).subscribe((resp: any) => {
+    this.vacacionesService.cargarOBuscarPersonalActivo(parametro[0]).subscribe((resp: any) => {
     this.blockUI.stop();
 
-     console.log('Lista-ASIG-Personal', resp, resp.list.length);
+     console.log('Lista-Personal_ACT', resp, resp.list.length);
       this.listaPersonal = [];
       this.listaPersonal = resp.list;
 
@@ -89,8 +89,8 @@ export class AsignarPersonalComponent implements OnInit {
           "CONFIG_OUT_MSG_ERROR":'',
           "CONFIG_OUT_MSG_EXITO":''}
       }];
-      this.personalService.asignarRecurso(parametro[0]).subscribe( resp => {
-        // this.cargarOBuscarPersonal();
+      this.vacacionesService.asignarPersonal(parametro[0]).subscribe( resp => {
+        this.cargarOBuscarPersonalActivo();
         this.close(true);
       })
     }
@@ -99,8 +99,9 @@ export class AsignarPersonalComponent implements OnInit {
 
   limpiarFiltro() {
     this.filtroForm.reset('', {emitEvent: false})
+    this.newFilfroForm();
 
-    this.cargarOBuscarPersonal();
+    this.cargarOBuscarPersonalActivo();
   };
 
   listaHardwareDisp: any[] = [];
@@ -109,8 +110,8 @@ export class AsignarPersonalComponent implements OnInit {
     let offset = event*10;
     this.spinner.show();
 
-    if (this.totalfiltro != this.totalHardware) {
-      this.personalService.cargarOBuscarPersonal(offset.toString()).subscribe( (resp: any) => {
+    if (this.totalfiltro != this.totalPersonal) {
+      this.vacacionesService.cargarOBuscarPersonalActivo(offset.toString()).subscribe( (resp: any) => {
             this.listaHardwareDisp = resp.list;
             this.spinner.hide();
           });

@@ -7,11 +7,11 @@
           <form class="row g-3" [formGroup]="filtroForm">
 
             <div class="col-sm-3 cli-form-element">
-              <label class="form-label">Código</label>
+              <label class="form-label">Código corp.</label>
               <input
                 type="text"
                 class="form-control"
-                formControlName="nombres"/>
+                formControlName="cod_corp"/>
             </div>
 
             <div class="col-sm-3 cli-form-element">
@@ -32,15 +32,15 @@
 
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Cód.Proyecto</label>
-              <select class="form-select" formControlName="codProy">
+              <select class="form-select" formControlName="id_cod_proy">
                 <option [value]="0" disabled>- Seleccione -</option>
-                <option [value]="cod.id" *ngFor="let cod of listCodProy">{{cod.codigo}}</option>
+                <option [value]="cod.id_proyecto" *ngFor="let cod of listCodProy">{{cod.codigo}}</option>
               </select>
             </div>
 
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Estado</label>
-              <select class="form-select" formControlName="estado">
+              <select class="form-select" formControlName="id_estado_vac">
                 <option [value]="0" disabled>-Seleccione-</option>
                 <option [value]="estado.id_correlativo" *ngFor="let estado of listEstadoVacacionesAprobadas" >{{estado.valor_texto_1}}</option>
               </select>
@@ -49,7 +49,7 @@
 
             <div class="col-sm-3 cli-form-element">
               <label class="form-label">Registros de:</label>
-              <select class="form-select" formControlName="codProy">
+              <select class="form-select" formControlName="id_responsable">
                 <option [value]="0" disabled>- Seleccione -</option>
                 <option [value]="admin.id_correlativo" *ngFor="let admin of listAdminVacaciones">{{admin.valor_texto_1}}</option>
               </select>
@@ -61,7 +61,7 @@
                  <input
                   type="date"
                   class="form-control"
-                  formControlName="fechaIngresoInicio"/>
+                  formControlName="fechaCreaVacIni"/>
               </div>
             </div>
 
@@ -71,7 +71,7 @@
                 <input
                   type="date"
                   class="form-control"
-                  formControlName="fechaIngresoFin"/>
+                  formControlName="fechaCreaVacFin"/>
               </div>
             </div>
 
@@ -129,14 +129,15 @@
               <th>Código</th>
               <th>Nombres y Apellidos</th>
               <th>Cód. Proyecto</th>
-              <th>Responsable</th>
-              <th>Fecha registro</th>
-              <th>Cant. días</th>
-              <th>Periodo</th>
               <th>Sistema</th>
+              <th>Fecha Inicio</th>
+              <th>Fecha Fin</th>
+              <th>Cant. días</th>
               <th>Estado</th>
+              <th>Responsable</th>
               <th>Planificado</th>
               <th>Pendiente</th>
+              <!-- <th>Periodo</th> -->
             </tr>
           </thead>
 
@@ -144,11 +145,11 @@
             <tr *ngFor="let vacaciones of listaRegVacaciones | paginate:
                       { itemsPerPage: pageSize,
                         currentPage : page,
-                        totalItems  : totalPersonal
+                        totalItems  : totalVacaciones
                       } ">
               <td class="w50">
                 <div class="cli-table-actions">
-                  <button matTooltip="Agregar Vacaciones"
+                  <button matTooltip="Planificar Vacaciones"
                     class="icon-btn btn-trans c-darkcyan"
                     (click)="actualizarVacaciones(vacaciones)"
                     ><mat-icon class="icon-18">hail</mat-icon>
@@ -158,43 +159,20 @@
               <td>{{ vacaciones.codigo_corporativo }}</td>
               <td class="w350"> {{ vacaciones.apellidos |firstCapital}}, {{vacaciones.nombres | firstCapital}}</td>
               <td>{{ vacaciones.codigo_proyecto | uppercase}}</td>
-              <td class="w350">{{vacaciones.usu_asig}}</td>
-              <td class="w100">{{ vacaciones.fecha_ingreso }}</td>
-              <td style="color: #0daef4; width: 100px; font-weight: 600;"> 20 <small>d</small></td>
-              <td>{{ vacaciones.perfil | firstCapital }}</td>
-              <td> {{vacaciones.sistema}}</td>
-              <td>{{vacaciones.vac_estado}}</td>
+              <td> {{vacaciones.sist_vac}}</td>
+              <td class="w100">{{ vacaciones.fecha_ini_vac }}</td>
+              <td>{{ vacaciones.fecha_fin_vac | firstCapital }}</td>
+              <td style="color: #0daef4; width: 100px; font-weight: 600;"> {{cantDias}} <small>d</small></td>
+              <td style="width: 100px">
+                <span *ngIf="vacaciones.estado_vac == 'En curso'"    class="w135 label estado-info">  {{ vacaciones.estado_vac | uppercase }}</span>
+                <span *ngIf="vacaciones.estado_vac == 'Completado'"  class="w135 label estado-danger">{{ vacaciones.estado_vac | uppercase }}</span>
+                <span *ngIf="vacaciones.estado_vac == 'Planificado'" class="w135 label estado-planif">{{ vacaciones.estado_vac | uppercase }}</span>
+                <span *ngIf="vacaciones.estado_vac == 'Registrado'"  class="w135 label estado-reg ">  {{ vacaciones.estado_vac | uppercase }}</span>
+              </td>
+              <td class="w350">{{vacaciones.responsable}}</td>
+              <!-- <td>{{vacaciones.estado_vac}}</td> -->
               <td style="color: #20c997; font-weight:600;"> 12 <small>d</small></td>
               <td style="color: red"> 8 <small>d</small></td>
-
-              <!-- <td class="w100">
-                <div class="cli-table-actions">
-                  <ng-container *ngIf="vacaciones.total_rh >= 1" >
-                    <small class="c-indigo" style="display:flex; flex-direction:inherit">{{vacaciones.total_rh}}</small>
-                    <button
-                      class="icon-btn c-indigo"
-                      style="background: none; cursor: none;"
-                      ><mat-icon class="icon-13">devices</mat-icon>
-                    </button>
-                  </ng-container>
-
-                  <div *ngIf="vacaciones.total_rh != 0 && vacaciones.total_rc != 0" class="h-divider"></div>
-
-                  <ng-container *ngIf="vacaciones.total_rc >= 1">
-                    <small   class="c-cyan">{{vacaciones.total_rc}}</small>
-                    <button
-                      class="icon-btn  c-cyan"
-                      style="background: none; cursor: none;"
-                      ><mat-icon class="icon-13">vpn_lock</mat-icon>
-                    </button>
-                  </ng-container>
-                </div>
-              </td> -->
-
-              <!-- <td>
-                <span *ngIf="vacaciones.estado == 'Activo'"   class="w135 label estado-info">  {{ vacaciones.estado | uppercase }}</span>
-                <span *ngIf="vacaciones.estado == 'Inactivo'" class="w135 label estado-danger">{{ vacaciones.estado | uppercase }}</span>
-              </td> -->
             </tr>
           </tbody>
         </table>

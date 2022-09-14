@@ -36,32 +36,36 @@ export class ModalVacacionesComponent implements OnInit {
 
   ngOnInit(): void {
     this.newForm();
-    this.cargarVacacionesById();
-    this.getHistoricoCambiosProyecto(this.DATA_VACACIONES);
     this.getUsuario();
     this.getLstEstadoVacaciones();
-    this.cargarVacacionesAsignado();
-    this.ListaCuentaAsignado();
     this.getLstSistemaVacaciones();
+    this.cargarVacacionesAsignado();
+    this.cargarVacacionesById();
+    // this.getHistoricoCambiosProyecto(this.DATA_VACACIONES);
     console.log('DATA_VACACIONES', this.DATA_VACACIONES);
   }
 
     newForm(){
       this.vacacionesForm = this.fb.group({
-       idPersonal   : [''],
-       nombre       : ['', [Validators.required]],
-       apPaterno    : [''],
-       apMaterno    : [''],
-       codCorp      : [''],
-       fechaIngreso : [''],
-       id_proyecto  : [''],
-       estado       : [''],
-       proyecto     : [''],
-       id_estado    : [''],
-       idSistema    : [''],
-       periodoVac   : ['']
+      //  idPersonal    : [''],
+       nombre        : ['', [Validators.required]],
+       apPaterno     : [''],
+       apMaterno     : [''],
+       codCorp       : [''],
+       fechaInicVac  : [''],
+       fechaFinVac   : [''],
+       id_proyecto   : [''],
+       estado_persona: [''],
+       proyecto      : [''],
+       id_estado_vac : [''],
+       idSistema     : [''],
+       periodoVac    : ['']
       })
      }
+
+  crearOactualizarVacaciones(){
+
+  }
 
   actualizarPersonalVacaciones(){
     this.spinner.show();
@@ -104,34 +108,60 @@ export class ModalVacacionesComponent implements OnInit {
         })
     });
   };
+  // apellido_materno:"Chávez"
+  // apellido_paterno:"Zaá "
+  // apellidos:"Zaá  Chávez"
+  // codigo_corporativo:"470793"
+  // codigo_proyecto:"TRAMOP"
+  // estado_vac:"En curso"
+  // fecha_fin_vac:"26/10/2022"
+  // fecha_ini_vac:"20/10/2022"
+  // id_estado_vac:1
+  // id_proyecto:14
+  // id_responsable:10
+  // id_sist_vac:2
+  // id_vacaciones:5
+  // nombres:"Ursula"
+  // responsable:"Soto Vilcapoma, Jhon Jimmy"
+  // sist_vac:"TAWA"
+ // id_estado_vac
 
   actionBtn: string = 'Registrar';
   cargarVacacionesById(){
     this.spinner.show();
-    if (this.DATA_VACACIONES) {
-    this.actionBtn = 'Actualizar'
-      this.vacacionesForm.controls['idPersonal' ].setValue(this.DATA_VACACIONES.id);
-      this.vacacionesForm.controls['nombre'     ].setValue(this.DATA_VACACIONES.nombres);
-      this.vacacionesForm.controls['apPaterno'  ].setValue(this.DATA_VACACIONES.apellido_paterno);
-      this.vacacionesForm.controls['apMaterno'  ].setValue(this.DATA_VACACIONES.apellido_materno);
-      this.vacacionesForm.controls['codCorp'    ].setValue(this.DATA_VACACIONES.codigo_corporativo);
-      this.vacacionesForm.controls['proyecto'   ].setValue(this.DATA_VACACIONES.codigo_proyecto);
-      this.vacacionesForm.controls['id_proyecto'].setValue(this.DATA_VACACIONES.id_proyecto);
-      this.vacacionesForm.controls['estado'     ].setValue(this.DATA_VACACIONES.estado);
 
-      this.vacacionesForm.controls['idSistema' ].setValue(this.DATA_VACACIONES.id_sistema);
+      // this.vacacionesForm.controls['idPersonal'    ].setValue(this.DATA_VACACIONES.id_persona);
+      // this.vacacionesForm.controls['id_vacaciones' ].setValue(this.DATA_VACACIONES.id_vacaciones);
+      this.vacacionesForm.controls['nombre'        ].setValue(this.DATA_VACACIONES.nombres);
+      this.vacacionesForm.controls['apPaterno'     ].setValue(this.DATA_VACACIONES.apellido_paterno);
+      this.vacacionesForm.controls['apMaterno'     ].setValue(this.DATA_VACACIONES.apellido_materno);
+      this.vacacionesForm.controls['codCorp'       ].setValue(this.DATA_VACACIONES.codigo_corporativo);
+      this.vacacionesForm.controls['proyecto'      ].setValue(this.DATA_VACACIONES.codigo_proyecto);
+      this.vacacionesForm.controls['id_proyecto'   ].setValue(this.DATA_VACACIONES.id_proyecto);
+      this.vacacionesForm.controls['estado_persona'].setValue(this.DATA_VACACIONES.estado_persona);
+      this.vacacionesForm.controls['id_estado_vac' ].setValue(this.DATA_VACACIONES.id_estado_vac);
+
+      this.vacacionesForm.controls['idSistema' ].setValue(this.DATA_VACACIONES.id_sist_vac);
       // this.vacacionesForm.controls['periodoVac' ].setValue(this.DATA_VACACIONES.periodo);
 
-      if (this.DATA_VACACIONES.fecha_ingreso) {
-        let fechaIngr = this.DATA_VACACIONES.fecha_ingreso
+      if (this.DATA_VACACIONES.fecha_ini_vac) {
+        let fechaIngr = this.DATA_VACACIONES.fecha_ini_vac
         const str   = fechaIngr.split('/');
         const year  = Number(str[2]);
         const month = Number(str[1]);
         const date  = Number(str[0]);
-        this.vacacionesForm.controls['fechaIngreso'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+        this.vacacionesForm.controls['fechaInicVac'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
       }
 
-    }
+      if (this.DATA_VACACIONES.fecha_fin_vac) {
+        let fechaIngr = this.DATA_VACACIONES.fecha_fin_vac
+        const str   = fechaIngr.split('/');
+        const year  = Number(str[2]);
+        const month = Number(str[1]);
+        const date  = Number(str[0]);
+        this.vacacionesForm.controls['fechaFinVac'].setValue(this.datePipe.transform(new Date(year, month-1, date), 'yyyy-MM-dd'))
+      }
+
       this.spinner.hide();
   }
 
@@ -141,7 +171,7 @@ export class ModalVacacionesComponent implements OnInit {
     let parametro:any[] = [{
       "queryId": 26,
       "mapValue": {
-        "param_id_persona"    : this.DATA_VACACIONES.id,
+        "param_id_persona"    : this.DATA_VACACIONES.id_vacaciones,
         "param_id_recurso"    : idRecurso,
         "CONFIG_USER_ID"      : this.userID,
         "CONFIG_OUT_MSG_ERROR": '',
@@ -161,7 +191,6 @@ export class ModalVacacionesComponent implements OnInit {
         if (resp.value) {
           this.vacacionesService.eliminarVacaciones(parametro[0]).subscribe(resp => {
             this.cargarVacacionesAsignado();
-            this.ListaCuentaAsignado();
 
               Swal.fire({
                 title: 'Eliminar vacaciones',
@@ -174,48 +203,30 @@ export class ModalVacacionesComponent implements OnInit {
     this.spinner.hide();
   }
 
-  listVacacionesAsignado: any[]=[];
+  listVacacionesPeriodo: any[]= [];
   cargarVacacionesAsignado(){
-    this.listVacacionesAsignado = [];
+    this.listVacacionesPeriodo = [];
 
     this.spinner.show();
     let parametro:any[] = [{
       "queryId": 128,
       "mapValue": {
-      "p_id_persona": this.DATA_VACACIONES.id,
+      "p_id_persona": this.DATA_VACACIONES.id_vacaciones,
       }
     }];
 
     this.vacacionesService.cargarVacacionesAsignado(parametro[0]).subscribe( (resp: any) => {
-      this.listVacacionesAsignado = resp.list;
+      this.listVacacionesPeriodo = resp.list;
       console.log('VACACIONES-ASIG', resp.list);
     })
   }
 
 
-  totalCuentaAsignado: number = 0;
-  listCuentaAsignado: any[]=[];
-  ListaCuentaAsignado(){
-    this.spinner.show();
-    let parametro:any[] = [{
-      "queryId": 28,
-      "mapValue": {
-      "param_id_persona": this.DATA_VACACIONES.id,
-      }
-    }];
-
-    this.personalService.ListaCuentaAsignado(parametro[0]).subscribe( (resp: any) => {
-      this.listCuentaAsignado = resp.list;
-      this.totalCuentaAsignado = resp.list.length;
-      // console.log('CUENT-ASIG', resp.list, this.totalCuentaAsignado);
-    })
-  }
-
   histCambiosProyecto: any[] = [];
   getHistoricoCambiosProyecto(id: number){
   this.spinner.show();
     let parametro: any[] = [{ queryId: 57, mapValue: {
-        param_id_persona: this.DATA_VACACIONES.id,
+        param_id_persona: this.DATA_VACACIONES.id_vacaciones,
       }
     }];
     this.personalService.getHistoricoCambiosProyecto(parametro[0]).subscribe((resp: any) => {
@@ -230,7 +241,7 @@ export class ModalVacacionesComponent implements OnInit {
   let parametro: any[] = [{ queryId: 126}];
   this.vacacionesService.getLstSistemaVacaciones(parametro[0]).subscribe((resp: any) => {
     this.listSistemaVacaciones = resp.list;
-    console.log('SISTEMA-ASIG_VAC', resp.list);
+    // console.log('SISTEMA-ASIG_VAC', resp.list);
     })
   }
 
@@ -239,7 +250,7 @@ export class ModalVacacionesComponent implements OnInit {
   let parametro: any[] = [{ queryId: 132}];
   this.vacacionesService.getLstEstadoVacaciones(parametro[0]).subscribe((resp: any) => {
     this.listEstadoVacacionesAprobadas = resp.list;
-    console.log('VACAS-ESTADO', resp.list);
+    // console.log('VACAS-ESTADO', resp.list);
     })
   }
 
@@ -262,17 +273,6 @@ export class ModalVacacionesComponent implements OnInit {
       return false;
     }
   }
-
-  //CORREGIR EL MODAL DE AGREGAR PERSONAL
-  asignarPersonal(){
-    const dialogRef = this.dialog.open(AsignarPersonalComponent, { width:'35%', data: {vacForm: this.vacacionesForm.value, isCreation: true} });
-
-    dialogRef.afterClosed().subscribe(resp => {
-      if (resp) {
-        this.cargarVacacionesAsignado()
-      }
-    })
-  };
 
   asignarVacaciones(){
     const dialogRef = this.dialog.open(AsignarVacacionesComponent, { width:'35%', data: {vacForm: this.vacacionesForm.value, isCreation: true} });
